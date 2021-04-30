@@ -2,10 +2,10 @@ class SUserConfigGunplay : SUserModuleConfig{
 	
 	///////////////////////////////////////
 	// these go in json
-	float adsFovReduction = 1;
+	float adsFovReduction = 1.0;
 	bool hideWeaponBarrelInOptic = false;
-	float lensZoomStrength = 1.5;
-	float deadzoneLimits[4] = { -20, 20, -10, 10 };
+	float lensZoomStrength = 1.0;
+	float deadzoneLimits[4] = { 10, 20, -10, -20 };
 	///////////////////////////////////////
 	
 	override string getPath(){

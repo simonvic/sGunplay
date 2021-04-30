@@ -8,6 +8,12 @@ modded class DayZPlayerCameraIronsights{
 	protected vector m_inspectAngles;
 	protected float m_inspectVel[1];
 	
+	protected float m_deadzoneX;
+	protected float m_deadzoneY;
+	
+	protected float m_offsetXResetVel[1];
+	protected float m_offsetYResetVel[1];
+		
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
 		m_player = pPlayer;	
 	}
@@ -19,8 +25,8 @@ modded class DayZPlayerCameraIronsights{
 		else
 			min = CONST_UD_MIN;
 		
-		//m_CurrentCameraPitch = UpdateUDAngle(m_fUpDownAngle, m_fUpDownAngleAdd, min, CONST_UD_MAX, pDt);
-		//m_fLeftRightAngle = UpdateLRAngle(m_fLeftRightAngle, CONST_LR_MIN, CONST_LR_MAX, pDt);
+		m_CurrentCameraPitch = UpdateUDAngle(m_fUpDownAngle, m_fUpDownAngleAdd, min, CONST_UD_MAX, pDt);
+		m_fLeftRightAngle = UpdateLRAngle(m_fLeftRightAngle, CONST_LR_MIN, CONST_LR_MAX, pDt);
 		////////////////////////////////////////////////
 
 		float aimChangeX = m_pInput.GetAimChange()[0] * Math.RAD2DEG;
@@ -29,11 +35,10 @@ modded class DayZPlayerCameraIronsights{
 		vector aimChangeYPR;
 		aimChangeYPR[0] = aimChangeX; // Math.SmoothCD(aimChangeYPR[0], aimChangeX, m_velocityYaw, m_dynamicsSmoothTime, 1000, pDt);
 		aimChangeYPR[1] = aimChangeY; //Math.SmoothCD(aimChangeYPR[1], aimChangeY, m_velocityPitch, m_dynamicsSmoothTime, 1000, pDt);
-		aimChangeYPR[2] = DayZPlayerImplement.Cast(m_player).m_MovementState.m_fLeaning * HeadLeanParams.leanAngle;
+		aimChangeYPR[2] = DayZPlayerImplement.Cast(m_player).m_MovementState.m_fLeaning * HeadLeanParams.leanAngle + 45;
 		
 		if( m_pInput.CameraIsFreeLook() ){
 			m_inspectAngles[0] = m_inspectAngles[0] - aimChangeY;
-			//m_inspectAngles[1] = m_inspectAngles[1] + aimChangeY;
 			m_inspectAngles[2] = m_inspectAngles[2] + aimChangeX;
 		}else{
 			m_inspectAngles[0] = Math.SmoothCD(m_inspectAngles[0], 0, m_inspectVel, 0.05, 1000, pDt);
@@ -56,11 +61,45 @@ modded class DayZPlayerCameraIronsights{
 			m_pPlayer.GetItemAccessor().WeaponGetCameraPointBoneRelative(GetCurrentSightEntity(), m_OpticsCamPos, m_OpticsCamDir, m_iBoneIndex, boneTM);
 		}
 		
+		
+		
+		
+		
 		vector scaleMat[3];
 		Math3D.ScaleMatrix(10, scaleMat);
 		
-		//Math3D.MatrixMultiply4(yprMat, boneTM, boneTM);
+		Math3D.MatrixMultiply4(aimingTM, boneTM, boneTM);
 		Math3D.MatrixInvMultiply4(inspectMat, boneTM, pOutResult.m_CameraTM);
+		
+		
+		//DEADZONE
+		float deadzoneVel[1];
+		float deadzoneVel2[1];
+		
+		vector deadzoneTM[4];
+		float deadzoneLimits[4];
+		float deadzoneTargetX;
+		float deadzoneTargetY;
+		m_camManager.getDeadzoneLimits(deadzoneLimits);
+		if( m_pInput.CameraIsFreeLook() || playerIsFocusing()){
+			m_deadzoneX = Math.SmoothCD(m_deadzoneX, 0, m_offsetXResetVel, 0.3, 1000, pDt);
+			m_deadzoneY = Math.SmoothCD(m_deadzoneY, 0, m_offsetYResetVel, 0.3, 1000, pDt);
+		}else{
+			m_deadzoneX = Math.Clamp(m_deadzoneX + aimChangeX, deadzoneLimits[3] * -20, deadzoneLimits[1] * 20);
+			m_deadzoneY = Math.Clamp(m_deadzoneY + aimChangeY, deadzoneLimits[2] * -20, deadzoneLimits[0] * 20);
+		}
+		
+		
+		vector angles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
+		
+		//angles[0] = Math.SmoothCD(angles[0], angles[0] - m_deadzoneY, v1, 0.01, 1000, pDt);
+		//angles[1] = Math.SmoothCD(angles[1], angles[1] + m_deadzoneX, v2, 0.01, 1000, pDt);
+		angles[0] = angles[0] - m_deadzoneY;
+		angles[1] = angles[1] + m_deadzoneX;
+		
+		Math3D.YawPitchRollMatrix(angles, pOutResult.m_CameraTM);
+		/////////
+		
 		
 		AdjustCameraParameters(pDt, pOutResult);
 		updateFOVFocus(pDt, pOutResult);
