@@ -13,6 +13,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	static const string WN_ADS_FOV_REDUCTION = "sude_adsFovReduction_setting_";	
 	static const string WN_HIDE_BARREL = "sude_hideBarrel_setting_";
 	
+	static const string WN_RESET_DEADZONE_ON_FOCUS = "sude_resetOnFocus_setting_";
 	static const string WN_DEADZONE_UP_DOWN = "sude_deadzone_UpDown_setting_";
 	static const string WN_DEADZONE_LEFT_RIGHT = "sude_deadzone_LeftRight_setting_";
 	static const string WN_DEADZONE_UP = "sude_deadzoneUp_setting_";
@@ -42,6 +43,8 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	protected ref TextWidget                m_adsFovReductionValue;
 	
 	protected ref CheckBoxWidget            m_hideBarrel;
+	
+	protected ref CheckBoxWidget            m_resetDeadzoneOnFocus;
 	
 	protected ref SliderWidget              m_deadzoneUpDownSlider;
 	protected ref TextWidget                m_deadzoneUpDownValue;
@@ -96,45 +99,51 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		
 		
 		m_lensZoomSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_LENSZOOM+"option"));
-		m_lensZoomSlider.SetCurrent(m_sUserConfig.lensZoomStrength);
+		m_lensZoomSlider.SetCurrent(m_sUserConfig.getLensZoomStrength());
 		m_lensZoomValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_LENSZOOM+"value"));
 		m_lensZoomValue.SetText(m_lensZoomSlider.GetCurrent().ToString());
 		
 		m_adsFovReductionSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_ADS_FOV_REDUCTION+"option"));
-		m_adsFovReductionSlider.SetCurrent(m_sUserConfig.adsFovReduction);
+		m_adsFovReductionSlider.SetCurrent(m_sUserConfig.getAdsFovReduction());
 		m_adsFovReductionValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_ADS_FOV_REDUCTION+"value"));
 		m_adsFovReductionValue.SetText(m_adsFovReductionSlider.GetCurrent().ToString());
 		
 		m_hideBarrel = CheckBoxWidget.Cast(m_Root.FindAnyWidget(WN_HIDE_BARREL+"option"));
-		m_hideBarrel.SetChecked(m_sUserConfig.hideWeaponBarrelInOptic);
+		m_hideBarrel.SetChecked(m_sUserConfig.isHideWeaponBarrelInOpticEnabled());
+		
+		m_resetDeadzoneOnFocus = CheckBoxWidget.Cast(m_Root.FindAnyWidget(WN_RESET_DEADZONE_ON_FOCUS+"option"));
+		m_resetDeadzoneOnFocus.SetChecked(m_sUserConfig.isResetDeadzoneOnFocusEnabled());
+		
+		
+		TFloatArray deadzoneLimits = m_sUserConfig.getDeadzoneLimits();
 		
 		m_deadzoneUpDownSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_UP_DOWN+"option"));
-		m_deadzoneUpDownSlider.SetCurrent(m_sUserConfig.deadzoneLimits[0]);
+		m_deadzoneUpDownSlider.SetCurrent(deadzoneLimits[0]);
 		m_deadzoneUpDownValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_UP_DOWN+"value"));
 		m_deadzoneUpDownValue.SetText(m_deadzoneUpDownSlider.GetCurrent().ToString());
 		
 		m_deadzoneLeftRightSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_LEFT_RIGHT+"option"));
-		m_deadzoneLeftRightSlider.SetCurrent(m_sUserConfig.deadzoneLimits[1]);
+		m_deadzoneLeftRightSlider.SetCurrent(deadzoneLimits[1]);
 		m_deadzoneLeftRightValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_LEFT_RIGHT+"value"));
 		m_deadzoneLeftRightValue.SetText(m_deadzoneLeftRightSlider.GetCurrent().ToString());
 		
 		m_deadzoneUpSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_UP+"option"));
-		m_deadzoneUpSlider.SetCurrent(m_sUserConfig.deadzoneLimits[0]);
+		m_deadzoneUpSlider.SetCurrent(deadzoneLimits[0]);
 		m_deadzoneUpValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_UP+"value"));
 		m_deadzoneUpValue.SetText(m_deadzoneUpSlider.GetCurrent().ToString());
 		
 		m_deadzoneRightSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_RIGHT+"option"));
-		m_deadzoneRightSlider.SetCurrent(m_sUserConfig.deadzoneLimits[1]);
+		m_deadzoneRightSlider.SetCurrent(deadzoneLimits[1]);
 		m_deadzoneRightValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_RIGHT+"value"));
 		m_deadzoneRightValue.SetText(m_deadzoneRightSlider.GetCurrent().ToString());
 		
 		m_deadzoneDownSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_DOWN+"option"));
-		m_deadzoneDownSlider.SetCurrent(m_sUserConfig.deadzoneLimits[2]);
+		m_deadzoneDownSlider.SetCurrent(deadzoneLimits[2]);
 		m_deadzoneDownValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_DOWN+"value"));
 		m_deadzoneDownValue.SetText("-"+m_deadzoneDownSlider.GetCurrent().ToString());
 		
 		m_deadzoneLeftSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_LEFT+"option"));
-		m_deadzoneLeftSlider.SetCurrent(m_sUserConfig.deadzoneLimits[3]);
+		m_deadzoneLeftSlider.SetCurrent(deadzoneLimits[3]);
 		m_deadzoneLeftValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_DEADZONE_LEFT+"value"));
 		m_deadzoneLeftValue.SetText("-"+m_deadzoneLeftSlider.GetCurrent().ToString());
 		
@@ -145,6 +154,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		addDescriptionTooltip(m_lensZoomSlider,          uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM_DESCRIPTION");
 		addDescriptionTooltip(m_adsFovReductionSlider,   uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_REDUCTION","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_REDUCTION_DESCRIPTION");
 		addDescriptionTooltip(m_hideBarrel,              uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL_DESCRIPTION");
+		addDescriptionTooltip(m_resetDeadzoneOnFocus,    uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS_DESCRIPTION");
 		addDescriptionTooltip(m_deadzoneUpDownSlider,    uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_UPDOWN_DESCRIPTION");
 		addDescriptionTooltip(m_deadzoneLeftRightSlider, uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_LEFTRIGHT_DESCRIPTION");
 		addDescriptionTooltip(m_deadzoneUpSlider,        uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_UP_DESCRIPTION");
@@ -161,6 +171,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		m_lensZoomSlider.SetHandler(this);
 		m_adsFovReductionSlider.SetHandler(this);
 		m_hideBarrel.SetHandler(this);
+		m_resetDeadzoneOnFocus.SetHandler(this);
 		m_deadzoneUpDownSlider.SetHandler(this);
 		m_deadzoneLeftRightSlider.SetHandler(this);
 		m_deadzoneUpSlider.SetHandler(this);
@@ -232,6 +243,9 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 					case WN_HIDE_BARREL+"option":
 						updateHideParrelOption(c.IsChecked());
 						break;
+					case WN_RESET_DEADZONE_ON_FOCUS+"option":
+						updateResetDeadzoneOnFocus(c.IsChecked());
+						break;
 					default: SLog.w("No checkbox  widget name found.","OptionsMenuSGunplay::OnChange");
 				}
 					
@@ -245,18 +259,23 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		
 	void updateLensZoomOption( float newValue){
 		m_lensZoomValue.SetText(newValue.ToString());
-		m_sUserConfig.lensZoomStrength = newValue;
+		m_sUserConfig.setLensZoomStrength(newValue);
 		onConfigChange();
 	}
 	
 	void updateAdsFovReduction(float newValue){
 		m_adsFovReductionValue.SetText(newValue.ToString());
-		m_sUserConfig.adsFovReduction = newValue;	
+		m_sUserConfig.setAdsFovReduction(newValue);	
 		onConfigChange();
 	}
 	
-	void updateDeadzoneOption(int id, float newValue){
-		switch(id){
+	void updateResetDeadzoneOnFocus(bool enabled){
+		m_sUserConfig.resetDeadzoneOnFocus(enabled);
+		onConfigChange();
+	}
+	
+	void updateDeadzoneOption(int i, float newValue){
+		switch(i){
 			case 0 :
 				m_deadzoneUpValue.SetText(newValue.ToString());
 				break;
@@ -271,12 +290,12 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 				break;
 			default: SLog.w("Wrong deadzone");
 		}
-		m_sUserConfig.deadzoneLimits[id] = newValue;
+		m_sUserConfig.setDeadzoneLimit(i, newValue);
 		onConfigChange();
 	}
 		
 	void updateHideParrelOption(bool enabled){
-		m_sUserConfig.hideWeaponBarrelInOptic = enabled;
+		m_sUserConfig.hideWeaponBarrelInOptic(enabled);
 		onConfigChange();
 	}
 	

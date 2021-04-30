@@ -1,6 +1,6 @@
 modded class CameraManager{
 	
-	protected ref SUserConfigGunplay m_sUserConfigGunplay;
+	protected SUserConfigGunplay m_sUserConfigGunplay;
 	
 	void CameraManager(DayZPlayerCameraBase camera, PlayerBase player){
 		m_sUserConfigGunplay = SUserConfig.getInstance().gunplay();
@@ -11,22 +11,27 @@ modded class CameraManager{
 	}
 	
 	float getAdsFovReduction(){
-		return m_sUserConfigGunplay.adsFovReduction;
+		return m_sUserConfigGunplay.getAdsFovReduction();
 	}
 	
 	bool isHideBarrelInOpticEnabled(){
-		return m_sUserConfigGunplay.hideWeaponBarrelInOptic;
+		return m_sUserConfigGunplay.isHideWeaponBarrelInOpticEnabled();
+	}
+	
+	bool isResetDeadzoneOnFocusEnabled(){
+		return m_sUserConfigGunplay.isResetDeadzoneOnFocusEnabled();
 	}
 	
 	float getLensZoomStrength(){
-		return m_sUserConfigGunplay.lensZoomStrength;
+		return m_sUserConfigGunplay.getLensZoomStrength();
+	}
+	
+	TFloatArray getDeadzoneLimits(){
+		return m_sUserConfigGunplay.getDeadzoneLimits();
 	}
 	
 	void getDeadzoneLimits(out float deadzoneLimits[4]){
-		deadzoneLimits[0] = m_sUserConfigGunplay.deadzoneLimits[0];
-		deadzoneLimits[1] = m_sUserConfigGunplay.deadzoneLimits[1];
-		deadzoneLimits[2] = m_sUserConfigGunplay.deadzoneLimits[2];
-		deadzoneLimits[3] = m_sUserConfigGunplay.deadzoneLimits[3];
+		m_sUserConfigGunplay.getDeadzoneLimits(deadzoneLimits);
 	} 
 	
 }

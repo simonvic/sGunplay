@@ -77,11 +77,10 @@ modded class DayZPlayerCameraIronsights{
 		float deadzoneVel2[1];
 		
 		vector deadzoneTM[4];
-		float deadzoneLimits[4];
+		TFloatArray deadzoneLimits = m_camManager.getDeadzoneLimits();
 		float deadzoneTargetX;
 		float deadzoneTargetY;
-		m_camManager.getDeadzoneLimits(deadzoneLimits);
-		if( m_pInput.CameraIsFreeLook() || playerIsFocusing()){
+		if( m_pInput.CameraIsFreeLook() || (playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled())){
 			m_deadzoneX = Math.SmoothCD(m_deadzoneX, 0, m_offsetXResetVel, 0.3, 1000, pDt);
 			m_deadzoneY = Math.SmoothCD(m_deadzoneY, 0, m_offsetYResetVel, 0.3, 1000, pDt);
 		}else{
