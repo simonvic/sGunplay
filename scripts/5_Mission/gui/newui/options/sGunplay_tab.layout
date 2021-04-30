@@ -680,7 +680,7 @@ FrameWidgetClass sude_tab_root {
                          vexactpos 1
                          hexactsize 0
                          vexactsize 0
-                         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL"
+                         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS"
                          font "gui/fonts/sdf_MetronLight24"
                          "text offset" 8 0
                          "exact text" 0
