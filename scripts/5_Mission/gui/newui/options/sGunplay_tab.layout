@@ -1,0 +1,553 @@
+FrameWidgetClass sude_tab_root {
+ visible 1
+ ignorepointer 1
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  ScrollWidgetClass sude_settings_scroll {
+   visible 1
+   clipchildren 1
+   inheritalpha 0
+   ignorepointer 1
+   color 1 1 1 0
+   position 0 0
+   size 600 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 0
+   "Scrollbar V" 1
+   {
+    GridSpacerWidgetClass sude_settings_root {
+     visible 1
+     ignorepointer 1
+     color 0 0 0 0
+     position 0 0
+     size 1 1
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     priority 3
+     "no focus" 1
+     Padding 8
+     Margin 0
+     "Size To Content H" 1
+     "Size To Content V" 1
+     Columns 1
+     Rows 2
+     {
+      WrapSpacerWidgetClass sude_gameplay_settings_root {
+       visible 1
+       ignorepointer 1
+       position 0 0
+       size 1 473
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 1
+       "no focus" 1
+       Padding 0
+       Margin 0
+       "Size To Content H" 1
+       "Size To Content V" 1
+       {
+        PanelWidgetClass sude_gameplay_ettings_header {
+         visible 1
+         ignorepointer 1
+         color 0 0 0 1
+         position 0 0
+         size 1 36
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 1
+         style DayZDefaultPanel
+         {
+          TextWidgetClass sude_gameplay_text {
+           visible 1
+           ignorepointer 1
+           position 0 0
+           size 1 22
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 1
+           style Normal
+           text "#STR_SUDE_LAYOUT_OPTIONS_GAMEPLAY"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 0
+           "text halign" center
+           "text valign" center
+          }
+         }
+        }
+        GridSpacerWidgetClass sude_gameplay_settings_content {
+         ignorepointer 1
+         color 0 0 0 0.549
+         position 0 0
+         size 1 1
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 0
+         style DayZDefaultPanel
+         Padding 0
+         Margin 0
+         "Size To Content H" 1
+         "Size To Content V" 1
+         Columns 1
+         Rows 1
+         {
+          FrameWidgetClass sude_lensZoom_setting_container {
+           ignorepointer 1
+           color 0 0 0 0
+           position 0 0
+           size 1 30
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 1
+           {
+            GridSpacerWidgetClass sude_lensZoom_setting {
+             ignorepointer 0
+             color 0 0 0 0
+             position 0 0
+             size 1 30
+             hexactpos 1
+             vexactpos 1
+             hexactsize 0
+             vexactsize 1
+             style DayZDefaultPanel
+             "no focus" 1
+             Padding 0
+             Margin 0
+             "Size To Content H" 1
+             Columns 2
+             Rows 1
+             {
+              FrameWidgetClass sude_lensZoom_setting_label_container {
+               ignorepointer 1
+               position 0 0
+               size 0.5 0.6
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               {
+                TextWidgetClass sude_lensZoom_setting_label {
+                 ignorepointer 1
+                 size 1 0.55
+                 valign center_ref
+                 hexactpos 1
+                 vexactpos 1
+                 hexactsize 0
+                 vexactsize 0
+                 text "#STR_SUDE_LAYOUT_OPTIONS_GAMEPLAY_LENSZOOM"
+                 font "gui/fonts/sdf_MetronLight24"
+                 "text offset" 8 0
+                 "exact text" 0
+                 "exact text size" 18
+                 "text valign" center
+                }
+               }
+              }
+              PanelWidgetClass sude_lensZoom_setting_panel {
+               ignorepointer 1
+               size 0.5 1
+               halign center_ref
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               {
+                CheckBoxWidgetClass sude_lensZoom_setting_option {
+                 position 0 0
+                 size 1 1
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 style Default
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      WrapSpacerWidgetClass sude_debug_settings_root {
+       visible 1
+       ignorepointer 1
+       position 0 0
+       size 1 473
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 1
+       "no focus" 1
+       Padding 0
+       Margin 0
+       "Size To Content H" 1
+       "Size To Content V" 1
+       {
+        PanelWidgetClass sude_debug_settings_header {
+         visible 1
+         ignorepointer 1
+         color 0 0 0 1
+         position 0 0
+         size 1 36
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 1
+         style DayZDefaultPanel
+         {
+          TextWidgetClass sude_debug_title {
+           visible 1
+           ignorepointer 1
+           position 0 0
+           size 1 22
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 1
+           style Normal
+           text "DEBUG"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 0
+           "text halign" center
+           "text valign" center
+          }
+         }
+        }
+        GridSpacerWidgetClass sude_debug_settings_content {
+         ignorepointer 1
+         color 0 0 0 0.549
+         position 0 0
+         size 1 1
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 0
+         style DayZDefaultPanel
+         Padding 0
+         Margin 0
+         "Size To Content H" 1
+         "Size To Content V" 1
+         Columns 1
+         Rows 1
+         {
+          PanelWidgetClass sude_compass_container {
+           disabled 0
+           ignorepointer 1
+           position 0 0
+           size 1 30
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           {
+            PanelWidgetClass sude_compass_label_container {
+             ignorepointer 1
+             position 0 0
+             size 0.5 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             {
+              TextWidgetClass sude_compass_label {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_COMPASS"
+               font "gui/fonts/sdf_metronlight24"
+               "exact text" 1
+               "exact text size" 18
+               "text valign" center
+              }
+             }
+            }
+            PanelWidgetClass sude_compass_setting_container {
+             disabled 0
+             ignorepointer 1
+             size 0.5 1
+             halign right_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             {
+              CheckBoxWidgetClass sude_compass_setting_option {
+               disabled 1
+               position 0 0
+               size 1 1
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+              }
+             }
+            }
+           }
+          }
+          PanelWidgetClass sude_crosshair_container {
+           disabled 0
+           ignorepointer 1
+           position 0 0
+           size 1 30
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           {
+            PanelWidgetClass sude_crosshair_label_container {
+             ignorepointer 1
+             position 0 0
+             size 0.5 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             {
+              TextWidgetClass sude_crosshair_label {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_CROSSHAIR"
+               font "gui/fonts/sdf_metronlight24"
+               "exact text" 1
+               "exact text size" 18
+               "text valign" center
+              }
+             }
+            }
+            PanelWidgetClass sude_crosshair_setting_container {
+             disabled 0
+             ignorepointer 1
+             size 0.5 1
+             halign right_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             {
+              CheckBoxWidgetClass sude_crosshair_setting_option {
+               disabled 0
+               position 0 0
+               size 1 1
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+              }
+             }
+            }
+           }
+          }
+          PanelWidgetClass sude_body_clip_container {
+           ignorepointer 1
+           color 0.2902 0.2902 0.2902 1
+           position 0 0
+           size 1 90
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style blank
+           {
+            PanelWidgetClass sude_body_clip_label_container {
+             ignorepointer 1
+             color 0.1098 0.1098 0.1098 0.7843
+             size 1 0.33
+             halign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style DayZDefaultPanel
+             {
+              TextWidgetClass sude_body_clip_label {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_BODY_CLIP"
+               font "gui/fonts/sdf_metronlight30"
+               "exact text" 1
+               "exact text size" 20
+               "text halign" center
+               "text valign" center
+              }
+             }
+            }
+            PanelWidgetClass sude_body_clip_setting_container {
+             ignorepointer 1
+             size 1 0.66
+             halign center_ref
+             valign bottom_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             {
+              PanelWidgetClass sude_body_clip_all_contact_container {
+               ignorepointer 1
+               size 0.5 1
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               {
+                PanelWidgetClass sude_body_clip_all_contact_label_container {
+                 ignorepointer 1
+                 size 1 0.5
+                 halign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  TextWidgetClass sude_body_clip_all_contact_label {
+                   ignorepointer 1
+                   size 1 1
+                   halign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_BODY_CLIP_ALL_CONTACT"
+                   font "gui/fonts/sdf_metronlight24"
+                   "exact text" 1
+                   "exact text size" 15
+                   "text halign" center
+                   "text valign" center
+                  }
+                 }
+                }
+                PanelWidgetClass sude_body_clip_all_contact_setting_container {
+                 ignorepointer 1
+                 position 0 0
+                 size 1 0.5
+                 halign center_ref
+                 valign bottom_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  CheckBoxWidgetClass sude_body_clip_all_contact_setting_option {
+                   position 0 0
+                   size 30 1
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 0
+                  }
+                 }
+                }
+               }
+              }
+              PanelWidgetClass sude_body_clip_contact_pos_container {
+               ignorepointer 1
+               size 0.5 1
+               halign right_ref
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               {
+                PanelWidgetClass sude_body_clip_contact_post_label_container {
+                 ignorepointer 1
+                 size 1 0.5
+                 halign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  TextWidgetClass sude_body_clip_contact_pos_label {
+                   ignorepointer 1
+                   size 1 1
+                   halign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_BODY_CLIP_CONTACT_POS"
+                   font "gui/fonts/sdf_metronlight24"
+                   "exact text" 1
+                   "exact text size" 15
+                   "text halign" center
+                   "text valign" center
+                  }
+                 }
+                }
+                PanelWidgetClass sude_body_clip_contact_pos_setting_container {
+                 ignorepointer 1
+                 position 0 0
+                 size 1 0.5
+                 halign center_ref
+                 valign bottom_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  CheckBoxWidgetClass sude_body_clip_contact_pos_setting_option {
+                   position 0 0
+                   size 30 1
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 0
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

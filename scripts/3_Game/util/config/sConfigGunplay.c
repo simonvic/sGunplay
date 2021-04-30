@@ -1,0 +1,9 @@
+
+/////////////////////////////////////////////
+// Gunplay Module
+/////////////////////////////////////////////
+class SConfigGunplay : SModuleConfig{	
+	override string getModuleName(){
+		return "Gunplay";
+	}
+}
