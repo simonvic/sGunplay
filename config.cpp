@@ -352,5 +352,5 @@ class CfgVehicles {
 			};
 			PPBlurProperties = 0.2;
 		};
-	};	
+	};
 };

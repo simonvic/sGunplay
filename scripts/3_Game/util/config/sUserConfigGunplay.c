@@ -1,4 +1,4 @@
-class SUserConfigGunplay : SUserModuleConfig{
+class SUserConfigGunplay : SUserConfigBase{
 
 	override string getPath(){
 		return "$saves:\\sUDE\\config\\sGunplay.json";
@@ -6,6 +6,18 @@ class SUserConfigGunplay : SUserModuleConfig{
 	
 	override string getDefaultPath(){
 		return "$profile:\\sUDE\\config\\sGunplay_default.json";
+	}
+	
+	override void deserialize(string data, out string error){
+		SUserConfigGunplay cfg = this;
+		m_serializer.ReadFromString(cfg, data, error);
+	}
+	
+	override string serialize(){
+		string result;		
+		SUserConfigGunplay cfg = this;
+		m_serializer.WriteToString(cfg, true, result);
+		return result;
 	}
 		
 	///////////////////////////////////////
@@ -74,37 +86,4 @@ class SUserConfigGunplay : SUserModuleConfig{
 		resetDeadzoneOnFocus = enabled;
 	}
 	
-	override bool isValid(){
-		return true; //@todo complete validation
-	}
-	
-	override void load(){
-		JsonFileLoader<SUserConfigGunplay> json = new JsonFileLoader<SUserConfigGunplay>;
-		load(json);
-		delete json;
-	}
-	
-	override void save(){
-		JsonFileLoader<SUserConfigGunplay> json = new JsonFileLoader<SUserConfigGunplay>;
-		save(json);
-		delete json;
-	}
-	
-	override void createDefault(){
-		JsonFileLoader<SUserConfigGunplay> json = new JsonFileLoader<SUserConfigGunplay>;
-		createDefault(json);
-		delete json;
-	}
-	
-	void load(JsonFileLoader<SUserConfigGunplay> json){
-		json.JsonLoadFile(getPath(), this);
-	}
-	
-	void save(JsonFileLoader<SUserConfigGunplay> json){
-		json.JsonSaveFile(getPath(), this);
-	}
-	
-	void createDefault(JsonFileLoader<SUserConfigGunplay> json){
-		json.JsonSaveFile(getDefaultPath(), this);
-	}
 }

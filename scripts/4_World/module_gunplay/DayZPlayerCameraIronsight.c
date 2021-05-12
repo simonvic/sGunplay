@@ -1,3 +1,5 @@
+//////////////////////////////////////////
+// IRONSIGHT
 modded class DayZPlayerCameraIronsights{
 	
 	protected float m_focusVel[1];
@@ -6,14 +8,15 @@ modded class DayZPlayerCameraIronsights{
 	protected DayZPlayer m_player;
 	
 	protected vector m_inspectAngles;
-	protected float m_inspectVel[1];
+	protected float m_inspectVelX[1];
+	protected float m_inspectVelY[1];
 	
 	protected float m_deadzoneX;
 	protected float m_deadzoneY;
 	
 	protected float m_offsetXResetVel[1];
-	protected float m_offsetYResetVel[1];
-		
+	protected float m_offsetYResetVel[1];	
+	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
 		m_player = pPlayer;	
 	}
@@ -35,14 +38,18 @@ modded class DayZPlayerCameraIronsights{
 		vector aimChangeYPR;
 		aimChangeYPR[0] = aimChangeX; // Math.SmoothCD(aimChangeYPR[0], aimChangeX, m_velocityYaw, m_dynamicsSmoothTime, 1000, pDt);
 		aimChangeYPR[1] = aimChangeY; //Math.SmoothCD(aimChangeYPR[1], aimChangeY, m_velocityPitch, m_dynamicsSmoothTime, 1000, pDt);
-		aimChangeYPR[2] = DayZPlayerImplement.Cast(m_player).m_MovementState.m_fLeaning * HeadLeanParams.leanAngle + 45;
 		
 		if( m_pInput.CameraIsFreeLook() ){
 			m_inspectAngles[0] = m_inspectAngles[0] - aimChangeY;
 			m_inspectAngles[2] = m_inspectAngles[2] + aimChangeX;
 		}else{
-			m_inspectAngles[0] = Math.SmoothCD(m_inspectAngles[0], 0, m_inspectVel, 0.05, 1000, pDt);
-			m_inspectAngles[2] = Math.SmoothCD(m_inspectAngles[2], 0, m_inspectVel, 0.05, 1000, pDt);
+			if(m_pInput.IsFireModeChange() || m_pInput.IsZeroingUp() || m_pInput.IsZeroingDown()){
+				m_inspectAngles[0] = m_inspectAngles[0] + 5;
+				m_inspectAngles[2] = m_inspectAngles[2] + 5;
+			}
+			m_inspectAngles[0] = Math.SmoothCD(m_inspectAngles[0], 0, m_inspectVelX, 0.1, 1000, pDt);
+			m_inspectAngles[2] = Math.SmoothCD(m_inspectAngles[2], 0, m_inspectVelY, 0.1, 1000, pDt);
+			
 		}
 		
 		vector inspectMat[4];
@@ -66,7 +73,7 @@ modded class DayZPlayerCameraIronsights{
 		
 		
 		vector scaleMat[3];
-		Math3D.ScaleMatrix(10, scaleMat);
+		Math3D.ScaleMatrix(1, scaleMat);
 		
 		Math3D.MatrixMultiply4(aimingTM, boneTM, boneTM);
 		Math3D.MatrixInvMultiply4(inspectMat, boneTM, pOutResult.m_CameraTM);
@@ -88,16 +95,20 @@ modded class DayZPlayerCameraIronsights{
 			m_deadzoneY = Math.Clamp(m_deadzoneY + aimChangeY, deadzoneLimits[2] * -20, deadzoneLimits[0] * 20);
 		}
 		
-		
+		vector aimAngles = Math3D.MatrixToAngles(aimingTM);
 		vector angles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
 		
 		//angles[0] = Math.SmoothCD(angles[0], angles[0] - m_deadzoneY, v1, 0.01, 1000, pDt);
 		//angles[1] = Math.SmoothCD(angles[1], angles[1] + m_deadzoneX, v2, 0.01, 1000, pDt);
-		angles[0] = angles[0] - m_deadzoneY;
-		angles[1] = angles[1] + m_deadzoneX;
+		angles[0] = angles[0] - m_deadzoneY + aimAngles[0];
+		angles[1] = angles[1] + m_deadzoneX + aimAngles[1];
+		angles[2] = angles[2] + DayZPlayerImplement.Cast(m_player).m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 		
 		Math3D.YawPitchRollMatrix(angles, pOutResult.m_CameraTM);
+		
 		/////////
+		
+		
 		
 		
 		AdjustCameraParameters(pDt, pOutResult);

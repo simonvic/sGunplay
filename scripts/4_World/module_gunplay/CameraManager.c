@@ -14,7 +14,7 @@ modded class CameraManager{
 		return m_sUserConfigGunplay.getAdsFovReduction();
 	}
 	
-	bool isHideBarrelInOpticEnabled(){
+	bool isHideWeaponBarrelInOpticEnabled(){
 		return m_sUserConfigGunplay.isHideWeaponBarrelInOpticEnabled();
 	}
 	
