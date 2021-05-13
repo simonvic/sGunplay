@@ -26,24 +26,28 @@ class PluginSDebug extends PluginBase {
 	}
 	
 	void updateCrosshair(){
-		
-		vector start,end, direction;	
 		Weapon_Base weapon = Weapon_Base.Cast(PlayerBase.Cast(m_player).GetItemInHands());
-
+		vector usti_hlavne_position = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));//usti hlavne
+		vector konec_hlavne_position = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));//konec hlavne	
+		vector direction = vector.Direction(konec_hlavne_position, usti_hlavne_position );
 		
-		//int idx = m_player.GetBoneIndexByName("RightHand");
-		//start = m_player.GetBonePositionWS(idx); 
-		start = weapon.ModelToWorld(weapon.GetSelectionPositionWS( "trigger" ));
-		direction = vector.Direction(start,weapon.ModelToWorld(weapon.GetSelectionPositionLS( "Usti hlavne" )));
-
-		end = start + (direction * 10) + "0 -0.5 0";		
-		m_crosshairRaycast = new SRaycast(start, end, 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
-		m_crosshairRaycast.addIgnoredObject(m_player);
-		m_crosshairRaycast.launch();
+		//SDebug.spawnDebugDot(m_crosshairRaycast.getContactPos(), 0.005, 0.5);
+		//SDebug.spawnDebugDot(m_crosshairRaycast.getBegPos(), 0.005, 0.5);
+		//SDebug.spawnDebugDot(m_crosshairRaycast.getEndPos(), 0.005, 0.5);
+		//SDebug.spawnDebugDot(usti_hlavne_position, 0.005, 0.5);
+		//SDebug.spawnDebugDot(konec_hlavne_position, 0.005, 0.5);
+		vector from = usti_hlavne_position;
+		vector to = konec_hlavne_position + (direction * 100);
 		
-		SDebug.spawnDebugDot(m_crosshairRaycast.getContactPos(), 0.005, 0.5);
-		SDebug.spawnDebugDot(m_crosshairRaycast.getBegPos(), 0.005, 0.5);
-		SDebug.spawnDebugDot(m_crosshairRaycast.getEndPos(), 0.005, 0.5);
+		SRaycast ray = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
+		ray.setBegPos(from);
+		ray.setEndPos(to);
+		ray.launch();
+		
+		
+		Debug.DestroyAllShapes();
+		Debug.DrawLine(from, ray.getContactPos(), Color.rgb(0xF00000).getARGB());
+		SDebug.spawnDebugDot(ray.getContactPos(), 0.0, 2);
 		
 	}
 	
