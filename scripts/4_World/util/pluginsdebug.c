@@ -7,8 +7,11 @@ class PluginSDebug extends PluginBase {
 	static bool bodyClipContactPos_enabled = false;
 		
 	protected PlayerBase m_player;
+	protected Weapon_Base m_weapon;
 	protected ref SRaycast m_crosshairRaycast;
 	protected ref SRaycast m_bodyClipRaycast;
+	
+	Shape line = Debug.DrawLine("0 0 0", "0 0 0", 0xFF0000);
 	
 	void PluginSDebug(){
 	}
@@ -18,15 +21,27 @@ class PluginSDebug extends PluginBase {
 	
 	override void OnUpdate(float delta_time){
 		if(!m_player) m_player = PlayerBase.Cast(GetGame().GetPlayer());
+		if(!m_weapon && m_player) m_weapon = Weapon_Base.Cast(m_player.GetItemInHands());
+		
 		m_time += delta_time;
 		if(crosshair_enabled) updateCrosshair();
 		
 		if(bodyClipAllContact_enabled || bodyClipContactPos_enabled) updateBodyClip();
 		
+		if(false) updateMouse();
+		
+	}
+	
+	void updateMouse(){
+			
+		vector start = GetGame().GetCurrentCameraPosition();
+		vector end = start + "1 0 0";
+		
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(Debug.RemoveShape, 50, false, Debug.DrawLine(start, end, 0xFF0000));
 	}
 	
 	void updateCrosshair(){
-		Weapon_Base weapon = Weapon_Base.Cast(PlayerBase.Cast(m_player).GetItemInHands());
+		Weapon_Base weapon = m_weapon;
 		vector usti_hlavne_position = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));//usti hlavne
 		vector konec_hlavne_position = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));//konec hlavne	
 		vector direction = vector.Direction(konec_hlavne_position, usti_hlavne_position );
