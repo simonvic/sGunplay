@@ -1,11 +1,10 @@
 modded class DayZPlayerCameras{
 	
-	static const float TIME_TO_ADS = 0.5;   //Entering ADS
-	static const float TIME_FROM_ADS = 0.3; //Exiting ADS
+	static const float TIME_TO_ADS = GunplayConstants.TIME_TO_ADS;
+	static const float TIME_FROM_ADS = GunplayConstants.TIME_FROM_ADS;
+	static const float TIME_3RD = GunplayConstants.TIME_3RD;
+	static const float TIME_BACKUP_SIGHT = GunplayConstants.TIME_BACKUP_SIGHT;
 	
-	static const float TIME_3RD = -0.2;     //Added to TIME_TO_ADS
-		
-	static const float TIME_BACKUP_SIGHT = 0.2; //Switching beetween optic/ironsight and viceversa
 	static const float TIME_1ST_3D = 0.3; //From first person to third person and viceversa
 	
 	
