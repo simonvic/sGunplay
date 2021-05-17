@@ -21,8 +21,6 @@ modded class DayZPlayerCameraIronsights{
 	protected float m_deadzoneY;
 	static float m_weaponDeadzoneX;
 	static float m_weaponDeadzoneY;
-	protected float m_deadzoneXDragVel[1];
-	protected float m_deadzoneYDragVel[1];
 	protected float m_deadzoneXVel[1];
 	protected float m_deadzoneYVel[1];	
 	
@@ -74,15 +72,15 @@ modded class DayZPlayerCameraIronsights{
 		
 		////////////////////////
 		// Weapon aiming matrix
-		vector aimingTM[4];
-		computeWeaponAimingMatrix(aimingTM);
+		vector weaponAimingTM[4];
+		computeWeaponAimingMatrix(weaponAimingTM);
 		
 		
 		////////////////////////
 		// Weapon cam point
-		vector boneTM[4];
+		vector weaponCameraPointTM[4];
 		if(GetCurrentSightEntity()){
-			m_pPlayer.GetItemAccessor().WeaponGetCameraPointBoneRelative(GetCurrentSightEntity(), m_OpticsCamPos, m_OpticsCamDir, m_iBoneIndex, boneTM);
+			m_pPlayer.GetItemAccessor().WeaponGetCameraPointBoneRelative(GetCurrentSightEntity(), m_OpticsCamPos, m_OpticsCamDir, m_iBoneIndex, weaponCameraPointTM);
 			//m_pPlayer.GetItemAccessor().WeaponGetCameraPointMSTransform(GetCurrentSightEntity(), m_OpticsCamPos, dummyDir, positionTM);
 		}
 		
@@ -103,10 +101,8 @@ modded class DayZPlayerCameraIronsights{
 		
 		////////////////////////
 		// Deadzone
-		computeDeadzone(aimChangeX, aimChangeY, pDt, m_deadzoneX, m_deadzoneY);		
-		//m_deadzoneX = Math.SmoothCD(m_deadzoneX, m_deadzoneX - aimChangeX, m_deadzoneXDragVel, 0.2, 1000, pDt);		
-		//m_deadzoneY = Math.SmoothCD(m_deadzoneY, m_deadzoneY - aimChangeY, m_deadzoneYDragVel, 0.2, 1000, pDt);
-		applyDeadzone(m_deadzoneX, m_deadzoneY, boneTM);
+		computeDeadzone(aimChangeX, aimChangeY, pDt, m_deadzoneX, m_deadzoneY);
+		applyDeadzone(m_deadzoneX, m_deadzoneY, weaponCameraPointTM);
 
 		
 		////////////////////////
@@ -115,11 +111,11 @@ modded class DayZPlayerCameraIronsights{
 		computeMovementModifier(aimChangeX, aimChangeY, movementTM, pDt);
 		
 
-		Math3D.MatrixInvMultiply4(inspectTM, boneTM, boneTM);
-		Math3D.MatrixMultiply4(boneTM, freelookTM, boneTM);
-		Math3D.MatrixMultiply4(movementTM, aimingTM, aimingTM);
-		Math3D.MatrixMultiply4(aimingTM, boneTM, boneTM);
-		Math3D.MatrixMultiply4(boneTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM);
+		Math3D.MatrixInvMultiply4(inspectTM, weaponCameraPointTM, weaponCameraPointTM); //apply inspect transformation matrix
+		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM); //apply freelook transformation matrix
+		Math3D.MatrixMultiply4(movementTM, weaponAimingTM, weaponAimingTM); //apply movement transformation matrix
+		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM); //apply inspect transformation matrix
+		Math3D.MatrixMultiply4(weaponCameraPointTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM); //apply result to camera
 
 		
 		////////////////////////
@@ -130,7 +126,9 @@ modded class DayZPlayerCameraIronsights{
 	
 	
 	
-	
+	/**
+	*	@brief Update Yaw and Pitch angles (used by other vanilla code)
+	*/
 	protected void updateAimAngle(out float yaw, out float pitch, float pDt){
 		float min;
 		if (m_player && m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE))
@@ -142,6 +140,9 @@ modded class DayZPlayerCameraIronsights{
 		yaw = UpdateLRAngle(m_fLeftRightAngle, CONST_LR_MIN, CONST_LR_MAX, pDt);
 	}
 	
+	/**
+	*	@brief Compute the angles of the camera when inspecting the weapon
+	*/
 	protected void computeInspectAngles(float x, float y, out vector angles, float pDt){
 		if( isInspectingWeapon ){
 			angles[0] = Math.Clamp(angles[0] - y, GunplayConstants.WEAPON_INSPECT_MIN_Y_ANGLE, GunplayConstants.WEAPON_INSPECT_MAX_Y_ANGLE);
@@ -151,8 +152,8 @@ modded class DayZPlayerCameraIronsights{
 				angles[0] = angles[0] + 5;
 				angles[2] = angles[2] + 5;
 			}
-			angles[0] = Math.SmoothCD(angles[0], 0, m_inspectVelX, 0.1, 1000, pDt);
-			angles[2] = Math.SmoothCD(angles[2], 0, m_inspectVelY, 0.1, 1000, pDt);
+			angles[0] = Math.SmoothCD(angles[0], 0, m_inspectVelX, GunplayConstants.RESET_SPEED_INSPECTION, 1000, pDt);
+			angles[2] = Math.SmoothCD(angles[2], 0, m_inspectVelY, GunplayConstants.RESET_SPEED_INSPECTION, 1000, pDt);
 		}
 	}
 	
@@ -161,8 +162,8 @@ modded class DayZPlayerCameraIronsights{
 			angles[0] = Math.Clamp(angles[0] + x, -45, 45);
 			angles[1] = Math.Clamp(angles[1] + y, -45, 45);
 		}else{
-			angles[0] = Math.SmoothCD(angles[0], 0, m_freelookVelX, 0.1, 1000, pDt);
-			angles[1] = Math.SmoothCD(angles[1], 0, m_freelookVelY, 0.1, 1000, pDt);
+			angles[0] = Math.SmoothCD(angles[0], 0, m_freelookVelX, GunplayConstants.RESET_SPEED_FREELOOK, 1000, pDt);
+			angles[1] = Math.SmoothCD(angles[1], 0, m_freelookVelY, GunplayConstants.RESET_SPEED_FREELOOK, 1000, pDt);
 		}
 	}
 	
@@ -199,11 +200,11 @@ modded class DayZPlayerCameraIronsights{
 		TFloatArray deadzoneLimits = m_camManager.getDeadzoneLimits();
 
 		if( m_pInput.CameraIsFreeLook() || isInspectingWeapon || (playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled())){
-			deadzoneX = Math.SmoothCD(deadzoneX, 0, m_offsetXResetVel, 0.3, 1000, pDt);
-			deadzoneY = Math.SmoothCD(deadzoneY, 0, m_offsetYResetVel, 0.3, 1000, pDt);
+			deadzoneX = Math.SmoothCD(deadzoneX, 0, m_offsetXResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
+			deadzoneY = Math.SmoothCD(deadzoneY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 			//@todo find proper way of resetting weapondeadzone
-			m_weaponDeadzoneX = Math.SmoothCD(m_weaponDeadzoneX, 0, m_offsetXResetVel, 0.3, 1000, pDt);
-			m_weaponDeadzoneY = Math.SmoothCD(m_weaponDeadzoneY, 0, m_offsetYResetVel, 0.3, 1000, pDt);
+			m_weaponDeadzoneX = Math.SmoothCD(m_weaponDeadzoneX, 0, m_offsetXResetVel, GunplayConstants.RESET_SPEED_DEADZONE_WEAPON, 1000, pDt);
+			m_weaponDeadzoneY = Math.SmoothCD(m_weaponDeadzoneY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_DEADZONE_WEAPON, 1000, pDt);
 		}else{
 			deadzoneX = Math.Clamp(deadzoneX + aimChangeX, deadzoneLimits[3] * -20, deadzoneLimits[1] * 20);
 			deadzoneY = Math.Clamp(deadzoneY + aimChangeY, deadzoneLimits[2] * -20, deadzoneLimits[0] * 20);
