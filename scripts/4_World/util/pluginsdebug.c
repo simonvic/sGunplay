@@ -46,7 +46,7 @@ class PluginSDebug extends PluginBase {
 		
 		
 		Debug.DestroyAllShapes();
-		Debug.DrawLine(from, ray.getContactPos(), Color.rgb(0xF00000).getARGB());
+		Debug.DrawLine(from, ray.getContactPos(), SColor.rgb(0xF00000).getARGB());
 		SDebug.spawnDebugDot(ray.getContactPos(), 0.0, 2);
 		
 	}

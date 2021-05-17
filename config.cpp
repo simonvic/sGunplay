@@ -23,11 +23,15 @@ class CfgMods {
 		version = "0.1";
 		extra = 0;
 		type = "mod";
+		
 		dependencies[] = {
 			"World",
 			"Game",
 			"Mission"
 		};
+
+		inputs = "MyMODS/sGunplay/scripts/data/inputs.xml";
+
 		class defs {
 			class gameScriptModule {
 				value = "";
