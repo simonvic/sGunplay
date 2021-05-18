@@ -1,8 +1,9 @@
 modded class SUserConfig{
 		
-	SUserConfigGunplay gunplay(bool reload = false){
-		load(SUserConfigGunplay, reload);
-		return SUserConfigGunplay.Cast(modulesConfigs.Get(SUserConfigGunplay));
+	static SUserConfigGunplay gunplay(bool reload = false){
+		getInstance().load(SUserConfigGunplay, reload);
+		return SUserConfigGunplay.Cast(getInstance().modulesConfigs.Get(SUserConfigGunplay));
 	}
+	
 
 }
