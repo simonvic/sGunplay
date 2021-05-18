@@ -3,8 +3,8 @@ modded class DayZPlayerImplementAiming{
 	protected float m_inertiaXVel[1];
 	protected float m_inertiaYVel[1];
 	
-	static vector m_sCrosshairPosition;
-	static bool m_isSCrosshairVisible;
+	protected vector m_sCrosshairPosition;
+	protected bool m_isSCrosshairVisible;
 	protected float m_sCrosshairXVel[1];
 	protected float m_sCrosshairYVel[1];
 	
@@ -95,6 +95,18 @@ modded class DayZPlayerImplementAiming{
 		return 1;
 	}
 	
+	
+	vector getSCrosshairPosition(){
+		return m_sCrosshairPosition;
+	}
+	
+	bool isSCrosshairVisible(){
+		return m_isSCrosshairVisible;
+	}
+	
+	void setSCrosshairVisible(bool visible){
+		m_isSCrosshairVisible = false;
+	}
 	
 	
 }

@@ -12,6 +12,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	static const string WN_LENSZOOM = "sude_lensZoom_setting_";
 	static const string WN_ADS_FOV_REDUCTION = "sude_adsFovReduction_setting_";	
 	static const string WN_HIDE_BARREL = "sude_hideBarrel_setting_";
+	static const string WN_DYNAMIC_CROSSHAIR = "sude_dynamicCrosshair_setting_";
 	
 	static const string WN_RESET_DEADZONE_ON_FOCUS = "sude_resetOnFocus_setting_";
 	static const string WN_DEADZONE_UP_DOWN = "sude_deadzone_UpDown_setting_";
@@ -43,6 +44,8 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	protected ref TextWidget                m_adsFovReductionValue;
 	
 	protected ref CheckBoxWidget            m_hideBarrel;
+	
+	protected ref CheckBoxWidget            m_dynamicCrosshair;
 	
 	protected ref CheckBoxWidget            m_resetDeadzoneOnFocus;
 	
@@ -111,6 +114,9 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		m_hideBarrel = CheckBoxWidget.Cast(m_Root.FindAnyWidget(WN_HIDE_BARREL+"option"));
 		m_hideBarrel.SetChecked(m_sUserConfig.isHideWeaponBarrelInOpticEnabled());
 		
+		m_dynamicCrosshair = CheckBoxWidget.Cast(m_Root.FindAnyWidget(WN_DYNAMIC_CROSSHAIR+"option"));
+		m_dynamicCrosshair.SetChecked(m_sUserConfig.isDynamicCrosshairEnabled());
+		
 		m_resetDeadzoneOnFocus = CheckBoxWidget.Cast(m_Root.FindAnyWidget(WN_RESET_DEADZONE_ON_FOCUS+"option"));
 		m_resetDeadzoneOnFocus.SetChecked(m_sUserConfig.isResetDeadzoneOnFocusEnabled());
 		
@@ -154,6 +160,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		addDescriptionTooltip(m_lensZoomSlider,          uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM_DESCRIPTION");
 		addDescriptionTooltip(m_adsFovReductionSlider,   uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_REDUCTION","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_REDUCTION_DESCRIPTION");
 		addDescriptionTooltip(m_hideBarrel,              uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL_DESCRIPTION");
+		addDescriptionTooltip(m_dynamicCrosshair,        uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR");
 		addDescriptionTooltip(m_resetDeadzoneOnFocus,    uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS_DESCRIPTION");
 		addDescriptionTooltip(m_deadzoneUpDownSlider,    uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_UPDOWN_DESCRIPTION");
 		addDescriptionTooltip(m_deadzoneLeftRightSlider, uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_LEFTRIGHT_DESCRIPTION");
@@ -171,6 +178,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		m_lensZoomSlider.SetHandler(this);
 		m_adsFovReductionSlider.SetHandler(this);
 		m_hideBarrel.SetHandler(this);
+		m_dynamicCrosshair.SetHandler(this);
 		m_resetDeadzoneOnFocus.SetHandler(this);
 		m_deadzoneUpDownSlider.SetHandler(this);
 		m_deadzoneLeftRightSlider.SetHandler(this);
@@ -243,6 +251,9 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 					case WN_HIDE_BARREL+"option":
 						updateHideParrelOption(c.IsChecked());
 						break;
+					case WN_DYNAMIC_CROSSHAIR+"option":
+						updateDynamicCrosshairOption(c.IsChecked());
+						break;
 					case WN_RESET_DEADZONE_ON_FOCUS+"option":
 						updateResetDeadzoneOnFocus(c.IsChecked());
 						break;
@@ -296,6 +307,11 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		
 	void updateHideParrelOption(bool enabled){
 		m_sUserConfig.hideWeaponBarrelInOptic(enabled);
+		onConfigChange();
+	}
+	
+	void updateDynamicCrosshairOption(bool enabled){
+		m_sUserConfig.setDynamicCrosshairEnabled(enabled);
 		onConfigChange();
 	}
 	

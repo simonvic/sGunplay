@@ -6,7 +6,7 @@ modded class DayZPlayerImplement{
 	}
 	
 	override bool AimingModel(float pDt, SDayZPlayerAimingModel pModel){
-		m_AimingModel.m_isSCrosshairVisible = false;
+		m_AimingModel.setSCrosshairVisible(false);
 		return super.AimingModel(pDt, pModel);
 	}
 			

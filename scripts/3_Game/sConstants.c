@@ -43,5 +43,5 @@ class GunplayConstants{
 	/////////////////////////////////////////////////////////////
 	// DYNAMIC CROSSHAIR
 	static const float CROSSHAIR_PRECISION = 50;            // How much precise the crosshair placement will be. (metres)
-	static const float CROSSHAIR_SMOOTHNESS = 0.01;         // How much smooth the crosshair placement will be.
+	static const float CROSSHAIR_SMOOTHNESS = 0.05;         // How much smooth the crosshair placement will be.
 }
