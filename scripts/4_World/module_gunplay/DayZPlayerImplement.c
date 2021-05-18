@@ -3,7 +3,11 @@ modded class DayZPlayerImplement{
 	
 	override void CommandHandler(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished){
 		super.CommandHandler(pDt,pCurrentCommandID,pCurrentCommandFinished);
-
+	}
+	
+	override bool AimingModel(float pDt, SDayZPlayerAimingModel pModel){
+		m_AimingModel.m_isSCrosshairVisible = false;
+		return super.AimingModel(pDt, pModel);
 	}
 			
 	override void HandleADS(){

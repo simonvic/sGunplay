@@ -21,7 +21,7 @@ class PluginSDebug extends PluginBase {
 	
 	override void OnUpdate(float delta_time){
 		if(!m_player) m_player = PlayerBase.Cast(GetGame().GetPlayer());
-		if(!m_weapon && m_player) m_weapon = Weapon_Base.Cast(m_player.GetItemInHands());
+		if(m_player && Weapon_Base.Cast(m_player.GetItemInHands())) m_weapon = Weapon_Base.Cast(m_player.GetItemInHands());
 		
 		m_time += delta_time;
 		if(crosshair_enabled) updateCrosshair();
@@ -62,7 +62,7 @@ class PluginSDebug extends PluginBase {
 		
 		Debug.DestroyAllShapes();
 		Debug.DrawLine(from, ray.getContactPos(), SColor.rgb(0xF00000).getARGB());
-		SDebug.spawnDebugDot(ray.getContactPos(), 0.0, 2);
+		SDebug.spawnDebugDot(ray.getContactPos(), 0.05, 2);
 		
 	}
 	
