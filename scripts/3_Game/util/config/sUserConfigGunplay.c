@@ -13,9 +13,14 @@ class SUserConfigGunplay : SUserConfigBase{
 		m_serializer.ReadFromString(cfg, data, error);
 	}
 	
-	override string serialize(){
+	override string serialize(bool serializeDefault = false){
 		string result;		
-		SUserConfigGunplay cfg = this;
+		SUserConfigGunplay cfg;
+		if(serializeDefault) {
+			cfg = new SUserConfigGunplay();
+		}else{
+			cfg = this;
+		}
 		m_serializer.WriteToString(cfg, true, result);
 		return result;
 	}
