@@ -25,8 +25,9 @@ class SUserConfigGunplay : SUserConfigBase{
 	protected float adsFovReduction = 1.0;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected float lensZoomStrength = 1.0;
-	protected float deadzoneLimits[4] = { 0.2, 0.8, -0.2, -0.8 };
+	protected float deadzoneLimits[4] = { 0.2, 0.8, 0.2, 0.8 };
 	protected bool resetDeadzoneOnFocus = true;
+	protected bool showDynamicCrosshair = true;
 	///////////////////////////////////////
 	
 	float getAdsFovReduction(){
@@ -84,6 +85,14 @@ class SUserConfigGunplay : SUserConfigBase{
 	
 	void resetDeadzoneOnFocus(bool enabled){
 		resetDeadzoneOnFocus = enabled;
+	}
+	
+	bool isDynamicCrosshairEnabled(){
+		return showDynamicCrosshair;
+	}
+	
+	void setDynamicCrosshairEnabled(bool enabled){
+		showDynamicCrosshair = enabled;
 	}
 	
 }
