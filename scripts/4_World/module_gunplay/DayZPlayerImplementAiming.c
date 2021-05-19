@@ -123,15 +123,16 @@ modded class DayZPlayerImplementAiming{
 		inertiaMultiplier *= weapon.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT;
 		
 		////////////////////////
+		// PLAYER INVENTORY WEIGHT
+		inertiaMultiplier *= m_PlayerPb.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_PLAYER_WEIGHT;
+				
+		////////////////////////
 		// HIPFIRE 
 		if(!m_PlayerDpi.IsInOptics() && !m_PlayerDpi.IsInIronsights()){
 			inertiaMultiplier *= GunplayConstants.INERTIA_MULTIPLIER_HIPFIRE;
 		}
 		
-		
-		
-		
-		return inertiaMultiplier;
+		return Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
 	}
 		
 	
