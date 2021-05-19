@@ -18,7 +18,6 @@ modded class DayZPlayerImplementAiming{
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
 
 		Weapon_Base weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
-		updateSCrosshair(weapon, pDt);
 		
 		if(GunplayConstants.USE_WEAPON_INERTIA){
 			applyWeaponInertia(pModel, weapon, pDt);
@@ -27,6 +26,8 @@ modded class DayZPlayerImplementAiming{
 		if(!GunplayConstants.CAMERA_FOLLOWS_BREATHING_SWAY){
 			updateSwayOffset(pModel);
 		}
+		
+		updateSCrosshair(weapon, pDt);
 		
 		return result;
 	}
@@ -41,13 +42,123 @@ modded class DayZPlayerImplementAiming{
 	*	 @param weapon \p Weapon_Base - Player aiming model
 	*/
 	protected void applyWeaponInertia(SDayZPlayerAimingModel pModel, Weapon_Base weapon, float pDt){
+		
 		float inertiaMultiplier = computeInertiaMultiplier(weapon);
-			
 		float aimChangeX = getAimChangeDegree()[0] * inertiaMultiplier;
 		float aimChangeY = getAimChangeDegree()[1] * inertiaMultiplier;
 	
 		pModel.m_fAimXHandsOffset = Math.SmoothCD(pModel.m_fAimXHandsOffset, pModel.m_fAimXHandsOffset - aimChangeX, m_inertiaXVel, GunplayConstants.INERTIA_SMOOTHNESS, 1000, pDt);
 		pModel.m_fAimYHandsOffset = Math.SmoothCD(pModel.m_fAimYHandsOffset, pModel.m_fAimYHandsOffset - aimChangeY, m_inertiaYVel, GunplayConstants.INERTIA_SMOOTHNESS, 1000, pDt);
+	}
+	
+
+	/**
+	*	@brief Compute the amount of inertia
+	*	 @param weapon \p Weapon_Base - Weapon used for the computation
+	*	 @return float - inertia amount
+	*/
+	protected float computeInertiaMultiplier(Weapon_Base weapon){
+		float inertiaMultiplier = GunplayConstants.INERTIA_MULTIPLIER_BASE;
+
+		////////////////////////
+		// STANCE 
+		inertiaMultiplier *= getInertiaMultiplierStance();
+		
+		////////////////////////
+		// MOVEMENT
+		inertiaMultiplier *= getInertiaMultiplierMovement();
+		
+		////////////////////////
+		// WEAPON WEIGHT
+		inertiaMultiplier *= getInertiaMultiplierWeapon(weapon);
+		
+		////////////////////////
+		// PLAYER INVENTORY WEIGHT
+		inertiaMultiplier *= getInertiaMultiplierInventoryWeight();
+				
+		////////////////////////
+		// HIPFIRE 
+		inertiaMultiplier *= getInertiaMultiplierHipfire();
+		
+		
+		return Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
+	}
+		
+	
+	/**
+	*	@brief Get the inertia multiplier based on the player stance
+	*	 @return float - inertia multiplier
+	*/
+	protected float getInertiaMultiplierStance(){
+		if(m_PlayerPb.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
+			return GunplayConstants.INERTIA_MULTIPLIER_ERECT;
+		} else if(m_PlayerPb.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)){
+			return GunplayConstants.INERTIA_MULTIPLIER_CROUCHED;
+		} else if(m_PlayerPb.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)){
+			return GunplayConstants.INERTIA_MULTIPLIER_PRONE;
+		} 
+		
+		return 1;
+	}
+	
+	/**
+	*	@brief Get the inertia multiplier based on the player movement
+	*	 @return float - inertia multiplier
+	*/
+	protected float getInertiaMultiplierMovement(){
+		switch(m_PlayerDpi.m_MovementState.m_iMovement){ 
+			case 0:	//standing
+				return GunplayConstants.INERTIA_MULTIPLIER_STANDING;
+				break;
+
+			case 1:	//walking
+				return GunplayConstants.INERTIA_MULTIPLIER_WALKING;
+				break;
+
+			case 2:	//jogging
+				return GunplayConstants.INERTIA_MULTIPLIER_JOGGING;
+				break;
+		}
+		return 1;
+	}
+	
+	/**
+	*	@brief Get the inertia multiplier based on the weapon
+	*	 @return float - inertia multiplier
+	*/
+	protected float getInertiaMultiplierWeapon(Weapon_Base weapon){
+		return weapon.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT;
+	}
+	
+	/**
+	*	@brief Get the inertia multiplier based on the weapon
+	*	 @return float - inertia multiplier
+	*/
+	protected float getInertiaMultiplierInventoryWeight(){
+		return m_PlayerPb.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_PLAYER_WEIGHT;
+	}
+	
+	/**
+	*	@brief Get the hipfire inertia multiplier
+	*	 @return float - inertia multiplier
+	*/
+	protected float getInertiaMultiplierHipfire(){
+		if(!m_PlayerDpi.IsInOptics() && !m_PlayerDpi.IsInIronsights()){
+			return GunplayConstants.INERTIA_MULTIPLIER_HIPFIRE;
+		}
+		return 1;
+	}
+	
+	
+	
+	
+	/**
+	*	@brief Untie the camera from the weapon sway
+	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
+	*/
+	protected void updateSwayOffset(SDayZPlayerAimingModel pModel){
+		DayZPlayerCameraIronsights.m_weaponDeadzoneX = pModel.m_fAimXHandsOffset;
+		DayZPlayerCameraIronsights.m_weaponDeadzoneY = pModel.m_fAimYHandsOffset;
 	}
 	
 	
@@ -75,92 +186,17 @@ modded class DayZPlayerImplementAiming{
 			
 		}
 	}
-	
+
 	/**
 	*	@brief Get the user input aim change
 	*	 @return vector - Aim change of the player (x, y, 0)
 	*/
-	protected vector getAimChangeDegree(){
+	vector getAimChangeDegree(){
 		vector aimChange = "0 0 0";
 		aimChange[0] = m_PlayerDpi.GetInputController().GetAimChange()[0] * Math.RAD2DEG;
 		aimChange[1] = m_PlayerDpi.GetInputController().GetAimChange()[1] * Math.RAD2DEG;
 		return aimChange;
 	}
-	
-	/**
-	*	@brief Compute the amount of inertia
-	*	 @param weapon \p Weapon_Base - Weapon used for the computation
-	*	 @return float - inertia amount
-	*/
-	protected float computeInertiaMultiplier(Weapon_Base weapon){
-		float inertiaMultiplier = GunplayConstants.INERTIA_MULTIPLIER_BASE;
-
-		////////////////////////
-		// STANCE 
-		inertiaMultiplier *= getStanceInertiaMultiplier();
-		
-		////////////////////////
-		// MOVEMENT
-		switch(m_PlayerDpi.m_MovementState.m_iMovement){ 
-			case 0:	//standing
-				inertiaMultiplier *= GunplayConstants.INERTIA_MULTIPLIER_STANDING;
-				break;
-
-			case 1:	//walking
-				inertiaMultiplier *= GunplayConstants.INERTIA_MULTIPLIER_WALKING;
-				break;
-
-			case 2:	//jogging
-				inertiaMultiplier *= GunplayConstants.INERTIA_MULTIPLIER_JOGGING;
-				break;
-			
-			default: //flying? lol
-				inertiaMultiplier *= 1;
-		}
-		
-		////////////////////////
-		// WEAPON WEIGHT
-		inertiaMultiplier *= weapon.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT;
-		
-		////////////////////////
-		// PLAYER INVENTORY WEIGHT
-		inertiaMultiplier *= m_PlayerPb.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_PLAYER_WEIGHT;
-				
-		////////////////////////
-		// HIPFIRE 
-		if(!m_PlayerDpi.IsInOptics() && !m_PlayerDpi.IsInIronsights()){
-			inertiaMultiplier *= GunplayConstants.INERTIA_MULTIPLIER_HIPFIRE;
-		}
-		
-		return Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
-	}
-		
-	
-	/**
-	*	@brief Get the inertia multiplier based on the player stance
-	*	 @return float - inertia multiplier
-	*/
-	protected float getStanceInertiaMultiplier(){
-		if(m_PlayerPb.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
-			return GunplayConstants.INERTIA_MULTIPLIER_ERECT;
-		} else if(m_PlayerPb.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)){
-			return GunplayConstants.INERTIA_MULTIPLIER_CROUCHED;
-		} else if(m_PlayerPb.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)){
-			return GunplayConstants.INERTIA_MULTIPLIER_PRONE;
-		} 
-		
-		return 1;
-	}
-	
-	/**
-	*	@brief Untie the camera from the weapon sway
-	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
-	*/
-	protected void updateSwayOffset(SDayZPlayerAimingModel pModel){
-		DayZPlayerCameraIronsights.m_weaponDeadzoneX = pModel.m_fAimXHandsOffset;
-		DayZPlayerCameraIronsights.m_weaponDeadzoneY = pModel.m_fAimYHandsOffset;
-	}
-	
 	
 	vector getSCrosshairPosition(){
 		return m_sCrosshairPosition;
