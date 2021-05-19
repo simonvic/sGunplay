@@ -145,8 +145,8 @@ modded class DayZPlayerCameraIronsights{
 	*/
 	protected void computeInspectAngles(float x, float y, out vector angles, float pDt){
 		if( isInspectingWeapon ){
-			angles[0] = Math.Clamp(angles[0] - y, GunplayConstants.WEAPON_INSPECT_MIN_Y_ANGLE, GunplayConstants.WEAPON_INSPECT_MAX_Y_ANGLE);
-			angles[2] = Math.Clamp(angles[2] + x, GunplayConstants.WEAPON_INSPECT_MIN_X_ANGLE, GunplayConstants.WEAPON_INSPECT_MAX_X_ANGLE);
+			angles[0] = Math.Clamp(angles[0] - y, GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[3], GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[0]);
+			angles[2] = Math.Clamp(angles[2] + x, GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[1], GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[2]);
 		}else{
 			if(m_pInput.IsFireModeChange() || m_pInput.IsZeroingUp() || m_pInput.IsZeroingDown()){
 				angles[0] = angles[0] + 5;
@@ -159,8 +159,8 @@ modded class DayZPlayerCameraIronsights{
 	
 	protected void computeFreelookAngles(float x, float y, out vector angles, float pDt){
 		if( m_pInput.CameraIsFreeLook() && !isInspectingWeapon ){
-			angles[0] = Math.Clamp(angles[0] + x, -45, 45);
-			angles[1] = Math.Clamp(angles[1] + y, -45, 45);
+			angles[0] = Math.Clamp(angles[0] + x, GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[3], GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[0]);
+			angles[1] = Math.Clamp(angles[1] + y, GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[1], GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[2]);
 		}else{
 			angles[0] = Math.SmoothCD(angles[0], 0, m_freelookVelX, GunplayConstants.RESET_SPEED_FREELOOK, 1000, pDt);
 			angles[1] = Math.SmoothCD(angles[1], 0, m_freelookVelY, GunplayConstants.RESET_SPEED_FREELOOK, 1000, pDt);

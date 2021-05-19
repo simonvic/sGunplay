@@ -21,7 +21,7 @@ modded class DayZPlayerImplementAiming{
 		updateSCrosshair(weapon, pDt);
 		
 		if(GunplayConstants.USE_WEAPON_INERTIA){
-			applyWeaponInertia(pModel);
+			applyWeaponInertia(pModel, weapon, pDt);
 		}		
 	
 		if(!GunplayConstants.CAMERA_FOLLOWS_BREATHING_SWAY){
@@ -38,8 +38,9 @@ modded class DayZPlayerImplementAiming{
 	/**
 	*	@brief Apply the inertia to the given Aiming Model 
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
+	*	 @param weapon \p Weapon_Base - Player aiming model
 	*/
-	protected void applyWeaponInertia(SDayZPlayerAimingModel pModel){
+	protected void applyWeaponInertia(SDayZPlayerAimingModel pModel, Weapon_Base weapon, float pDt){
 		float inertiaMultiplier = computeInertiaMultiplier(weapon);
 			
 		float aimChangeX = getAimChangeDegree()[0] * inertiaMultiplier;
