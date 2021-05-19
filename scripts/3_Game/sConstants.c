@@ -34,7 +34,7 @@ class GunplayConstants{
 	static const float RESET_SPEED_INSPECTION = 0.1;          // how fast the camera will reset from inspection angles to default. 0.1 = fast | 0.4 = slow
 	static const float RESET_SPEED_FREELOOK = 0.1;            // how fast the camera will reset from freelook angles to default. 0.1 = fast | 0.4 = slow
 	static const float RESET_SPEED_DEADZONE = 0.3;            // how fast the camera will reset from deadzone angles to default. 0.1 = fast | 0.4 = slow
-	static const float RESET_SPEED_DEADZONE_WEAPON = 0.3;     // how fast the camera will reset from weapon deadzone angles to default. 0.1 = fast | 0.4 = slow
+	static const float RESET_SPEED_WEAPON_INERTIA = 0.3;      // how fast the camera will reset from weapon deadzone angles to default. 0.1 = fast | 0.4 = slow
 	
 	static const bool CAMERA_FOLLOWS_BREATHING_SWAY = false;  // Camera will move along the breathing sway
 		

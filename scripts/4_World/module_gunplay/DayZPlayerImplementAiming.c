@@ -1,5 +1,7 @@
 modded class DayZPlayerImplementAiming{
-	
+
+	protected vector m_handsOffset;
+	protected vector m_breathingSwayOffset;	
 	protected float m_inertiaXVel[1];
 	protected float m_inertiaYVel[1];
 	
@@ -21,10 +23,11 @@ modded class DayZPlayerImplementAiming{
 		
 		if(GunplayConstants.USE_WEAPON_INERTIA){
 			applyWeaponInertia(pModel, weapon, pDt);
+			updateHandsOffset(pModel);
 		}		
 	
 		if(!GunplayConstants.CAMERA_FOLLOWS_BREATHING_SWAY){
-			updateSwayOffset(pModel);
+			updateBreathingSwayOffset(pModel);
 		}
 		
 		updateSCrosshair(weapon, pDt);
@@ -50,6 +53,51 @@ modded class DayZPlayerImplementAiming{
 		pModel.m_fAimXHandsOffset = Math.SmoothCD(pModel.m_fAimXHandsOffset, pModel.m_fAimXHandsOffset - aimChangeX, m_inertiaXVel, GunplayConstants.INERTIA_SMOOTHNESS, 1000, pDt);
 		pModel.m_fAimYHandsOffset = Math.SmoothCD(pModel.m_fAimYHandsOffset, pModel.m_fAimYHandsOffset - aimChangeY, m_inertiaYVel, GunplayConstants.INERTIA_SMOOTHNESS, 1000, pDt);
 	}
+	
+	/**
+	*	@brief Update the current value of the hands offset
+	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
+	*/
+	protected void updateHandsOffset(SDayZPlayerAimingModel pModel){
+		m_handsOffset[0] = pModel.m_fAimXHandsOffset;
+		m_handsOffset[1] = pModel.m_fAimYHandsOffset;
+	}
+	
+	/**
+	*	@brief Update the current value of the breathing sway offset
+	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
+	*/
+	protected void updateBreathingSwayOffset(SDayZPlayerAimingModel pModel){
+		m_breathingSwayOffset[0] = m_BreathingXAxisOffset;
+		m_breathingSwayOffset[1] = m_BreathingYAxisOffset;
+	}
+	
+	
+	/**
+	*	@brief Update the crosshair position on the screen vector and its visibility
+	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
+	*/
+	protected void updateSCrosshair(Weapon_Base weapon, float pDt){
+		if(!GetGame().GetMission() || m_PlayerDpi.IsInIronsights() || m_PlayerDpi.IsInOptics()){
+			m_isSCrosshairVisible = false;
+		}else{
+			m_isSCrosshairVisible = true;
+			vector muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
+			vector barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
+			vector target = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * GunplayConstants.CROSSHAIR_PRECISION);
+			
+			m_sCrosshairRay.setBegPos(muzzlePosition);
+			m_sCrosshairRay.setEndPos(target);
+			m_sCrosshairRay.launch();
+			
+			vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
+			
+			m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
+			m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
+			
+		}
+	}
+	
 	
 
 	/**
@@ -135,6 +183,9 @@ modded class DayZPlayerImplementAiming{
 	*	 @return float - inertia multiplier
 	*/
 	protected float getInertiaMultiplierInventoryWeight(){
+		if(m_PlayerPb.GetWeight() == 0) { //@todo temp-fix for weight not updating. find a solution
+			m_PlayerPb.UpdateWeight();
+		}
 		return m_PlayerPb.GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_PLAYER_WEIGHT;
 	}
 	
@@ -152,40 +203,7 @@ modded class DayZPlayerImplementAiming{
 	
 	
 	
-	/**
-	*	@brief Untie the camera from the weapon sway
-	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
-	*/
-	protected void updateSwayOffset(SDayZPlayerAimingModel pModel){
-		DayZPlayerCameraIronsights.m_weaponDeadzoneX = pModel.m_fAimXHandsOffset;
-		DayZPlayerCameraIronsights.m_weaponDeadzoneY = pModel.m_fAimYHandsOffset;
-	}
 	
-	
-	/**
-	*	@brief Update the crosshair position on the screen vector and its visibility
-	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
-	*/
-	protected void updateSCrosshair(Weapon_Base weapon, float pDt){
-		if(!GetGame().GetMission() || m_PlayerDpi.IsInIronsights() || m_PlayerDpi.IsInOptics()){
-			m_isSCrosshairVisible = false;
-		}else{
-			m_isSCrosshairVisible = true;
-			vector muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
-			vector barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
-			vector target = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * GunplayConstants.CROSSHAIR_PRECISION);
-			
-			m_sCrosshairRay.setBegPos(muzzlePosition);
-			m_sCrosshairRay.setEndPos(target);
-			m_sCrosshairRay.launch();
-			
-			vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
-			
-			m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
-			m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
-			
-		}
-	}
 
 	/**
 	*	@brief Get the user input aim change
@@ -196,6 +214,22 @@ modded class DayZPlayerImplementAiming{
 		aimChange[0] = m_PlayerDpi.GetInputController().GetAimChange()[0] * Math.RAD2DEG;
 		aimChange[1] = m_PlayerDpi.GetInputController().GetAimChange()[1] * Math.RAD2DEG;
 		return aimChange;
+	}
+	
+	/**
+	*	@brief Get current aiming model hands offset
+	*	 @return vector - Hands offset (x, y, 0);
+	*/
+	vector getHandsOffset(){
+		return m_handsOffset;
+	}
+	
+	/**
+	*	@brief Get current aiming model breathing sway offset
+	*	 @return vector - Hands offset (x, y, 0);
+	*/
+	vector getBreathingSwayOffset(){
+		return m_breathingSwayOffset;
 	}
 	
 	vector getSCrosshairPosition(){

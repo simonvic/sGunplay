@@ -7,7 +7,7 @@ modded class DayZPlayerCameraIronsights{
 	protected float m_focusVel[1];
 	protected float m_focusTargetFOV;
 	protected float m_focusSpeed;
-	protected DayZPlayer m_player;
+	protected DayZPlayerImplement m_player;
 	
 	protected vector m_inspectAngles;
 	protected float m_inspectVelX[1];
@@ -19,10 +19,14 @@ modded class DayZPlayerCameraIronsights{
 	
 	protected float m_deadzoneX;
 	protected float m_deadzoneY;
-	static float m_weaponDeadzoneX;
-	static float m_weaponDeadzoneY;
 	protected float m_deadzoneXVel[1];
 	protected float m_deadzoneYVel[1];	
+	
+	protected float m_weaponInertiaX;
+	protected float m_weaponInertiaY;
+	
+	//protected float m_breathingSwayOffsetX;
+	//protected float m_breathingSwayOffsetY;
 	
 	protected float m_prevCameraTM[4];
 	
@@ -32,7 +36,7 @@ modded class DayZPlayerCameraIronsights{
 	
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
-		m_player = pPlayer;	
+		m_player = DayZPlayerImplement.Cast(pPlayer);	
 	}
 		
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){	
@@ -69,6 +73,12 @@ modded class DayZPlayerCameraIronsights{
 		float aimChangeX = m_pInput.GetAimChange()[0] * Math.RAD2DEG;
 		float aimChangeY = m_pInput.GetAimChange()[1] * Math.RAD2DEG;
 		
+		m_weaponInertiaX = m_player.GetAimingModel().getHandsOffset()[0];
+		m_weaponInertiaY = m_player.GetAimingModel().getHandsOffset()[1];
+	
+		//@todo breathing offset won't work until sway rework
+		//m_breathingSwayOffsetX = m_player.GetAimingModel().getBreathingSwayOffset()[0]; 
+		//m_breathingSwayOffsetY = m_player.GetAimingModel().getBreathingSwayOffset()[1];
 		
 		////////////////////////
 		// Weapon aiming matrix
@@ -203,8 +213,8 @@ modded class DayZPlayerCameraIronsights{
 			deadzoneX = Math.SmoothCD(deadzoneX, 0, m_offsetXResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 			deadzoneY = Math.SmoothCD(deadzoneY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 			//@todo find proper way of resetting weapondeadzone
-			m_weaponDeadzoneX = Math.SmoothCD(m_weaponDeadzoneX, 0, m_offsetXResetVel, GunplayConstants.RESET_SPEED_DEADZONE_WEAPON, 1000, pDt);
-			m_weaponDeadzoneY = Math.SmoothCD(m_weaponDeadzoneY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_DEADZONE_WEAPON, 1000, pDt);
+			m_weaponInertiaX = Math.SmoothCD(m_weaponInertiaX, 0, m_offsetXResetVel, GunplayConstants.RESET_SPEED_WEAPON_INERTIA, 1000, pDt);
+			m_weaponInertiaY = Math.SmoothCD(m_weaponInertiaY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_WEAPON_INERTIA, 1000, pDt);
 		}else{
 			deadzoneX = Math.Clamp(deadzoneX + aimChangeX, deadzoneLimits[3] * -20, deadzoneLimits[1] * 20);
 			deadzoneY = Math.Clamp(deadzoneY + aimChangeY, deadzoneLimits[2] * -20, deadzoneLimits[0] * 20);
@@ -224,8 +234,8 @@ modded class DayZPlayerCameraIronsights{
 		
 		//angles[0] = Math.SmoothCD(angles[0], angles[0] - deadzoneY, m_deadzoneYVel, 0.01, 1000, pDt);
 		//angles[1] = Math.SmoothCD(angles[1], angles[1] + deadzoneX, m_deadzoneXVel, 0.01, 1000, pDt);		
-		angles[0] = angles[0] - deadzoneY - m_weaponDeadzoneY;
-		angles[1] = angles[1] + deadzoneX + m_weaponDeadzoneX;
+		angles[0] = angles[0] - deadzoneY - m_weaponInertiaY;
+		angles[1] = angles[1] + deadzoneX + m_weaponInertiaX;
 		angles[2] = angles[2] + DayZPlayerImplement.Cast(m_player).m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 		
 		toMatrix(angles, matrix);
