@@ -18,7 +18,8 @@ modded class DayZPlayerImplementAiming{
 	
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
-
+		//pModel.m_fAimXHandsOffset = 0;
+		//pModel.m_fAimYHandsOffset = 0;
 		Weapon_Base weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 		
 		if(GunplayConstants.USE_WEAPON_INERTIA){

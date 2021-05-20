@@ -10,7 +10,7 @@ class GunplayConstants{
 	/////////////////////////////////////////////////////////////
 	// FOV and OPTIC LENS
 	static const float ADS_FOV_REDUCTION_CONSTRAINTS[] = {2, 3};      // Minimum and maximum optic fov reduction
-	static const float OPTIC_LENS_ZOOM_BOOST = 2;                     // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
+	static const float ADS_LENS_STRENGTH_CONSTRAINTS[] = {0, 4};      // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
 	
 	/////////////////////////////////////////////////////////////
 	// ADS

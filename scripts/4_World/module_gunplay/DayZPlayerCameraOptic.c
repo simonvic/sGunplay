@@ -12,6 +12,7 @@ modded class DayZPlayerCameraOptics{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
+		updateLens();
 	}
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
@@ -33,8 +34,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult){
-		super.updateFOVFocus(pDt, pOutResult);	
-		
+		super.updateFOVFocus(pDt, pOutResult);
 	}
 		
 	//@todo move stuff out of here if not needed updating every fram
@@ -44,7 +44,6 @@ modded class DayZPlayerCameraOptics{
 		
 		// No optic
 		if (!m_opticsUsed){	
-			SLog.d("No optic used");
 			m_fFovAbsolute = targetFOV; //immediately
 			return;
 		}
@@ -54,7 +53,6 @@ modded class DayZPlayerCameraOptics{
 		
 		// Non magnifying optic
 		if(!isMagnifyingOptic()){
-			SLog.d("non mang");
 			if(playerIsFocusing()){
 				targetFOV = opticCurrentFOV;
 				speed = getFocusSpeed();
@@ -89,7 +87,7 @@ modded class DayZPlayerCameraOptics{
 
 	
 	protected void resetPPE(){
-		SLog.d("reset ppe");
+		SLog.d("reset ppe","",1,false);
 		PPEffects.ResetPPMask();
 		PPEffects.SetLensEffect(0, 0, 0, 0);
 		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
@@ -106,9 +104,9 @@ modded class DayZPlayerCameraOptics{
 		}
 	}
 	
-	protected void updateNightVision(bool allowNightVisionGoggles = false){
+	protected void updateNightVision(bool allowNightVisionGoggles){
 		// optics NV mode
-		SLog.d("updateNightVision");
+		SLog.d("updateNightVision","",1,false);
 		if (m_opticsUsed.IsNVOptic()){
 			if (m_opticsUsed.IsWorking()){
 				SetCameraNV(true);
@@ -127,7 +125,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	protected void setNonMagnifyingOpticPPE(){
-		SLog.d("setNonMagnifyingOpticPPE");
+		SLog.d("setNonMagnifyingOpticPPE","",1,false);
 		PPEffects.SetLensEffect(0, 0, 0, 0);
 		
 		if (!m_weaponUsed){
@@ -147,28 +145,43 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	protected void updateLens(){
-		SLog.d("updateLens");
+		SLog.d("updateLens","",1,false);
 		// optics mask
-		if (m_opticsUsed.GetOpticsPPMask() && m_opticsUsed.GetOpticsPPMask().Count() == 4){
-			temp_array = m_opticsUsed.GetOpticsPPMask();
-			
-			//PPEffects.AddPPMask(temp_array[0], temp_array[1], temp_array[2], temp_array[3]);
-			//PPEffects.AddPPMask(0.5, 0.5, 0.4, 0.05);
-		}
+		TFloatArray mask = new TFloatArray;
+		TFloatArray lens = new TFloatArray;
+		float blur;
 		
-		//optics lens
-		if (m_opticsUsed.GetOpticsPPLens() && m_opticsUsed.GetOpticsPPLens().Count() == 4){
-			temp_array = m_opticsUsed.GetOpticsPPLens();
+		m_opticsUsed.InitOpticsPP(mask, lens, blur);		
+
+		computeMask(mask);
+		computeLens(lens);
+		
+		vector pos,dir;
+		m_opticsUsed.GetCameraPoint(pos, dir);
+		
 			
-			//PPEffects.SetLensEffect(temp_array[0], temp_array[1], temp_array[2], temp_array[3]);
-			//PPEffects.SetLensEffect(1, 0.15, 0, 0 );
-		}else{
-			PPEffects.SetLensEffect(0, 0, 0, 0);
-		}
+		PPEManager.requestOpticMask(mask);
+		PPEManager.requestOpticLens(lens);
+
+	}
+	
+	protected void computeMask(TFloatArray mask){
+		mask[0] = mask[0] + m_handsOffsetX / m_camManager.getAdsFovReduction();
+		mask[1] = mask[1] - m_handsOffsetY / m_camManager.getAdsFovReduction();
+		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute;
+		mask[3] = 0.001;
+	}
+	
+	protected void computeLens(TFloatArray lens){
+		lens[0] = lens[0] * m_camManager.getLensZoomStrength();
+		lens[1] = 0;
+		lens[2] = lens[2] + m_opticsUsed.GetStepZeroing() * 0.05;
+		lens[3] = 0;
+	
 	}
 	
 	protected void updateBlur(){
-		SLog.d("updateBlur");
+		SLog.d("updateBlur","",1,false);
 		//optics blur
 		if (m_opticsUsed.GetOpticsPPBlur() != 0){
 			PPEffects.SetBlurOptics(m_opticsUsed.GetOpticsPPBlur());
@@ -178,7 +191,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){
-		//Print("SetCameraPP - optics");
+		SLog.d("SetCameraPP");
 		if (!isOpticChange(state, launchedFrom)){
 			resetPPE();
 			return;

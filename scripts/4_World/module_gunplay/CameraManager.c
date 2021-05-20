@@ -27,7 +27,10 @@ modded class CameraManager{
 	}
 	
 	float getLensZoomStrength(){
-		return m_sUserConfigGunplay.getLensZoomStrength();
+		return SMath.mapTo(
+			m_sUserConfigGunplay.getLensZoomStrength(), 0, 1,
+			GunplayConstants.ADS_LENS_STRENGTH_CONSTRAINTS[0],
+			GunplayConstants.ADS_LENS_STRENGTH_CONSTRAINTS[1]);
 	}
 	
 	TFloatArray getDeadzoneLimits(){
