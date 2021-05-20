@@ -6,7 +6,7 @@ modded class DayZPlayerCameraOptics{
 		
 		PlayerBase player = PlayerBase.Cast(m_pPlayer);
 		if (player){
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing,m_CameraPPDelay*1000,false,m_opticsUsed,false);
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing,m_CameraPPDelay*1000,false,m_opticsUsed,true);
 		}
 	}
 	
@@ -204,11 +204,11 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override bool canApplyDeadzone(){
-		return super.canApplyDeadzone();
+		return super.canApplyDeadzone() && !isSniperOptic();
 	}
 	
 	override bool canApplyHandsOffset(){
-		return super.canApplyHandsOffset();
+		return super.canApplyHandsOffset() && !isSniperOptic();
 	}
 	
 	override bool canZoom(){
@@ -216,11 +216,11 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override bool canFreelook(){
-		return false;
+		return super.canFreelook() && !isMagnifyingOptic();
 	}
 	
 	override bool canInspectWeapon(){
-		return false;
+		return super.canInspectWeapon() && !isMagnifyingOptic();
 	}
 	
 	override bool isMagnifyingOptic(){

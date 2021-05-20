@@ -63,9 +63,9 @@ modded class DayZPlayerCameraIronsights{
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){	
 		
 		if( m_player.isInspectingWeapon() ) {
-			PPEManager.requestDDOF(0.5);
+			//PPEManager.requestDDOF(0.5);
 		}else{			
-			PPEManager.resetDDOF();
+			//PPEManager.resetDDOF();
 			
 		}
 		
