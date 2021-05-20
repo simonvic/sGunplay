@@ -97,22 +97,25 @@ modded class DayZPlayerCameraIronsights{
 		// Inspection
 		computeInspectAngles(aimChangeX, aimChangeY, m_inspectAngles, pDt);
 		vector inspectTM[4];
-		toMatrix(m_inspectAngles, inspectTM);
+		Math3D.YawPitchRollMatrix(m_inspectAngles, inspectTM);		
 		
 		////////////////////////
 		// Freelook
 		computeFreelookAngles(aimChangeX, aimChangeY, m_freelookAngles, pDt);
 		vector freelookTM[4];
-		toMatrix(m_freelookAngles, freelookTM);
-
+		Math3D.YawPitchRollMatrix(m_freelookAngles, freelookTM);	
 		
-
+		
 		////////////////////////
 		// Deadzone
-		computeDeadzone(aimChangeX, aimChangeY, pDt, m_deadzoneX, m_deadzoneY);
-		applyDeadzone(m_deadzoneX, m_deadzoneY, weaponCameraPointTM);
+		computeDeadzone(aimChangeX, aimChangeY, m_deadzoneX, m_deadzoneY, pDt);
+		
+		
+		////////////////////////
+		// Offset from center (deadzone + hands offset)
+		applyOffset(weaponCameraPointTM);
 
-
+		
 		////////////////////////
 		// Movement
 		vector movementTM[4];
@@ -136,6 +139,8 @@ modded class DayZPlayerCameraIronsights{
 	
 	/**
 	*	@brief Update Yaw and Pitch angles (used by other vanilla code)
+	*	 @param yaw \p float - Yaw angle
+	*	 @param pitch \p float - Pitch angle
 	*/
 	protected void updateAimAngle(out float yaw, out float pitch, float pDt){
 		float min;
@@ -150,6 +155,8 @@ modded class DayZPlayerCameraIronsights{
 	
 	/**
 	*	@brief Compute the hands offset from the aiming model
+	*	 @param handsOffsetX \p float - 
+	*	 @param handsOffsetY \p float - 
 	*/
 	protected void computeHandsOffset(out float handsOffsetX, out float handsOffsetY, float pDt){
 		if( canApplyHandsOffset() ){
@@ -163,6 +170,9 @@ modded class DayZPlayerCameraIronsights{
 	
 	/**
 	*	@brief Compute the angles of the camera when inspecting the weapon
+	*	 @param x \p float -
+	*	 @param y \p float -
+	*	 @param angles \p vector - Result angles
 	*/
 	protected void computeInspectAngles(float x, float y, out vector angles, float pDt){
 		if( canInspectWeapon() ){
@@ -180,6 +190,9 @@ modded class DayZPlayerCameraIronsights{
 	
 	/**
 	*	@brief Compute the angles of the camera when freelook
+	*	 @param x \p float -
+	*	 @param y \p float -
+	*	 @param angles \p vector - Result angles	
 	*/
 	protected void computeFreelookAngles(float x, float y, out vector angles, float pDt){
 		if( canFreelook() ){
@@ -200,6 +213,9 @@ modded class DayZPlayerCameraIronsights{
 	
 	/**
 	*	@brief Compute the transformation matrix for the player movement
+	*	 @param aimChangeX \p float -
+	*	 @param aimChangeX \p float -
+	*	 @param tm \p vector[4] - Result tranformation matrix
 	*/
 	protected void computeMovementModifier(float aimChangeX, float aimChangeY, out vector tm[4], float pDt){
 		vector aimChangeYPR;
@@ -227,8 +243,12 @@ modded class DayZPlayerCameraIronsights{
 	
 	/**
 	*	@brief Compute the angles of the camera for the deadzone
+	*	 @param aimChangeX \p float -
+	*	 @param aimChangeX \p float -
+	*	 @param deadzoneX \p float - Result deadzone X
+	*	 @param deadzoneX \p float - Result deadzone Y	
 	*/
-	protected void computeDeadzone(float aimChangeX, float aimChangeY, float pDt, out float deadzoneX, out float deadzoneY){
+	protected void computeDeadzone(float aimChangeX, float aimChangeY, out float deadzoneX, out float deadzoneY, float pDt){
 		if( canApplyDeadzone() ){
 			TFloatArray deadzoneLimits = m_camManager.getDeadzoneLimits();
 			deadzoneX = Math.Clamp(deadzoneX + aimChangeX, deadzoneLimits[3] * -20, deadzoneLimits[1] * 20);
@@ -238,25 +258,15 @@ modded class DayZPlayerCameraIronsights{
 			deadzoneY = Math.SmoothCD(deadzoneY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 		}
 	}
-	
-	protected vector toAngles(vector matrix[4]){
-		return Math3D.MatrixToAngles(matrix);
-	}
-	
-	protected void toMatrix(vector angles, out vector matrix[4]){
-		Math3D.YawPitchRollMatrix(angles, matrix);
-	}
-	
-	protected void applyDeadzone(float deadzoneX, float deadzoneY, out vector matrix[4]){
-		vector angles = toAngles(matrix);
 		
-		//angles[0] = Math.SmoothCD(angles[0], angles[0] - deadzoneY, m_deadzoneYVel, 0.01, 1000, pDt);
-		//angles[1] = Math.SmoothCD(angles[1], angles[1] + deadzoneX, m_deadzoneXVel, 0.01, 1000, pDt);		
-		angles[0] = angles[0] - deadzoneY - m_handsOffsetY;
-		angles[1] = angles[1] + deadzoneX + m_handsOffsetX;
+	protected void applyOffset(out vector matrix[4]){
+		vector angles = Math3D.MatrixToAngles(matrix);
+		
+		angles[0] = angles[0] - m_deadzoneY - m_handsOffsetY;
+		angles[1] = angles[1] + m_deadzoneX + m_handsOffsetX;
 		angles[2] = angles[2] + m_player.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 		
-		toMatrix(angles, matrix);
+		Math3D.YawPitchRollMatrix(angles, matrix);
 		
 	}
 	
@@ -301,7 +311,7 @@ modded class DayZPlayerCameraIronsights{
 	
 	protected void getFOVFocusValues(out float targetFOV, out float speed){
 		if(canZoom()){
-			targetFOV = getFocusZoom();
+			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
 			speed = getFocusSpeed();
 		}else{
 			targetFOV = GetDayZGame().GetUserFOV(); //@todo a 10% more (less) fov perhaps?
@@ -311,10 +321,6 @@ modded class DayZPlayerCameraIronsights{
 	}
 			
 	
-	
-	protected float getFocusZoom(){
-		return GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
-	}
 	
 	/**
 	* @brief Get the speed at which the player will reach maximum focus

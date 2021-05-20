@@ -29,18 +29,14 @@ modded class DayZPlayerCameraOptics{
 		pOutResult.m_fInsideCamera 			= 1.0;
 		pOutResult.m_fShootFromCamera		= 0.0;
 		pOutResult.m_fIgnoreParentRoll      = 0.0;
-		pOutResult.m_fNearPlane = 0.01; //0.07 default
+		pOutResult.m_fNearPlane = 0.06; //0.07 default
 	}
 	
 	override void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.updateFOVFocus(pDt, pOutResult);	
 		
 	}
-	
-	override bool canZoom(){
-		return super.canZoom();
-	}
-	
+		
 	override void getFOVFocusValues(out float targetFOV, out float speed){
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
@@ -86,9 +82,7 @@ modded class DayZPlayerCameraOptics{
 		
 	}
 	
-	protected bool isEnteringOptic(bool state, DayZPlayerCamera launchedFrom){
-		return state && m_opticsUsed && (PlayerBase.Cast(m_pPlayer) && launchedFrom == PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
-	}
+	
 
 	
 	protected void resetPPE(){
@@ -107,14 +101,6 @@ modded class DayZPlayerCameraOptics{
 		if (m_weaponUsed){
 			m_weaponUsed.HideWeaponBarrel(false);
 		}
-	}
-	
-	override bool isMagnifyingOptic(){
-		return !m_opticsUsed.AllowsDOF();
-	}
-	
-	override bool isSniperOptic(){
-		return m_opticsUsed.GetStepFOVCount() > 0;
 	}
 	
 	protected void updateNightVision(bool allowNightVisionGoggles = false){
@@ -190,7 +176,7 @@ modded class DayZPlayerCameraOptics{
 	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){
 		//Print("SetCameraPP - optics");
-		if (!isEnteringOptic(state, launchedFrom)){
+		if (!isOpticChange(state, launchedFrom)){
 			resetPPE();
 			return;
 		}
@@ -212,5 +198,38 @@ modded class DayZPlayerCameraOptics{
 		}
 		
 	}
+	
+	protected bool isOpticChange(bool state, DayZPlayerCamera launchedFrom){
+		return state && m_opticsUsed && (PlayerBase.Cast(m_pPlayer) && launchedFrom == PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
+	}
+	
+	override bool canApplyDeadzone(){
+		return super.canApplyDeadzone();
+	}
+	
+	override bool canApplyHandsOffset(){
+		return super.canApplyHandsOffset();
+	}
+	
+	override bool canZoom(){
+		return super.canZoom();
+	}
+	
+	override bool canFreelook(){
+		return false;
+	}
+	
+	override bool canInspectWeapon(){
+		return false;
+	}
+	
+	override bool isMagnifyingOptic(){
+		return !m_opticsUsed.AllowsDOF();
+	}
+	
+	override bool isSniperOptic(){
+		return m_opticsUsed.GetStepFOVCount() > 0;
+	}
+	
 		
 }
