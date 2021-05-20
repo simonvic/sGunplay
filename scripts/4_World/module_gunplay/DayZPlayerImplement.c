@@ -1,5 +1,12 @@
 modded class DayZPlayerImplement{
 
+	protected bool m_isInspectingWeapon;
+	protected UAInput m_inputWeaponInspect;
+	
+	void DayZPlayerImplement(){
+		m_inputWeaponInspect = GetUApi().GetInputByName("SUA_ADSWeaponInspect");
+	}
+	
 	
 	override void CommandHandler(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished){
 		super.CommandHandler(pDt,pCurrentCommandID,pCurrentCommandFinished);
@@ -13,16 +20,23 @@ modded class DayZPlayerImplement{
 	override void HandleADS(){
 		super.HandleADS();
 		
-		UAInput uain = GetUApi().GetInputByName("SUA_ADSWeaponInspect");
-		
-		if(uain.LocalPress() || uain.LocalHold()){
-			DayZPlayerCameraIronsights.isInspectingWeapon = GetInputController().CameraIsFreeLook();
+		if(!m_inputWeaponInspect){
+			SLog.d("input is null");
+			return;
 		}
 		
-		if(uain.LocalRelease()){
-			DayZPlayerCameraIronsights.isInspectingWeapon = false;
+		if(m_inputWeaponInspect.LocalPress() || m_inputWeaponInspect.LocalHold()){
+			m_isInspectingWeapon = GetInputController().CameraIsFreeLook();
+		}
+		
+		if(m_inputWeaponInspect.LocalRelease()){
+			m_isInspectingWeapon = false;
 		}
 
+	}
+	
+	bool isInspectingWeapon(){
+		return m_isInspectingWeapon;
 	}
 	
 }

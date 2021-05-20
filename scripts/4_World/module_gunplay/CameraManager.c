@@ -1,5 +1,6 @@
 modded class CameraManager{
 	
+	//@todo move this stuff to AimingModel
 	protected SUserConfigGunplay m_sUserConfigGunplay;
 	
 	void CameraManager(DayZPlayerCameraBase camera, PlayerBase player){
