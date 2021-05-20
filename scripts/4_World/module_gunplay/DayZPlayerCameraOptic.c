@@ -166,8 +166,8 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	protected void computeMask(TFloatArray mask){
-		mask[0] = mask[0] + m_handsOffsetX / m_camManager.getAdsFovReduction();
-		mask[1] = mask[1] - m_handsOffsetY / m_camManager.getAdsFovReduction();
+		mask[0] = mask[0] + (m_handsOffsetX / m_camManager.getAdsFovReduction() * m_fFovAbsolute * 0.2);
+		mask[1] = mask[1] - (m_handsOffsetY / m_camManager.getAdsFovReduction() * m_fFovAbsolute * 0.2);
 		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute;
 		mask[3] = 0.001;
 	}
