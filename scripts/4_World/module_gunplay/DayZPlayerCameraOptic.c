@@ -62,17 +62,19 @@ modded class DayZPlayerCameraOptics{
 			return;
 		}
 		
-		// Magnifying optic
+		// Sniping optic
 		if(isSniperOptic()){
 			targetFOV = opticCurrentFOV;
 			speed = 0.0001;
-		}else{
-			targetFOV = opticCurrentFOV * fovReduction;
+			return;
 		}
+			
+		// Magnifying optic
+		targetFOV = opticCurrentFOV * fovReduction;
 			
 		//@todo optimize this			
 		if (m_isEntering){
-			m_fFovAbsolute = opticCurrentFOV * fovReduction; // immediately set the fov
+			m_fFovAbsolute = targetFOV; // immediately set the fov
 			m_isEntering = false;
 		}else if (playerIsFocusing()){
 			targetFOV = opticCurrentFOV;
