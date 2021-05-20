@@ -37,6 +37,7 @@ modded class DayZPlayerCameraOptics{
 		
 	}
 		
+	//@todo move stuff out of here if not needed updating every fram
 	override void getFOVFocusValues(out float targetFOV, out float speed){
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
@@ -49,8 +50,7 @@ modded class DayZPlayerCameraOptics{
 		}
 		
 		float opticCurrentFOV = m_opticsUsed.GetCurrentStepFOV();
-		float fovReduction = SMath.mapTo(m_camManager.getAdsFovReduction(), 0, 1, 2, 3);
-		
+		float fovReduction = m_camManager.getAdsFovReduction();
 		
 		// Non magnifying optic
 		if(!isMagnifyingOptic()){
@@ -69,7 +69,8 @@ modded class DayZPlayerCameraOptics{
 		}else{
 			targetFOV = opticCurrentFOV * fovReduction;
 		}
-						
+			
+		//@todo optimize this			
 		if (m_isEntering){
 			m_fFovAbsolute = opticCurrentFOV * fovReduction; // immediately set the fov
 			m_isEntering = false;

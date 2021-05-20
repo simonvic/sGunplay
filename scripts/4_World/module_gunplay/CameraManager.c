@@ -12,7 +12,10 @@ modded class CameraManager{
 	}
 	
 	float getAdsFovReduction(){
-		return m_sUserConfigGunplay.getAdsFovReduction();
+		return SMath.mapTo(
+			m_sUserConfigGunplay.getAdsFovReduction(), 0, 1,
+			GunplayConstants.ADS_FOV_REDUCTION_CONSTRAINTS[0],
+			GunplayConstants.ADS_FOV_REDUCTION_CONSTRAINTS[1]);
 	}
 	
 	bool isHideWeaponBarrelInOpticEnabled(){

@@ -9,8 +9,8 @@ class GunplayConstants{
 	
 	/////////////////////////////////////////////////////////////
 	// FOV and OPTIC LENS
-	static const float OPTIC_FOV_REDUCTION = 3;	  // how much the fov will be reduced compared to vanilla
-	static const float OPTIC_LENS_ZOOM_BOOST = 2; // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
+	static const float ADS_FOV_REDUCTION_CONSTRAINTS[] = {2, 3};      // Minimum and maximum optic fov reduction
+	static const float OPTIC_LENS_ZOOM_BOOST = 2;                     // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
 	
 	/////////////////////////////////////////////////////////////
 	// ADS
@@ -40,7 +40,7 @@ class GunplayConstants{
 		
 	//////////////////
 	// INERTIA
-	static const bool USE_WEAPON_INERTIA = true;              // Use weapon inertia in the player aiming model
+	static const bool USE_WEAPON_INERTIA = true;                       // Use weapon inertia in the player aiming model
 	  
 	static const float INERTIA_SMOOTHNESS = 0.3;                       // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
 	static const float INERTIA_MULTIPLIER_BASE = 2;                    // Base multiplier of the amount of inertia to be applied
