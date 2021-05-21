@@ -177,8 +177,12 @@ modded class DayZPlayerCameraOptics{
 	protected void computeLens(TFloatArray lens){
 		lens[0] = lens[0] * m_camManager.getLensZoomStrength(); //intensity
 		lens[1] = lens[1] + m_aimingModel.getSCrosshairPosition()[0] - 0.5; //X position
-		lens[2] = lens[2] + Math.Pow(m_opticsUsed.GetStepZeroing(), 0.5) * 0.05 + m_aimingModel.getSCrosshairPosition()[1] - 0.5; //Y position
+		lens[2] = lens[2] + getLensZeroingOffset(m_opticsUsed.GetStepZeroing(), 0.6, 0.05) + m_aimingModel.getSCrosshairPosition()[1] - 0.5; //Y position
 		lens[3] = lens[3]; //chrom aber	
+	}
+	
+	static float getLensZeroingOffset(int zeroing, float decay, float amplitude){
+		return Math.Pow(zeroing, decay) * amplitude;
 	}
 	
 	protected void updateBlur(){
