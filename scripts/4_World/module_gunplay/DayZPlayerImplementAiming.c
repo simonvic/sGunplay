@@ -16,7 +16,7 @@ modded class DayZPlayerImplementAiming{
 	protected ref SRaycast m_sCrosshairRay;
 	
 	void DayZPlayerImplementAiming(DayZPlayerImplement player){
-		m_sCrosshairRay = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
+		m_sCrosshairRay = new SRaycast("0 0 0", "0 0 0", 0.01, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
 	}
 	
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
