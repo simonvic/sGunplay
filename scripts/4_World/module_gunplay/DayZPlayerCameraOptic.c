@@ -156,24 +156,13 @@ modded class DayZPlayerCameraOptics{
 
 		computeMask(mask);
 		computeLens(lens);
-				
-		vector offset;
-		offset[0] = m_handsOffsetX;
-		offset[1] = -m_handsOffsetY;
-		offset[2] = 0;
-		offset = offset.AnglesToVector();
-		
-		mask[0] = Math.Clamp(offset[0] + 0.5, 0, 1);
-		mask[1] = Math.Clamp(offset[1] + 0.5, 0, 1);
-		
-		
+
 		vector pos = m_aimingModel.getSCrosshairPosition();
 		pos[0] = pos[0];
 		pos[1] = pos[1];
 		
 		mask[0] = Math.Clamp(pos[0], 0, 1);
-		mask[1] = Math.Clamp(pos[1], 0, 1);
-		
+		mask[1] = Math.Clamp(pos[1], 0, 1);		
 		
 		PPEManager.requestOpticMask(mask);
 		PPEManager.requestOpticLens(lens);
@@ -191,7 +180,7 @@ modded class DayZPlayerCameraOptics{
 		lens[0] = lens[0] * m_camManager.getLensZoomStrength();
 		lens[1] = 0;
 		lens[2] = lens[2] + m_opticsUsed.GetStepZeroing() * 0.05;
-		lens[3] = 100;
+		lens[3] = 0;
 	
 	}
 	

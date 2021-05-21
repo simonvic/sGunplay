@@ -89,8 +89,8 @@ modded class DayZPlayerImplementAiming{
 			
 			vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
 			
-			m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
-			m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
+			m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, 0.01, 1000, pDt);
+			m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, 0.01, 1000, pDt);
 			
 		}
 	}
