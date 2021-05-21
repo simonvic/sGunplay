@@ -156,31 +156,30 @@ modded class DayZPlayerCameraOptics{
 
 		computeMask(mask);
 		computeLens(lens);
-
-		vector pos = m_aimingModel.getSCrosshairPosition();
-		pos[0] = pos[0];
-		pos[1] = pos[1];
-		
-		mask[0] = Math.Clamp(pos[0], 0, 1);
-		mask[1] = Math.Clamp(pos[1], 0, 1);		
-		
 		PPEManager.requestOpticMask(mask);
 		PPEManager.requestOpticLens(lens);
 
 	}
 	
 	protected void computeMask(TFloatArray mask){		
-		mask[0] = mask[0];
-		mask[1] = mask[1];
-		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute;
-		mask[3] = 0.001;
+		mask[0] = m_aimingModel.getSCrosshairPosition()[0]; //X position
+		mask[1] = m_aimingModel.getSCrosshairPosition()[1]; //Y position
+		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute; //radius
+		mask[3] = 0.001; //blur
 	}
 	
 	protected void computeLens(TFloatArray lens){
-		lens[0] = lens[0] * m_camManager.getLensZoomStrength();
-		lens[1] = 0;
-		lens[2] = lens[2] + m_opticsUsed.GetStepZeroing() * 0.05;
-		lens[3] = 0;
+		/*
+		lens[0] = lens[0] * m_camManager.getLensZoomStrength(); //intensity
+		lens[1] = lens[1]; //X position
+		lens[2] = lens[2] + m_opticsUsed.GetStepZeroing() * 0.05; //Y position
+		lens[3] = 0; //chrom aber
+		*/
+		lens[0] = lens[0] * m_camManager.getLensZoomStrength(); //intensity
+		lens[1] = 0; //X position
+		lens[2] = m_opticsUsed.GetStepZeroing() * 0.05; //Y position
+		lens[3] = 0; //chrom aber
+		
 	
 	}
 	
