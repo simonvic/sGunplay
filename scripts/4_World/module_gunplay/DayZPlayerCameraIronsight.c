@@ -180,8 +180,8 @@ modded class DayZPlayerCameraIronsights{
 			angles[2] = Math.Clamp(angles[2] + x, GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[1], GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[2]);
 		}else{
 			if(m_pInput.IsFireModeChange() || m_pInput.IsZeroingUp() || m_pInput.IsZeroingDown()){
-				angles[0] = angles[0] + 0.5;
-				angles[2] = angles[2] + 0.5;
+				angles[0] = angles[0] + 0.2;
+				angles[2] = angles[2] + 0.2;
 			}
 			angles[0] = Math.SmoothCD(angles[0], 0, m_inspectVelX, GunplayConstants.RESET_SPEED_INSPECTION, 1000, pDt);
 			angles[2] = Math.SmoothCD(angles[2], 0, m_inspectVelY, GunplayConstants.RESET_SPEED_INSPECTION, 1000, pDt);
