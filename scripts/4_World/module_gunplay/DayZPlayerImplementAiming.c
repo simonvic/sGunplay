@@ -22,7 +22,7 @@ modded class DayZPlayerImplementAiming{
 		Weapon_Base weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 		
 		if(GunplayConstants.USE_WEAPON_INERTIA){
-			applyWeaponInertia(pModel, weapon, pDt);
+			applyWeaponInertia(pModel, computeInertiaMultiplier(weapon), pDt);
 			updateHandsOffset(pModel);
 		}		
 	
@@ -42,16 +42,22 @@ modded class DayZPlayerImplementAiming{
 	/**
 	*	@brief Apply the inertia to the given Aiming Model 
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
-	*	 @param weapon \p Weapon_Base - Player aiming model
+	*	 @param inertia \p float - Amount of inertia
 	*/
-	protected void applyWeaponInertia(SDayZPlayerAimingModel pModel, Weapon_Base weapon, float pDt){
+	protected void applyWeaponInertia(SDayZPlayerAimingModel pModel, float inertia, float pDt){
+		pModel.m_fAimXHandsOffset = Math.SmoothCD(
+			pModel.m_fAimXHandsOffset, 
+			pModel.m_fAimXHandsOffset - (getAimChangeDegree()[0] * inertia),
+			m_inertiaXVel,
+			GunplayConstants.INERTIA_SMOOTHNESS,
+			1000, pDt);
 		
-		float inertiaMultiplier = computeInertiaMultiplier(weapon);
-		float aimChangeX = getAimChangeDegree()[0] * inertiaMultiplier;
-		float aimChangeY = getAimChangeDegree()[1] * inertiaMultiplier;
-	
-		pModel.m_fAimXHandsOffset = Math.SmoothCD(pModel.m_fAimXHandsOffset, pModel.m_fAimXHandsOffset - aimChangeX, m_inertiaXVel, GunplayConstants.INERTIA_SMOOTHNESS, 1000, pDt);
-		pModel.m_fAimYHandsOffset = Math.SmoothCD(pModel.m_fAimYHandsOffset, pModel.m_fAimYHandsOffset - aimChangeY, m_inertiaYVel, GunplayConstants.INERTIA_SMOOTHNESS, 1000, pDt);
+		pModel.m_fAimYHandsOffset = Math.SmoothCD(
+			pModel.m_fAimYHandsOffset,
+			pModel.m_fAimYHandsOffset - (getAimChangeDegree()[1] * inertia),
+			m_inertiaYVel,
+			GunplayConstants.INERTIA_SMOOTHNESS,
+			1000, pDt);
 	}
 	
 	/**
