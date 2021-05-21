@@ -20,16 +20,19 @@ modded class IngameHud {
 	
 	override void Update( float timeslice ){
 		super.Update( timeslice );
+		if(!m_player){
+			m_player = PlayerBase.Cast(GetGame().GetPlayer());
+		}
 		
-		if(m_player){
+		if(canShowCrosshair()){
 			vector pos = m_player.GetAimingModel().getSCrosshairPosition();
 			pos[0] = pos[0] - 0.5;
 			pos[1] = pos[1] - 0.5;
 			setSCrosshairPosition(pos[0], pos[1]); //@todo center the image
-			m_sCrosshair.Show(canShowCrosshair());
-		}else{
-			m_player = PlayerBase.Cast(GetGame().GetPlayer());
+			m_sCrosshair.Show(true);
 			
+		}else{
+			m_sCrosshair.Show(false);
 		}
 		
 		/*
@@ -40,7 +43,7 @@ modded class IngameHud {
 	}
 	
 	protected bool canShowCrosshair(){
-		return m_player && (!m_player.IsInIronsights() && !m_player.IsInOptics()) && !GetGame().GetWorld().IsCrosshairDisabled() && SUserConfig.gunplay().isDynamicCrosshairEnabled();
+		return m_player && m_player.IsFireWeaponRaised() && (!m_player.IsInIronsights() && !m_player.IsInOptics()) && !GetGame().GetWorld().IsCrosshairDisabled() && SUserConfig.gunplay().isDynamicCrosshairEnabled();
 	}
 
 }

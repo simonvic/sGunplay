@@ -2,8 +2,14 @@
 // OPTICS
 modded class DayZPlayerCameraOptics{
 	
+	protected ref TFloatArray m_opticPPMask = new TFloatArray;
+	protected ref TFloatArray m_opticPPLens = new TFloatArray;
+	protected float m_opticPPBlur;
+	
 	override void OnActivate (DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult){
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
+		
+		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
 		
 		PlayerBase player = PlayerBase.Cast(m_pPlayer);
 		if (player){
@@ -151,34 +157,26 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	protected void updateLens(){
-		SLog.d("updateLens","",1,false);
-		// optics mask
-		TFloatArray mask = new TFloatArray;
-		TFloatArray lens = new TFloatArray;
-		float blur;
-		
-		m_opticsUsed.InitOpticsPP(mask, lens, blur);
-		
-		computeMask(mask);
-		computeLens(lens);
-
-		PPEManager.requestOpticMask(mask);
-		PPEManager.requestOpticLens(lens);
-
+		float offsetX = m_aimingModel.getSCrosshairPosition()[0];
+		float offsetY = m_aimingModel.getSCrosshairPosition()[1];
+		PPEManager.requestOpticMask(computeMask(m_opticPPMask, offsetX, offsetY));
+		PPEManager.requestOpticLens(computeLens(m_opticPPLens, offsetX, offsetY));
 	}
 	
-	protected void computeMask(TFloatArray mask){		
-		mask[0] = mask[0] + m_aimingModel.getSCrosshairPosition()[0]; //X position
-		mask[1] = mask[1] + m_aimingModel.getSCrosshairPosition()[1]; //Y position
-		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute; //radius
-		mask[3] = mask[3]; //blur
+	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){		
+		return {
+			mask[0] + offsetX,                                                        //X position
+			mask[1] + offsetY,                                                        //Y position
+			mask[2] / Math.Pow(m_camManager.getAdsFovReduction(),2) / m_fFovAbsolute, //radius
+			mask[3]};                                                                 //blur
 	}
 	
-	protected void computeLens(TFloatArray lens){
-		lens[0] = lens[0] * m_camManager.getLensZoomStrength(); //intensity
-		lens[1] = lens[1] + m_aimingModel.getSCrosshairPosition()[0] - 0.5; //X position
-		lens[2] = lens[2] + getLensZeroingOffset(m_opticsUsed.GetStepZeroing(), 0.6, 0.05) + m_aimingModel.getSCrosshairPosition()[1] - 0.5; //Y position
-		lens[3] = lens[3]; //chrom aber	
+	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY){
+		return  {
+			lens[0] * m_camManager.getLensZoomStrength(),                                             //intensity
+			lens[1] + offsetX - 0.5,                                                                  //X position
+			lens[2] + getLensZeroingOffset(m_opticsUsed.GetStepZeroing(), 0.6, 0.05) + offsetY - 0.5, //Y position
+			lens[3]};                                                                                 //chrom aber	
 	}
 	
 	static float getLensZeroingOffset(int zeroing, float decay, float amplitude){
