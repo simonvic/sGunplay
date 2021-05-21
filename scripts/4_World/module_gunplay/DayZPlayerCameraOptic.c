@@ -96,9 +96,6 @@ modded class DayZPlayerCameraOptics{
 		
 	}
 	
-	
-
-	
 	protected void resetPPE(){
 		SLog.d("reset ppe","",1,false);
 		PPEffects.ResetPPMask();
@@ -157,13 +154,33 @@ modded class DayZPlayerCameraOptics{
 		}
 	}
 	
+	/**
+	*	@brief Update the lens effect position and strength along with the PP mask
+	*/
 	protected void updateLens(){
 		float offsetX = m_aimingModel.getSCrosshairPosition()[0];
 		float offsetY = m_aimingModel.getSCrosshairPosition()[1];
+		
+		/* @todo use camera point and apply same smooth function of inertia???
+		vector pos, dir;
+		vector opticPosition;
+		m_opticsUsed.GetCameraPoint(pos,dir);
+		opticPosition = m_opticsUsed.ModelToWorld(pos + dir);
+		vector screenPos = GetGame().GetScreenPosRelative(opticPosition);
+		*/
+		
 		PPEManager.requestOpticMask(computeMask(m_opticPPMask, offsetX, offsetY));
 		PPEManager.requestOpticLens(computeLens(m_opticPPLens, offsetX, offsetY));
 	}
 	
+	/**
+	*	@brief Compute the mask position, radius, and blur(smooth opacity)
+	*	 Mask = {positionX [-1, 1], positionY [-1, 1], radius, blur}
+	*	 @param mask \p TFloatArray - Starting mask array
+	*	 @param offsetX \p float - arbitrary X offset
+	*	 @param offsetY \p float - arbitrary Y offset
+	*	 @return TFloatArray - computed mask array
+	*/
 	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){		
 		return {
 			mask[0] + offsetX,                                                        //X position
@@ -172,6 +189,14 @@ modded class DayZPlayerCameraOptics{
 			mask[3]};                                                                 //blur
 	}
 	
+	/**
+	*	@brief Compute the lens intensity, position, and chromatic aberration
+	*	 Lens = {intensity [-i, +i], positionX [-1, 1], positionY [-1, 1], chromatic aberration}
+	*	 @param lens \p TFloatArray - Starting lens array
+	*	 @param offsetX \p float - arbitrary X offset
+	*	 @param offsetY \p float - arbitrary Y offset
+	*	 @return TFloatArray - computed lens array
+	*/
 	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY){
 		return  {
 			lens[0] * m_camManager.getLensZoomStrength(),                                             //intensity
@@ -180,6 +205,12 @@ modded class DayZPlayerCameraOptics{
 			lens[3]};                                                                                 //chrom aber	
 	}
 	
+	/**
+	*	@brief Get the offset based on the zeroing index of the scope
+	*	 @param zeroing \p int - zeroing index
+	*	 @param decay \p float - 
+	*	 @param amplitude \p float - 
+	*/
 	static float getLensZeroingOffset(int zeroing, float decay, float amplitude){
 		return Math.Pow(zeroing, decay) * amplitude;
 	}
