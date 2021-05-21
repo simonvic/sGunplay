@@ -19,6 +19,7 @@ modded class DayZPlayerCameraOptics{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
+		//@todo do proper activation/deactivation
 		if(m_player.IsInOptics() && isMagnifyingOptic()){
 			updateLens();
 		}else{

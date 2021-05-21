@@ -2,11 +2,12 @@
 // IRONSIGHT
 modded class DayZPlayerCameraIronsights{
 	
-	protected float m_focusVel[1];
-	protected float m_focusTargetFOV;
-	protected float m_focusSpeed;
 	protected DayZPlayerImplement m_player;
 	protected DayZPlayerImplementAiming m_aimingModel;
+	
+	protected float m_focusTargetFOV;
+	protected float m_focusVel[1];
+	protected float m_focusSpeed;
 	
 	protected vector m_inspectAngles;
 	protected float m_inspectVelX[1];

@@ -25,10 +25,7 @@ modded class IngameHud {
 		}
 		
 		if(canShowCrosshair()){
-			vector pos = m_player.GetAimingModel().getSCrosshairPosition();
-			pos[0] = pos[0] - 0.5;
-			pos[1] = pos[1] - 0.5;
-			setSCrosshairPosition(pos[0], pos[1]); //@todo center the image
+			setSCrosshairPosition(m_player.GetAimingModel().getSCrosshairPosition()[0] - 0.5, m_player.GetAimingModel().getSCrosshairPosition()[1] - 0.5); //@todo center the image
 			m_sCrosshair.Show(true);
 			
 		}else{
