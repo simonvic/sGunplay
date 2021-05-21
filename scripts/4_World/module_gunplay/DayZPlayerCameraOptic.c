@@ -1,6 +1,7 @@
 //////////////////////////////////////////
 // OPTICS
 modded class DayZPlayerCameraOptics{
+	
 	override void OnActivate (DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult){
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
@@ -12,7 +13,11 @@ modded class DayZPlayerCameraOptics{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		updateLens();
+		if(m_player.IsInOptics() && isMagnifyingOptic()){
+			updateLens();
+		}else{
+			resetPPE();
+		}
 	}
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
@@ -152,35 +157,28 @@ modded class DayZPlayerCameraOptics{
 		TFloatArray lens = new TFloatArray;
 		float blur;
 		
-		m_opticsUsed.InitOpticsPP(mask, lens, blur);		
-
+		m_opticsUsed.InitOpticsPP(mask, lens, blur);
+		
 		computeMask(mask);
 		computeLens(lens);
+		
 		PPEManager.requestOpticMask(mask);
 		PPEManager.requestOpticLens(lens);
 
 	}
 	
 	protected void computeMask(TFloatArray mask){		
-		mask[0] = m_aimingModel.getSCrosshairPosition()[0]; //X position
-		mask[1] = m_aimingModel.getSCrosshairPosition()[1]; //Y position
+		mask[0] = mask[0] + m_aimingModel.getSCrosshairPosition()[0]; //X position
+		mask[1] = mask[1] + m_aimingModel.getSCrosshairPosition()[1]; //Y position
 		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute; //radius
-		mask[3] = 0.001; //blur
+		mask[3] = mask[3]; //blur
 	}
 	
 	protected void computeLens(TFloatArray lens){
-		/*
 		lens[0] = lens[0] * m_camManager.getLensZoomStrength(); //intensity
 		lens[1] = lens[1]; //X position
 		lens[2] = lens[2] + m_opticsUsed.GetStepZeroing() * 0.05; //Y position
-		lens[3] = 0; //chrom aber
-		*/
-		lens[0] = lens[0] * m_camManager.getLensZoomStrength(); //intensity
-		lens[1] = 0; //X position
-		lens[2] = m_opticsUsed.GetStepZeroing() * 0.05; //Y position
-		lens[3] = 0; //chrom aber
-		
-	
+		lens[3] = lens[3]; //chrom aber	
 	}
 	
 	protected void updateBlur(){
