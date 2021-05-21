@@ -22,8 +22,6 @@ modded class DayZPlayerCameraOptics{
 		//@todo do proper activation/deactivation
 		if(m_player.IsInOptics() && isMagnifyingOptic()){
 			updateLens();
-		}else{
-			resetPPE();
 		}
 	}
 	
@@ -51,7 +49,7 @@ modded class DayZPlayerCameraOptics{
 	}
 		
 	//@todo move stuff out of here if not needed updating every fram
-	override void getFOVFocusValues(out float targetFOV, out float speed){
+	override void computeFOVFocusValues(out float targetFOV, out float speed){
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
 		
@@ -97,7 +95,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	protected void resetPPE(){
-		SLog.d("reset ppe","",1,false);
+		SLog.d("reset ppe","",1,true);
 		PPEffects.ResetPPMask();
 		PPEffects.SetLensEffect(0, 0, 0, 0);
 		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
@@ -136,7 +134,6 @@ modded class DayZPlayerCameraOptics{
 	
 	protected void setNonMagnifyingOpticPPE(){
 		SLog.d("setNonMagnifyingOpticPPE","",1,false);
-		PPEffects.SetLensEffect(0, 0, 0, 0);
 		
 		if (!m_weaponUsed){
 			PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
@@ -158,19 +155,19 @@ modded class DayZPlayerCameraOptics{
 	*	@brief Update the lens effect position and strength along with the PP mask
 	*/
 	protected void updateLens(){
-		float offsetX = m_aimingModel.getSCrosshairPosition()[0];
-		float offsetY = m_aimingModel.getSCrosshairPosition()[1];
+		//@todo replace crosshair position with custom 
+		vector offset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
 		
 		/* @todo use camera point and apply same smooth function of inertia???
 		vector pos, dir;
 		vector opticPosition;
 		m_opticsUsed.GetCameraPoint(pos,dir);
 		opticPosition = m_opticsUsed.ModelToWorld(pos + dir);
-		vector screenPos = GetGame().GetScreenPosRelative(opticPosition);
+		offset = GetGame().GetScreenPosRelative(opticPosition);
 		*/
 		
-		PPEManager.requestOpticMask(computeMask(m_opticPPMask, offsetX, offsetY));
-		PPEManager.requestOpticLens(computeLens(m_opticPPLens, offsetX, offsetY));
+		PPEManager.requestOpticMask(computeMask(m_opticPPMask, offset[0], offset[1]));
+		PPEManager.requestOpticLens(computeLens(m_opticPPLens, offset[0], offset[1]));
 	}
 	
 	/**

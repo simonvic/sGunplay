@@ -306,11 +306,16 @@ modded class DayZPlayerCameraIronsights{
 	
 		
 	protected void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult){
-		getFOVFocusValues(m_focusTargetFOV, m_focusSpeed);
+		computeFOVFocusValues(m_focusTargetFOV, m_focusSpeed);
 		m_fFovAbsolute = Math.SmoothCD(m_fFovAbsolute, m_focusTargetFOV, m_focusVel, m_focusSpeed, 1000, pDt);
 	}
 	
-	protected void getFOVFocusValues(out float targetFOV, out float speed){
+	/**
+	*	@brief Compute the targeted FOV and focusing speed based
+	*	 @param targetFOV \p float - fov computed
+	*	 @param speed \p float - speed computed
+	*/
+	protected void computeFOVFocusValues(out float targetFOV, out float speed){
 		if(canZoom()){
 			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
 			speed = getFocusSpeed();

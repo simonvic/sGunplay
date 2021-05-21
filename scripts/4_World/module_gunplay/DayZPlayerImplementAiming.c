@@ -9,6 +9,10 @@ modded class DayZPlayerImplementAiming{
 	protected float m_sCrosshairXVel[1];
 	protected float m_sCrosshairYVel[1];
 	
+	protected vector m_weaponBarrelPosition;
+	protected vector m_weaponMuzzlePosition;
+	protected vector m_weaponTargetPosition;
+	
 	protected ref SRaycast m_sCrosshairRay;
 	
 	void DayZPlayerImplementAiming(DayZPlayerImplement player){
@@ -84,22 +88,31 @@ modded class DayZPlayerImplementAiming{
 	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
 	*/
 	protected void updateSCrosshair(Weapon_Base weapon, float pDt){
-		if(GetGame().GetMission()){
-			vector muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
-			vector barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
-			vector target = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * GunplayConstants.CROSSHAIR_PRECISION);
-			
-			m_sCrosshairRay.setBegPos(muzzlePosition);
-			m_sCrosshairRay.setEndPos(target);
-			m_sCrosshairRay.launch();
-			
-			vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
-			
-			m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
-			m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
-		}
+		getWeaponComponentsPosition(weapon, m_weaponBarrelPosition, m_weaponMuzzlePosition, m_weaponTargetPosition, GunplayConstants.CROSSHAIR_PRECISION);
+		m_sCrosshairRay.setBegPos(m_weaponMuzzlePosition);
+		m_sCrosshairRay.setEndPos(m_weaponTargetPosition);
+		m_sCrosshairRay.launch();
+		
+		vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
+		
+		m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
+		m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
 	}
 	
+	
+	/**
+	*	@brief Get the barrel position, muzzle position and the target position at the given distance
+	*	 @param weapon \p Weapon_Base - 
+	*	 @param barrelPosition \p vector - 
+	*	 @param muzzlePosition \p vector - 
+	*	 @param targetPosition \p vector - 
+	*	 @param distance \p float - 
+	*/
+	static void getWeaponComponentsPosition(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
+		barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
+		muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
+		targetPosition = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
+	}
 	
 
 	/**
@@ -233,6 +246,10 @@ modded class DayZPlayerImplementAiming{
 	*/
 	vector getBreathingSwayOffset(){
 		return m_breathingSwayOffset;
+	}
+	
+	vector getWeaponTargetPosition(){
+		return m_weaponTargetPosition;
 	}
 	
 	vector getSCrosshairPosition(){
