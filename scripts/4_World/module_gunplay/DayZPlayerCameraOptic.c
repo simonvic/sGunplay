@@ -20,7 +20,8 @@ modded class DayZPlayerCameraOptics{
 		if(m_iBoneIndex == -1 ) m_iBoneIndex = m_pPlayer.GetBoneIndexByName("Head");
 		pOutResult.m_iDirectBone 			= m_iBoneIndex;
 		pOutResult.m_iDirectBoneMode 		= 3;
-	
+		
+		//m_fFovAbsolute = GetDayZGame().GetUserFOV();
 		pOutResult.m_fFovAbsolute = m_fFovAbsolute;
 		//pOutResult.m_fFovMultiplier = 1.0;
 		
@@ -155,19 +156,33 @@ modded class DayZPlayerCameraOptics{
 
 		computeMask(mask);
 		computeLens(lens);
+				
+		vector offset;
+		offset[0] = m_handsOffsetX;
+		offset[1] = -m_handsOffsetY;
+		offset[2] = 0;
+		offset = offset.AnglesToVector();
 		
-		vector pos,dir;
-		m_opticsUsed.GetCameraPoint(pos, dir);
+		mask[0] = Math.Clamp(offset[0] + 0.5, 0, 1);
+		mask[1] = Math.Clamp(offset[1] + 0.5, 0, 1);
 		
-			
+		
+		vector pos = m_aimingModel.getSCrosshairPosition();
+		pos[0] = pos[0];
+		pos[1] = pos[1];
+		
+		mask[0] = Math.Clamp(pos[0], 0, 1);
+		mask[1] = Math.Clamp(pos[1], 0, 1);
+		
+		
 		PPEManager.requestOpticMask(mask);
 		PPEManager.requestOpticLens(lens);
 
 	}
 	
-	protected void computeMask(TFloatArray mask){
-		mask[0] = mask[0] + (m_handsOffsetX / m_camManager.getAdsFovReduction() * m_fFovAbsolute * 0.2);
-		mask[1] = mask[1] - (m_handsOffsetY / m_camManager.getAdsFovReduction() * m_fFovAbsolute * 0.2);
+	protected void computeMask(TFloatArray mask){		
+		mask[0] = mask[0];
+		mask[1] = mask[1];
 		mask[2] = (mask[2] / (Math.Pow(m_camManager.getAdsFovReduction(),2)) / m_fFovAbsolute;
 		mask[3] = 0.001;
 	}
@@ -176,7 +191,7 @@ modded class DayZPlayerCameraOptics{
 		lens[0] = lens[0] * m_camManager.getLensZoomStrength();
 		lens[1] = 0;
 		lens[2] = lens[2] + m_opticsUsed.GetStepZeroing() * 0.05;
-		lens[3] = 0;
+		lens[3] = 100;
 	
 	}
 	

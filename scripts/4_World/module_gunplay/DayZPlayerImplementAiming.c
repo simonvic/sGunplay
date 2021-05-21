@@ -6,7 +6,6 @@ modded class DayZPlayerImplementAiming{
 	protected float m_inertiaYVel[1];
 	
 	protected vector m_sCrosshairPosition;
-	protected bool m_isSCrosshairVisible;
 	protected float m_sCrosshairXVel[1];
 	protected float m_sCrosshairYVel[1];
 	
@@ -79,10 +78,7 @@ modded class DayZPlayerImplementAiming{
 	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
 	*/
 	protected void updateSCrosshair(Weapon_Base weapon, float pDt){
-		if(!GetGame().GetMission() || m_PlayerDpi.IsInIronsights() || m_PlayerDpi.IsInOptics()){
-			m_isSCrosshairVisible = false;
-		}else{
-			m_isSCrosshairVisible = true;
+		if(GetGame().GetMission()){
 			vector muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
 			vector barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
 			vector target = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * GunplayConstants.CROSSHAIR_PRECISION);
@@ -129,7 +125,7 @@ modded class DayZPlayerImplementAiming{
 		// HIPFIRE 
 		inertiaMultiplier *= getInertiaMultiplierHipfire();
 		
-		
+		//inertiaMultiplier = 40;
 		return Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
 	}
 		
@@ -183,6 +179,7 @@ modded class DayZPlayerImplementAiming{
 	*	@brief Get the inertia multiplier based on the weapon
 	*	 @return float - inertia multiplier
 	*/
+	//@todo use m_PlayerPb.GetPlayerLoad() instead
 	protected float getInertiaMultiplierInventoryWeight(){
 		if(m_PlayerPb.GetWeight() == 0) { //@todo temp-fix for weight not updating. find a solution
 			m_PlayerPb.UpdateWeight();
@@ -235,15 +232,6 @@ modded class DayZPlayerImplementAiming{
 	
 	vector getSCrosshairPosition(){
 		return m_sCrosshairPosition;
-	}
-	
-	bool isSCrosshairVisible(){
-		return m_isSCrosshairVisible;
-	}
-	
-	void setSCrosshairVisible(bool visible){
-		m_isSCrosshairVisible = false;
-	}
-	
+	}	
 	
 }

@@ -40,7 +40,7 @@ modded class IngameHud {
 	}
 	
 	protected bool canShowCrosshair(){
-		return m_player && m_player.GetAimingModel().isSCrosshairVisible() && !GetGame().GetWorld().IsCrosshairDisabled() && SUserConfig.gunplay().isDynamicCrosshairEnabled();
+		return m_player && (m_player.IsInIronsights() || m_player.IsInOptics()) && !GetGame().GetWorld().IsCrosshairDisabled() && SUserConfig.gunplay().isDynamicCrosshairEnabled();
 	}
 
 }
