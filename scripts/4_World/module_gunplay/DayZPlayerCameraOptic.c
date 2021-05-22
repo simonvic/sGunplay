@@ -6,6 +6,10 @@ modded class DayZPlayerCameraOptics{
 	protected ref TFloatArray m_opticPPLens = new TFloatArray;
 	protected float m_opticPPBlur;
 	
+	protected vector m_lensOffset;
+	protected float m_lensOffsetVelX[1];
+	protected float m_lensOffsetVelY[1];
+	
 	override void OnActivate (DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult){
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
@@ -13,7 +17,7 @@ modded class DayZPlayerCameraOptics{
 		
 		PlayerBase player = PlayerBase.Cast(m_pPlayer);
 		if (player){
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing,m_CameraPPDelay*1000,false,m_opticsUsed,true);
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing,m_CameraPPDelay*1000,false,m_opticsUsed,false);
 		}
 	}
 	
@@ -21,7 +25,7 @@ modded class DayZPlayerCameraOptics{
 		super.OnUpdate(pDt, pOutResult);
 		//@todo do proper activation/deactivation
 		if(m_player.IsInOptics() && isMagnifyingOptic()){
-			updateLens();
+			updateLens(pDt);
 		}
 	}
 	
@@ -154,20 +158,14 @@ modded class DayZPlayerCameraOptics{
 	/**
 	*	@brief Update the lens effect position and strength along with the PP mask
 	*/
-	protected void updateLens(){
-		//@todo replace crosshair position with custom 
-		vector offset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
+	protected void updateLens(float pDt){
 		
-		/* @todo use camera point and apply same smooth function of inertia???
-		vector pos, dir;
-		vector opticPosition;
-		m_opticsUsed.GetCameraPoint(pos,dir);
-		opticPosition = m_opticsUsed.ModelToWorld(pos + dir);
-		offset = GetGame().GetScreenPosRelative(opticPosition);
-		*/
+		vector m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
+		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.03, 1000, pDt);
+		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.03, 1000, pDt);
 		
-		PPEManager.requestOpticMask(computeMask(m_opticPPMask, offset[0], offset[1]));
-		PPEManager.requestOpticLens(computeLens(m_opticPPLens, offset[0], offset[1]));
+		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
+		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
 	}
 	
 	/**
@@ -195,11 +193,12 @@ modded class DayZPlayerCameraOptics{
 	*	 @return TFloatArray - computed lens array
 	*/
 	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY){
+		//offsetX * 2 - 1; //@todo why the fuck does this work????!!!
 		return  {
-			lens[0] * m_camManager.getLensZoomStrength(),                                             //intensity
-			lens[1] + offsetX - 0.5,                                                                  //X position
-			lens[2] + getLensZeroingOffset(m_opticsUsed.GetStepZeroing(), 0.6, 0.05) + offsetY - 0.5, //Y position
-			lens[3]};                                                                                 //chrom aber	
+			lens[0] * m_camManager.getLensZoomStrength(),                                   //intensity
+			lens[1] + (offsetX * 2 - 1),                                                    //X position
+			lens[2] + (offsetY * 2 - 1) + getLensZeroingOffset(m_opticsUsed, 0.6, 0.05),    //Y position
+			lens[3]};                                                                       //chrom aber	
 	}
 	
 	/**
@@ -208,8 +207,8 @@ modded class DayZPlayerCameraOptics{
 	*	 @param decay \p float - 
 	*	 @param amplitude \p float - 
 	*/
-	static float getLensZeroingOffset(int zeroing, float decay, float amplitude){
-		return Math.Pow(zeroing, decay) * amplitude;
+	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude){
+		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 	
 	protected void updateBlur(){
@@ -236,7 +235,6 @@ modded class DayZPlayerCameraOptics{
 			updateNightVision(true);
 		}else {//magnifying scopes
 			
-			updateLens();
 			updateBlur();
 			updateNightVision(false);
 		}
