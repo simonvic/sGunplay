@@ -169,7 +169,7 @@ modded class DayZPlayerCameraOptics{
 	protected void updateLens(float pDt){
 		if(!canShowLens()) return;
 		if(isHandHeldOptic()) return; 
-
+		//@todo find proper solution (changing crosshiar precision fucks up eveyrthing)
 		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
 		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], m_lensOffset[0], m_lensOffsetVelX, 0.03, 1000, pDt);
 		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], m_lensOffset[1], m_lensOffsetVelY, 0.03, 1000, pDt);

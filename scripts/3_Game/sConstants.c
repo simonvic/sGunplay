@@ -39,9 +39,12 @@ class GunplayConstants{
 	
 	static const bool CAMERA_FOLLOWS_BREATHING_SWAY = false;  // Camera will move along the breathing sway
 		
+	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;                       // Use weapon inertia in the player aiming model
+	static const bool AIMING_MODEL_USE_MODIFIER_MOVEMENT = true;                    // Use the player movement in the player aiming model
+	static const bool AIMING_MODEL_USE_MODIFIER_INJURE = true;                      // Use the player injure state in the player aiming model
+		
 	//////////////////
 	// INERTIA
-	static const bool USE_WEAPON_INERTIA = true;                       // Use weapon inertia in the player aiming model
 	  
 	static const float INERTIA_SMOOTHNESS = 0.3;                       // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
 	static const float INERTIA_MULTIPLIER_BASE = 2;                    // Base multiplier of the amount of inertia to be applied

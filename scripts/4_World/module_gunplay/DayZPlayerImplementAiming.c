@@ -13,6 +13,12 @@ modded class DayZPlayerImplementAiming{
 	protected vector m_weaponMuzzlePosition;
 	protected vector m_weaponTargetPosition;
 	
+	
+	protected vector m_movementOffset;
+	protected float m_movementAcceleration;
+	protected float m_movementVelYaw[1];
+	protected float m_movementVelPitch[1];
+	
 	protected ref SRaycast m_sCrosshairRay;
 	
 	void DayZPlayerImplementAiming(DayZPlayerImplement player){
@@ -21,15 +27,23 @@ modded class DayZPlayerImplementAiming{
 	
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
-		//pModel.m_fAimXHandsOffset *= 0;
-		//pModel.m_fAimYHandsOffset *= 0;
+		pModel.m_fAimXHandsOffset *= 0.1;
+		pModel.m_fAimYHandsOffset *= 0.5;
 		Weapon_Base weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
+				
 		
-		if(GunplayConstants.USE_WEAPON_INERTIA){
+		//@todo make modular modifier system
+		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){
+			applyModifierMovement(pModel, pDt);
+		}
+		
+		if(GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA){
 			applyWeaponInertia(pModel, computeInertiaMultiplier(weapon), pDt);
-			updateHandsOffset(pModel);
 		}		
-	
+		
+		updateHandsOffset(pModel);
+		
+		
 		if(!GunplayConstants.CAMERA_FOLLOWS_BREATHING_SWAY){
 			updateBreathingSwayOffset(pModel);
 		}
@@ -40,7 +54,45 @@ modded class DayZPlayerImplementAiming{
 	}
 	
 	
+	/**
+	*	@brief Apply the movement modifier to the given Aiming Model 
+	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
+	*/
+	protected void applyModifierMovement(SDayZPlayerAimingModel pModel, float pDt){
+		float amplitudeX = 1;
+		float frequencyX = 1;
+		float amplitudeY = 2;
+		float frequencyY = 7;
+		float dynamicsStrength = 2;
+		float dynamicsSmoothTime = 0.3;
+		
+		float speed = m_PlayerDpi.m_MovementState.m_iMovement;
+		
+		if(speed > 0){
+			m_movementAcceleration += pDt;
+		}else{
+			m_movementAcceleration = 0;
+		}
+		
+		float injury = m_PlayerPb.m_InjuryHandler.GetInjuryAnimValue();
+		
+		amplitudeX *= speed;	
+		frequencyX *= speed;
+		amplitudeY *= speed;
+		frequencyY *= speed;
+		
+
+		//SLog.d(string.Format("Ax: %1 | Ay: %2 | Fx: %3 | Fy: %4",amplitudeX,amplitudeY,frequencyX,frequencyY));
+		float aimChangeX = amplitudeX * Math.Sin(frequencyX * m_movementAcceleration);
+		float aimChangeY = amplitudeY * Math.Sin(frequencyY * m_movementAcceleration);
 	
+		m_movementOffset = "0 0 0";
+		m_movementOffset[0] = Math.SmoothCD(m_movementOffset[0], -(dynamicsStrength * aimChangeX), m_movementVelYaw, dynamicsSmoothTime, 1000, pDt);
+		m_movementOffset[1] = Math.SmoothCD(m_movementOffset[1], -(dynamicsStrength * aimChangeY), m_movementVelPitch, dynamicsSmoothTime, 1000, pDt);
+		
+		pModel.m_fAimXHandsOffset += m_movementOffset[0];
+		pModel.m_fAimYHandsOffset += m_movementOffset[1];
+	}
 	
 	
 	/**

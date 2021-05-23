@@ -30,8 +30,7 @@ modded class DayZPlayerCameraIronsights{
 	//@todo breathing offset won't work until sway rework
 	//protected float m_breathingSwayOffsetX;
 	//protected float m_breathingSwayOffsetY;
-	
-	protected float m_prevCameraTM[4];
+
 	
 	protected float m_offsetXResetVel[1];
 	protected float m_offsetYResetVel[1];	
@@ -119,15 +118,8 @@ modded class DayZPlayerCameraIronsights{
 		applyOffset(weaponCameraPointTM);
 
 		
-		////////////////////////
-		// Movement
-		vector movementTM[4];
-		computeMovementModifier(aimChangeX, aimChangeY, movementTM, pDt);
-		
-
 		Math3D.MatrixInvMultiply4(inspectTM, weaponCameraPointTM, weaponCameraPointTM); //apply inspect transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM); //apply freelook transformation matrix
-		Math3D.MatrixMultiply4(movementTM, weaponCameraPointTM, weaponCameraPointTM); //apply movement transformation matrix
 		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM); //apply weapon aiming transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM); //apply result to camera
 
@@ -214,36 +206,7 @@ modded class DayZPlayerCameraIronsights{
 		m_pPlayer.GetItemAccessor().WeaponGetAimingModelDirTm(aimingTM);
 	}
 	
-	/**
-	*	@brief Compute the transformation matrix for the player movement
-	*	 @param aimChangeX \p float -
-	*	 @param aimChangeX \p float -
-	*	 @param tm \p vector[4] - Result tranformation matrix
-	*/
-	protected void computeMovementModifier(float aimChangeX, float aimChangeY, out vector tm[4], float pDt){
-		vector aimChangeYPR;
-		HumanCommandMove hcm = m_pPlayer.GetCommand_Move();
-		if( hcm )
-		{
-			float speed = hcm.GetCurrentMovementSpeed();
-			
-			if( speed > 0 )
-				m_movementTimeAcc += pDt;
-			else
-				m_movementTimeAcc = 0;
-			
-			aimChangeX += m_movementAmplitudeX * speed * Math.Sin(Math.PI2 * m_movementFrequencyX * m_movementTimeAcc);
-			aimChangeY += m_movementAmplitudeY * speed * Math.Sin(Math.PI2 * m_movementFrequencyY * m_movementTimeAcc);
-		}
-
-		aimChangeYPR[0] = Math.SmoothCD(aimChangeYPR[0], -(m_dynamicsStrength * aimChangeY), m_velocityYaw, m_dynamicsSmoothTime, 1000, pDt);
-		aimChangeYPR[1] = Math.SmoothCD(aimChangeYPR[1], -(m_dynamicsStrength * aimChangeX), m_velocityPitch, m_dynamicsSmoothTime, 1000, pDt);
-		aimChangeYPR[2] = 0;
-
-		Math3D.YawPitchRollMatrix(aimChangeYPR, tm);
-		tm[3] = vector.Zero;
-	}
-	
+		
 	/**
 	*	@brief Compute the angles of the camera for the deadzone
 	*	 @param aimChangeX \p float -
