@@ -59,8 +59,8 @@ modded class DayZPlayerImplementAiming{
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
 	*/
 	protected void applyModifierMovement(SDayZPlayerAimingModel pModel, float pDt){
-		float amplitudeX = 1;
-		float frequencyX = 1;
+		float amplitudeX = 1.5;
+		float frequencyX = 1.5;
 		float amplitudeY = 2;
 		float frequencyY = 7;
 		float dynamicsStrength = 2;
