@@ -6,6 +6,7 @@ modded class DayZPlayerCameraOptics{
 	protected ref TFloatArray m_opticPPLens = new TFloatArray;
 	protected float m_opticPPBlur;
 	
+	protected bool m_canShowLens = false;
 	protected vector m_lensOffset;
 	protected float m_lensOffsetVelX[1];
 	protected float m_lensOffsetVelY[1];
@@ -14,10 +15,11 @@ modded class DayZPlayerCameraOptics{
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime*1000 - 250, false, true);
 		
 		PlayerBase player = PlayerBase.Cast(m_pPlayer);
 		if (player){
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing,m_CameraPPDelay*1000,false,m_opticsUsed,false);
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing, m_enteringTransitionTime*1000,false,m_opticsUsed,true);
 		}
 	}
 	
@@ -165,10 +167,8 @@ modded class DayZPlayerCameraOptics{
 	*	@brief Update the lens effect position and strength along with the PP mask
 	*/
 	protected void updateLens(float pDt){
-		
-		if(isHandHeldOptic()){
-			return;
-		}
+		if(!canShowLens()) return;
+		if(isHandHeldOptic()) return; 
 
 		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
 		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], m_lensOffset[0], m_lensOffsetVelX, 0.03, 1000, pDt);
@@ -255,8 +255,17 @@ modded class DayZPlayerCameraOptics{
 		
 	}
 	
+	
 	protected bool isOpticChange(bool state, DayZPlayerCamera launchedFrom){
 		return state && m_opticsUsed && (PlayerBase.Cast(m_pPlayer) && launchedFrom == PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
+	}
+	
+	protected bool canShowLens(){
+		return m_canShowLens;
+	}
+	
+	protected void setShowLens(bool showable){
+		m_canShowLens = showable;
 	}
 	
 	override bool canApplyDeadzone(){
@@ -286,6 +295,9 @@ modded class DayZPlayerCameraOptics{
 	override bool isSniperOptic(){
 		return m_opticsUsed.GetStepFOVCount() > 0;
 	}
-	
+
+	override int getRegisteredCameraID(){
+		return DayZPlayerCameras.DAYZCAMERA_OPTICS;
+	}
 		
 }

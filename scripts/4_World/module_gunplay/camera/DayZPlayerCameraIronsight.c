@@ -36,7 +36,9 @@ modded class DayZPlayerCameraIronsights{
 	protected float m_offsetXResetVel[1];
 	protected float m_offsetYResetVel[1];	
 	
-	
+	override int getRegisteredCameraID(){
+		return DayZPlayerCameras.DAYZCAMERA_IRONSIGHTS;
+	}
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
 		m_player = DayZPlayerImplement.Cast(pPlayer);

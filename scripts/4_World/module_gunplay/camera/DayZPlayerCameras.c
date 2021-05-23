@@ -1,5 +1,7 @@
 modded class DayZPlayerCameras{
 	
+	static const float DEFAULT_UNREGISTERED_TIME = 0.3;
+	
 	static const float TIME_TO_ADS = GunplayConstants.TIME_TO_ADS;
 	static const float TIME_FROM_ADS = GunplayConstants.TIME_FROM_ADS;
 	static const float TIME_3RD = GunplayConstants.TIME_3RD;
@@ -130,9 +132,9 @@ modded class DayZPlayerCameras{
 		if (m_TransitionTimes.Find(key, val)){
 			return val;
 		}else{
-			SLog.w("Transition time not registered: " + pFrom + " -> " + pTo + " . Using default 0.3", "DayZPlayerCameras::GetTransitionTime");
+			SLog.w("Transition time not registered: " + pFrom + " -> " + pTo + " . Using default " + DEFAULT_UNREGISTERED_TIME, "DayZPlayerCameras::GetTransitionTime");
 		}
-		return 0.3;
+		return DEFAULT_UNREGISTERED_TIME;
 	}
 	
 	override static float OnCameraChange(DayZPlayer pPlayer, int pFrom, int pTo){
