@@ -57,6 +57,12 @@ modded class DayZPlayerCameraOptics{
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
 		
+		//Handheld optics
+		if(isHandHeldOptic()){
+			targetFOV = m_opticsUsed.GetCurrentStepFOV();
+			return;
+		}
+		
 		// No optic
 		if (!m_opticsUsed){	
 			m_fFovAbsolute = targetFOV; //immediately
@@ -160,9 +166,13 @@ modded class DayZPlayerCameraOptics{
 	*/
 	protected void updateLens(float pDt){
 		
-		vector m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
-		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.03, 1000, pDt);
-		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.03, 1000, pDt);
+		if(isHandHeldOptic()){
+			return;
+		}
+
+		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
+		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], m_lensOffset[0], m_lensOffsetVelX, 0.03, 1000, pDt);
+		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], m_lensOffset[1], m_lensOffsetVelY, 0.03, 1000, pDt);
 		
 		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
 		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));

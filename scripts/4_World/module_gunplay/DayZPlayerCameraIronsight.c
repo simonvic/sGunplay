@@ -273,38 +273,6 @@ modded class DayZPlayerCameraIronsights{
 	
 	
 	
-	protected bool canApplyDeadzone(){
-		return !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon() && !(playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled());
-	}
-	
-	protected bool canApplyHandsOffset(){
-		return !playerIsFocusing();
-	}
-	
-	protected bool canZoom(){
-		return playerIsFocusing() && !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon();
-	}
-	
-	protected bool canFreelook(){
-		return m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon();
-	}
-	
-	protected bool canInspectWeapon(){
-		return m_player.isInspectingWeapon();
-	}
-	
-	protected bool isMagnifyingOptic(){
-		return false;
-	}
-	
-	protected bool isSniperOptic(){
-		return false;
-	}
-	
-	
-	
-	
-		
 	protected void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult){
 		computeFOVFocusValues(m_focusTargetFOV, m_focusSpeed);
 		m_fFovAbsolute = Math.SmoothCD(m_fFovAbsolute, m_focusTargetFOV, m_focusVel, m_focusSpeed, 1000, pDt);
@@ -344,9 +312,6 @@ modded class DayZPlayerCameraIronsights{
 		}
 	}
 	
-	protected bool playerIsFocusing(){
-		return m_pPlayer.IsHoldingBreath();
-	}
 	
 	float getCurrentDeadzoneX(){
 		return m_deadzoneX;
@@ -356,4 +321,40 @@ modded class DayZPlayerCameraIronsights{
 		return m_deadzoneY;
 	}
 
+	
+	protected bool playerIsFocusing(){
+		return m_pPlayer.IsHoldingBreath();
+	}
+	
+	protected bool canApplyDeadzone(){
+		return !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon() && !(playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled());
+	}
+	
+	protected bool canApplyHandsOffset(){
+		return !playerIsFocusing();
+	}
+	
+	protected bool canZoom(){
+		return playerIsFocusing() && !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon();
+	}
+	
+	protected bool canFreelook(){
+		return m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon();
+	}
+	
+	protected bool canInspectWeapon(){
+		return m_player.isInspectingWeapon();
+	}
+	
+	protected bool isMagnifyingOptic(){
+		return false;
+	}
+	
+	protected bool isSniperOptic(){
+		return false;
+	}
+	
+	protected bool isHandHeldOptic(){
+		return !m_weaponUsed && m_opticsUsed;
+	}
 }
