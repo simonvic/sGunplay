@@ -1,5 +1,7 @@
 modded class DayZPlayerImplementAiming{
 
+	protected Weapon_Base m_weapon;
+
 	protected vector m_handsOffset;
 	protected vector m_breathingSwayOffset;	
 	protected float m_inertiaXVel[1];
@@ -23,50 +25,65 @@ modded class DayZPlayerImplementAiming{
 	
 	void DayZPlayerImplementAiming(DayZPlayerImplement player){
 		m_sCrosshairRay = new SRaycast("0 0 0", "0 0 0", 0.01, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
+		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 	}
-	
+
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
 		pModel.m_fAimXHandsOffset *= 0.1;
 		pModel.m_fAimYHandsOffset *= 0.5;
-		Weapon_Base weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
-				
+		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 		
-		//@todo make modular modifier system
-		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){
-			applyModifierMovement(pModel, pDt);
-		}
-		
-		if(GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA){
-			applyWeaponInertia(pModel, computeInertiaMultiplier(weapon), pDt);
-		}		
-		
+		applyModifiers(pModel, pDt);
 		updateHandsOffset(pModel);
-		
 		
 		if(!GunplayConstants.CAMERA_FOLLOWS_BREATHING_SWAY){
 			updateBreathingSwayOffset(pModel);
 		}
 		
-		updateSCrosshair(weapon, pDt);
+		updateSCrosshair(m_weapon, pDt);
 		
 		return result;
 	}
 	
-	
+
+	protected void applyModifiers(SDayZPlayerAimingModel pModel, float pDt){
+		
+		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){
+			applyModifierMovement(pModel, pDt);
+		}
+		
+		if(GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA){
+			applyWeaponInertia(pModel, computeInertiaMultiplier(m_weapon), pDt);
+		}
+	}
+
 	/**
 	*	@brief Apply the movement modifier to the given Aiming Model 
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
 	*/
 	protected void applyModifierMovement(SDayZPlayerAimingModel pModel, float pDt){
-		float amplitudeX = 1.5;
-		float frequencyX = 1.5;
-		float amplitudeY = 2;
-		float frequencyY = 7;
-		float dynamicsStrength = 2;
-		float dynamicsSmoothTime = 0.3;
+		float amplitudeX;
+		float frequencyX;
+		float amplitudeY;
+		float frequencyY;
 		
-		float speed = m_PlayerDpi.m_MovementState.m_iMovement;
+		float speed = m_PlayerDpi.m_MovementState.m_iMovement;	
+				
+		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){		
+			amplitudeX += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[0];
+			frequencyX += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[1];
+			amplitudeY += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[2];
+			frequencyY += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[3];
+		}
+		
+		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_INJURY){
+			float injury = m_PlayerPb.m_InjuryHandler.GetInjuryAnimValue();
+			amplitudeX += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[0];
+			frequencyX += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[1];
+			amplitudeY += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[2];
+			frequencyY += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[3];
+		}
 		
 		if(speed > 0){
 			m_movementAcceleration += pDt;
@@ -74,24 +91,23 @@ modded class DayZPlayerImplementAiming{
 			m_movementAcceleration = 0;
 		}
 		
-		float injury = m_PlayerPb.m_InjuryHandler.GetInjuryAnimValue();
-		
-		amplitudeX *= speed;	
-		frequencyX *= speed;
-		amplitudeY *= speed;
-		frequencyY *= speed;
-		
-
 		//SLog.d(string.Format("Ax: %1 | Ay: %2 | Fx: %3 | Fy: %4",amplitudeX,amplitudeY,frequencyX,frequencyY));
-		float aimChangeX = amplitudeX * Math.Sin(frequencyX * m_movementAcceleration);
-		float aimChangeY = amplitudeY * Math.Sin(frequencyY * m_movementAcceleration);
+		float aimChangeX = GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_MULTIPLIER * amplitudeX * Math.Sin(frequencyX * m_movementAcceleration);
+		float aimChangeY = GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_MULTIPLIER * amplitudeY * Math.Sin(frequencyY * m_movementAcceleration);
 	
-		m_movementOffset = "0 0 0";
-		m_movementOffset[0] = Math.SmoothCD(m_movementOffset[0], -(dynamicsStrength * aimChangeX), m_movementVelYaw, dynamicsSmoothTime, 1000, pDt);
-		m_movementOffset[1] = Math.SmoothCD(m_movementOffset[1], -(dynamicsStrength * aimChangeY), m_movementVelPitch, dynamicsSmoothTime, 1000, pDt);
+		pModel.m_fAimXHandsOffset += Math.SmoothCD(
+			m_movementOffset[0],
+			-aimChangeX,
+			m_movementVelYaw,
+			GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_SMOOTHTIME, 1000,
+			pDt);
 		
-		pModel.m_fAimXHandsOffset += m_movementOffset[0];
-		pModel.m_fAimYHandsOffset += m_movementOffset[1];
+		pModel.m_fAimYHandsOffset += Math.SmoothCD(
+			m_movementOffset[1],
+			-aimChangeY,
+			m_movementVelPitch,
+			GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_SMOOTHTIME, 1000,
+			pDt);
 	}
 	
 	
@@ -143,6 +159,10 @@ modded class DayZPlayerImplementAiming{
 		getWeaponComponentsPosition(weapon, m_weaponBarrelPosition, m_weaponMuzzlePosition, m_weaponTargetPosition, GunplayConstants.CROSSHAIR_PRECISION);
 		m_sCrosshairRay.setBegPos(m_weaponMuzzlePosition);
 		m_sCrosshairRay.setEndPos(m_weaponTargetPosition);
+		/*
+		m_sCrosshairRay.addIgnoredObject(weapon);
+		m_sCrosshairRay.addIgnoredObject(m_PlayerPb);
+		*/
 		m_sCrosshairRay.launch();
 		
 		vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
