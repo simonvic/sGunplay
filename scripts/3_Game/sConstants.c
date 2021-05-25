@@ -81,3 +81,24 @@ class GunplayConstants{
 	static const float CROSSHAIR_PRECISION = 50;              // How much precise the crosshair placement will be. (metres)
 	static const float CROSSHAIR_SMOOTHNESS = 0.05;           // How much smooth the crosshair placement will be.
 }
+
+
+
+class RecoilConstants {
+	static const float HAND_RECOIL_MULTIPLIER = 1; //for easy debug tweaking of all recoils; use 1 for default recoil
+	static const float RELOAD_TIME_MULTIPLIER = 1; //time to repositionate weapon multiplier
+	
+	//----------------------------------------------------------
+	//				HIPFIRE
+	//----------------------------------------------------------
+	static const float HIPFIRE_H_RECOIL_MULTIPLIER = 15; // how much the horizontal recoil will increase when hip firing; use 1 to keep it the same as ADS
+	static const float HIPFIRE_V_RECOIL_MULTIPLIER = 2; // how much the vertical recoil will increase when hip firing; use 1 to keep it the same as ADS
+	static const float HIPFIRE_RELOAD_TIME_MULTIPLIER = 2; // how much the time to repositionate the gun will increase when hip firing; use 1 to keep it the same as ADS
+	
+	//----------------------------------------------------------
+	//				RECOIL CONTROL
+	//----------------------------------------------------------	
+	static const float RECOIL_CONTROL_COEFF = 0.5; // how much the specialty will impact the recoil during early stages of Strength progression. (see arctan function)
+	static const float RECOIL_INVENTORY_WEIGHT = 0.2 * 0.0001; // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
+	static const float RECOIL_SOFTSKILL_WEIGHT = 1; // how much the soft skills will affect final recoil calculation
+}

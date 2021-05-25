@@ -29,8 +29,8 @@ modded class DayZPlayerImplementAiming{
 
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
-		pModel.m_fAimXHandsOffset *= 0.1;
-		pModel.m_fAimYHandsOffset *= 0.5;
+		//pModel.m_fAimXCamOffset *= 0.1;
+		//pModel.m_fAimYCamOffset *= 0.5;
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 		
 		applyModifiers(pModel, pDt);

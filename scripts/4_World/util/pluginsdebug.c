@@ -143,3 +143,34 @@ class PluginSDebug extends PluginBase {
 	}
 
 }
+
+
+
+
+
+modded class Weapon_Base
+{
+    override void EEFired(int muzzleType, int mode, string ammoType)
+    {
+        super.EEFired(muzzleType, mode, ammoType);
+
+        Magazine magazine = GetMagazine(GetCurrentMuzzle());
+
+        if (GetGame().IsServer() || !GetGame().IsMultiplayer())
+            SetHealth(GetMaxHealth()); // prevent weapon from deteriorating
+
+        if (magazine)
+        {
+            if (GetGame().IsServer() || !GetGame().IsMultiplayer())
+                magazine.ServerSetAmmoMax(); // unlimited ammo
+            
+            if (GetGame().IsClient() || !GetGame().IsMultiplayer())
+                magazine.LocalSetAmmoMax(); // update client side UI
+        }
+    }
+
+    override bool IsJammed()
+    {
+        return false; // prevent jamming
+    }
+}
