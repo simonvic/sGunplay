@@ -12,6 +12,7 @@ modded class DayZPlayerCameraIronsights{
 	protected vector m_inspectAngles;
 	protected float m_inspectVelX[1];
 	protected float m_inspectVelY[1];
+	protected bool m_isInspectionDOFReset;
 	
 	protected vector m_freelookAngles;
 	protected float m_freelookVelX[1];
@@ -64,15 +65,8 @@ modded class DayZPlayerCameraIronsights{
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){	
 		
-		if( m_player.isInspectingWeapon() ) {
-			//PPEManager.requestDDOF(0.5);
-		}else{			
-			//PPEManager.resetDDOF();
-			
-		}
-		
-		updateAimAngle(m_fLeftRightAngle, m_CurrentCameraPitch, pDt);
-		
+		updateDOF();
+		updateAimAngle(m_fLeftRightAngle, m_CurrentCameraPitch, pDt);		
 		computeHandsOffset(m_handsOffsetX, m_handsOffsetY, pDt);
 		
 		////////////////////////////////////////////////
@@ -130,8 +124,21 @@ modded class DayZPlayerCameraIronsights{
 		updateFOVFocus(pDt, pOutResult);
 	}
 	
-	
-	
+	/**
+	*	@brief Update the Depth of Field
+	*/
+	protected void updateDOF(){
+		if( m_player.isInspectingWeapon() ) {
+			DoFPreset dof = new DoFPreset();
+			dof.initPreset(20, 0.5, 150, 0.1, 1, 1, 150);
+			PPEManager.requestWeaponDOF(dof);
+			m_isInspectionDOFReset = true;
+		}else if(m_isInspectionDOFReset){
+			setNonMagnifyingOpticDOF();
+			m_isInspectionDOFReset = false;
+		}
+	}
+
 	/**
 	*	@brief Update Yaw and Pitch angles (used by other vanilla code)
 	*	 @param yaw \p float - Yaw angle
@@ -276,6 +283,78 @@ modded class DayZPlayerCameraIronsights{
 			return 0.2;
 		}
 	}
+	
+	
+	
+	/**
+	*	@brief Set the depth of field based on current sight (optic or ironsight)
+	*/
+	protected void setNonMagnifyingOpticDOF(){
+		SLog.d("","setNonMagnifyingOpticDOF",1,true);
+		
+		// No weapon used (handeld optic?)
+		if (!m_weaponUsed){
+			SLog.d("no weapon","",2,true);
+			PPEManager.resetWeaponDOF();
+			return;
+		}
+		
+		DoFPreset dof = getCurrentSightDOF();
+		if(dof){
+			SLog.d("requesting dof","",2,true);
+			PPEManager.requestWeaponDOF(dof);
+		}
+		
+	}
+	
+	/**
+	*	@brief Get the current sight (weapon, optic or backup ironsigh) Depth of Field
+	*	 @return dof \p DoFPreset - Result Depth of field, null if not enabled or can't load it from cfg
+	*/
+	protected DoFPreset getCurrentSightDOF(){
+		DoFPreset dof = new DoFPreset();
+		temp_array = {};
+		if (m_opticsUsed && m_opticsUsed.GetOpticsDOF().Count() == 6){
+			SLog.d("getting optics dof","",2);
+			temp_array = m_opticsUsed.GetOpticsDOF();
+		}else{
+			SLog.d("getting weapon dof","",2);
+			temp_array = m_weaponUsed.GetWeaponDOF();
+		}
+		
+		if(temp_array.Count() == 6 && temp_array[0]){//correctly got the array from config and DOF is enabled (0 or 1)
+			SLog.d("init preset","",2);
+			//                   blur,         focus distance, focuse length, fLength near,  fDepthOffset,  fMinDistance, fMaxDistance
+			dof.initPreset(temp_array[4], temp_array[1], temp_array[2], temp_array[3], temp_array[5], 1, 100);
+			return dof;
+		}
+		return null; 
+	}
+	
+	/**
+	*	@brief Update the night vision based on the optics
+	*	 @param allowNightVisionGoggles \p bool - if night vision should be applied if no optic is used (ironsight)
+	*/
+	protected void updateNightVision(bool allowNightVisionGoggles){
+		// optics NV mode
+		SLog.d("updateNightVision","",1,false);
+		if (m_opticsUsed.IsNVOptic()){
+			if (m_opticsUsed.IsWorking()){
+				SetCameraNV(true);
+				SetNVPostprocess(NVTypes.NV_OPTICS_ON);
+			}else{
+				SetCameraNV(false);
+				SetNVPostprocess(NVTypes.NV_OPTICS_OFF);
+			}
+		}else{
+			if (IsCameraNV() && allowNightVisionGoggles){
+				SetNVPostprocess(NVTypes.NV_GOGGLES);
+			}else{
+				SetNVPostprocess(NVTypes.NONE);
+			}
+		}
+	}
+	
 	
 	
 	float getCurrentDeadzoneX(){

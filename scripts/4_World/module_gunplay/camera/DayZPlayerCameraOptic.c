@@ -124,44 +124,6 @@ modded class DayZPlayerCameraOptics{
 		}
 	}
 	
-	protected void updateNightVision(bool allowNightVisionGoggles){
-		// optics NV mode
-		SLog.d("updateNightVision","",1,false);
-		if (m_opticsUsed.IsNVOptic()){
-			if (m_opticsUsed.IsWorking()){
-				SetCameraNV(true);
-				SetNVPostprocess(NVTypes.NV_OPTICS_ON);
-			}else{
-				SetCameraNV(false);
-				SetNVPostprocess(NVTypes.NV_OPTICS_OFF);
-			}
-		}else{
-			if (IsCameraNV() && allowNightVisionGoggles){
-				SetNVPostprocess(NVTypes.NV_GOGGLES);
-			}else{
-				SetNVPostprocess(NVTypes.NONE);
-			}
-		}
-	}
-	
-	protected void setNonMagnifyingOpticPPE(){
-		SLog.d("setNonMagnifyingOpticPPE","",1,false);
-		
-		if (!m_weaponUsed){
-			PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
-			return;
-		}
-		
-		if (m_opticsUsed.GetOpticsDOF().Count() == 6){
-			temp_array = m_opticsUsed.GetOpticsDOF();
-		}else{
-			temp_array = m_weaponUsed.GetWeaponDOF(); //TODO should some optics have own DOF settings (different eye point)?
-		}
-		
-		if (temp_array.Count() == 6){
-			PPEffects.OverrideDOF(temp_array[0],temp_array[1],temp_array[2],temp_array[3],temp_array[4],temp_array[5]);
-		}
-	}
 	
 	/**
 	*	@brief Update the lens effect position and strength along with the PP mask
@@ -170,9 +132,10 @@ modded class DayZPlayerCameraOptics{
 		if(!canShowLens()) return;
 		if(isHandHeldOptic()) return; 
 		//@todo find proper solution (changing crosshiar precision fucks up eveyrthing)
-		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
-		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], m_lensOffset[0], m_lensOffsetVelX, 0.03, 1000, pDt);
-		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], m_lensOffset[1], m_lensOffsetVelY, 0.03, 1000, pDt);
+		vector offset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
+		m_lensOffset = offset;
+		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.2, 1000, pDt);
+		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.2, 1000, pDt);
 		
 		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
 		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
@@ -221,18 +184,8 @@ modded class DayZPlayerCameraOptics{
 		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 	
-	protected void updateBlur(){
-		SLog.d("updateBlur","",1,false);
-		//optics blur
-		if (m_opticsUsed.GetOpticsPPBlur() != 0){
-			PPEffects.SetBlurOptics(m_opticsUsed.GetOpticsPPBlur());
-		}else{
-			PPEffects.SetBlurOptics(0);
-		}
-	}
-	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){
-		SLog.d("SetCameraPP");
+		SLog.d("SetCameraPP","",0,true);
 		if (!isOpticChange(state, launchedFrom)){
 			resetPPE();
 			return;
@@ -241,11 +194,13 @@ modded class DayZPlayerCameraOptics{
 		
 		// 1x scopes only
 		if (!isMagnifyingOptic() && !NVGoggles.Cast(m_opticsUsed)){
-			setNonMagnifyingOpticPPE();
+			setNonMagnifyingOpticDOF();
 			updateNightVision(true);
 		}else {//magnifying scopes
 			
-			updateBlur();
+			//lens is updated everyframe
+			//blur is disabled
+			//PPEManager.resetWeaponDOF();
 			updateNightVision(false);
 		}
 		
