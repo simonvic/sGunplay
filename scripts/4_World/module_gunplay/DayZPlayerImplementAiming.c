@@ -32,10 +32,16 @@ modded class DayZPlayerImplementAiming{
 		//pModel.m_fAimXCamOffset *= 0.1;
 		//pModel.m_fAimYCamOffset *= 0.5;
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
-		
-		applyModifiers(pModel, pDt);
-		updateHandsOffset(pModel);
-		updateSCrosshair(m_weapon, pDt);
+		/*
+			@todo report bug
+			process aim filters keeps getting called even after holstered weapon
+			to activae quickly releas right mouse button, holster weapon, and right mouse button again
+		*/
+		if(m_weapon){ 
+			applyModifiers(pModel, pDt);
+			updateHandsOffset(pModel);
+			updateSCrosshair(m_weapon, pDt);
+		}
 		
 		return result;
 	}
