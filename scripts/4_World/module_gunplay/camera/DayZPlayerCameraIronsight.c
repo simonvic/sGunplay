@@ -134,7 +134,8 @@ modded class DayZPlayerCameraIronsights{
 			PPEManager.requestWeaponDOF(dof);
 			m_isInspectionDOFReset = true;
 		}else if(m_isInspectionDOFReset){
-			setNonMagnifyingOpticDOF();
+			//setNonMagnifyingOpticDOF();
+			PPEManager.resetDDOF(true);
 			m_isInspectionDOFReset = false;
 		}
 	}

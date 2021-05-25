@@ -91,14 +91,18 @@ class RecoilConstants {
 	//----------------------------------------------------------
 	//				HIPFIRE
 	//----------------------------------------------------------
-	static const float HIPFIRE_H_RECOIL_MULTIPLIER = 15; // how much the horizontal recoil will increase when hip firing; use 1 to keep it the same as ADS
+	static const float HIPFIRE_H_RECOIL_MULTIPLIER = 5; // how much the horizontal recoil will increase when hip firing; use 1 to keep it the same as ADS
 	static const float HIPFIRE_V_RECOIL_MULTIPLIER = 2; // how much the vertical recoil will increase when hip firing; use 1 to keep it the same as ADS
 	static const float HIPFIRE_RELOAD_TIME_MULTIPLIER = 2; // how much the time to repositionate the gun will increase when hip firing; use 1 to keep it the same as ADS
 	
 	//----------------------------------------------------------
 	//				RECOIL CONTROL
 	//----------------------------------------------------------	
+	static const bool CONTROL_USE_PLAYER_INVENTORY_WEIGHT = true; // the player inventory weight will contribute to the recoil control
+	static const bool CONTROL_USE_STRENGTH = true; // the player inventory weight will contribute to the recoil control
+	
 	static const float RECOIL_CONTROL_COEFF = 0.5; // how much the specialty will impact the recoil during early stages of Strength progression. (see arctan function)
 	static const float RECOIL_INVENTORY_WEIGHT = 0.2 * 0.0001; // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
 	static const float RECOIL_SOFTSKILL_WEIGHT = 1; // how much the soft skills will affect final recoil calculation
+	
 }

@@ -17,20 +17,17 @@ modded class RecoilBase{
 	* @brief Compute the ability of the player to control the weapon recoil based on multiple variables
 	* 	@return \p float - value between -1 (worst control) to +1 (best control)
 	*/
-	protected float computeRecoilControl(){ //to-do move this to PlayerBase?
-		SLog.d("","computeRecoilControl",1, m_DebugMode );
+	protected float computeRecoilControl(){
 		float control = 0;
 		// vanilla softskills
-		if(m_vanillaSoftSkillsAffectsRecoil){
+		if(RecoilConstants.CONTROL_USE_STRENGTH){
 			control += m_Player.GetSoftSkillsManager().GetSpecialtyLevel() * RecoilConstants.RECOIL_SOFTSKILL_WEIGHT;
-			SLog.d("SoftSkills = "+m_Player.GetSoftSkillsManager().GetSpecialtyLevel() + " * "+RecoilConstants.RECOIL_SOFTSKILL_WEIGHT, "computeRecoilControl",2,m_DebugMode);
 		}
 		// player inventory weight
-		if(m_inventoryAffectsRecoil){
+		if(RecoilConstants.CONTROL_USE_PLAYER_INVENTORY_WEIGHT){
 			control -= m_Player.GetWeight() * RecoilConstants.RECOIL_INVENTORY_WEIGHT;
-			SLog.d("player weight = "+m_Player.GetWeight() + " * "+RecoilConstants.RECOIL_INVENTORY_WEIGHT, "computeRecoilControl",2,m_DebugMode);
 		}
-		SLog.d("recoil control (clamp -1,1) = "+control, "computeRecoilControl",2,m_DebugMode);
+
 		return Math.Clamp(control,-1,1); //to-do change this to the custom soft skills when done: weapon dexterity, strength etc
 	}
 	
@@ -61,15 +58,17 @@ modded class RecoilBase{
 			      \__/
 			                         Call me Giotto please
 		*/
+		
 		float stepValue = -1;
 		float count = 0;
 		while(stepValue <= 1.5){
-			//float lerpValue = SMath.DampedSin(-0.05, 2.5, 2.7, 5.8, 1, stepValue); old - too bouncy
-			float lerpValue = SMath.DampedSin(0.2, 0.8, 0.9, 1.4, 1, stepValue);
+			//float lerpValue = SMath.DampedSin(-0.05, 2.5, 2.7, 5.8, 1, stepValue); //old - too bouncy
+			float lerpValue = SMath.DampedSin(0.2, 0.8, 0.9, 5, 1, stepValue);
 			m_HandsCurvePoints.Insert(vector.Lerp(newPoint,"0 0 0", lerpValue));
 			stepValue += 0.5;
 			count++;
 		}
+		
 	}
 	
 	override void PostInit(Weapon_Base weapon){
@@ -92,9 +91,6 @@ modded class RecoilBase{
 	
 	// called externally per update, not to be overriden in children
 	override void Update( SDayZPlayerAimingModel pModel, out float axis_mouse_x, out float axis_mouse_y, out float axis_hands_x, out float axis_hands_y, float pDt ){
-		if( m_DeleteRequested ){
-			//SLog.d("destroying");
-		}
 		super.Update(pModel, axis_mouse_x, axis_mouse_y, axis_hands_x, axis_hands_y, pDt);
 	}
 	
@@ -117,21 +113,35 @@ modded class RecoilBase{
 			pRecResultY = delta_mouse_offset_y;
 			
 		}	
-		SLog.d(pRecResultX,"before");
 		applyRecoilControl(pRecResultX, m_recoilControl);
-		SLog.d(pRecResultX, " after");
 		applyRecoilControl(pRecResultY, m_recoilControl);
 	}
 	
 	override void ApplyHandsOffset(float pDt, out float pRecResultX, out float pRecResultY){
-		super.ApplyHandsOffset(pDt, pRecResultX, pRecResultY);
+		float relative_time = m_TimeNormalized / Math.Clamp(m_HandsOffsetRelativeTime, 0.001,5);
+		vector pos_on_curve = GetPositionOnCurve(m_HandsCurvePoints, relative_time);
+		pRecResultX = pos_on_curve[0];
+		pRecResultY = pos_on_curve[1];
 		applyRecoilControl(pRecResultX, m_recoilControl);
 		applyRecoilControl(pRecResultY, m_recoilControl);
 	}
 	
 	override void ApplyCamOffset(SDayZPlayerAimingModel pModel){
-        super.ApplyCamOffset(pModel);
-		applyRecoilControl(pModel.m_fCamPosOffsetZ, m_recoilControl);
+        float time_rel = Math.Clamp(Math.InverseLerp(0, m_CamOffsetRelativeTime, m_TimeNormalized), 0, 1);
+        float offset = 0;
+        float time = Easing.EaseOutBack(time_rel);
+		
+        if(time == 1){
+            offset = 0;
+        }else{
+            offset = Math.Lerp(m_CamOffsetDistance,0,time);	
+        }
+		
+		//=====Recoil control
+        //pModel.m_fCamPosOffsetZ = Math.Lerp(offset,0,m_recoilControl); // linear
+		//pModel.m_fCamPosOffsetZ = SMath.Gauss(offset,-1,RecoilConstants.RECOIL_CONTROL_COEFF,m_recoilControl); // gauss
+		applyRecoilControl(offset, m_recoilControl);
+		pModel.m_fCamPosOffsetZ = offset;
     }
 	
 	override vector GetPositionOnCurve(array<vector> points, float time){
