@@ -16,7 +16,6 @@ modded class DayZPlayerImplementAiming{
 	
 	protected vector m_handsOffset;
 	
-	protected vector m_breathingSwayOffset;	
 	protected float m_inertiaXVel[1];
 	protected float m_inertiaYVel[1];
 	
@@ -39,12 +38,12 @@ modded class DayZPlayerImplementAiming{
 	}
 	
 	protected void registerFilters(){
-		registerFilter(new AimingModelMovementFilter(m_PlayerPb, m_weapon));
+		registerFilter(new AimingModelFilterMovement(m_PlayerPb, m_weapon));
 		//registerFilter(new AimingModelInjuryFilter(m_PlayerPb, m_weapon)); //added as a child filter to the movement filter
 	}
 	
 	protected void registerFilter(AimingModelFilterBase filter){
-		if(!filter) return;
+		if(!filter || !m_filters) return;
 		m_filters.Insert(filter);
 	}
 	
