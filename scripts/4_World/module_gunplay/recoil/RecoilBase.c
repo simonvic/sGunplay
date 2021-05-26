@@ -7,6 +7,10 @@ modded class RecoilBase{
 	protected float m_handsMaxVerticalRecoil;
 	protected int m_handsRecoilsteps;
 	protected float m_relativeReloadTime;
+	
+	protected vector m_currentMouseOffset;
+	protected vector m_currentHandsOffset;
+	protected vector m_currentCamOffset;
 		
 	void RecoilBase(Weapon_Base weapon){
 		m_recoilControl = computeRecoilControl();
@@ -20,12 +24,12 @@ modded class RecoilBase{
 	protected float computeRecoilControl(){
 		float control = 0;
 		// vanilla softskills
-		if(RecoilConstants.CONTROL_USE_STRENGTH){
-			control += m_Player.GetSoftSkillsManager().GetSpecialtyLevel() * RecoilConstants.RECOIL_SOFTSKILL_WEIGHT;
+		if(GunplayConstants.RECOIL_CONTROL_USE_STRENGTH){
+			control += m_Player.GetSoftSkillsManager().GetSpecialtyLevel() * GunplayConstants.RECOIL_CONTROL_STRENGTH_WEIGHT;
 		}
 		// player inventory weight
-		if(RecoilConstants.CONTROL_USE_PLAYER_INVENTORY_WEIGHT){
-			control -= m_Player.GetWeight() * RecoilConstants.RECOIL_INVENTORY_WEIGHT;
+		if(GunplayConstants.RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT){
+			control -= m_Player.GetWeight() * GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT;
 		}
 
 		return Math.Clamp(control,-1,1); //to-do change this to the custom soft skills when done: weapon dexterity, strength etc
@@ -39,13 +43,13 @@ modded class RecoilBase{
 		vector lastPoint;
 		
 		for (int i=0; i<m_handsRecoilsteps; i++){
-			newPoint[0] = Math.RandomFloatInclusive(m_handsMinHorizontalRecoil,m_handsMaxHorizontalRecoil) * RecoilConstants.HAND_RECOIL_MULTIPLIER;
-			newPoint[1] = Math.RandomFloatInclusive(m_handsMinVerticalRecoil,m_handsMaxVerticalRecoil) * RecoilConstants.HAND_RECOIL_MULTIPLIER;
+			newPoint[0] = Math.RandomFloatInclusive(m_handsMinHorizontalRecoil,m_handsMaxHorizontalRecoil) * GunplayConstants.RECOIL_HAND_MULTIPLIER;
+			newPoint[1] = Math.RandomFloatInclusive(m_handsMinVerticalRecoil,m_handsMaxVerticalRecoil) * GunplayConstants.RECOIL_HAND_MULTIPLIER;
 			newPoint[2] = 0;
 			
-			if( !m_Player.IsInOptics() && !m_Player.IsInIronsights()){
-				newPoint[0] = newPoint[0] * RecoilConstants.HIPFIRE_H_RECOIL_MULTIPLIER;
-				newPoint[1] = newPoint[1] * RecoilConstants.HIPFIRE_V_RECOIL_MULTIPLIER;
+			if( !isADS()){
+				newPoint[0] = newPoint[0] * GunplayConstants.RECOIL_HIPFIRE_H_MULTIPLIER;
+				newPoint[1] = newPoint[1] * GunplayConstants.RECOIL_HIPFIRE_V_MULTIPLIER;
 			}
 			m_HandsCurvePoints.Insert(newPoint);
 		}
@@ -78,9 +82,9 @@ modded class RecoilBase{
 	}
 	
 	protected void computeReloadTime(){
-		m_ReloadTime *= m_relativeReloadTime * RecoilConstants.RELOAD_TIME_MULTIPLIER;
+		m_ReloadTime *= m_relativeReloadTime * GunplayConstants.RECOIL_RELOAD_TIME_MULTIPLIER;
 		if(!isADS()) {
-			m_ReloadTime *= RecoilConstants.HIPFIRE_RELOAD_TIME_MULTIPLIER;
+			m_ReloadTime *= GunplayConstants.RECOIL_HIPFIRE_RELOAD_TIME_MULTIPLIER;
 		}
 	}
 	
@@ -115,6 +119,9 @@ modded class RecoilBase{
 		}	
 		applyRecoilControl(pRecResultX, m_recoilControl);
 		applyRecoilControl(pRecResultY, m_recoilControl);
+		
+		m_currentMouseOffset[0] = pRecResultX;
+		m_currentMouseOffset[1] = pRecResultY;
 	}
 	
 	override void ApplyHandsOffset(float pDt, out float pRecResultX, out float pRecResultY){
@@ -124,6 +131,8 @@ modded class RecoilBase{
 		pRecResultY = pos_on_curve[1];
 		applyRecoilControl(pRecResultX, m_recoilControl);
 		applyRecoilControl(pRecResultY, m_recoilControl);
+		m_currentHandsOffset[0] = pRecResultX;
+		m_currentHandsOffset[1] = pRecResultY;
 	}
 	
 	override void ApplyCamOffset(SDayZPlayerAimingModel pModel){
@@ -142,6 +151,7 @@ modded class RecoilBase{
 		//pModel.m_fCamPosOffsetZ = SMath.Gauss(offset,-1,RecoilConstants.RECOIL_CONTROL_COEFF,m_recoilControl); // gauss
 		applyRecoilControl(offset, m_recoilControl);
 		pModel.m_fCamPosOffsetZ = offset;
+		m_currentCamOffset[2] = offset;
     }
 	
 	override vector GetPositionOnCurve(array<vector> points, float time){
@@ -161,7 +171,7 @@ modded class RecoilBase{
 	* 	@param offsetToControl \p float - value to be modified
 	* 
 	* 
-	* 	Arctangent: (early "Strength" progression (~ -0.5 , ~ 0.5) will be more visible based on the RecoilConstants.RECOIL_CONTROL_COEFF)
+	* 	Arctangent: (early "Strength" progression (~ -0.5 , ~ 0.5) will be more visible based on the GunplayConstants.RECOIL_CONTROL_COEFF)
 	*	-1 ---___
 	*	         \
 	*	 0        \
@@ -169,6 +179,18 @@ modded class RecoilBase{
 	*	 1             ---
 	*/
 	protected void applyRecoilControl(out float offsetToControl, float recoilControl){
-		offsetToControl = SMath.Arctan(-offsetToControl, RecoilConstants.RECOIL_CONTROL_COEFF, 0, offsetToControl, recoilControl);
+		offsetToControl = SMath.Arctan(-offsetToControl, GunplayConstants.RECOIL_CONTROL_COEFF, 0, offsetToControl, recoilControl);
+	}
+	
+	vector getCurrentMouseOffset(){
+		return m_currentMouseOffset;
+	}
+
+	vector getCurrentCamOffset(){
+		return m_currentCamOffset;
+	}
+
+	vector getCurrentHandsOffset(){
+		return m_currentHandsOffset;
 	}
 }

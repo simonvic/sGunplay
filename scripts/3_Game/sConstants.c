@@ -55,10 +55,12 @@ class GunplayConstants{
 		15.0, 5.0,  //yaw strength, yaw frequency
 		2.0, 0.0    //pitch strength, pitch frequency
 	};
+	
+	static const float AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[] = {1, 1}; //how much the recoil will contribute to the hands offset calculation (therefore camera offset and more). Use -1 to nullify
 		
 	//////////////////
 	// INERTIA
-	  
+	
 	static const float INERTIA_SMOOTHNESS = 0.3;                       // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
 	static const float INERTIA_MULTIPLIER_BASE = 2;                    // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3 * 0.0001;  // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)
@@ -80,29 +82,26 @@ class GunplayConstants{
 	// DYNAMIC CROSSHAIR
 	static const float CROSSHAIR_PRECISION = 50;              // How much precise the crosshair placement will be. (metres)
 	static const float CROSSHAIR_SMOOTHNESS = 0.05;           // How much smooth the crosshair placement will be.
-}
 
 
-
-class RecoilConstants {
-	static const float HAND_RECOIL_MULTIPLIER = 1; //for easy debug tweaking of all recoils; use 1 for default recoil
-	static const float RELOAD_TIME_MULTIPLIER = 1; //time to repositionate weapon multiplier
+	/////////////////////////////////////////////////////////////
+	// RECOIL
+	static const float RECOIL_HAND_MULTIPLIER = 1; //for easy debug tweaking of all recoils; use 1 for default recoil
+	static const float RECOIL_RELOAD_TIME_MULTIPLIER = 1; //time to repositionate weapon multiplier
 	
-	//----------------------------------------------------------
-	//				HIPFIRE
-	//----------------------------------------------------------
-	static const float HIPFIRE_H_RECOIL_MULTIPLIER = 5; // how much the horizontal recoil will increase when hip firing; use 1 to keep it the same as ADS
-	static const float HIPFIRE_V_RECOIL_MULTIPLIER = 2; // how much the vertical recoil will increase when hip firing; use 1 to keep it the same as ADS
-	static const float HIPFIRE_RELOAD_TIME_MULTIPLIER = 2; // how much the time to repositionate the gun will increase when hip firing; use 1 to keep it the same as ADS
+	/////////////////////////////////////////////////////////////
+	// HIPFIRE
+	static const float RECOIL_HIPFIRE_H_MULTIPLIER = 5; // how much the horizontal recoil will increase when hip firing; use 1 to keep it the same as ADS
+	static const float RECOIL_HIPFIRE_V_MULTIPLIER = 2; // how much the vertical recoil will increase when hip firing; use 1 to keep it the same as ADS
+	static const float RECOIL_HIPFIRE_RELOAD_TIME_MULTIPLIER = 2; // how much the time to repositionate the gun will increase when hip firing; use 1 to keep it the same as ADS
 	
-	//----------------------------------------------------------
-	//				RECOIL CONTROL
-	//----------------------------------------------------------	
-	static const bool CONTROL_USE_PLAYER_INVENTORY_WEIGHT = true; // the player inventory weight will contribute to the recoil control
-	static const bool CONTROL_USE_STRENGTH = true; // the player inventory weight will contribute to the recoil control
+	/////////////////////////////////////////////////////////////
+	// RECOIL CONTROL
+	static const bool RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT = true; // the player inventory weight will contribute to the recoil control
+	static const bool RECOIL_CONTROL_USE_STRENGTH = true; // the player inventory weight will contribute to the recoil control
 	
 	static const float RECOIL_CONTROL_COEFF = 0.5; // how much the specialty will impact the recoil during early stages of Strength progression. (see arctan function)
-	static const float RECOIL_INVENTORY_WEIGHT = 0.2 * 0.0001; // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
-	static const float RECOIL_SOFTSKILL_WEIGHT = 1; // how much the soft skills will affect final recoil calculation
+	static const float RECOIL_CONTROL_INVENTORY_WEIGHT = 0.2 * 0.0001; // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
+	static const float RECOIL_CONTROL_STRENGTH_WEIGHT = 1; // how much the strength soft skills will affect final recoil calculation
 	
 }

@@ -29,12 +29,9 @@ modded class DayZPlayerImplementAiming{
 
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
-		//pModel.m_fAimXCamOffset *= 0.1;
-		//pModel.m_fAimYCamOffset *= 0.5;
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 		/*
-			@todo report bug
-			process aim filters keeps getting called even after holstered weapon
+			@todo process aim filters keeps getting called even after holstered weapon
 			to activae quickly releas right mouse button, holster weapon, and right mouse button again
 		*/
 		if(m_weapon){ 
@@ -70,6 +67,8 @@ modded class DayZPlayerImplementAiming{
 		
 		float speed;
 				
+		//@todo make a proper modifiers system
+		
 		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){		
 			speed = m_PlayerDpi.m_MovementState.m_iMovement;
 			if(m_PlayerDpi.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
@@ -143,6 +142,10 @@ modded class DayZPlayerImplementAiming{
 	protected void updateHandsOffset(SDayZPlayerAimingModel pModel){
 		m_handsOffset[0] = pModel.m_fAimXHandsOffset;
 		m_handsOffset[1] = pModel.m_fAimYHandsOffset;
+		if(m_CurrentRecoil){
+			m_handsOffset[0] = m_handsOffset[0] + m_CurrentRecoil.getCurrentHandsOffset()[0] * GunplayConstants.AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[0];
+			m_handsOffset[1] = m_handsOffset[1] + m_CurrentRecoil.getCurrentHandsOffset()[1] * GunplayConstants.AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[1];
+		}
 	}
 	
 	
