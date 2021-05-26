@@ -40,27 +40,34 @@ class GunplayConstants{
 	static const bool CAMERA_FOLLOWS_BREATHING_SWAY = false;  // Camera will move along the breathing sway
 		
 	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;                       // Use weapon inertia in the player aiming model
-	static const bool AIMING_MODEL_USE_MODIFIER_MOVEMENT = true;                    // Use the player movement in the player aiming model
-	static const bool AIMING_MODEL_USE_MODIFIER_INJURY = true;                      // Use the player injure state in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;                    // Use the player movement in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;                      // Use the player injure state in the player aiming model
 	
-	static const float AIMING_MODEL_MODIFIER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
-	static const float AIMING_MODEL_MODIFIER_MOVEMENT_SMOOTHTIME = 0.3;  // Smooth time of the movement modifier
-	static const float AIMING_MODEL_MODIFIER_MOVEMENT[] = {
+	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
+	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.3;  // Smooth time of the movement modifier
+	static const float AIMING_MODEL_FILTER_MOVEMENT[] = {
 		1.0, 1.0,  //yaw strength, yaw frequency
 		1.5, 7.0   //pitch strength, pitch frequency
 	};
 	
-	static const float AIMING_MODEL_MODIFIER_INJURY_MULTIPLIER = 1;    // Overall strength of the injury modifier
-	static const float AIMING_MODEL_MODIFIER_INJURY[] = {
+	static const float AIMING_MODEL_FILTER_INJURY_MULTIPLIER = 1;    // Overall strength of the injury modifier
+	static const float AIMING_MODEL_FILTER_INJURY[] = {
 		15.0, 5.0,  //yaw strength, yaw frequency
 		2.0, 0.0    //pitch strength, pitch frequency
 	};
 	
 	static const float AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[] = {0, 0}; //{X, Y} how much the recoil will contribute to the hands offset calculation (therefore camera offset and more). Use -1 to nullify
+	
+	/////////////////////////////////////////////////////////////
+	// SWAY
+	static const float SWAY_AMPLITUDE[] = {0.2, 0.4};    //{X, Y} amplitude of sway with no modifiers
+	static const float SWAY_FREQUENCY[] = {1.5, 1.8};    //{X, Y} frequency of sway with no modifiers
+	static const float SWAY_MULTIPLEIR_ERECT = 1;        // Multiplier to be applied when the player is ERECT
+	static const float SWAY_MULTIPLEIR_CROUCHED = 0.5;   // Multiplier to be applied when the player is CROUCHED
+	static const float SWAY_MULTIPLEIR_PRONE = 0.25;     // Multiplier to be applied when the player is PRONE
 		
 	//////////////////
 	// INERTIA
-	
 	static const float INERTIA_SMOOTHNESS = 0.3;                       // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
 	static const float INERTIA_MULTIPLIER_BASE = 2;                    // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3 * 0.0001;  // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)

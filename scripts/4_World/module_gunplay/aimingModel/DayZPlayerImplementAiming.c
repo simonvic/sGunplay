@@ -1,8 +1,21 @@
+modded class PlayerSwayConstants{
+	static const float SWAY_MULTIPLIER_DEFAULT = 1.0;
+	static const float SWAY_MULTIPLIER_STABLE = 0.5;
+	static const float SWAY_MULTIPLIER_EXHAUSTED = 2;
+	static const float SWAY_TIME_IN = 1.5;
+	static const float SWAY_TIME_STABLE = 3.0;
+	static const float SWAY_TIME_EXHAUSTED = 1.5;
+	static const float SWAY_TIME_OUT = 0.5;
+}
+
+typedef array<ref AimingModelFilterBase> TAimingModelFiltersList;
+
 modded class DayZPlayerImplementAiming{
-
+	
 	protected Weapon_Base m_weapon;
-
+	
 	protected vector m_handsOffset;
+	
 	protected vector m_breathingSwayOffset;	
 	protected float m_inertiaXVel[1];
 	protected float m_inertiaYVel[1];
@@ -15,104 +28,63 @@ modded class DayZPlayerImplementAiming{
 	protected vector m_weaponMuzzlePosition;
 	protected vector m_weaponTargetPosition;
 	
-	
-	protected vector m_movementOffset;
-	protected float m_movementAcceleration;
-	protected float m_movementVelYaw[1];
-	protected float m_movementVelPitch[1];
-	
 	protected ref SRaycast m_sCrosshairRay;
+	
+	protected ref TAimingModelFiltersList m_filters;
 	
 	void DayZPlayerImplementAiming(DayZPlayerImplement player){
 		m_sCrosshairRay = new SRaycast("0 0 0", "0 0 0", 0.01, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
+		m_filters = new TAimingModelFiltersList();
+		registerFilters();	
 	}
-
+	
+	protected void registerFilters(){
+		registerFilter(new AimingModelMovementFilter(m_PlayerPb, m_weapon));
+		//registerFilter(new AimingModelInjuryFilter(m_PlayerPb, m_weapon)); //added as a child filter to the movement filter
+	}
+	
+	protected void registerFilter(AimingModelFilterBase filter){
+		if(!filter) return;
+		m_filters.Insert(filter);
+	}
+	
+	
+	
+	
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
+			
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
-		/*
-			@todo process aim filters keeps getting called even after holstered weapon
-			to activae quickly releas right mouse button, holster weapon, and right mouse button again
+		/* @todo process aim filters keeps getting called even after holstered weapon
+			to activae quickly releas right mouse button, holster weapon, and right mouse button again 
 		*/
-		if(m_weapon){ 
-			applyModifiers(pModel, pDt);
-			updateHandsOffset(pModel);
-			updateSCrosshair(m_weapon, pDt);
+		if(!m_weapon) return result;
+		
+		foreach(AimingModelFilterBase filter : m_filters){
+			filter.onUpdate(pDt, pModel, stance_index);
 		}
+		updateHandsOffset(pModel);
+		updateSCrosshair(m_weapon, pDt);
 		
 		return result;
 	}
 	
-
-	protected void applyModifiers(SDayZPlayerAimingModel pModel, float pDt){
-		
-		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){
-			applyModifierMovement(pModel, pDt);
-		}
-		
-		if(GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA){
-			applyWeaponInertia(pModel, computeInertiaMultiplier(m_weapon), pDt);
-		}
+	override void ApplyHorizontalNoise(out float x_axis, out float y_axis, float smooth_time,float max_velocity_low, float max_velocity_high, float velocity_modifier,  float max_distance, float weight, float pDt){
+		return;
 	}
-
-	/**
-	*	@brief Apply the movement modifier to the given Aiming Model 
-	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
-	*/
-	protected void applyModifierMovement(SDayZPlayerAimingModel pModel, float pDt){
-		float amplitudeX;
-		float frequencyX;
-		float amplitudeY;
-		float frequencyY;
-		
-		float speed;
+	
+	override void ApplyBreathingPattern(out float x_axis, out float y_axis, float pAmplitude, float pTotalTime, float weight){		
+		float frequency[] = {0.2, 0.4};
+		float amplitude[] = {1.5, 1.8};
+		float multiplier = Math.Lerp(PlayerSwayConstants.SWAY_MULTIPLIER_DEFAULT,0,m_LastSwayMultiplier);
 				
-		//@todo make a proper modifiers system
+		x_axis = Math.Sin(pTotalTime * frequency[0]) * amplitude[0] * weight;
+		y_axis = Math.Sin(pTotalTime * frequency[1]) * amplitude[1] * weight;
 		
-		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_MOVEMENT){		
-			speed = m_PlayerDpi.m_MovementState.m_iMovement;
-			if(m_PlayerDpi.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
-				speed /= 1.5;
-			}
-			amplitudeX += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[0];
-			frequencyX += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[1];
-			amplitudeY += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[2];
-			frequencyY += speed * GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT[3];
-		}
-		
-		if(GunplayConstants.AIMING_MODEL_USE_MODIFIER_INJURY){
-			float injury = m_PlayerPb.m_InjuryHandler.GetInjuryAnimValue();
-			amplitudeX += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[0];
-			frequencyX += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[1];
-			amplitudeY += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[2];
-			frequencyY += injury * GunplayConstants.AIMING_MODEL_MODIFIER_INJURY[3];
-		}
-		
-		if(speed > 0){
-			m_movementAcceleration += pDt;
-		}else{
-			m_movementAcceleration = 0;
-		}
-		
-		//SLog.d(string.Format("Ax: %1 | Ay: %2 | Fx: %3 | Fy: %4",amplitudeX,amplitudeY,frequencyX,frequencyY));
-		m_movementOffset[0] = GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_MULTIPLIER * amplitudeX * Math.Sin(frequencyX * m_movementAcceleration);
-		m_movementOffset[1] = GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_MULTIPLIER * amplitudeY * Math.Sin(frequencyY * m_movementAcceleration);
-	
-		pModel.m_fAimXHandsOffset += Math.SmoothCD(
-			0,
-			-m_movementOffset[0],
-			m_movementVelYaw,
-			GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_SMOOTHTIME, 1000,
-			pDt);
-		
-		pModel.m_fAimYHandsOffset += Math.SmoothCD(
-			0,
-			-m_movementOffset[1],
-			m_movementVelPitch,
-			GunplayConstants.AIMING_MODEL_MODIFIER_MOVEMENT_SMOOTHTIME, 1000,
-			pDt);
+		x_axis += m_BreathingXAxisOffset * multiplier;
+		y_axis += m_BreathingYAxisOffset * multiplier;
 	}
-	
+		
 	
 	/**
 	*	@brief Apply the inertia to the given Aiming Model 
@@ -309,15 +281,7 @@ modded class DayZPlayerImplementAiming{
 	vector getHandsOffset(){
 		return m_handsOffset;
 	}
-	
-	/**
-	*	@brief Get current aiming model breathing movement offset
-	*	 @return vector - Hands offset (x, y, 0);
-	*/
-	vector getMovementOffset(){
-		return m_movementOffset;
-	}
-	
+		
 	/**
 	*	@brief Get where the weapon is pointing
 	*	 @return vector - Weapon target position
