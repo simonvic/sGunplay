@@ -67,12 +67,15 @@ modded class RecoilBase{
 		float count = 0;
 		while(stepValue <= 1.5){
 			//float lerpValue = SMath.DampedSin(-0.05, 2.5, 2.7, 5.8, 1, stepValue); //old - too bouncy
-			float lerpValue = SMath.DampedSin(0.2, 0.8, 0.9, 5, 1, stepValue);
+			float lerpValue = getDampedSin(stepValue);
 			m_HandsCurvePoints.Insert(vector.Lerp(newPoint,"0 0 0", lerpValue));
 			stepValue += 0.5;
 			count++;
 		}
-		
+	}
+	
+	protected float getDampedSin(float time){
+		return SMath.DampedSin(0.2, 0.8, 0.9, 5, 1, time);
 	}
 	
 	override void PostInit(Weapon_Base weapon){

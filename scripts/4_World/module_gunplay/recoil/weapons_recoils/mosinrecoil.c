@@ -22,4 +22,8 @@ modded class MosinRecoil{
 		
 		createHandRecoilPoints();
 	}
+	
+	override float getDampedSin(float time){
+		return SMath.DampedSin(0.2, 0.8, 0.9, 1.4, 1, time) + 0.051;
+	}
 }

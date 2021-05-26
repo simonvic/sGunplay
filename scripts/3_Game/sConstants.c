@@ -56,7 +56,7 @@ class GunplayConstants{
 		2.0, 0.0    //pitch strength, pitch frequency
 	};
 	
-	static const float AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[] = {1, 1}; //how much the recoil will contribute to the hands offset calculation (therefore camera offset and more). Use -1 to nullify
+	static const float AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[] = {0, 0}; //{X, Y} how much the recoil will contribute to the hands offset calculation (therefore camera offset and more). Use -1 to nullify
 		
 	//////////////////
 	// INERTIA
