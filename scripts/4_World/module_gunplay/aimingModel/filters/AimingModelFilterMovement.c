@@ -15,10 +15,11 @@ class AimingModelFilterMovement : AimingModelFilterBase{
 		float amplitudeY;
 		float frequencyY;
 		
-		float speed = m_player.m_MovementState.m_iMovement;
+		float speed = getPlayer().m_MovementState.m_iMovement;
 		
+		//@todo use stance_index
 		if(GunplayConstants.AIMING_MODEL_USE_FILTER_MOVEMENT){
-			if(m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
+			if(getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
 				speed /= 1.5;
 			}
 			amplitudeX += speed * GunplayConstants.AIMING_MODEL_FILTER_MOVEMENT[0];
@@ -28,7 +29,7 @@ class AimingModelFilterMovement : AimingModelFilterBase{
 		}
 		
 		if(GunplayConstants.AIMING_MODEL_USE_FILTER_INJURY){
-			float injury = m_player.m_InjuryHandler.GetInjuryAnimValue();
+			float injury = getPlayer().m_InjuryHandler.GetInjuryAnimValue();
 			amplitudeX += injury * GunplayConstants.AIMING_MODEL_FILTER_INJURY[0];
 			frequencyX += injury * GunplayConstants.AIMING_MODEL_FILTER_INJURY[1];
 			amplitudeY += injury * GunplayConstants.AIMING_MODEL_FILTER_INJURY[2];

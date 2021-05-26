@@ -44,7 +44,7 @@ class GunplayConstants{
 	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;                      // Use the player injure state in the player aiming model
 	
 	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
-	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.3;  // Smooth time of the movement modifier
+	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.4;  // Smooth time of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT[] = {
 		1.0, 1.0,  //yaw strength, yaw frequency
 		1.5, 7.0   //pitch strength, pitch frequency

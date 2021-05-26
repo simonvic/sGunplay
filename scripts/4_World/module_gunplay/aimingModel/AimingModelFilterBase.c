@@ -1,17 +1,27 @@
 class AimingModelFilterBase {
 	
-	protected PlayerBase m_player;
-	protected Weapon_Base m_weapon;
+	protected DayZPlayerImplementAiming m_aimingModel
 	
-	void AimingModelFilterBase(PlayerBase player, Weapon_Base weapon){
-		m_player = player;
-		m_weapon = weapon;
+	void AimingModelFilterBase(DayZPlayerImplementAiming aimingModel){
+		m_aimingModel = aimingModel;
 	}
 	
 	void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex);
 	
 	bool isActive(){
 		return false;
+	}
+	
+	protected DayZPlayerImplementAiming getAimingModel(){
+		return m_aimingModel;
+	}
+	
+	protected PlayerBase getPlayer(){
+		return m_aimingModel.getPlayer();
+	}
+	
+	protected Weapon_Base getWeapon(){
+		return m_aimingModel.getWeapon();
 	}
 	
 }
