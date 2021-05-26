@@ -1,13 +1,3 @@
-modded class PlayerSwayConstants{
-	static const float SWAY_MULTIPLIER_DEFAULT = 1.0;
-	static const float SWAY_MULTIPLIER_STABLE = 0.5;
-	static const float SWAY_MULTIPLIER_EXHAUSTED = 2;
-	static const float SWAY_TIME_IN = 1.5;
-	static const float SWAY_TIME_STABLE = 3.0;
-	static const float SWAY_TIME_EXHAUSTED = 1.5;
-	static const float SWAY_TIME_OUT = 0.5;
-}
-
 typedef array<ref AimingModelFilterBase> TAimingModelFiltersList;
 
 modded class DayZPlayerImplementAiming{
@@ -34,55 +24,59 @@ modded class DayZPlayerImplementAiming{
 		registerFilters();	
 	}
 	
+	/**
+	*
+	*/
 	protected void registerFilters(){
+		registerFilter(new AimingModelFilterBreathing(this));
 		registerFilter(new AimingModelFilterMovement(this));
 		registerFilter(new AimingModelFilterInertia(this));
-		//registerFilter(new AimingModelInjuryFilter(this)); //added as a child filter to the movement filter
 	}
 	
+	/**
+	*
+	*/
 	protected void registerFilter(AimingModelFilterBase filter){
-		if(!filter || !m_filters) return;
+		if((!filter || !m_filters) && m_filters.Find(filter) == -1) return;
 		m_filters.Insert(filter);
 	}
 	
 	
+	override void SetRecoil( Weapon_Base weapon ){
+		super.SetRecoil(weapon);
+	}
 	
+	override void RequestKuruShake(float amount){
+		super.RequestKuruShake(amount);
+	}
 	
-	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
-		bool result = super.ProcessAimFilters(pDt, pModel, stance_index);
-		
+	override void OnRaiseBegin(DayZPlayerImplement player){
+		super.OnRaiseBegin(player);
+	}
+	
+	override void OnSwayStateChange(int state){
+		super.OnSwayStateChange(state);
+	}
+	
+	/**
+	*
+	*/
+	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){		
 		
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
 		/* @todo process aim filters keeps getting called even after holstered weapon
 			to activae quickly releas right mouse button, holster weapon, and right mouse button again 
 		*/
-		if(!m_weapon) return result;
-		
+		if(!m_weapon) return true;
 		foreach(AimingModelFilterBase filter : m_filters){
 			filter.onUpdate(pDt, pModel, stance_index);
 		}
 		updateHandsOffset(pModel);
 		updateSCrosshair(m_weapon, pDt);
 		
-		return result;
+		return true;
 	}
 	
-	override void ApplyHorizontalNoise(out float x_axis, out float y_axis, float smooth_time,float max_velocity_low, float max_velocity_high, float velocity_modifier,  float max_distance, float weight, float pDt){
-		return;
-	}
-	
-	override void ApplyBreathingPattern(out float x_axis, out float y_axis, float pAmplitude, float pTotalTime, float weight){		
-		float frequency[] = {0.2, 0.4};
-		float amplitude[] = {1.5, 1.8};
-		float multiplier = Math.Lerp(PlayerSwayConstants.SWAY_MULTIPLIER_DEFAULT,0,m_LastSwayMultiplier);
-				
-		x_axis = Math.Sin(pTotalTime * frequency[0]) * amplitude[0] * weight;
-		y_axis = Math.Sin(pTotalTime * frequency[1]) * amplitude[1] * weight;
-		
-		x_axis += m_BreathingXAxisOffset * multiplier;
-		y_axis += m_BreathingYAxisOffset * multiplier;
-	}
-		
 	
 	/**
 	*	@brief Update the current value of the hands offset

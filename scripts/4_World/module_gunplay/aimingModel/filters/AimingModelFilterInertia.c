@@ -8,7 +8,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		return GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA;
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
 		
 		m_currentInertia = computeInertiaMultiplier();
 		

@@ -9,7 +9,7 @@ class AimingModelFilterMovement : AimingModelFilterBase{
 		return GunplayConstants.AIMING_MODEL_USE_FILTER_MOVEMENT || GunplayConstants.AIMING_MODEL_USE_FILTER_INJURY;
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
 		float amplitudeX;
 		float frequencyX;
 		float amplitudeY;
@@ -17,7 +17,7 @@ class AimingModelFilterMovement : AimingModelFilterBase{
 		
 		float speed = getPlayer().m_MovementState.m_iMovement;
 		
-		//@todo use stance_index
+		//@todo use stanceIndex
 		if(GunplayConstants.AIMING_MODEL_USE_FILTER_MOVEMENT){
 			if(getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
 				speed /= 1.5;

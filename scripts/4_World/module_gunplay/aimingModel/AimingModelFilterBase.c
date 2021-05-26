@@ -9,7 +9,7 @@ class AimingModelFilterBase {
 	void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex);
 	
 	bool isActive(){
-		return false;
+		return true;
 	}
 	
 	protected DayZPlayerImplementAiming getAimingModel(){

@@ -60,8 +60,8 @@ class GunplayConstants{
 	
 	/////////////////////////////////////////////////////////////
 	// SWAY
-	static const float SWAY_AMPLITUDE[] = {0.2, 0.4};    //{X, Y} amplitude of sway with no modifiers
-	static const float SWAY_FREQUENCY[] = {1.5, 1.8};    //{X, Y} frequency of sway with no modifiers
+	static const float SWAY_AMPLITUDE[] = {0.4, 0.6};    //{X, Y} amplitude of sway with no modifiers
+	static const float SWAY_FREQUENCY[] = {1.5, 5.0};    //{X, Y} frequency of sway with no modifiers
 	static const float SWAY_MULTIPLEIR_ERECT = 1;        // Multiplier to be applied when the player is ERECT
 	static const float SWAY_MULTIPLEIR_CROUCHED = 0.5;   // Multiplier to be applied when the player is CROUCHED
 	static const float SWAY_MULTIPLEIR_PRONE = 0.25;     // Multiplier to be applied when the player is PRONE

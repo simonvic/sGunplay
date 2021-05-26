@@ -107,7 +107,6 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	protected void resetPPE(){
-		SLog.d("reset ppe","",1,true);
 		PPEffects.ResetPPMask();
 		PPEffects.SetLensEffect(0, 0, 0, 0);
 		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
@@ -184,8 +183,7 @@ modded class DayZPlayerCameraOptics{
 		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 	
-	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){
-		SLog.d("SetCameraPP","",0,true);
+	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){		
 		if (!isOpticChange(state, launchedFrom)){
 			resetPPE();
 			return;
