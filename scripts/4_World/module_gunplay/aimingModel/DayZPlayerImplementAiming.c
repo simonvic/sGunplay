@@ -32,6 +32,7 @@ modded class DayZPlayerImplementAiming{
 		registerFilter(new AimingModelFilterBreathing(this));
 		registerFilter(new AimingModelFilterMovement(this));
 		registerFilter(new AimingModelFilterShake(this));
+		registerFilter(new AimingModelFilterRecoil(this));
 		registerFilter(new AimingModelFilterKuru(this));
 		registerFilter(new AimingModelFilterInertia(this));
 	}
@@ -165,6 +166,14 @@ modded class DayZPlayerImplementAiming{
 	*/
 	KuruShake getKuruShake(){
 		return m_KuruShake;
+	}
+	
+	/**
+	*	@brief Get the current recoil . 
+	*	 @return current recoil, null if not present
+	*/
+	RecoilBase getRecoil(){
+		return m_CurrentRecoil;
 	}
 	
 	
