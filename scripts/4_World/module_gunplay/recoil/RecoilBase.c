@@ -29,10 +29,61 @@ modded class RecoilBase{
 		}
 		// player inventory weight
 		if(GunplayConstants.RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT){
-			control -= m_Player.GetWeight() * GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT;
+			control += m_Player.GetWeight() * GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT;
+		}
+		
+		// stance
+		if(GunplayConstants.RECOIL_CONTROL_USE_STANCE){
+			control *= getStanceRecoilControl();
+		}
+		
+		// movement
+		if(GunplayConstants.RECOIL_CONTROL_USE_MOVEMENT){
+			control *= getMovementRecoilControl();
 		}
 
 		return Math.Clamp(control,-1,1); //to-do change this to the custom soft skills when done: weapon dexterity, strength etc
+	}
+	
+	
+	/**
+	*	@brief Get the recoil control multiplier based on the player stance
+	*	 @return float - recoil control multiplier
+	*/
+	protected float getStanceRecoilControl(){
+		if(m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
+			return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_ERECT;
+		} else if(m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)){
+			return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_CROUCHED;
+		} else if(m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)){
+			return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_PRONE;
+		} 
+		
+		return 1;
+	}
+	
+	/**
+	*	@brief Get the recoil control multiplier based on the player movement
+	*	 @return float - recoil control multiplier
+	*/
+	protected float getMovementRecoilControl(){
+		switch(m_Player.m_MovementState.m_iMovement){ 
+			case 0:	return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_STANDING;			
+			case 1:	return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_WALKING;
+			case 2:	return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_JOGGING;
+		}
+		
+		return 1;
+	}
+	
+	/**
+	*	@brief Compute the "reload time", the time that takes to repositionate the weapon
+	*/
+	protected void computeReloadTime(){
+		m_ReloadTime *= m_relativeReloadTime * GunplayConstants.RECOIL_RELOAD_TIME_MULTIPLIER;
+		if(!isADS()) {
+			m_ReloadTime *= GunplayConstants.RECOIL_HIPFIRE_RELOAD_TIME_MULTIPLIER;
+		}
 	}
 	
 	/**
@@ -82,13 +133,6 @@ modded class RecoilBase{
 		super.PostInit(weapon);
 		computeReloadTime();
 		applyRecoilControl(m_ReloadTime, m_recoilControl);
-	}
-	
-	protected void computeReloadTime(){
-		m_ReloadTime *= m_relativeReloadTime * GunplayConstants.RECOIL_RELOAD_TIME_MULTIPLIER;
-		if(!isADS()) {
-			m_ReloadTime *= GunplayConstants.RECOIL_HIPFIRE_RELOAD_TIME_MULTIPLIER;
-		}
 	}
 	
 	//! Destroys this object next update tick

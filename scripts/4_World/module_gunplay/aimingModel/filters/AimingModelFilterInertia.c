@@ -83,17 +83,9 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*/
 	protected float getInertiaMultiplierMovement(){
 		switch(getPlayer().m_MovementState.m_iMovement){ 
-			case 0:	//standing
-				return GunplayConstants.INERTIA_MULTIPLIER_STANDING;
-				break;
-
-			case 1:	//walking
-				return GunplayConstants.INERTIA_MULTIPLIER_WALKING;
-				break;
-
-			case 2:	//jogging
-				return GunplayConstants.INERTIA_MULTIPLIER_JOGGING;
-				break;
+			case 0:	return GunplayConstants.INERTIA_MULTIPLIER_STANDING;
+			case 1: return GunplayConstants.INERTIA_MULTIPLIER_WALKING;
+			case 2:	return GunplayConstants.INERTIA_MULTIPLIER_JOGGING;
 		}
 		return 1;
 	}

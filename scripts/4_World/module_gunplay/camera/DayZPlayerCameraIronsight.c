@@ -28,11 +28,6 @@ modded class DayZPlayerCameraIronsights{
 	protected float m_handsOffsetResetVelX[1];
 	protected float m_handsOffsetResetVelY[1];
 	
-	//@todo breathing offset won't work until sway rework
-	//protected float m_breathingSwayOffsetX;
-	//protected float m_breathingSwayOffsetY;
-
-	
 	protected float m_offsetXResetVel[1];
 	protected float m_offsetYResetVel[1];	
 	
@@ -128,7 +123,7 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Update the Depth of Field
 	*/
 	protected void updateDOF(){
-		if( m_player.isInspectingWeapon() ) {
+		if( m_player.isInspectingWeapon() && canInspectWeapon()) {
 			DoFPreset dof = new DoFPreset();
 			dof.initPreset(20, 0.5, 150, 0.1, 1, 1, 150);
 			PPEManager.requestWeaponDOF(dof);
@@ -291,18 +286,15 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Set the depth of field based on current sight (optic or ironsight)
 	*/
 	protected void setNonMagnifyingOpticDOF(){
-		SLog.d("","setNonMagnifyingOpticDOF",1,true);
 		
 		// No weapon used (handeld optic?)
 		if (!m_weaponUsed){
-			SLog.d("no weapon","",2,true);
 			PPEManager.resetWeaponDOF();
 			return;
 		}
 		
 		DoFPreset dof = getCurrentSightDOF();
 		if(dof){
-			SLog.d("requesting dof","",2,true);
 			PPEManager.requestWeaponDOF(dof);
 		}
 		
@@ -316,15 +308,12 @@ modded class DayZPlayerCameraIronsights{
 		DoFPreset dof = new DoFPreset();
 		temp_array = {};
 		if (m_opticsUsed && m_opticsUsed.GetOpticsDOF().Count() == 6){
-			SLog.d("getting optics dof","",2);
 			temp_array = m_opticsUsed.GetOpticsDOF();
 		}else{
-			SLog.d("getting weapon dof","",2);
 			temp_array = m_weaponUsed.GetWeaponDOF();
 		}
 		
 		if(temp_array.Count() == 6 && temp_array[0]){//correctly got the array from config and DOF is enabled (0 or 1)
-			SLog.d("init preset","",2);
 			//                   blur,         focus distance, focuse length, fLength near,  fDepthOffset,  fMinDistance, fMaxDistance
 			dof.initPreset(temp_array[4], temp_array[1], temp_array[2], temp_array[3], temp_array[5], 1, 100);
 			return dof;
@@ -338,7 +327,6 @@ modded class DayZPlayerCameraIronsights{
 	*/
 	protected void updateNightVision(bool allowNightVisionGoggles){
 		// optics NV mode
-		SLog.d("updateNightVision","",1,false);
 		if (m_opticsUsed.IsNVOptic()){
 			if (m_opticsUsed.IsWorking()){
 				SetCameraNV(true);
