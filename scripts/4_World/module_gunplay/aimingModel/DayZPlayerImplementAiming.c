@@ -25,16 +25,19 @@ modded class DayZPlayerImplementAiming{
 	}
 	
 	/**
-	*
+	*	@brief Register the filters to be applied to the aiming model
+	*	 @note The order matters! Filters operation may not be commutative
 	*/
 	protected void registerFilters(){
 		registerFilter(new AimingModelFilterBreathing(this));
 		registerFilter(new AimingModelFilterMovement(this));
+		registerFilter(new AimingModelFilterKuru(this));
 		registerFilter(new AimingModelFilterInertia(this));
 	}
 	
 	/**
-	*
+	*	@brief Register a filter
+	*	 @param filter \p AimingModelFilterBase - Filter to register
 	*/
 	protected void registerFilter(AimingModelFilterBase filter){
 		if((!filter || !m_filters) && m_filters.Find(filter) == -1) return;
@@ -69,7 +72,9 @@ modded class DayZPlayerImplementAiming{
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetHumanInventory().GetEntityInHands());
 		if(!m_weapon) return true;
 		foreach(AimingModelFilterBase filter : m_filters){
-			filter.onUpdate(pDt, pModel, stance_index);
+			if(filter.isActive()){
+				filter.onUpdate(pDt, pModel, stance_index);
+			}
 		}
 		updateHandsOffset(pModel);
 		updateSCrosshair(m_weapon, pDt);
@@ -153,6 +158,13 @@ modded class DayZPlayerImplementAiming{
 		return m_sCrosshairPosition;
 	}	
 	
+	/**
+	*	@brief Get the current Kuru shake. 
+	*	 @return current kuru shake, null if not present
+	*/
+	KuruShake getKuruShake(){
+		return m_KuruShake;
+	}
 	
 	
 	/**

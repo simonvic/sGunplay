@@ -30,19 +30,18 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	
 	
 	protected float calculateWeight(int stanceIndex){
-		float weight = 1;
 		switch(stanceIndex){
 			case DayZPlayerConstants.STANCEIDX_RAISEDERECT:
-				weight = 1;
+				return GunplayConstants.SWAY_MULTIPLEIR_ERECT;
 				break;
 			case DayZPlayerConstants.STANCEIDX_RAISEDCROUCH:
-				weight = 0.5;
+				return GunplayConstants.SWAY_MULTIPLEIR_CROUCHED;
 				break;
 			case DayZPlayerConstants.STANCEIDX_RAISEDPRONE:
-				weight = 0.05;
+				return GunplayConstants.SWAY_MULTIPLEIR_PRONE;
 				break;
 		}
-		return weight;
+		return 1;
 	}
 	
 	
