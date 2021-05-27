@@ -18,7 +18,7 @@ class AimingModelFilterMovement : AimingModelFilterBase{
 		float speed = getPlayer().m_MovementState.m_iMovement;
 		
 		//@todo use stanceIndex
-		if(GunplayConstants.AIMING_MODEL_USE_FILTER_MOVEMENT){
+		if(GunplayConstants.AIMING_MODEL_USE_FILTER_MOVEMENT && !getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE)){
 			if(getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH)){
 				speed /= 1.5;
 			}
