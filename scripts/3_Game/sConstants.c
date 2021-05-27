@@ -60,11 +60,14 @@ class GunplayConstants{
 	
 	/////////////////////////////////////////////////////////////
 	// SWAY
-	static const float SWAY_AMPLITUDE[] = {0.4, 0.6};    //{X, Y} amplitude of sway with no modifiers
-	static const float SWAY_FREQUENCY[] = {1.5, 5.0};    //{X, Y} frequency of sway with no modifiers
+	static const float SWAY_AMPLITUDE[] = {0.5, 0.8};    //{X, Y} amplitude of sway with no modifiers
+	static const float SWAY_FREQUENCY[] = {0.2, 0.7};    //{X, Y} frequency of sway with no modifiers
 	static const float SWAY_MULTIPLEIR_ERECT = 1;        // Multiplier to be applied when the player is ERECT
 	static const float SWAY_MULTIPLEIR_CROUCHED = 0.5;   // Multiplier to be applied when the player is CROUCHED
 	static const float SWAY_MULTIPLEIR_PRONE = 0.25;     // Multiplier to be applied when the player is PRONE
+	static const float SWAY_DECREASE_FOCUSING = 4;       // Amount of sway to reduce while holding breath
+	static const float SWAY_DECAY_POWER = 10;            // How much the percentage left of stamina will impact the sway (SWAY_DECAY_POWER ^ stamina_percentage)
+	static const float SWAY_MINIMUM = 0.1;               // This minimum will be added during the sway multiplication (even while holding breath)
 		
 	//////////////////
 	// INERTIA

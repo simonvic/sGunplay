@@ -50,6 +50,7 @@ modded class DayZPlayerImplementAiming{
 		super.RequestKuruShake(amount);
 	}
 	
+	//on raise begin doesn't get called when quickly changing weapon while lowering
 	override void OnRaiseBegin(DayZPlayerImplement player){
 		super.OnRaiseBegin(player);
 	}
@@ -61,12 +62,11 @@ modded class DayZPlayerImplementAiming{
 	/**
 	*
 	*/
-	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){		
-		
-		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetItemInHands());
-		/* @todo process aim filters keeps getting called even after holstered weapon
+	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
+		/* @todo process aim filters keeps getting called even after holstered weapon.
 			to activae quickly releas right mouse button, holster weapon, and right mouse button again 
 		*/
+		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetHumanInventory().GetEntityInHands());
 		if(!m_weapon) return true;
 		foreach(AimingModelFilterBase filter : m_filters){
 			filter.onUpdate(pDt, pModel, stance_index);
