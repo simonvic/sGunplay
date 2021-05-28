@@ -48,25 +48,21 @@ modded class DayZPlayerImplementAiming{
 	}
 	
 	
-	override void SetRecoil( Weapon_Base weapon ){
-		super.SetRecoil(weapon);
-	}
-	
-	override void RequestKuruShake(float amount){
-		super.RequestKuruShake(amount);
-	}
-	
 	//on raise begin doesn't get called when quickly changing weapon while lowering
 	override void OnRaiseBegin(DayZPlayerImplement player){
 		super.OnRaiseBegin(player);
 	}
 	
+	//@todo update all aiming model variables from the filter, so we don't break other mods that use them
 	override void OnSwayStateChange(int state){
 		super.OnSwayStateChange(state);
 	}
 	
 	/**
-	*
+	*	@brief Process all registered aiming model filters
+	*	 @param pDt \p float - delta time
+	*	 @param pModel \p SDayZPlayerAimingModel - aiming model values
+	*	 @param stance_index \p ind - stance index
 	*/
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
 		/* @todo process aim filters keeps getting called even after holstered weapon.
