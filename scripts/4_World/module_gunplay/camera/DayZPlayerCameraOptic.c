@@ -19,19 +19,38 @@ modded class DayZPlayerCameraOptics{
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
+		
+		//Show lens when transition is done
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
 		
+		//Hide player clothing when transition is done
 		if (m_player){
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing, m_enteringTransitionTime*1000,false,m_opticsUsed,true);
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000,false,m_opticsUsed,true);
 		}
 	}
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.OnUpdate(pDt, pOutResult);
-		//@todo do proper activation/deactivation
-		if(m_player.IsInOptics() && isMagnifyingOptic()){
-			updateLens(pDt);
+		updateLens(pDt);
+	}
+	
+	/**
+	*	@brief Update the lens effect position and strength along with the PP mask
+	*/
+	protected void updateLens(float pDt){
+		
+		if( !m_player.IsInOptics() || !isMagnifyingOptic() || !canShowLens() || isHandHeldOptic()) {
+			return;
 		}
+
+		//@todo find proper solution (changing crosshiar precision fucks up eveyrthing)
+		vector offset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
+		m_lensOffset = offset;
+		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.2, 1000, pDt);
+		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.2, 1000, pDt);
+		
+		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
+		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
 	}
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
@@ -51,7 +70,7 @@ modded class DayZPlayerCameraOptics{
 		pOutResult.m_fNearPlane = 0.06; //0.07 default
 	}
 			
-	//@todo move stuff out of here if not needed updating every fram
+
 	override void computeFOVFocusValues(out float targetFOV, out float speed){
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
@@ -98,21 +117,6 @@ modded class DayZPlayerCameraOptics{
 
 	}
 	
-	/**
-	*	@brief Update the lens effect position and strength along with the PP mask
-	*/
-	protected void updateLens(float pDt){
-		if(!canShowLens()) return;
-		if(isHandHeldOptic()) return; 
-		//@todo find proper solution (changing crosshiar precision fucks up eveyrthing)
-		vector offset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
-		m_lensOffset = offset;
-		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.2, 1000, pDt);
-		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.2, 1000, pDt);
-		
-		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
-		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
-	}
 	
 	/**
 	*	@brief Compute the mask position, radius, and blur(smooth opacity)
@@ -181,6 +185,7 @@ modded class DayZPlayerCameraOptics{
 	override bool needPPEReset(bool state, DayZPlayerCamera launchedFrom){
 		return !state || !m_opticsUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
+	
 	
 	protected bool canShowLens(){
 		return m_canShowLens;
