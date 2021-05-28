@@ -28,6 +28,7 @@ class SUserConfigGunplay : SUserConfigBase{
 	///////////////////////////////////////
 	// these go in json
 	protected float adsFovReduction = 1.0;
+	protected float adsDOFIntensity = 0.5;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected float lensZoomStrength = 1.0;
 	protected float deadzoneLimits[4] = { 0.2, 0.8, 0.2, 0.8 };
@@ -41,6 +42,14 @@ class SUserConfigGunplay : SUserConfigBase{
 	
 	void setAdsFovReduction(float reduction){
 		adsFovReduction = Math.Clamp(reduction, 0, 1);
+	}
+	
+	float getAdsDOFIntensity(){
+		return adsDOFIntensity;
+	}
+	
+	void setAdsDOFIntensity(float intensity){
+		adsDOFIntensity = intensity;
 	}
 	
 	bool isHideWeaponBarrelInOpticEnabled(){

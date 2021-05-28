@@ -106,24 +106,6 @@ modded class DayZPlayerCameraOptics{
 		
 	}
 	
-	protected void resetPPE(){
-		PPEffects.ResetPPMask();
-		PPEffects.SetLensEffect(0, 0, 0, 0);
-		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
-		PPEffects.SetBlurOptics(0);
-		
-		if (IsCameraNV()){
-			SetNVPostprocess(NVTypes.NV_GOGGLES);
-		}else{
-			SetNVPostprocess(NVTypes.NONE);
-		}
-		
-		if (m_weaponUsed){
-			m_weaponUsed.HideWeaponBarrel(false);
-		}
-	}
-	
-	
 	/**
 	*	@brief Update the lens effect position and strength along with the PP mask
 	*/
@@ -183,34 +165,29 @@ modded class DayZPlayerCameraOptics{
 		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 	
-	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){		
-		if (!isOpticChange(state, launchedFrom)){
+	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){	
+		if (needReset(state, launchedFrom)){
 			resetPPE();
 			return;
 		}
 		
 		
-		// 1x scopes only
-		if (!isMagnifyingOptic() && !NVGoggles.Cast(m_opticsUsed)){
+		if (!isMagnifyingOptic() && !NVGoggles.Cast(m_opticsUsed)){ // 1x scopes only
 			setNonMagnifyingOpticDOF();
 			updateNightVision(true);
 		}else {//magnifying scopes
 			
 			//lens is updated everyframe
 			//blur is disabled
-			//PPEManager.resetWeaponDOF();
 			updateNightVision(false);
 		}
 		
-		if (m_weaponUsed){
-			m_weaponUsed.HideWeaponBarrel(m_camManager.isHideWeaponBarrelInOpticEnabled());
-		}
+		hideWeaponBarrel(m_camManager.isHideWeaponBarrelInOpticEnabled());
 		
 	}
 	
-	
-	protected bool isOpticChange(bool state, DayZPlayerCamera launchedFrom){
-		return state && m_opticsUsed && (PlayerBase.Cast(m_pPlayer) && launchedFrom == PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
+	override bool needReset(bool state, DayZPlayerCamera launchedFrom){
+		return !state || !m_opticsUsed || (PlayerBase.Cast(m_pPlayer) && launchedFrom != PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
 	}
 	
 	protected bool canShowLens(){

@@ -41,4 +41,12 @@ modded class CameraManager{
 		m_sUserConfigGunplay.getDeadzoneLimits(deadzoneLimits);
 	} 
 	
+	bool isAdsDOFEnabled(){
+		return getAdsDOFIntensity() > 0;
+	}
+	
+	float getAdsDOFIntensity(){
+		return m_sUserConfigGunplay.getAdsDOFIntensity();
+	}
+	
 }
