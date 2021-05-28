@@ -21,8 +21,7 @@ modded class DayZPlayerCameraOptics{
 		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
 		
-		PlayerBase player = PlayerBase.Cast(m_pPlayer);
-		if (player){
+		if (m_player){
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(player.HideClothing, m_enteringTransitionTime*1000,false,m_opticsUsed,true);
 		}
 	}
@@ -180,7 +179,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override bool needPPEReset(bool state, DayZPlayerCamera launchedFrom){
-		return !state || !m_opticsUsed || (PlayerBase.Cast(m_pPlayer) && launchedFrom != PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
+		return !state || !m_opticsUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
 	
 	protected bool canShowLens(){

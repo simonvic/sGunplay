@@ -6,7 +6,7 @@ modded class DayZPlayerCameraIronsights{
 		return DayZPlayerCameras.DAYZCAMERA_IRONSIGHTS;
 	}
 	
-	protected DayZPlayerImplement m_player;
+	protected PlayerBase m_player;
 	protected DayZPlayerImplementAiming m_aimingModel;
 	
 	protected float m_focusTargetFOV;
@@ -35,10 +35,11 @@ modded class DayZPlayerCameraIronsights{
 	protected float m_offsetXResetVel[1];
 	protected float m_offsetYResetVel[1];	
 	
+	protected ref DOFPresetWeaponInspect m_inspectDOFPreset = new DOFPresetWeaponInspect();
 	
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
-		m_player = DayZPlayerImplement.Cast(pPlayer);
+		m_player = PlayerBase.Cast(pPlayer);
 		m_aimingModel = m_player.GetAimingModel();
 	}
 		
@@ -54,7 +55,7 @@ modded class DayZPlayerCameraIronsights{
 		AdjustCameraParameters(pDt, pOutResult);
 		updateFOVFocus(pDt, pOutResult);
 		UpdateBatteryOptics(GetCurrentSightEntity());
-		UpdateCameraNV(PlayerBase.Cast(m_pPlayer));
+		UpdateCameraNV(m_player);
 	}
 	
 	
@@ -64,9 +65,7 @@ modded class DayZPlayerCameraIronsights{
 	protected void updateDOF(){
 		//@todo add inspect dof
 		if( m_player.isInspectingWeapon() && canInspectWeapon()) {
-			DoFPreset dof = new DoFPreset();
-			dof.initPreset(20, 0.5, 150, 0.1, 1, 1, 150);
-			PPEManager.requestWeaponDOF(dof);
+			PPEManager.requestWeaponDOF(m_inspectDOFPreset);
 			m_isInspectionDOFReset = true;
 		}else if(m_isInspectionDOFReset){
 			setNonMagnifyingOpticDOF();
@@ -346,7 +345,7 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Check if camera post processing effect has to be reset
 	*/
 	protected bool needPPEReset(bool state, DayZPlayerCamera launchedFrom){
-		return !state || !m_weaponUsed || (PlayerBase.Cast(m_pPlayer) && launchedFrom != PlayerBase.Cast(m_pPlayer).GetCurrentPlayerCamera());
+		return !state || !m_weaponUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
 		
 
