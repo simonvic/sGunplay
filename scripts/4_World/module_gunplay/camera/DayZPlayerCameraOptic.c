@@ -44,7 +44,8 @@ modded class DayZPlayerCameraOptics{
 		}
 
 		//@todo find proper solution (changing crosshiar precision fucks up eveyrthing)
-		vector offset = GetGame().GetScreenPosRelative(m_aimingModel.getWeaponTargetPosition());
+		vector offset = GetGame().GetScreenPosRelative(computeLensPostionWS());
+		SDebug.spawnDebugDot(m_aimingModel.getWeaponTargetPosition(), 0.01, 0.1);
 		m_lensOffset = offset;
 		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.2, 1000, pDt);
 		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.2, 1000, pDt);
@@ -52,6 +53,57 @@ modded class DayZPlayerCameraOptics{
 		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
 		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
 	}
+	
+	protected vector computeLensPostionWS(){
+		if(!m_weaponUsed) return vector.Zero;
+		vector barrelPosition = m_weaponUsed.GetSelectionPositionLS( "konec hlavne" );
+		vector muzzlePosition = m_weaponUsed.GetSelectionPositionLS( "usti hlavne" );
+		return m_weaponUsed.ModelToWorld(barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * 50));
+	}
+	
+	/**
+	*	@brief Compute the mask position, radius, and blur(smooth opacity)
+	*	 Mask = {positionX [-1, 1], positionY [-1, 1], radius, blur}
+	*	 @param mask \p TFloatArray - Starting mask array
+	*	 @param offsetX \p float - arbitrary X offset
+	*	 @param offsetY \p float - arbitrary Y offset
+	*	 @return TFloatArray - computed mask array
+	*/
+	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){		
+		return {
+			mask[0] + offsetX,                                                        //X position
+			mask[1] + offsetY,                                                        //Y position
+			mask[2] / Math.Pow(m_camManager.getAdsFovReduction(),2) / m_fFovAbsolute, //radius
+			mask[3]};                                                                 //blur
+	}
+	
+	/**
+	*	@brief Compute the lens intensity, position, and chromatic aberration
+	*	 Lens = {intensity [-i, +i], positionX [-1, 1], positionY [-1, 1], chromatic aberration}
+	*	 @param lens \p TFloatArray - Starting lens array
+	*	 @param offsetX \p float - arbitrary X offset
+	*	 @param offsetY \p float - arbitrary Y offset
+	*	 @return TFloatArray - computed lens array
+	*/
+	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY){
+		//offsetX * 2 - 1; //@todo why the fuck does this work????!!!
+		return  {
+			lens[0] * m_camManager.getLensZoomStrength(),                                   //intensity
+			lens[1] + (offsetX * 2 - 1),                                                    //X position
+			lens[2] + (offsetY * 2 - 1) + getLensZeroingOffset(m_opticsUsed, 0.6, 0.05),    //Y position
+			lens[3]};                                                                       //chrom aber	
+	}
+	
+	/**
+	*	@brief Get the offset based on the zeroing index of the scope
+	*	 @param zeroing \p int - zeroing index
+	*	 @param decay \p float - 
+	*	 @param amplitude \p float - 
+	*/
+	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude){
+		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
+	}
+	
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
 		pOutResult.m_iDirectBone 			= m_iBoneIndex;
@@ -115,50 +167,6 @@ modded class DayZPlayerCameraOptics{
 			speed = getFocusSpeed();
 		}
 
-	}
-	
-	
-	/**
-	*	@brief Compute the mask position, radius, and blur(smooth opacity)
-	*	 Mask = {positionX [-1, 1], positionY [-1, 1], radius, blur}
-	*	 @param mask \p TFloatArray - Starting mask array
-	*	 @param offsetX \p float - arbitrary X offset
-	*	 @param offsetY \p float - arbitrary Y offset
-	*	 @return TFloatArray - computed mask array
-	*/
-	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){		
-		return {
-			mask[0] + offsetX,                                                        //X position
-			mask[1] + offsetY,                                                        //Y position
-			mask[2] / Math.Pow(m_camManager.getAdsFovReduction(),2) / m_fFovAbsolute, //radius
-			mask[3]};                                                                 //blur
-	}
-	
-	/**
-	*	@brief Compute the lens intensity, position, and chromatic aberration
-	*	 Lens = {intensity [-i, +i], positionX [-1, 1], positionY [-1, 1], chromatic aberration}
-	*	 @param lens \p TFloatArray - Starting lens array
-	*	 @param offsetX \p float - arbitrary X offset
-	*	 @param offsetY \p float - arbitrary Y offset
-	*	 @return TFloatArray - computed lens array
-	*/
-	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY){
-		//offsetX * 2 - 1; //@todo why the fuck does this work????!!!
-		return  {
-			lens[0] * m_camManager.getLensZoomStrength(),                                   //intensity
-			lens[1] + (offsetX * 2 - 1),                                                    //X position
-			lens[2] + (offsetY * 2 - 1) + getLensZeroingOffset(m_opticsUsed, 0.6, 0.05),    //Y position
-			lens[3]};                                                                       //chrom aber	
-	}
-	
-	/**
-	*	@brief Get the offset based on the zeroing index of the scope
-	*	 @param zeroing \p int - zeroing index
-	*	 @param decay \p float - 
-	*	 @param amplitude \p float - 
-	*/
-	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude){
-		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 	
 	

@@ -106,7 +106,7 @@ modded class DayZPlayerImplementAiming{
 	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
 	*/
 	protected void updateSCrosshair(Weapon_Base weapon, float pDt){
-		getWeaponComponentsPosition(weapon, m_weaponBarrelPosition, m_weaponMuzzlePosition, m_weaponTargetPosition, GunplayConstants.CROSSHAIR_PRECISION);
+		getWeaponComponentsPositionWS(weapon, m_weaponBarrelPosition, m_weaponMuzzlePosition, m_weaponTargetPosition, GunplayConstants.CROSSHAIR_PRECISION);
 		m_sCrosshairRay.setBegPos(m_weaponMuzzlePosition);
 		m_sCrosshairRay.setEndPos(m_weaponTargetPosition);
 		/*
@@ -180,14 +180,33 @@ modded class DayZPlayerImplementAiming{
 	
 	
 	/**
-	*	@brief Get the barrel position, muzzle position and the target position at the given distance
+	*	@brief Get the barrel position, muzzle position and the target position at the given distance in LOCAL SPACE
 	*	 @param weapon \p Weapon_Base - 
 	*	 @param barrelPosition \p vector - 
 	*	 @param muzzlePosition \p vector - 
 	*	 @param targetPosition \p vector - 
 	*	 @param distance \p float - 
 	*/
-	static void getWeaponComponentsPosition(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
+	static void getWeaponComponentsPositionLS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
+		barrelPosition = weapon.GetSelectionPositionLS( "konec hlavne" );
+		muzzlePosition = weapon.GetSelectionPositionLS( "usti hlavne" );
+		targetPosition = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
+		//@todo try this. Thanks Mario :)
+		//vector usti_hlavne_position = weapon.GetSelectionPositionLS("usti hlavne");
+		//vector konec_hlavne_position = weapon.GetSelectionPositionLS("konec hlavne");
+		//vector directionLS = vector.Direction(usti_hlavne_position, konec_hlavne_position);
+		//vector direction = -1 * directionLS[0] * weapon.GetTransformAxis(0);
+	}
+	
+	/**
+	*	@brief Get the barrel position, muzzle position and the target position at the given distance in WORLD SPACE
+	*	 @param weapon \p Weapon_Base - 
+	*	 @param barrelPosition \p vector - 
+	*	 @param muzzlePosition \p vector - 
+	*	 @param targetPosition \p vector - 
+	*	 @param distance \p float - 
+	*/
+	static void getWeaponComponentsPositionWS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
 		barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
 		muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
 		targetPosition = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
