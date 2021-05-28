@@ -6,7 +6,7 @@ class PluginSDebug extends PluginBase {
 	static bool bodyClipAllContact_enabled = false;
 	static bool bodyClipContactPos_enabled = false;
 		
-	protected PlayerBase m_player;
+	protected PlayerBase simonvic;
 	protected Weapon_Base m_weapon;
 	protected ref SRaycast m_crosshairRaycast;
 	protected ref SRaycast m_bodyClipRaycast;
@@ -22,20 +22,26 @@ class PluginSDebug extends PluginBase {
 	override void OnUpdate(float delta_time){
 		
 		if(GetGame().IsClient() || !GetGame().IsMultiplayer()) {
+			simonvic = PlayerBase.Cast(GetGame().GetPlayer());
 			onUpdateClient(delta_time);
-			
 		}
 		
 		if(GetGame().IsServer() || !GetGame().IsMultiplayer()) {
+			array<Man> players = new array<Man>;
+			GetGame().GetPlayers(players);
+			simonvic = PlayerBase.Cast(players[0]);
 			onUpdateServer(delta_time);
 		}
 		
-		
+		onUpdateBoth(delta_time);
+	}
+	
+	void onUpdateBoth(float delta_time){
 	}
 	
 	void onUpdateClient(float delta_time){
-		if(!m_player) m_player = PlayerBase.Cast(GetGame().GetPlayer());
-		if(m_player && Weapon_Base.Cast(m_player.GetItemInHands())) m_weapon = Weapon_Base.Cast(m_player.GetItemInHands());
+		if(!simonvic) simonvic = PlayerBase.Cast(GetGame().GetPlayer());
+		if(simonvic && Weapon_Base.Cast(simonvic.GetItemInHands())) m_weapon = Weapon_Base.Cast(simonvic.GetItemInHands());
 		
 		m_time += delta_time;
 		if(crosshair_enabled) updateCrosshair();
@@ -50,9 +56,9 @@ class PluginSDebug extends PluginBase {
 	}
 	
 	static void updateMovementSettings(){
-		PlayerBase simonvic;
+		PlayerBase player;
 		if(GetGame().IsClient() || !GetGame().IsMultiplayer()) {
-			simonvic = PlayerBase.Cast(GetGame().GetPlayer());
+			player = PlayerBase.Cast(GetGame().GetPlayer());
 
 
 
@@ -61,10 +67,10 @@ class PluginSDebug extends PluginBase {
 		if(GetGame().IsServer() || !GetGame().IsMultiplayer()) {
 			array<Man> players = new array<Man>;
 			GetGame().GetPlayers(players);
-			simonvic = PlayerBase.Cast(players[0]);
+			player = PlayerBase.Cast(players[0]);
 		}
 		
-		SHumanCommandMoveSettings hcm = simonvic.GetDayZPlayerType().CommandMoveSettingsW();
+		SHumanCommandMoveSettings hcm = player.GetDayZPlayerType().CommandMoveSettingsW();
 
 		//! run sprint (SHIFT HOLD) filter 
 		hcm.m_fRunSpringTimeout = 0.1;							//!< filter span value		[s]
@@ -84,7 +90,7 @@ class PluginSDebug extends PluginBase {
 		hcm.m_fHeadingChangeLimiterWalk = 2000;				//!<
 		hcm.m_fHeadingChangeLimiterRun = 1500;				//!<		
 		hcm.m_fLeaningSpeed = 3.0;
-		simonvic.StartCommand_Move();
+		player.StartCommand_Move();
 	}
 	
 	
@@ -124,9 +130,9 @@ class PluginSDebug extends PluginBase {
 	
 	void updateBodyClip(){		
 		
-		vector point = m_player.GetPosition() + vector.Forward * 2;
+		vector point = simonvic.GetPosition() + vector.Forward * 2;
 		
-		vector from = m_player.GetPosition();
+		vector from = simonvic.GetPosition();
 		vector axis = vector.Up;
 		float cosAngle = Math.Cos(m_time*Math.PI);
 		float sinAngle = Math.Sin(m_time*Math.PI);
@@ -136,7 +142,7 @@ class PluginSDebug extends PluginBase {
 		vector result = vector.RotateAroundZero(offsetPos, axis, cosAngle, sinAngle) + from;
 		
 		m_bodyClipRaycast = new SRaycast(from + "0 1.5 0", result + "0 1.5 0", 0.05, 0, CollisionFlags.FIRSTCONTACT);
-		m_bodyClipRaycast.addIgnoredObject(m_player);
+		m_bodyClipRaycast.addIgnoredObject(simonvic);
 		m_bodyClipRaycast.launch();
 		if(bodyClipContactPos_enabled && m_bodyClipRaycast.hasHit())
 			SDebug.spawnDebugDot(m_bodyClipRaycast.getContactPos(), 0.05, 2);
