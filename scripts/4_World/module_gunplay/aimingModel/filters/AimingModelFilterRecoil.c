@@ -13,9 +13,9 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		getAimingModel().getRecoil().Update(pModel, recoilOffsetMouseX, recoilOffsetMouseY, recoilOffsetHandsX, recoilOffsetHandsY, pDt);
 		pModel.m_fAimXHandsOffset += recoilOffsetHandsX;
 		pModel.m_fAimYHandsOffset += recoilOffsetHandsY;
-		pModel.m_fAimXCamOffset -= recoilOffsetHandsX;
-		pModel.m_fAimYCamOffset	-= recoilOffsetHandsY;
-		pModel.m_fAimXMouseShift += recoilOffsetMouseX;
-		pModel.m_fAimYMouseShift += recoilOffsetMouseY;
+		pModel.m_fAimXCamOffset   -= recoilOffsetHandsX;
+		pModel.m_fAimYCamOffset	  -= recoilOffsetHandsY;
+		pModel.m_fAimXMouseShift  += recoilOffsetMouseX;
+		pModel.m_fAimYMouseShift  += recoilOffsetMouseY;
 	}
 }

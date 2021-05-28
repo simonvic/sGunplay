@@ -29,6 +29,7 @@ modded class DayZPlayerImplementAiming{
 	*	 @note The order matters! Filters operation may not be commutative
 	*/
 	protected void registerFilters(){
+		//@todo add cam shake
 		registerFilter(new AimingModelFilterBreathing(this));
 		registerFilter(new AimingModelFilterMovement(this));
 		registerFilter(new AimingModelFilterShake(this));
@@ -78,6 +79,11 @@ modded class DayZPlayerImplementAiming{
 				filter.onUpdate(pDt, pModel, stance_index);
 			}
 		}
+		/* @todo finish this and double check everything
+		if (stance_index == DayZPlayerConstants.STANCEIDX_RAISEDPRONE){			
+			float newVal = DayZPlayerUtils.LinearRangeClamp(pModel.m_fCurrentAimX, pModel.m_fCurrentAimY, m_AimXClampRanges);
+			pModel.m_fAimYHandsOffset += newVal - pModel.m_fCurrentAimY;
+		}*/
 		updateHandsOffset(pModel);
 		updateSCrosshair(m_weapon, pDt);
 		

@@ -20,6 +20,20 @@ class PluginSDebug extends PluginBase {
 	}
 	
 	override void OnUpdate(float delta_time){
+		
+		if(GetGame().IsClient() || !GetGame().IsMultiplayer()) {
+			onUpdateClient(delta_time);
+			
+		}
+		
+		if(GetGame().IsServer() || !GetGame().IsMultiplayer()) {
+			onUpdateServer(delta_time);
+		}
+		
+		
+	}
+	
+	void onUpdateClient(float delta_time){
 		if(!m_player) m_player = PlayerBase.Cast(GetGame().GetPlayer());
 		if(m_player && Weapon_Base.Cast(m_player.GetItemInHands())) m_weapon = Weapon_Base.Cast(m_player.GetItemInHands());
 		
@@ -29,8 +43,50 @@ class PluginSDebug extends PluginBase {
 		if(bodyClipAllContact_enabled || bodyClipContactPos_enabled) updateBodyClip();
 		
 		if(false) updateMouse();
-		
 	}
+
+
+	void onUpdateServer(float delta_time){
+	}
+	
+	static void updateMovementSettings(){
+		PlayerBase simonvic;
+		if(GetGame().IsClient() || !GetGame().IsMultiplayer()) {
+			simonvic = PlayerBase.Cast(GetGame().GetPlayer());
+
+
+
+		}
+		
+		if(GetGame().IsServer() || !GetGame().IsMultiplayer()) {
+			array<Man> players = new array<Man>;
+			GetGame().GetPlayers(players);
+			simonvic = PlayerBase.Cast(players[0]);
+		}
+		
+		SHumanCommandMoveSettings hcm = simonvic.GetDayZPlayerType().CommandMoveSettingsW();
+
+		//! run sprint (SHIFT HOLD) filter 
+		hcm.m_fRunSpringTimeout = 0.1;							//!< filter span value		[s]
+		hcm.m_fRunSpringMaxChange = 10.0;							//!< filter speed value		[val/s]
+
+		//! WSAD direction filter 
+		hcm.m_fDirFilterTimeout = 0.1;						//!< direction filter timeout [s]
+		hcm.m_fDirFilterSpeed = Math.DEG2RAD * 360; 		//!< direction filter max rot speed [rad/s]
+		hcm.m_fMaxSprintAngle = Math.DEG2RAD * 45.01;		//!< max sprint angle [rad]
+
+		hcm.m_fTurnAngle = 45;						//!< this is when char starts tu turn
+		hcm.m_fTurnEndUpdateNTime = 0.7;						//!< this is end norm time (turn amount is not updated after this time)
+		hcm.m_fTurnNextNTime = 0.9;						//!< this is norm time when new turn from old turn is evaluated again (turn->turn)
+
+
+		hcm.m_fHeadingChangeLimiterIdle = 500000; 			//!<
+		hcm.m_fHeadingChangeLimiterWalk = 2000;				//!<
+		hcm.m_fHeadingChangeLimiterRun = 1500;				//!<		
+		hcm.m_fLeaningSpeed = 3.0;
+		simonvic.StartCommand_Move();
+	}
+	
 	
 	void updateMouse(){
 			
@@ -62,7 +118,7 @@ class PluginSDebug extends PluginBase {
 		
 		Debug.DestroyAllShapes();
 		Debug.DrawLine(from, ray.getContactPos(), SColor.rgb(0xF00000).getARGB());
-		SDebug.spawnDebugDot(ray.getContactPos(), 0.05, 2);
+		SDebug.spawnDebugDot(ray.getContactPos(), 0.05, 1);
 		
 	}
 	
