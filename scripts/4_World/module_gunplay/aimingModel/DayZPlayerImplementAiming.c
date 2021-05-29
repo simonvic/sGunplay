@@ -84,7 +84,7 @@ modded class DayZPlayerImplementAiming{
 		}*/
 		
 		updateHandsOffset(pModel);
-		getWeaponComponentsPositionLS( //get positions in local space so we don't lose precision
+		DayZPlayerImplementAiming.getWeaponComponentsPositionLS( //get positions in local space so we don't lose precision
 			m_weapon,
 			m_weaponBarrelPosition,
 			m_weaponMuzzlePosition,
@@ -97,8 +97,8 @@ modded class DayZPlayerImplementAiming{
 		
 		updateSCrosshair(pDt, 
 			m_weapon, 
-			m_weapon.ModelToWorld(m_weaponBarrelPosition),
 			m_weapon.ModelToWorld(m_weaponMuzzlePosition),
+			m_weapon.ModelToWorld(m_weaponTargetPosition),
 			GunplayConstants.CROSSHAIR_PRECISION);
 		
 		return true;
@@ -220,7 +220,7 @@ modded class DayZPlayerImplementAiming{
 	static void getWeaponComponentsPositionLS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
 		barrelPosition = weapon.GetSelectionPositionLS( "konec hlavne" );
 		muzzlePosition = weapon.GetSelectionPositionLS( "usti hlavne" );
-		targetPosition = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
+		targetPosition = muzzlePosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
 		//@todo try this. Thanks Mario :)
 		//vector barrelPosition = weapon.GetSelectionPositionLS("usti hlavne");
 		//vector muzzlePosition = weapon.GetSelectionPositionLS("konec hlavne");
@@ -239,7 +239,7 @@ modded class DayZPlayerImplementAiming{
 	static void getWeaponComponentsPositionWS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
 		barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
 		muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
-		targetPosition = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
+		targetPosition = muzzlePosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
 	}
 	
 	/**

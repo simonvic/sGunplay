@@ -210,10 +210,8 @@ class PluginSDebug extends PluginBase {
 
 
 
-modded class Weapon_Base
-{
-    override void EEFired(int muzzleType, int mode, string ammoType)
-    {
+modded class Weapon_Base{
+    override void EEFired(int muzzleType, int mode, string ammoType){
         super.EEFired(muzzleType, mode, ammoType);
 
         Magazine magazine = GetMagazine(GetCurrentMuzzle());
@@ -221,8 +219,7 @@ modded class Weapon_Base
         if (GetGame().IsServer() || !GetGame().IsMultiplayer())
             SetHealth(GetMaxHealth()); // prevent weapon from deteriorating
 
-        if (magazine)
-        {
+        if (magazine){
             if (GetGame().IsServer() || !GetGame().IsMultiplayer())
                 magazine.ServerSetAmmoMax(); // unlimited ammo
             
@@ -231,8 +228,7 @@ modded class Weapon_Base
         }
     }
 
-    override bool IsJammed()
-    {
+    override bool IsJammed(){
         return false; // prevent jamming
     }
 }
