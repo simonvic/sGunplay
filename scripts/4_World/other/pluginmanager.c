@@ -10,6 +10,6 @@ modded class PluginManager{
 		//----------------------------------------------------------------------
 				
 		//=========== Debug =============
-		RegisterPlugin( "PluginSDebug",						true, 	true ); //server false?
+		//RegisterPlugin( "PluginSDebug",						true, 	true ); //server false?
 	}
 }

@@ -27,7 +27,6 @@ class SUserConfigGunplay : SUserConfigBase{
 		
 	///////////////////////////////////////
 	// these go in json
-	protected float adsFovReduction = 1.0;
 	protected float adsDOFIntensity = 0.5;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected float lensZoomStrength = 1.0;
@@ -36,13 +35,6 @@ class SUserConfigGunplay : SUserConfigBase{
 	protected bool showDynamicCrosshair = true;
 	///////////////////////////////////////
 	
-	float getAdsFovReduction(){
-		return adsFovReduction;
-	}
-	
-	void setAdsFovReduction(float reduction){
-		adsFovReduction = Math.Clamp(reduction, 0, 1);
-	}
 	
 	float getAdsDOFIntensity(){
 		return adsDOFIntensity;

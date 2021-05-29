@@ -10,7 +10,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	//////////////////////////////////
 	
 	static const string WN_LENSZOOM = "sude_lensZoom_setting_";
-	static const string WN_ADS_FOV_REDUCTION = "sude_adsFovReduction_setting_";
 	static const string WN_ADS_DOF_INTENSITY = "sude_adsDOFIntensity_setting_";
 	static const string WN_HIDE_BARREL = "sude_hideBarrel_setting_";
 	static const string WN_DYNAMIC_CROSSHAIR = "sude_dynamicCrosshair_setting_";
@@ -40,9 +39,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	
 	protected ref SliderWidget              m_lensZoomSlider;
 	protected ref TextWidget                m_lensZoomValue;
-	
-	protected ref SliderWidget              m_adsFovReductionSlider;
-	protected ref TextWidget                m_adsFovReductionValue;
 	
 	protected ref SliderWidget              m_adsDOFIntensitySlider;
 	protected ref TextWidget                m_adsDOFIntensityValue;
@@ -110,11 +106,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		m_lensZoomValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_LENSZOOM+"value"));
 		m_lensZoomValue.SetText(m_lensZoomSlider.GetCurrent().ToString());
 		
-		m_adsFovReductionSlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_ADS_FOV_REDUCTION+"option"));
-		m_adsFovReductionSlider.SetCurrent(m_sUserConfig.getAdsFovReduction());
-		m_adsFovReductionValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_ADS_FOV_REDUCTION+"value"));
-		m_adsFovReductionValue.SetText(m_adsFovReductionSlider.GetCurrent().ToString());
-		
 		m_adsDOFIntensitySlider = SliderWidget.Cast(m_Root.FindAnyWidget(WN_ADS_DOF_INTENSITY+"option"));
 		m_adsDOFIntensitySlider.SetCurrent(m_sUserConfig.getAdsDOFIntensity());
 		m_adsDOFIntensityValue = TextWidget.Cast(m_Root.FindAnyWidget(WN_ADS_DOF_INTENSITY+"value"));
@@ -167,7 +158,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		m_TextMap = new map<int, ref Param2<string, string>>;
 		int uid = -1;
 		addDescriptionTooltip(m_lensZoomSlider,          uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM_DESCRIPTION");
-		addDescriptionTooltip(m_adsFovReductionSlider,   uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_REDUCTION","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_REDUCTION_DESCRIPTION");
 		addDescriptionTooltip(m_adsDOFIntensitySlider,   uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_DOF_INTENSITY","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_DOF_INTENSITY_DESCRIPTION");
 		addDescriptionTooltip(m_hideBarrel,              uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL_DESCRIPTION");
 		addDescriptionTooltip(m_dynamicCrosshair,        uid++, "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR","#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR");
@@ -186,7 +176,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 		////////////////////////////////////
 		
 		m_lensZoomSlider.SetHandler(this);
-		m_adsFovReductionSlider.SetHandler(this);
 		m_adsDOFIntensitySlider.SetHandler(this);
 		m_hideBarrel.SetHandler(this);
 		m_dynamicCrosshair.SetHandler(this);
@@ -220,9 +209,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 				switch(s.GetName()){
 					case WN_LENSZOOM+"option":
 						updateLensZoomOption(s.GetCurrent());
-						break;
-					case WN_ADS_FOV_REDUCTION+"option":
-						updateAdsFovReduction(s.GetCurrent());
 						break;
 					case WN_ADS_DOF_INTENSITY+"option":
 						updateAdsDOFIntensity(s.GetCurrent());
@@ -291,12 +277,6 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	void updateAdsDOFIntensity(float newValue){
 		m_adsDOFIntensityValue.SetText(newValue.ToString());
 		m_sUserConfig.setAdsDOFIntensity(newValue);	
-		onConfigChange();
-	}
-	
-	void updateAdsFovReduction(float newValue){
-		m_adsFovReductionValue.SetText(newValue.ToString());
-		m_sUserConfig.setAdsFovReduction(newValue);	
 		onConfigChange();
 	}
 	
