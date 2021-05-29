@@ -16,7 +16,7 @@ class CfgMods {
 		action = "";
 		hideName = 1;
 		hidePicture = 1;
-		name = "MyMODS/sGunplay";
+		name = "sGunplay";
 		credits = "simonvic";
 		author = "simonvic";
 		authorID = "0";
