@@ -43,22 +43,10 @@ modded class DayZPlayerCameraOptics{
 			return;
 		}
 
-		//@todo find proper solution (changing crosshiar precision fucks up eveyrthing)
-		vector offset = GetGame().GetScreenPosRelative(computeLensPostionWS());
-		SDebug.spawnDebugDot(m_aimingModel.getWeaponTargetPosition(), 0.01, 0.1);
-		m_lensOffset = offset;
-		//m_lensOffset[0] = Math.SmoothCD(m_lensOffset[0], offset[0], m_lensOffsetVelX, 0.2, 1000, pDt);
-		//m_lensOffset[1] = Math.SmoothCD(m_lensOffset[1], offset[1], m_lensOffsetVelY, 0.2, 1000, pDt);
+		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		
 		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
 		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
-	}
-	
-	protected vector computeLensPostionWS(){
-		if(!m_weaponUsed) return vector.Zero;
-		vector barrelPosition = m_weaponUsed.GetSelectionPositionLS( "konec hlavne" );
-		vector muzzlePosition = m_weaponUsed.GetSelectionPositionLS( "usti hlavne" );
-		return m_weaponUsed.ModelToWorld(barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * 50));
 	}
 	
 	/**

@@ -6,6 +6,8 @@ modded class DayZPlayerImplementAiming{
 	
 	protected vector m_handsOffset;
 	
+	protected vector m_lensPosition;
+	
 	protected vector m_sCrosshairPosition;
 	protected float m_sCrosshairXVel[1];
 	protected float m_sCrosshairYVel[1];
@@ -80,8 +82,24 @@ modded class DayZPlayerImplementAiming{
 			float newVal = DayZPlayerUtils.LinearRangeClamp(pModel.m_fCurrentAimX, pModel.m_fCurrentAimY, m_AimXClampRanges);
 			pModel.m_fAimYHandsOffset += newVal - pModel.m_fCurrentAimY;
 		}*/
+		
 		updateHandsOffset(pModel);
-		updateSCrosshair(m_weapon, pDt);
+		getWeaponComponentsPositionLS( //get positions in local space so we don't lose precision
+			m_weapon,
+			m_weaponBarrelPosition,
+			m_weaponMuzzlePosition,
+			m_weaponTargetPosition); 
+		
+		updateLensPosition(
+			m_weapon,
+			m_weaponBarrelPosition,
+			m_weaponMuzzlePosition);		
+		
+		updateSCrosshair(pDt, 
+			m_weapon, 
+			m_weapon.ModelToWorld(m_weaponBarrelPosition),
+			m_weapon.ModelToWorld(m_weaponMuzzlePosition),
+			GunplayConstants.CROSSHAIR_PRECISION);
 		
 		return true;
 	}
@@ -100,19 +118,16 @@ modded class DayZPlayerImplementAiming{
 		}
 	}
 	
-	
+
 	/**
 	*	@brief Update the crosshair position on the screen vector and its visibility
 	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
 	*/
-	protected void updateSCrosshair(Weapon_Base weapon, float pDt){
-		getWeaponComponentsPositionWS(weapon, m_weaponBarrelPosition, m_weaponMuzzlePosition, m_weaponTargetPosition, GunplayConstants.CROSSHAIR_PRECISION);
-		m_sCrosshairRay.setBegPos(m_weaponMuzzlePosition);
-		m_sCrosshairRay.setEndPos(m_weaponTargetPosition);
-		/*
+	protected void updateSCrosshair(float pDt, Weapon_Base weapon, vector from, vector to, float distance = 1){
+		m_sCrosshairRay.setBegPos(from);
+		m_sCrosshairRay.setEndPos(from + (vector.Direction(from, to) * distance));
 		m_sCrosshairRay.addIgnoredObject(weapon);
 		m_sCrosshairRay.addIgnoredObject(m_PlayerPb);
-		*/
 		m_sCrosshairRay.launch();
 		
 		vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
@@ -127,6 +142,21 @@ modded class DayZPlayerImplementAiming{
 	
 	Weapon_Base getWeapon(){
 		return m_weapon;
+	}
+	
+	/**
+	*	@brief Compute the lens position
+	*/
+	protected void updateLensPosition(Weapon_Base weapon, vector from, vector to, float distance = 50){
+		m_lensPosition = weapon.ModelToWorld(from + (vector.Direction(from, to) * distance));
+	}
+	
+	/**
+	*	@brief Get the computed position of where the optic lens should be
+	*	 @return vector - Position in WS
+	*/
+	vector getLensPositionWS(){
+		return m_lensPosition;
 	}
 	
 	/**
@@ -192,10 +222,10 @@ modded class DayZPlayerImplementAiming{
 		muzzlePosition = weapon.GetSelectionPositionLS( "usti hlavne" );
 		targetPosition = barrelPosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
 		//@todo try this. Thanks Mario :)
-		//vector usti_hlavne_position = weapon.GetSelectionPositionLS("usti hlavne");
-		//vector konec_hlavne_position = weapon.GetSelectionPositionLS("konec hlavne");
-		//vector directionLS = vector.Direction(usti_hlavne_position, konec_hlavne_position);
-		//vector direction = -1 * directionLS[0] * weapon.GetTransformAxis(0);
+		//vector barrelPosition = weapon.GetSelectionPositionLS("usti hlavne");
+		//vector muzzlePosition = weapon.GetSelectionPositionLS("konec hlavne");
+		//vector directionLS = vector.Direction(barrelPosition, muzzlePosition);
+		//vector direction = directionLS[0] * weapon.GetTransformAxis(0);
 	}
 	
 	/**
