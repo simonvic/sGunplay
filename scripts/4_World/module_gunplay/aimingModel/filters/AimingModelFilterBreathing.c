@@ -4,15 +4,15 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	protected vector m_breathingOffset;
 	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
-		m_time += pDt * getSpeed();
+		m_time += pDt * getSpeed();		
 		computeBreathingPattern(calculateWeight(stanceIndex));
 		pModel.m_fAimXHandsOffset += m_breathingOffset[0];
 		pModel.m_fAimYHandsOffset += m_breathingOffset[1];
 	}
 	
 	protected void computeBreathingPattern(float weight){
-		m_breathingOffset[0] = Math.Sin(m_time * GunplayConstants.SWAY_FREQUENCY[0]) * GunplayConstants.SWAY_AMPLITUDE[0];
-		m_breathingOffset[1] = Math.Sin(m_time * GunplayConstants.SWAY_FREQUENCY[1]) * GunplayConstants.SWAY_AMPLITUDE[1];
+		m_breathingOffset[0] = Math.Sin(m_time + GunplayConstants.SWAY_FREQUENCY[0]) * GunplayConstants.SWAY_AMPLITUDE[0] * weight;
+		m_breathingOffset[1] = Math.Sin(m_time + GunplayConstants.SWAY_FREQUENCY[1]) * GunplayConstants.SWAY_AMPLITUDE[1] * weight;
 	}
 	
 	protected float getSpeed(){
