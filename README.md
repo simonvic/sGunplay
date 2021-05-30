@@ -1,4 +1,4 @@
-# sVisual
+# sGunplay
 
 <p align="center">
         <img src="https://imgur.com/KET237w.png" width="50%">
@@ -7,6 +7,105 @@
         <br>
 		<img src="https://img.shields.io/github/license/simonvic/sGunplay?color=F0544C&style=flat-square">
 </p>
+
+# What is **sGunplay**
+
+**sGunplay** is the second module of the much more ambitious *sUDE* project. 
+Its main goal is to give a slightly more hardcore and different experience, but carefully balanced to don't make it feel much different from the vanilla game, while improving the PvP (and PvE) in many aspect.
+
+# **Key** aspects and **reasons** of the mod
+
+The current DayZ gunplay feels too fast and arcade, with sGunplay I try to fix that problem (Keep in mind that it still lacks some core features, therefore it doesn't completely represent the final vision I have for the gunplay)
+- sGunplay incentives a more thought-out and slightly slower PvP.
+
+- Running and shooting, rushing enemies while hipfiring and other things that make the game feel like an arcade-type shooter, are less rewarding
+
+- Your inventory now plays a big role in recoil control, precision and weapon handling. Think twice what weapon to use and what stuff you really need to bring with you when going to PvP hot zones (the sClothing module, with layered clothing, redesigned inventory slots and more, will majorly modify this aspect, so stay tuned)
+
+- A more dynamic and always different PvP, thanks to the many features added.
+
+# Differences from vanilla DayZ
+
+## Less arcadeish gameplay
+
+The PvP/PvE has been "slowed" down in many aspect (more with the future Movement update) 
+- Slower AimingDownSight (ADS) time, less snappy, robotic and arcadey animation (procedural ADS times will come with future updates)
+
+- "Focus" mechanic. Holding your breath will help you focus while in ADS, giving less sway and more precision. The focus speed will change based on the player stance (more to come in the future)
+- Reduced FieldOfView while aiming ADS, which combined with the new "focus" mechanic incentivate the player to think twice before shooting
+
+---
+
+## Procedural weapon **inertia**
+
+No more insane 360° flicks with a 5kg weapon, thanks to the new inertia system.
+- It's completely dynamic, based on:
+  - Weapon weight
+  - Inventory weight
+  - Player stance (erect, crouched, prone)
+  - Movement speed
+  - Hipfire (inertia will be much more visible while hipfiring)
+  - Player injury state
+  - *... more to come with the SoftSkills module*
+
+---
+
+## Procedural weapon **recoil**
+
+The weapon recoil system has been remade from scratch, which allowed me to make it more realistic, visually more appealing and more dynamic
+
+Weapon recoils are procedurally created based on many variables:
+  - Attachments (more to come in the future)
+  - Character strength (softskill you see when you open the inventory)
+  - Inventory weight (no more "360 midair noscope" while carrying 3 weapons and 50kg of stuff on your back)
+  - Stance (erect, crouched, prone)
+  - Movement (you'll be able to control recoil much better while standing still)
+  - Hipfire (while hipfiring you won't be able to control the recoil very easily)
+  - *...more to come with the softskills module*
+
+All weapon recoils have been carefully tweaked one by one, to find the perfect balance between usability and fire power
+
+---
+
+## Completely reworked player **camera**
+
+- Deadzone! It is also possible to tweak the deadzone strength as you wish
+- The camera is not "tied" to the weapon anymore
+- "PictureInPicture" (PiP) emulation. The mangifying optic lens effect has received a major overhaul to better emulate the dual render technic used by games like Insurgency or EscapeFromTarkov. And it also is 100% compatible deadzone!
+- Customizable DepthOfField while ADS
+- It's possible to Freelook while ADS (only with ironsights and non-magnifying optics)
+- It's possible to visually inspect the weapon (only with ironsights and non-magnifying optics)
+
+---
+
+## Dynamic **crosshair**
+
+The dynamic crosshair is inspired from the .62 version of DayZ. Such crosshair would help you while hipfiring, showing you where your gun is point at; so it will be much easier to understand if you're shooting a tree or the enemy behind it .
+
+- It can be enabled/disabled from the menu settings
+- Servers can decide to disable it by toggling the crosshair options in the serverDZ.cfg
+
+---
+
+## Improved **sway** and **stamina** drain
+
+- The weapon sway (caused by the breathing) is a lot more predictable and much easier to control (without crazy spasm from your character).
+- Holding your breath will drain your stamina a bit slower than vanilla. This has been done to compensate the "time" you need to focus, while also making the timing more plausible, gameplay and realism wise
+
+---
+
+<br>
+<br>
+
+# __sUDE discord__ server
+
+Join the discord server for more info, news and preview of new additions to the mods
+<p align="center">
+    <a style="margin: 0 10px" href = "https://discord.gg/HEtYJHUyE5">
+        <img style="margin: 0 10px" src="https://img.shields.io/badge/Discord-sUDE-F0544C?logo=Discord&style=social">
+    </a>
+</p>
+
 
 # Contact me
 <h2 align="center">Found a bug or want to give a suggestion? Feel free to contact me!</h2>
