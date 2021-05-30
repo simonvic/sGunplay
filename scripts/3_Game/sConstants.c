@@ -71,19 +71,19 @@ class GunplayConstants{
 		
 	//////////////////
 	// INERTIA
-	static const float INERTIA_SMOOTHNESS = 0.3;                       // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
-	static const float INERTIA_MULTIPLIER_BASE = 2;                    // Base multiplier of the amount of inertia to be applied
-	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3 * 0.0001;  // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)
-	static const float INERTIA_MULTIPLIER_PLAYER_WEIGHT = 0.5 * 0.0001;// Multiplier of the amount of inertia to be applied based on player inventory weight
-	static const float INERTIA_MULTIPLIER_HIPFIRE = 5;                 // Multiplier of the amount of inertia to be applied when the player is in hipfire
+	static const float INERTIA_SMOOTHNESS = 0.3;                         // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
+	static const float INERTIA_MULTIPLIER_BASE = 2;                      // Base multiplier of the amount of inertia to be applied
+	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3.5 * 0.0001;  // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)
+	static const float INERTIA_MULTIPLIER_PLAYER_WEIGHT = 0.5 * 0.0001;  // Multiplier of the amount of inertia to be applied based on player inventory weight
+	static const float INERTIA_MULTIPLIER_HIPFIRE = 4.0;                 // Multiplier of the amount of inertia to be applied when the player is in hipfire
 	
 	static const float INERTIA_MULTIPLIER_STANDING = 1.0;              // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
 	static const float INERTIA_MULTIPLIER_WALKING = 1.5;               // Multiplier of the amount of inertia to be applied when the player is WALKING
 	static const float INERTIA_MULTIPLIER_JOGGING = 2.0;               // Multiplier of the amount of inertia to be applied when the player is JOGGING
 	
 	static const float INERTIA_MULTIPLIER_ERECT = 1;                   // Multiplier of the amount of inertia to be applied when the player is ERECT
-	static const float INERTIA_MULTIPLIER_CROUCHED = 0.5;              // Multiplier of the amount of inertia to be applied when the player is CROUCHED
-	static const float INERTIA_MULTIPLIER_PRONE = 0.9;                 // Multiplier of the amount of inertia to be applied when the player is PRONE
+	static const float INERTIA_MULTIPLIER_CROUCHED = 1.5;              // Multiplier of the amount of inertia to be applied when the player is CROUCHED
+	static const float INERTIA_MULTIPLIER_PRONE = 2.0;                 // Multiplier of the amount of inertia to be applied when the player is PRONE
 	
 	static const float INERTIA_MIN_MULTIPLIER = 1;                     // Minimum value of inertia
 	static const float INERTIA_MAX_MULTIPLIER = 50;                    // Maximum value of inertia
