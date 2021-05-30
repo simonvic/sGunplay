@@ -16,11 +16,19 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	}
 	
 	protected float getSpeed(){
-		float playerStamina = getPlayer().GetStaminaHandler().GetSyncedStamina() / getPlayer().GetStaminaHandler().GetStaminaCap();
+		float playerStamina =  getPlayerStamina() / getPlayer().GetStaminaHandler().GetStaminaCap();
 		if( getPlayer().IsHoldingBreath() ){
 			playerStamina *= GunplayConstants.SWAY_DECREASE_FOCUSING;
 		}
 		return (Math.Pow(GunplayConstants.SWAY_DECAY_POWER, 1 - playerStamina)) + GunplayConstants.SWAY_MINIMUM * getSwayModifier()[2];
+	}
+	
+	protected float getPlayerStamina(){
+		if(!GetGame().IsMultiplayer()){
+			return getPlayer().GetStaminaHandler().GetStamina();
+		}
+		
+		return getPlayer().GetStaminaHandler().GetSyncedStamina();
 	}
 	
 
