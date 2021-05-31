@@ -77,29 +77,31 @@ modded class DayZPlayerImplementAiming{
 				filter.onUpdate(pDt, pModel, stance_index);
 			}
 		}
-		/* @todo finish this and double check everything
-		if (stance_index == DayZPlayerConstants.STANCEIDX_RAISEDPRONE){			
-			float newVal = DayZPlayerUtils.LinearRangeClamp(pModel.m_fCurrentAimX, pModel.m_fCurrentAimY, m_AimXClampRanges);
-			pModel.m_fAimYHandsOffset += newVal - pModel.m_fCurrentAimY;
-		}*/
+		
+		// @todo finish this and double check everything
+		//if (stance_index == DayZPlayerConstants.STANCEIDX_RAISEDPRONE){			
+		//	float newVal = DayZPlayerUtils.LinearRangeClamp(pModel.m_fCurrentAimX, pModel.m_fCurrentAimY, m_AimXClampRanges);
+		//	pModel.m_fAimYHandsOffset += newVal - pModel.m_fCurrentAimY;
+		//}
 		
 		updateHandsOffset(pModel);
-		DayZPlayerImplementAiming.getWeaponComponentsPositionLS( //get positions in local space so we don't lose precision
+		
+		//get positions in local space so we don't lose precision
+		DayZPlayerImplementAiming.getWeaponComponentsPositionLS(
 			m_weapon,
 			m_weaponBarrelPosition,
 			m_weaponMuzzlePosition,
 			m_weaponTargetPosition); 
 		
-		updateLensPosition(
-			m_weapon,
-			m_weaponBarrelPosition,
-			m_weaponMuzzlePosition);		
 		
 		updateSCrosshair(pDt, 
 			m_weapon, 
 			m_weapon.ModelToWorld(m_weaponMuzzlePosition),
 			m_weapon.ModelToWorld(m_weaponTargetPosition),
 			GunplayConstants.CROSSHAIR_PRECISION);
+		
+		//The lens must be computed in the aiming model after all filters transformation
+		updateOpticLensPosition(m_weapon.GetAttachedOptics());
 		
 		return true;
 	}
@@ -145,10 +147,14 @@ modded class DayZPlayerImplementAiming{
 	}
 	
 	/**
-	*	@brief Compute the lens position
+	*	@brief Compute the optic lens position
 	*/
-	protected void updateLensPosition(Weapon_Base weapon, vector from, vector to, float distance = 50){
-		m_lensPosition = weapon.ModelToWorld(from + (vector.Direction(from, to) * distance));
+	protected void updateOpticLensPosition(ItemOptics optic, float distance = 50){
+		if(!optic) return;
+		
+		vector from = optic.GetSelectionPositionLS( "eyeScope" );
+		vector to = optic.GetSelectionPositionLS( "cameraDir" );
+		m_lensPosition = optic.ModelToWorld(from + (vector.Direction(from, to) * distance));
 	}
 	
 	/**
