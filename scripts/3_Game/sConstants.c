@@ -74,7 +74,7 @@ class GunplayConstants{
 	static const float INERTIA_SMOOTHNESS = 0.3;                         // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
 	static const float INERTIA_MULTIPLIER_BASE = 2;                      // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3.5 * 0.0001;  // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)
-	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 1;      // Multiplier of the amount of inertia to be applied based on weapon length
+	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 2;      // Multiplier of the amount of inertia to be applied based on weapon length
 	static const float INERTIA_MULTIPLIER_PLAYER_WEIGHT = 0.5 * 0.0001;  // Multiplier of the amount of inertia to be applied based on player inventory weight
 	static const float INERTIA_MULTIPLIER_HIPFIRE = 4.0;                 // Multiplier of the amount of inertia to be applied when the player is in hipfire
 	
