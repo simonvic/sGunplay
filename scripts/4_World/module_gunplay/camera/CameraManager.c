@@ -19,6 +19,10 @@ modded class CameraManager{
 		return m_sUserConfigGunplay.isHideWeaponBarrelInOpticEnabled();
 	}
 	
+	bool isHideClothingInOpticEnabled(){
+		return m_sUserConfigGunplay.isHideClothingInOpticEnabled();
+	}
+	
 	bool isResetDeadzoneOnFocusEnabled(){
 		return m_sUserConfigGunplay.isResetDeadzoneOnFocusEnabled();
 	}

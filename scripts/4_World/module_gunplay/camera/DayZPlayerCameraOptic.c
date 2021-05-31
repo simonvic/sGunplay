@@ -25,7 +25,8 @@ modded class DayZPlayerCameraOptics{
 		
 		//Hide player clothing when transition is done
 		if (m_player){
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000,false,m_opticsUsed,true);
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000,false,m_opticsUsed,m_camManager.isHideClothingInOpticEnabled());
 		}
 	}
 	

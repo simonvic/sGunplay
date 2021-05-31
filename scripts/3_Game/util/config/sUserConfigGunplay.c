@@ -29,6 +29,7 @@ class SUserConfigGunplay : SUserConfigBase{
 	// these go in json
 	protected float adsDOFIntensity = 0.5;
 	protected bool hideWeaponBarrelInOptic = false;
+	protected bool hideClothingInOptic = true;
 	protected float lensZoomStrength = 1.0;
 	protected float deadzoneLimits[4] = { 0.2, 0.8, 0.2, 0.8 };
 	protected bool resetDeadzoneOnFocus = true;
@@ -50,6 +51,14 @@ class SUserConfigGunplay : SUserConfigBase{
 	
 	void hideWeaponBarrelInOptic(bool enabled){
 		hideWeaponBarrelInOptic = enabled;
+	}
+	
+	bool isHideClothingInOpticEnabled(){
+		return hideClothingInOptic;
+	}
+	
+	void hideClothingInOptic(bool enabled){
+		hideClothingInOptic = enabled;
 	}
 	
 	float getLensZoomStrength(){
