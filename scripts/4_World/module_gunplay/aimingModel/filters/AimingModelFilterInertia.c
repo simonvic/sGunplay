@@ -49,6 +49,10 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		inertiaMultiplier *= getInertiaMultiplierWeapon();
 		
 		////////////////////////
+		// WEAPON BARREL LENGTH
+		inertiaMultiplier *= getInertiaMultiplierWeaponLength();
+		
+		////////////////////////
 		// PLAYER INVENTORY WEIGHT
 		inertiaMultiplier *= getInertiaMultiplierInventoryWeight();
 				
@@ -96,6 +100,14 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*/
 	protected float getInertiaMultiplierWeapon(){
 		return getWeapon().GetWeight() * GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT;
+	}
+	
+	/**
+	*	@brief Get the inertia multiplier based on the weapon length
+	*	 @return float - inertia multiplier
+	*/
+	protected float getInertiaMultiplierWeaponLength(){
+		return getWeapon().getWeaponLength() * GunplayConstants.INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT;
 	}
 	
 	/**
