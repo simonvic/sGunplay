@@ -127,13 +127,12 @@ modded class DayZPlayerImplementAiming{
 	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
 	*/
 	protected void updateSCrosshair(float pDt, Weapon_Base weapon, vector from, vector to, float distance = 1){
-		m_sCrosshairRay.setBegPos(from);
-		m_sCrosshairRay.setEndPos(from + (vector.Direction(from, to) * distance));
-		m_sCrosshairRay.addIgnoredObject(weapon);
-		m_sCrosshairRay.addIgnoredObject(m_PlayerPb);
+		m_sCrosshairRay.from(from);
+		m_sCrosshairRay.to(from + (vector.Direction(from, to) * distance));
+		m_sCrosshairRay.ignore(weapon, m_PlayerPb);
 		m_sCrosshairRay.launch();
 		
-		vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPos());
+		vector pos = GetGame().GetScreenPosRelative(m_sCrosshairRay.getContactPosition());
 		
 		m_sCrosshairPosition[0] = Math.SmoothCD(m_sCrosshairPosition[0], pos[0], m_sCrosshairXVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
 		m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);

@@ -60,7 +60,6 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		// HIPFIRE 
 		inertiaMultiplier *= getInertiaMultiplierHipfire();
 		
-		//inertiaMultiplier = 40;
 		return Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
 	}
 		

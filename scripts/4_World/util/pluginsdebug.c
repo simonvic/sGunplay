@@ -14,6 +14,8 @@ class PluginSDebug extends PluginBase {
 	Shape line = Debug.DrawLine("0 0 0", "0 0 0", 0xFF0000);
 	
 	void PluginSDebug(){
+		m_crosshairRaycast = new SRaycast(vector.Zero, vector.Zero, 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
+		m_bodyClipRaycast = new SRaycast(vector.Zero, vector.Zero, 0.05, 0, CollisionFlags.FIRSTCONTACT);
 	}
 	
 	void ~PluginSDebug(){
@@ -116,15 +118,12 @@ class PluginSDebug extends PluginBase {
 		vector from = usti_hlavne_position;
 		vector to = konec_hlavne_position + (direction * 100);
 		
-		SRaycast ray = new SRaycast("0 0 0", "0 0 0", 0.05, ObjIntersectView, CollisionFlags.NEARESTCONTACT);
-		ray.setBegPos(from);
-		ray.setEndPos(to);
-		ray.launch();
+		m_crosshairRaycast.init(from,to).launch();
 		
 		
 		Debug.DestroyAllShapes();
-		Debug.DrawLine(from, ray.getContactPos(), SColor.rgb(0xF00000).getARGB());
-		SDebug.spawnDebugDot(ray.getContactPos(), 0.05, 1);
+		Debug.DrawLine(from, m_crosshairRaycast.getContactPosition(), SColor.rgb(0xF00000).getARGB());
+		SDebug.spawnDebugDot(m_crosshairRaycast.getContactPosition(), 0.05, 1);
 		
 	}
 	
@@ -141,14 +140,15 @@ class PluginSDebug extends PluginBase {
 		vector offsetPos = from - point;
 		vector result = vector.RotateAroundZero(offsetPos, axis, cosAngle, sinAngle) + from;
 		
-		m_bodyClipRaycast = new SRaycast(from + "0 1.5 0", result + "0 1.5 0", 0.05, 0, CollisionFlags.FIRSTCONTACT);
-		m_bodyClipRaycast.addIgnoredObject(simonvic);
-		m_bodyClipRaycast.launch();
+		
+		m_bodyClipRaycast.from(from + "0 1.5 0").to(result + "0 1.5 0").ignore(simonvic).launch();
+		
+		
 		if(bodyClipContactPos_enabled && m_bodyClipRaycast.hasHit())
-			SDebug.spawnDebugDot(m_bodyClipRaycast.getContactPos(), 0.05, 2);
+			SDebug.spawnDebugDot(m_bodyClipRaycast.getContactPosition(), 0.05, 2);
 		
 		if(bodyClipAllContact_enabled){
-			SDebug.spawnDebugDot(m_bodyClipRaycast.getContactPos(), 0.02, 2);
+			SDebug.spawnDebugDot(m_bodyClipRaycast.getContactPosition(), 0.02, 2);
 			SDebug.spawnDebugDot(from, 0.02, 1);
 			SDebug.spawnDebugDot(point, 0.02, 1);
 		}
