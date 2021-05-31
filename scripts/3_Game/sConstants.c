@@ -46,13 +46,13 @@ class GunplayConstants{
 	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.4;  // Smooth time of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT[] = {
-		1.0, 1.0,  //yaw strength, yaw frequency
-		1.5, 7.0   //pitch strength, pitch frequency
+		2.5, 2.0,  //yaw strength, yaw frequency
+		3.5, 7.5   //pitch strength, pitch frequency
 	};
 	
 	static const float AIMING_MODEL_FILTER_INJURY_MULTIPLIER = 1;    // Overall strength of the injury modifier
 	static const float AIMING_MODEL_FILTER_INJURY[] = {
-		15.0, 5.0,  //yaw strength, yaw frequency
+		15.0, 2.0,  //yaw strength, yaw frequency
 		2.0, 0.0    //pitch strength, pitch frequency
 	};
 	

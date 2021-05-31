@@ -63,7 +63,6 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Update the Depth of Field
 	*/
 	protected void updateDOF(){
-		//@todo add inspect dof
 		if( m_player.isInspectingWeapon() && canInspectWeapon()) {
 			PPEManager.requestWeaponDOF(m_inspectDOFPreset);
 			m_isInspectionDOFReset = true;
@@ -132,6 +131,12 @@ modded class DayZPlayerCameraIronsights{
 			//m_pPlayer.GetItemAccessor().WeaponGetCameraPointMSTransform(GetCurrentSightEntity(), m_OpticsCamPos, dummyDir, positionTM);
 		}
 		
+		////////////////////////
+		// Misalignment
+		vector misalignmentTM[4];
+		computeMisalignment(aimChangeX, aimChangeY, misalignmentTM, pDt);
+		
+		
 		
 		////////////////////////
 		// Inspection
@@ -157,6 +162,7 @@ modded class DayZPlayerCameraIronsights{
 
 		
 		Math3D.MatrixInvMultiply4(inspectTM, weaponCameraPointTM, weaponCameraPointTM); //apply inspect transformation matrix
+		Math3D.MatrixMultiply4(misalignmentTM, weaponCameraPointTM, weaponCameraPointTM); //apply misalignment transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM); //apply freelook transformation matrix
 		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM); //apply weapon aiming transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM); //apply result to camera
@@ -169,7 +175,19 @@ modded class DayZPlayerCameraIronsights{
 		m_pPlayer.GetItemAccessor().WeaponGetAimingModelDirTm(aimingTM);
 	}
 	
-	
+	/**
+	*
+	*/
+	protected void computeMisalignment(float aimChangeX, float aimChangeY, out vector misalignmentTM[4], float pDt){
+		vector misalignmentAngles;
+		m_dynamicsSmoothTime = 0.4;
+		m_dynamicsStrength = 4;
+		misalignmentAngles[0] = Math.SmoothCD(misalignmentAngles[0], (m_dynamicsStrength * aimChangeY), m_velocityYaw, m_dynamicsSmoothTime, 1000, pDt);
+		misalignmentAngles[1] = Math.SmoothCD(misalignmentAngles[1], (m_dynamicsStrength * aimChangeX), m_velocityPitch, m_dynamicsSmoothTime, 1000, pDt);
+		misalignmentAngles[2] = 0;
+		Math3D.YawPitchRollMatrix(misalignmentAngles, misalignmentTM);
+		misalignmentTM[3] = vector.Zero;
+	}
 	
 	/**
 	*	@brief Compute the angles of the camera when inspecting the weapon
@@ -287,7 +305,7 @@ modded class DayZPlayerCameraIronsights{
 			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
 			speed = getFocusSpeed();
 		}else{
-			targetFOV = GetDayZGame().GetUserFOV(); //@todo a 10% more (less) fov perhaps?
+			targetFOV = GetDayZGame().GetUserFOV();
 			speed = GunplayConstants.FOCUS_RESET_SPEED;
 		}
 		
