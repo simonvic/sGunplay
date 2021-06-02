@@ -65,28 +65,28 @@ class cfgVehicles{
 	class ACOGOptic: ItemOptics{
 		class OpticsInfo{
 			PPMaskProperties[]={0.0, 0.0, 0.3, 0.01};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.0};
+			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class PUScopeOptic: ItemOptics{
 		class OpticsInfo{
 			PPMaskProperties[]={0.0, 0.0, 0.38, 0.007};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.0};
+			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class KashtanOptic: ItemOptics{
 		class OpticsInfo{
 			PPMaskProperties[]={0.0, 0.0, 0.5, 0.01};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.0};
+			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class HuntingOptic: ItemOptics{
 		class OpticsInfo{
 			PPMaskProperties[]={0.0, 0.0, 0.7, 0.05};
-			PPLensProperties[]={0.3, 0.0, 0.0, 0.0};
+			PPLensProperties[]={0.3, 0.0, 0.0, 0.3};
 		};
 	};
 
@@ -100,14 +100,14 @@ class cfgVehicles{
 	class PSO1Optic: ItemOptics{
 		class OpticsInfo{
 			PPMaskProperties[]={0.0, 0.0, 0.31, 0.01};
-			PPLensProperties[]={0.35, 0.0, 0.0, 0.0};
+			PPLensProperties[]={0.35, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class PSO11Optic: ItemOptics{
 		class OpticsInfo{
 			PPMaskProperties[]={0.0, 0.0, 0.31, 0.01};
-			PPLensProperties[]={0.35, 0.0, 0.0, 0.0};
+			PPLensProperties[]={0.35, 0.0, 0.0, 0.2};
 		};
 	};
 
