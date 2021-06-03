@@ -20,14 +20,12 @@ modded class IngameHud {
 	
 	override void Update( float timeslice ){
 		super.Update( timeslice );
-		if(!m_player){
-			m_player = PlayerBase.Cast(GetGame().GetPlayer());
-		}
+		m_player = PlayerBase.Cast(GetGame().GetPlayer());
+		if(!m_player) return; //@todo temp-fix, change this
 		
 		if(canShowCrosshair()){
 			setSCrosshairPosition(m_player.GetAimingModel().getSCrosshairPosition()[0] - 0.5, m_player.GetAimingModel().getSCrosshairPosition()[1] - 0.5); //@todo center the image
 			m_sCrosshair.Show(true);
-			
 		}else{
 			m_sCrosshair.Show(false);
 		}
