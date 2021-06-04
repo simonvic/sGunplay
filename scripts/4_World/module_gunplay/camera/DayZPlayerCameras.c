@@ -11,6 +11,11 @@ modded class DayZPlayerCameras{
 	
 	
 	override static void RegisterCameras(DayZPlayerType pType){
+		
+		#ifdef CF_MODULE_CONFIG
+			JMAnimRegister.Register( pType );
+		#endif
+		
 		pType.ResetCameraCreators();
 
 		//! 
