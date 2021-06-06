@@ -101,8 +101,8 @@ class GunplayConstants{
 
 	/////////////////////////////////////////////////////////////
 	// RECOIL
-	static const float RECOIL_HAND_MULTIPLIER = 1; //for easy debug tweaking of all recoils; use 1 for default recoil
-	static const float RECOIL_RELOAD_TIME_MULTIPLIER = 1; //time to repositionate weapon multiplier
+	static const float RECOIL_HAND_MULTIPLIER = 1;            //for easy debug tweaking of all recoils; use 1 for default recoil
+	static const float RECOIL_RELOAD_TIME_MULTIPLIER = 1;     //time to repositionate weapon multiplier
 	
 	/////////////////////////////////////////////////////////////
 	// HIPFIRE
@@ -112,21 +112,29 @@ class GunplayConstants{
 	
 	/////////////////////////////////////////////////////////////
 	// RECOIL CONTROL
-	static const bool RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT = true;  // the player inventory weight will contribute to the recoil control
+	static const float RECOIL_CONTROL_COEFF = 0.5;                        // how much the specialty will impact the recoil during early stages of Strength progression. (see arctan function)
+	static const float RECOIL_CONTROL_MINIMUM = -1;                       // minimum value of recoil control (used on arctangent function)
+	static const float RECOIL_CONTROL_MAXIMUM = 1;                        // maximum value of recoil control (used on arctangent function)
+	
+	
 	static const bool RECOIL_CONTROL_USE_STRENGTH = true;                 // the player strength (soft skill) will contribute to the recoil control
+	static const bool RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT = true;  // the player inventory weight will contribute to the recoil control
 	static const bool RECOIL_CONTROL_USE_STANCE = true;                   // the player stance will contribute to the recoil control
 	static const bool RECOIL_CONTROL_USE_MOVEMENT = true;                 // the player movement will contribute to the recoil control
-	
-	static const float RECOIL_CONTROL_COEFF = 0.5;                        // how much the specialty will impact the recoil during early stages of Strength progression. (see arctan function)
-	static const float RECOIL_CONTROL_INVENTORY_WEIGHT = -0.2 * 0.0001;   // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
+		
 	static const float RECOIL_CONTROL_STRENGTH_WEIGHT = 1;                // how much the strength (soft skills) will affect final recoil calculation. The strength goes from -1 to 1
 	
-	static const float RECOIL_CONTROL_MULTIPLIER_ERECT = 1;               // how much the ERECT stance will affect final recoil calculation
-	static const float RECOIL_CONTROL_MULTIPLIER_CROUCHED = 0.5;          // how much the CROUCHED stance will affect final recoil calculation
-	static const float RECOIL_CONTROL_MULTIPLIER_PRONE = 0.25;            // how much the PRONE stance will affect final recoil calculation
+	static const float RECOIL_CONTROL_INVENTORY_WEIGHT = -0.4 * 0.0001;   // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
+	static const float RECOIL_CONTROL_INVENTORY_MINIMUM = 1;              // minmum value added to the the inventory recoil control calculation
 	
-	static const float RECOIL_CONTROL_MULTIPLIER_STANDING = 1.0;          // how much STANDING will affect final recoil calculation
-	static const float RECOIL_CONTROL_MULTIPLIER_WALKING = 1.5;           // how much WALKING will affect final recoil calculation
-	static const float RECOIL_CONTROL_MULTIPLIER_JOGGING = 2.0;           // how much JOGGING will affect final recoil calculation
+	static const float RECOIL_CONTROL_STANCE_ERECT = 0;                   // how much the ERECT stance will affect final recoil calculation
+	static const float RECOIL_CONTROL_STANCE_CROUCHED = 0.4;              // how much the CROUCHED stance will affect final recoil calculation
+	static const float RECOIL_CONTROL_STANCE_PRONE = 0.75;                // how much the PRONE stance will affect final recoil calculation
+	static const float RECOIL_CONTROL_STANCE_MINIMUM = 0;                 // minmum value added to the the stance recoil control calculation
+	
+	static const float RECOIL_CONTROL_MOVEMENT_STANDING = 0;              // how much STANDING will affect final recoil calculation
+	static const float RECOIL_CONTROL_MOVEMENT_WALKING = -0.3;            // how much WALKING will affect final recoil calculation
+	static const float RECOIL_CONTROL_MOVEMENT_JOGGING = -0.5;            // how much JOGGING will affect final recoil calculation
+	static const float RECOIL_CONTROL_MOVEMENT_MINIMUM = 0;               // minmum value added to the the movement recoil control calculation
 	
 }

@@ -18,59 +18,83 @@ modded class RecoilBase{
 	
 	
 	/**
-	* @brief Compute the ability of the player to control the weapon recoil based on multiple variables
-	* 	@return \p float - value between -1 (worst control) to +1 (best control)
+	*	@brief Compute the ability of the player to control the weapon recoil based on multiple variables
+	*	 @return \p float - value between -1 (worst control) to +1 (best control)
 	*/
 	protected float computeRecoilControl(){
 		float control = 0;
-		// vanilla softskills
 		if(GunplayConstants.RECOIL_CONTROL_USE_STRENGTH){
-			control += m_Player.GetSoftSkillsManager().GetSpecialtyLevel() * GunplayConstants.RECOIL_CONTROL_STRENGTH_WEIGHT;
+			control += computeStrengthRecoilControl();
 		}
-		// player inventory weight
+		
 		if(GunplayConstants.RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT){
-			control += m_Player.GetWeight() * GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT;
+			control += computeInventoryWeightRecoilControl();
 		}
 		
-		// stance
 		if(GunplayConstants.RECOIL_CONTROL_USE_STANCE){
-			control *= getStanceRecoilControl();
+			control += computeStanceRecoilControl();
 		}
 		
-		// movement
 		if(GunplayConstants.RECOIL_CONTROL_USE_MOVEMENT){
-			control *= getMovementRecoilControl();
+			control += computeMovementRecoilControl();
 		}
 
-		return Math.Clamp(control,-1,1); //to-do change this to the custom soft skills when done: weapon dexterity, strength etc
+		return Math.Clamp(control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM); //to-do change this to the custom soft skills when done: weapon dexterity, strength etc
 	}
 	
+	/**
+	*	@brief compute the recoil control based on strength
+	*/
+	protected float computeStrengthRecoilControl(){
+		return m_Player.GetSoftSkillsManager().GetSpecialtyLevel() * GunplayConstants.RECOIL_CONTROL_STRENGTH_WEIGHT;
+	}
 	
 	/**
-	*	@brief Get the recoil control multiplier based on the player stance
-	*	 @return float - recoil control multiplier
+	*	@brief compute the recoil control based on the player inventory weight
 	*/
-	protected float getStanceRecoilControl(){
+	protected float computeInventoryWeightRecoilControl(){
+		return GunplayConstants.RECOIL_CONTROL_INVENTORY_MINIMUM + (m_Player.GetWeight() * GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT);
+	}
+	
+	/**
+	*	@brief compute the recoil control based on player stance
+	*/
+	protected float computeStanceRecoilControl(){
+		return GunplayConstants.RECOIL_CONTROL_STANCE_MINIMUM + getStanceRecoilControlModifier();
+	}
+	
+	/**
+	*	@brief compute the recoil control based on the player movement
+	*/
+	protected float computeMovementRecoilControl(){
+		return GunplayConstants.RECOIL_CONTROL_MOVEMENT_MINIMUM + getMovementRecoilControlModifier();
+	}
+	
+	/**
+	*	@brief Get the recoil control modifier based on the player stance
+	*	 @return float - recoil control modifier
+	*/
+	protected float getStanceRecoilControlModifier(){
 		if(m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
-			return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_ERECT;
+			return GunplayConstants.RECOIL_CONTROL_STANCE_ERECT;
 		} else if(m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)){
-			return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_CROUCHED;
+			return GunplayConstants.RECOIL_CONTROL_STANCE_CROUCHED;
 		} else if(m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)){
-			return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_PRONE;
+			return GunplayConstants.RECOIL_CONTROL_STANCE_PRONE;
 		} 
 		
 		return 1;
 	}
 	
 	/**
-	*	@brief Get the recoil control multiplier based on the player movement
-	*	 @return float - recoil control multiplier
+	*	@brief Get the recoil control modifier based on the player movement
+	*	 @return float - recoil control modifier
 	*/
-	protected float getMovementRecoilControl(){
+	protected float getMovementRecoilControlModifier(){
 		switch(m_Player.m_MovementState.m_iMovement){ 
-			case 0:	return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_STANDING;			
-			case 1:	return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_WALKING;
-			case 2:	return GunplayConstants.RECOIL_CONTROL_MULTIPLIER_JOGGING;
+			case 0:	return GunplayConstants.RECOIL_CONTROL_MOVEMENT_STANDING;			
+			case 1:	return GunplayConstants.RECOIL_CONTROL_MOVEMENT_WALKING;
+			case 2:	return GunplayConstants.RECOIL_CONTROL_MOVEMENT_JOGGING;
 		}
 		
 		return 1;
