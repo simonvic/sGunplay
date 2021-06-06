@@ -10,6 +10,7 @@ class GunplayConstants{
 	/////////////////////////////////////////////////////////////
 	// FOV and OPTIC LENS
 	static const float ADS_LENS_ACTIVATION_DELAY = -250;              // Delay in milliseconds added to the camera transition time
+	static const float ADS_HIDE_CLOTHING_DELAY = -200;                // Delay in milliseconds added to the camera transition time
 	static const float ADS_FOV_REDUCTION = 3;                         // Minimum and maximum optic fov reduction
 	static const float ADS_LENS_STRENGTH_CONSTRAINTS[] = {0, 4};      // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
 	
