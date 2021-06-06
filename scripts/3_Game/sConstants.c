@@ -3,9 +3,9 @@ class GunplayConstants{
 	// FOCUS
 	static const float FOCUS_RESET_SPEED = 0.2;
 	
-	static const float ERECT_FOCUS_SPEED = 1.0;
-	static const float CROUCH_FOCUS_SPEED = 0.5;
-	static const float PRONE_FOCUS_SPEED = 0.25;
+	static const float ERECT_FOCUS_SPEED = 0.6;
+	static const float CROUCH_FOCUS_SPEED = 0.3;
+	static const float PRONE_FOCUS_SPEED = 0.1;
 	
 	/////////////////////////////////////////////////////////////
 	// FOV and OPTIC LENS
