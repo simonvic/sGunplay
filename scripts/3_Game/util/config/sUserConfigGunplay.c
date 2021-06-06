@@ -27,11 +27,11 @@ class SUserConfigGunplay : SUserConfigBase{
 		
 	///////////////////////////////////////
 	// these go in json
-	protected float adsDOFIntensity = 0.5;
+	protected float adsDOFIntensity = 0.0;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected bool hideClothingInOptic = true;
-	protected float lensZoomStrength = 1.0;
-	protected float deadzoneLimits[4] = { 0.2, 0.8, 0.2, 0.8 };
+	protected float lensZoomStrength = 0.75;
+	protected float deadzoneLimits[4] = { 0.0, 0.0, 0.0, 0.0 };
 	protected bool resetDeadzoneOnFocus = true;
 	protected bool showDynamicCrosshair = true;
 	///////////////////////////////////////
