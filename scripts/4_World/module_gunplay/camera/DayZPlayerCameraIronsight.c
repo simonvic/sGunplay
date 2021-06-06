@@ -41,6 +41,10 @@ modded class DayZPlayerCameraIronsights{
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
 		m_player = PlayerBase.Cast(pPlayer);
 		m_aimingModel = m_player.GetAimingModel();
+		
+		//just to be sure, other mods may need this :shrug:
+		m_dynamicsSmoothTime = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS;
+		m_dynamicsStrength = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH;
 	}
 		
 		
@@ -180,10 +184,21 @@ modded class DayZPlayerCameraIronsights{
 	*/
 	protected void computeMisalignment(float aimChangeX, float aimChangeY, out vector misalignmentTM[4], float pDt){
 		vector misalignmentAngles;
-		m_dynamicsSmoothTime = 0.4;
-		m_dynamicsStrength = 4;
-		misalignmentAngles[0] = Math.SmoothCD(misalignmentAngles[0], (m_dynamicsStrength * aimChangeY), m_velocityYaw, m_dynamicsSmoothTime, 1000, pDt);
-		misalignmentAngles[1] = Math.SmoothCD(misalignmentAngles[1], (m_dynamicsStrength * aimChangeX), m_velocityPitch, m_dynamicsSmoothTime, 1000, pDt);
+		
+		misalignmentAngles[0] = Math.SmoothCD(
+			misalignmentAngles[0],
+			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * aimChangeY,
+			m_velocityYaw,
+			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS,
+			1000, pDt);
+		
+		misalignmentAngles[1] = Math.SmoothCD(
+			misalignmentAngles[1], 
+			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * aimChangeX,
+			m_velocityPitch,
+			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS,
+			1000, pDt);
+		
 		misalignmentAngles[2] = 0;
 		Math3D.YawPitchRollMatrix(misalignmentAngles, misalignmentTM);
 		misalignmentTM[3] = vector.Zero;

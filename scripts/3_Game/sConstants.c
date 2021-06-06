@@ -30,6 +30,9 @@ class GunplayConstants{
 	static const float TIME_3RD = -0.2;          //Added to TIME_TO_ADS	
 	static const float TIME_BACKUP_SIGHT = 0.25;  //Switching beetween optic/ironsight and viceversa
 	
+	static const float ADS_MOVEMENT_MISALIGNMENT_STRENGTH = 2;      //how strong is the misalignment
+	static const float ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS = 0.3;  //how smooth is the misalignment
+	
 	/////////////////////////////////////////////////////////////
 	// AIMING MODEL
 	static const float RESET_SPEED_INSPECTION = 0.1;          // how fast the camera will reset from inspection angles to default. 0.1 = fast | 0.4 = slow
@@ -39,9 +42,9 @@ class GunplayConstants{
 	
 	static const bool CAMERA_FOLLOWS_BREATHING_SWAY = false;  // Camera will move along the breathing sway
 		
-	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;                       // Use weapon inertia in the player aiming model
-	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;                    // Use the player movement in the player aiming model
-	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;                      // Use the player injure state in the player aiming model
+	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;    // Use weapon inertia in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;   // Use the player movement in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;     // Use the player injure state in the player aiming model
 	
 	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.4;  // Smooth time of the movement modifier
