@@ -4,8 +4,8 @@ modded class SvdRecoil{
 		m_handsMinHorizontalRecoil = -0.82;
 		m_handsMaxHorizontalRecoil = 0.64;
 		
-		m_handsMinVerticalRecoil = 2.15;
-		m_handsMaxVerticalRecoil = 2.24;
+		m_handsMinVerticalRecoil = 1.15;
+		m_handsMaxVerticalRecoil = 1.24;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 3.5;

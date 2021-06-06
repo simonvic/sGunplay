@@ -4,8 +4,8 @@ modded class MosinRecoil{
 		m_handsMinHorizontalRecoil = -0.52;
 		m_handsMaxHorizontalRecoil = 0.94;
 		
-		m_handsMinVerticalRecoil = 2.55;
-		m_handsMaxVerticalRecoil = 2.64;
+		m_handsMinVerticalRecoil = 1.65;
+		m_handsMaxVerticalRecoil = 1.74;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 0.625;	

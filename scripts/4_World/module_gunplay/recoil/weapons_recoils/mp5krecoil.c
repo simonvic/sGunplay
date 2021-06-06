@@ -4,8 +4,8 @@ modded class Mp5kRecoil{
 		m_handsMinHorizontalRecoil = -0.050;
 		m_handsMaxHorizontalRecoil = 0.065;
 		
-		m_handsMinVerticalRecoil = 0.725;
-		m_handsMaxVerticalRecoil = 1.085;
+		m_handsMinVerticalRecoil = 0.425;
+		m_handsMaxVerticalRecoil = 0.785;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 2;

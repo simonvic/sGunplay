@@ -4,8 +4,8 @@ modded class Ump45Recoil{
 		m_handsMinHorizontalRecoil = -0.060;
 		m_handsMaxHorizontalRecoil = 0.075;
 		
-		m_handsMinVerticalRecoil = 0.575;
-		m_handsMaxVerticalRecoil = 0.695;
+		m_handsMinVerticalRecoil = 0.475;
+		m_handsMaxVerticalRecoil = 0.795;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 2;
