@@ -7,7 +7,6 @@ modded class DayZPlayerCameras{
 	static const float TIME_3RD = GunplayConstants.TIME_3RD;
 	static const float TIME_BACKUP_SIGHT = GunplayConstants.TIME_BACKUP_SIGHT;
 	
-	static const float TIME_1ST_3D = 0.3; //From first person to third person and viceversa
 	
 	
 	override static void RegisterCameras(DayZPlayerType pType){

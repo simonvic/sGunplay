@@ -25,10 +25,10 @@ class GunplayConstants{
 		-45, 45,
 		  -45 };
 	
-	static const float TIME_TO_ADS = 0.5;        //Entering ADS
+	static const float TIME_TO_ADS = 0.4;        //Entering ADS
 	static const float TIME_FROM_ADS = 0.3;      //Exiting ADS	
 	static const float TIME_3RD = -0.2;          //Added to TIME_TO_ADS	
-	static const float TIME_BACKUP_SIGHT = 0.2;  //Switching beetween optic/ironsight and viceversa
+	static const float TIME_BACKUP_SIGHT = 0.25;  //Switching beetween optic/ironsight and viceversa
 	
 	/////////////////////////////////////////////////////////////
 	// AIMING MODEL
