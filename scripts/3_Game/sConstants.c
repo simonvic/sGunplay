@@ -4,7 +4,7 @@ class GunplayConstants{
 	static const float FOCUS_RESET_SPEED = 0.2;
 	
 	static const float ERECT_FOCUS_SPEED = 0.6;
-	static const float CROUCH_FOCUS_SPEED = 0.3;
+	static const float CROUCH_FOCUS_SPEED = 0.4;
 	static const float PRONE_FOCUS_SPEED = 0.1;
 	
 	/////////////////////////////////////////////////////////////
