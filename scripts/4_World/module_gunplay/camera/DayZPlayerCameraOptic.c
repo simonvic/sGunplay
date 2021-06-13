@@ -108,7 +108,7 @@ modded class DayZPlayerCameraOptics{
 		pOutResult.m_fInsideCamera 			= 1.0;
 		pOutResult.m_fShootFromCamera		= 0.0;
 		pOutResult.m_fIgnoreParentRoll      = 0.0;
-		pOutResult.m_fNearPlane = 0.06; //0.07 default
+		pOutResult.m_fNearPlane = 0.03; //0.07 default
 	}
 			
 
