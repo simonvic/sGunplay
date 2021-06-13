@@ -79,7 +79,7 @@ modded class DayZPlayerCameraOptics{
 		return  {
 			lens[0] * m_camManager.getLensZoomStrength(),                                   //intensity
 			lens[1] + (offsetX * 2 - 1),                                                    //X position
-			lens[2] + (offsetY * 2 - 1) + getLensZeroingOffset(m_opticsUsed, 0.6, 0.05),    //Y position
+			lens[2] + (offsetY * 2 - 1) /*+ getLensZeroingOffset(m_opticsUsed, 0.6, 0.05)*/,    //Y position
 			lens[3]};                                                                       //chrom aber	
 	}
 	
