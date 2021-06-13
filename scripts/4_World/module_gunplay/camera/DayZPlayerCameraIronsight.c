@@ -184,6 +184,13 @@ modded class DayZPlayerCameraIronsights{
 	*/
 	protected void computeMisalignment(float aimChangeX, float aimChangeY, out vector misalignmentTM[4], float pDt){
 		vector misalignmentAngles;
+		float speed = m_player.m_MovementState.m_iMovement;
+		
+		if( speed > 0 ){
+			m_movementTimeAcc += pDt;
+			aimChangeX += speed * Math.Sin(Math.PI * speed * m_movementTimeAcc);
+			aimChangeY += speed * Math.Sin(Math.PI2 * speed * m_movementTimeAcc);
+		}		
 		
 		misalignmentAngles[0] = Math.SmoothCD(
 			misalignmentAngles[0],
