@@ -133,7 +133,7 @@ modded class DayZPlayerCameraOptics{
 		if(!isMagnifyingOptic()){
 			if(playerIsFocusing()){
 				targetFOV = m_opticsUsed.GetCurrentStepFOV();
-				speed = getFocusSpeed();
+				speed = getFocusSpeed() * GunplayConstants.FOCUS_SPEED_NON_MAGN_MULTIPLIER;
 			}
 			return;
 		}

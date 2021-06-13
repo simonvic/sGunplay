@@ -7,6 +7,8 @@ class GunplayConstants{
 	static const float CROUCH_FOCUS_SPEED = 0.4;
 	static const float PRONE_FOCUS_SPEED = 0.1;
 	
+	static const float FOCUS_SPEED_NON_MAGN_MULTIPLIER = 0.75;  // Multiplier of focus speed when using a non-magnifying optic
+	
 	/////////////////////////////////////////////////////////////
 	// FOV and OPTIC LENS
 	static const float ADS_LENS_ACTIVATION_DELAY = -250;              // Delay in milliseconds added to the camera transition time

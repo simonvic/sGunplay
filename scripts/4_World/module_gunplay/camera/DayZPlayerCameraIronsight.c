@@ -318,7 +318,7 @@ modded class DayZPlayerCameraIronsights{
 	protected void computeFOVFocusValues(out float targetFOV, out float speed){
 		if(canZoom()){
 			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
-			speed = getFocusSpeed();
+			speed = getFocusSpeed() * GunplayConstants.FOCUS_SPEED_NON_MAGN_MULTIPLIER;
 		}else{
 			targetFOV = GetDayZGame().GetUserFOV();
 			speed = GunplayConstants.FOCUS_RESET_SPEED;
@@ -326,10 +326,9 @@ modded class DayZPlayerCameraIronsights{
 		
 	}
 			
-
 	/**
-	* @brief Get the speed at which the player will reach maximum focus
-	* 	@return \p float - focus spead
+	* @brief Get the focus speed based on the stance at which the player will reach maximum focus
+	* 	@return \p float - focus speed
 	*/
 	protected float getFocusSpeed() {
 		if(m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
