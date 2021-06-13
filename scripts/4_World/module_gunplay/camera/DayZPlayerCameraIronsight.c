@@ -325,7 +325,7 @@ modded class DayZPlayerCameraIronsights{
 	protected void computeFOVFocusValues(out float targetFOV, out float speed){
 		if(canZoom()){
 			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
-			speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_NON_MAGN_MULTIPLIER;
+			speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_IRONSIGHT_MULTIPLIER;
 		}else{
 			targetFOV = GetDayZGame().GetUserFOV();
 			speed = GunplayConstants.FOCUS_RESET_SPEED;
