@@ -4,7 +4,7 @@ modded class Izh43Recoil{
 		m_handsMinHorizontalRecoil = -1.75;
 		m_handsMaxHorizontalRecoil = 1.75;
 		
-		m_handsMinVerticalRecoil = 2.775;
+		m_handsMinVerticalRecoil = 2.575;
 		m_handsMaxVerticalRecoil = 3.225;
 		m_handsRecoilsteps = 2;
 		

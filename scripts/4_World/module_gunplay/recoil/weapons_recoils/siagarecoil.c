@@ -4,8 +4,8 @@ modded class SiagaRecoil{
 		m_handsMinHorizontalRecoil = -1.35;
 		m_handsMaxHorizontalRecoil = 1.45;
 		
-		m_handsMinVerticalRecoil = 3.475;
-		m_handsMaxVerticalRecoil = 4.355;
+		m_handsMinVerticalRecoil = 3.275;
+		m_handsMaxVerticalRecoil = 3.955;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 2.125;

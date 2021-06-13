@@ -4,8 +4,8 @@ modded class Mp133Recoil{
 		m_handsMinHorizontalRecoil = -1.55;
 		m_handsMaxHorizontalRecoil = 1.55;
 		
-		m_handsMinVerticalRecoil = 2.685;
-		m_handsMaxVerticalRecoil = 3.155;
+		m_handsMinVerticalRecoil = 2.585;
+		m_handsMaxVerticalRecoil = 3.055;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 0.525;
