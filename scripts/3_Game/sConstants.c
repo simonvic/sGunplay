@@ -3,9 +3,9 @@ class GunplayConstants{
 	// FOCUS
 	static const float FOCUS_RESET_SPEED = 0.2;
 	
-	static const float ERECT_FOCUS_SPEED = 0.6;
-	static const float CROUCH_FOCUS_SPEED = 0.4;
-	static const float PRONE_FOCUS_SPEED = 0.1;
+	static const float FOCUS_SPEED_ERECT = 0.6;
+	static const float FOCUS_SPEED_CROUCHED = 0.4;
+	static const float FOCUS_SPEED_PRONE = 0.1;
 	
 	static const float FOCUS_SPEED_NON_MAGN_MULTIPLIER = 0.75;  // Multiplier of focus speed when using a non-magnifying optic
 	
