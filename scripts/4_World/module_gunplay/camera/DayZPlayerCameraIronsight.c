@@ -67,6 +67,7 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Update the Depth of Field
 	*/
 	protected void updateDOF(){
+		//@todo update m_isEntering
 		if( m_player.isInspectingWeapon() && canInspectWeapon()) {
 			PPEManager.requestWeaponDOF(m_inspectDOFPreset);
 			m_isInspectionDOFReset = true;

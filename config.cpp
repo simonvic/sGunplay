@@ -68,6 +68,14 @@ class cfgVehicles{
 			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
 		};
 	};
+	
+	class ACOGOptic_6x: ItemOptics{
+		class OpticsInfo{
+			PPMaskProperties[]={0.0, 0.0, 0.2, 0.01};
+			PPLensProperties[]={0.5, 0.0, 0.0, 0.0};
+		};
+	};
+	
 
 	class PUScopeOptic: ItemOptics{
 		class OpticsInfo{
