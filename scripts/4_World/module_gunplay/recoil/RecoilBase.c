@@ -223,6 +223,7 @@ modded class RecoilBase{
 		applyRecoilControl(offset, m_recoilControl);
 		pModel.m_fCamPosOffsetZ = offset;
 		m_currentCamOffset[2] = offset;
+		//@todo send recoil offset Z to camera (SendRecoilOffsetZ() from 1.13)
     }
 	
 	override vector GetPositionOnCurve(array<vector> points, float time){

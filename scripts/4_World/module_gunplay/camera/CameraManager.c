@@ -7,9 +7,11 @@ modded class CameraManager{
 		m_sUserConfigGunplay = SUserConfig.getInstance().gunplay();
 	}
 	
+	/*
 	override void onUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
 		super.onUpdate(pDt, pOutResult);
 	}
+	*/
 	
 	float getAdsFovReduction(){
 		return GunplayConstants.ADS_FOV_REDUCTION;

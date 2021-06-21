@@ -109,6 +109,11 @@ modded class DayZPlayerCameraOptics{
 		pOutResult.m_fShootFromCamera		= 0.0;
 		pOutResult.m_fIgnoreParentRoll      = 0.0;
 		pOutResult.m_fNearPlane = 0.03; //0.07 default
+		
+		/*
+		//@todo use this (from 1.13) to allow per-optic near plane
+		pOutResult.m_fNearPlane = Math.Clamp(m_opticsUsed.GetNearPlaneValue() - m_RecoilOffsetZ - 0.2, 0.03, 10.0);
+		*/
 	}
 			
 
