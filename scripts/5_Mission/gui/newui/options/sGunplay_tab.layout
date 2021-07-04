@@ -537,6 +537,7 @@ FrameWidgetClass sude_tab_root {
            vexactpos 1
            hexactsize 0
            vexactsize 1
+           style Colorable
            Padding 0
            Margin 0
            "Size To Content H" 1
@@ -560,7 +561,7 @@ FrameWidgetClass sude_tab_root {
              {
               PanelWidgetClass sude_deadzone_setting_label_container {
                ignorepointer 1
-               color 0.2902 0.2902 0.2902 1
+               color 0.2902 0.2902 0.2902 0.5216
                position 0 0
                size 1 0.1
                hexactpos 1
@@ -616,6 +617,83 @@ FrameWidgetClass sude_tab_root {
                  "Size To Content H" 1
                  "Size To Content V" 1
                  {
+                  FrameWidgetClass sude_resetOnFocus_setting_container {
+                   ignorepointer 1
+                   color 0 0 0 0
+                   position 0 0
+                   size 1 30
+                   hexactpos 1
+                   vexactpos 1
+                   hexactsize 0
+                   vexactsize 1
+                   {
+                    GridSpacerWidgetClass sude_resetOnFocus_setting {
+                     ignorepointer 0
+                     color 0 0 0 0
+                     position 0 0
+                     size 1 30
+                     hexactpos 1
+                     vexactpos 1
+                     hexactsize 0
+                     vexactsize 1
+                     style DayZDefaultPanel
+                     "no focus" 1
+                     Padding 0
+                     Margin 0
+                     "Size To Content H" 1
+                     Columns 2
+                     Rows 1
+                     {
+                      FrameWidgetClass sude_resetOnFocus_setting_label_container {
+                       ignorepointer 1
+                       position 0 0
+                       size 0.5 0.6
+                       hexactpos 1
+                       vexactpos 1
+                       hexactsize 0
+                       vexactsize 0
+                       {
+                        TextWidgetClass sude_resetOnFocus_setting_label {
+                         ignorepointer 1
+                         size 1 0.55
+                         valign center_ref
+                         hexactpos 1
+                         vexactpos 1
+                         hexactsize 0
+                         vexactsize 0
+                         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS"
+                         font "gui/fonts/sdf_MetronLight24"
+                         "text offset" 8 0
+                         "exact text" 0
+                         "exact text size" 18
+                         "text valign" center
+                        }
+                       }
+                      }
+                      PanelWidgetClass sude_resetOnFocus_setting_panel {
+                       ignorepointer 1
+                       size 0.5 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       {
+                        CheckBoxWidgetClass sude_resetOnFocus_setting_option {
+                         position 0 0
+                         size 1 1
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
                   GridSpacerWidgetClass sude_deadzone_UpDown_setting {
                    ignorepointer 0
                    color 0 0 0 0
@@ -783,83 +861,6 @@ FrameWidgetClass sude_tab_root {
                          vexactsize 0
                          "text halign" center
                          "text valign" center
-                        }
-                       }
-                      }
-                     }
-                    }
-                   }
-                  }
-                  FrameWidgetClass sude_resetOnFocus_setting_container {
-                   ignorepointer 1
-                   color 0 0 0 0
-                   position 0 0
-                   size 1 30
-                   hexactpos 1
-                   vexactpos 1
-                   hexactsize 0
-                   vexactsize 1
-                   {
-                    GridSpacerWidgetClass sude_resetOnFocus_setting {
-                     ignorepointer 0
-                     color 0 0 0 0
-                     position 0 0
-                     size 1 30
-                     hexactpos 1
-                     vexactpos 1
-                     hexactsize 0
-                     vexactsize 1
-                     style DayZDefaultPanel
-                     "no focus" 1
-                     Padding 0
-                     Margin 0
-                     "Size To Content H" 1
-                     Columns 2
-                     Rows 1
-                     {
-                      FrameWidgetClass sude_resetOnFocus_setting_label_container {
-                       ignorepointer 1
-                       position 0 0
-                       size 0.5 0.6
-                       hexactpos 1
-                       vexactpos 1
-                       hexactsize 0
-                       vexactsize 0
-                       {
-                        TextWidgetClass sude_resetOnFocus_setting_label {
-                         ignorepointer 1
-                         size 1 0.55
-                         valign center_ref
-                         hexactpos 1
-                         vexactpos 1
-                         hexactsize 0
-                         vexactsize 0
-                         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS"
-                         font "gui/fonts/sdf_MetronLight24"
-                         "text offset" 8 0
-                         "exact text" 0
-                         "exact text size" 18
-                         "text valign" center
-                        }
-                       }
-                      }
-                      PanelWidgetClass sude_resetOnFocus_setting_panel {
-                       ignorepointer 1
-                       size 0.5 1
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       {
-                        CheckBoxWidgetClass sude_resetOnFocus_setting_option {
-                         position 0 0
-                         size 1 1
-                         hexactpos 0
-                         vexactpos 0
-                         hexactsize 0
-                         vexactsize 0
                         }
                        }
                       }
@@ -1086,7 +1087,7 @@ FrameWidgetClass sude_tab_root {
        }
       }
       WrapSpacerWidgetClass sude_debug_settings_root {
-       visible 1
+       visible 0
        ignorepointer 1
        position 0 0
        size 1 1
