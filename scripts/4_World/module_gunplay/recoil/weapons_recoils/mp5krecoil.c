@@ -1,8 +1,8 @@
 modded class Mp5kRecoil{
 	
 	override void Init(){
-		m_handsMinHorizontalRecoil = -0.050;
-		m_handsMaxHorizontalRecoil = 0.065;
+		m_handsMinHorizontalRecoil = -0.015;
+		m_handsMaxHorizontalRecoil = 0.025;
 		
 		m_handsMinVerticalRecoil = 0.425;
 		m_handsMaxVerticalRecoil = 0.785;
