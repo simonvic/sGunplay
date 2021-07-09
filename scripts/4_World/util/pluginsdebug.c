@@ -60,6 +60,9 @@ class PluginSDebug extends PluginBase {
 	static void spawnWeaponsSet(vector startPosition, vector margin){
 		
 		array<ref SSpawnable> spawnables = new array<ref SSpawnable>;
+			
+		////////////////////////////////////////////////////////////
+		// ASSAULT RIFLES
 		spawnables.Insert(SSpawnable.build("M4A1").withAttachments({
 			"M4_Suppressor",
 			"M4_OEBttstck",
@@ -67,12 +70,14 @@ class PluginSDebug extends PluginBase {
 		}).withSpawnableAttachments(
 			(new SSpawnable("ReflexOptic")).withAttachment("Battery9V")));
 		
+		spawnables.Insert(SSpawnable.build("M16A2"));
+		
 		spawnables.Insert(SSpawnable.build("AK101").withAttachments({
 			"AK_Suppressor",
 			"AK_PlasticBttstck",
 			"AK_RailHndgrd"
 		}).withSpawnableAttachments(
-			(new SSpawnable("KobraOptic")).withAttachment("Battery9V"),
+			(new SSpawnable("PSO11Optic")).withAttachment("Battery9V"),
 			(new SSpawnable("UniversalLight")).withAttachment("Battery9V")));
 		
 		spawnables.Insert(SSpawnable.build("AK74").withAttachments({
@@ -96,6 +101,37 @@ class PluginSDebug extends PluginBase {
 			"GhillieAtt_tan"
 		}));
 		
+		spawnables.Insert(SSpawnable.build("FAL").withAttachments({
+			"Fal_FoldingBttstck"
+		}).withSpawnableAttachments(
+			(new SSpawnable("M68Optic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("VSS").withAttachments({
+			"KashtanOptic"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("ASVAL").withSpawnableAttachments(
+			(new SSpawnable("UniversalLight")).withAttachment("Battery9V"),
+			(new SSpawnable("ACOGOptic")).withAttachment("Battery9V")));
+		
+		
+		////////////////////////////////////////////////////////////
+		// SMG
+		spawnables.Insert(SSpawnable.build("MP5K").withAttachments({
+			"MP5_Compensator",
+			"MP5k_StockBttstck",
+			"MP5_RailHndgrd"
+		}).withSpawnableAttachments(
+			(new SSpawnable("ReflexOptic")).withAttachment("Battery9V"),
+			(new SSpawnable("UniversalLight")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("CZ61"));
+		spawnables.Insert(SSpawnable.build("UMP45"));
+		
+		
+		
+		////////////////////////////////////////////////////////////
+		// RIFLES
 		spawnables.Insert(SSpawnable.build("B95").withAttachments({
 			"HuntingOptic"
 		}));
@@ -104,11 +140,71 @@ class PluginSDebug extends PluginBase {
 			"HuntingOptic"
 		}));
 		
+		spawnables.Insert(SSpawnable.build("Winchester70").withAttachments({
+			"HuntingOptic"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("Mosin9130").withAttachments({
+			"PUScopeOptic",
+			"Mosin_Compensator"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("SawedoffMosin9130"));
+		spawnables.Insert(SSpawnable.build("Repeater"));
+		spawnables.Insert(SSpawnable.build("Ruger1022"));
+		spawnables.Insert(SSpawnable.build("SVD"));
+		spawnables.Insert(SSpawnable.build("SKS"));
+		spawnables.Insert(SSpawnable.build("Izh18"));
+		spawnables.Insert(SSpawnable.build("SawedoffIzh18"));
+		
+		
+		////////////////////////////////////////////////////////////
+		// SHOTGUNS
+		spawnables.Insert(SSpawnable.build("Saiga").withAttachments({
+			"Saiga_Bttstck"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("Mp133Shotgun").withSpawnableAttachments(
+			(new SSpawnable("FNP45_MRDSOptic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("Izh43Shotgun"));
+		spawnables.Insert(SSpawnable.build("SawedoffIzh43Shotgun"));
+		
+		
+		
+		////////////////////////////////////////////////////////////
+		// HANDGUNS
+		spawnables.Insert(SSpawnable.build("Magnum"));
+		spawnables.Insert(SSpawnable.build("MakarovIJ70"));
+		spawnables.Insert(SSpawnable.build("MKII"));
 		spawnables.Insert(SSpawnable.build("Colt1911").withAttachments({
 			"PistolSuppressor"
 		}).withSpawnableAttachments(
 			(new SSpawnable("TLRLight")).withAttachment("Battery9V")));
-				
+		
+		spawnables.Insert(SSpawnable.build("CZ75").withAttachments({
+			"PistolSuppressor"
+		}).withSpawnableAttachments(
+			(new SSpawnable("TLRLight")).withAttachment("Battery9V"),
+			(new SSpawnable("FNP45_MRDSOptic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("FNX45").withAttachments({
+			"PistolSuppressor"
+		}).withSpawnableAttachments(
+			(new SSpawnable("TLRLight")).withAttachment("Battery9V"),
+			(new SSpawnable("FNP45_MRDSOptic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("Glock19").withAttachments({
+			"PistolSuppressor"
+		}).withSpawnableAttachments(
+			(new SSpawnable("TLRLight")).withAttachment("Battery9V"),
+			(new SSpawnable("FNP45_MRDSOptic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("Deagle").withAttachments({
+			"PistolSuppressor",
+			"PistolOptic"
+		}));
+		
 		vector position = startPosition;
 		foreach(SSpawnable s : spawnables){
 			s.spawn(position).collect().SetOrientation("0 0 0");
@@ -269,7 +365,7 @@ class PluginSDebug extends PluginBase {
 
 
 
-/*
+
 modded class Weapon_Base{
     override void EEFired(int muzzleType, int mode, string ammoType){
         super.EEFired(muzzleType, mode, ammoType);
@@ -292,4 +388,3 @@ modded class Weapon_Base{
         return false; // prevent jamming
     }
 }
-*/
