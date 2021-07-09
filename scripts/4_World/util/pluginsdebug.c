@@ -6,10 +6,12 @@ class PluginSDebug extends PluginBase {
 	static bool bodyClipAllContact_enabled = false;
 	static bool bodyClipContactPos_enabled = false;
 		
-	protected PlayerBase simonvic;
-	protected Weapon_Base m_weapon;
+	protected static PlayerBase simonvic;
+	protected static Weapon_Base m_weapon;
 	protected ref SRaycast m_crosshairRaycast;
 	protected ref SRaycast m_bodyClipRaycast;
+	
+	protected static ref array<ref SurvivorBase> theBoris = new array<ref SurvivorBase>;
 	
 	Shape line = Debug.DrawLine("0 0 0", "0 0 0", 0xFF0000);
 	
@@ -56,6 +58,57 @@ class PluginSDebug extends PluginBase {
 
 	void onUpdateServer(float delta_time){
 	}
+	
+	
+	static void setupShootingDebugArea(){
+		vector startPosition = simonvic.GetPosition();
+		vector margin = "0 0 0.2";
+		vector verticalMargin = "0 0.2 0";
+		
+		PluginSDebug.spawnWeaponsSet(startPosition, margin);
+		PluginSDebug.spawnAmmoSet(startPosition + "-1 0 0", margin, verticalMargin);
+		PluginSDebug.spawnDefaultBorisDummies();
+	}
+	
+	
+	static void spawnBorisDummies(vector startPosition, array<float> distances, vector direction){
+		foreach(float dis : distances){
+			EntityAI boris = null;
+			SSpawnable.build("SurvivorM_Boris").spawn(startPosition + direction * dis).collect(boris);
+			if(boris != null){
+				boris.SetCanBeDestroyed(false);
+				theBoris.Insert(SurvivorBase.Cast(boris));
+			}
+		}
+	}
+	
+	static void spawnDefaultBorisDummies(){
+		PluginSDebug.spawnBorisDummies(simonvic.GetPosition(), {
+			25,
+			50,
+			100,
+			220,
+			400,
+			600,
+			800,
+			1000
+		}, simonvic.GetDirection());
+	}
+	
+	static void deleteTheBoris(){
+		foreach(SurvivorBase boris : theBoris){
+			GetGame().ObjectDelete(boris);
+			GetGame().ObjectDeleteOnClient(boris);
+		}
+	}
+	
+	static void setTheBorisInvincibility(bool invincible){
+		foreach(SurvivorBase boris : theBoris){
+			boris.SetCanBeDestroyed(!invincible);
+		}
+	}
+	
+	
 	
 	static void spawnWeaponsSet(vector startPosition, vector margin){
 		
@@ -211,6 +264,114 @@ class PluginSDebug extends PluginBase {
 			position = position + margin;
 			
 		}
+	}
+	
+	static void spawnAmmoSet(vector startPosition, vector margin, vector verticalMargin){
+		vector position = startPosition;
+		
+		SSpawnable.build("Mag_STANAG_30Rnd").spawn(position);
+		SSpawnable.build("Mag_STANAGCoupled_30Rnd").spawn(position + verticalMargin );
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_AK101_30Rnd").spawn(position);		
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_AK74_30Rnd").spawn(position);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_AKM_30Rnd").spawn(position);
+		SSpawnable.build("Mag_AKM_Drum75Rnd").spawn(position);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_FAL_20Rnd").spawn(position);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_VSS_10Rnd").spawn(position);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_VAL_20Rnd").spawn(position);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_MP5_15Rnd").spawn(position);
+		SSpawnable.build("Mag_MP5_30Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		Magazine.Cast(SSpawnable.build("Ammo_308Win").spawn(position).collect()).ServerSetAmmoCount(20);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_CZ527_5rnd").spawn(position);
+
+		position = position + margin;
+		
+		Magazine.Cast(SSpawnable.build("Ammo_308WinTracer").spawn(position).collect()).ServerSetAmmoCount(20);
+
+		position = position + margin;
+		
+		Magazine.Cast(SSpawnable.build("Ammo_762x54Tracer").spawn(position).collect()).ServerSetAmmoCount(20);
+
+		position = position + margin;
+		
+		Magazine.Cast(SSpawnable.build("Ammo_357").spawn(position).collect()).ServerSetAmmoCount(20);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_SVD_10Rnd").spawn(position);
+
+		position = position + margin;
+		
+		Magazine.Cast(SSpawnable.build("Ammo_762x39Tracer").spawn(position).collect()).ServerSetAmmoCount(20);
+
+		position = position + margin;
+		
+		Magazine.Cast(SSpawnable.build("Ammo_12gaPellets").spawn(position).collect()).ServerSetAmmoCount(20);
+		Magazine.Cast(SSpawnable.build("Ammo_12gaSlug").spawn(position + verticalMargin).collect()).ServerSetAmmoCount(20);
+		Magazine.Cast(SSpawnable.build("Ammo_12gaRubberSlug").spawn(position).collect()).ServerSetAmmoCount(20);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_Saiga_5Rnd").spawn(position + verticalMargin);
+		SSpawnable.build("Mag_Saiga_8Rnd").spawn(position + verticalMargin);
+		SSpawnable.build("Mag_Saiga_Drum20Rnd").spawn(position + verticalMargin * 2);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_IJ70_8Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_MKII_10Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_1911_7Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_CZ75_15Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_FNX45_15Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_Glock_15Rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+		
+		SSpawnable.build("Mag_Deagle_9rnd").spawn(position + verticalMargin);
+
+		position = position + margin;
+	
 	}
 	
 	static void updateMovementSettings(){

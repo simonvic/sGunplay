@@ -18,7 +18,7 @@ modded class SiagaRecoil{
 		m_MouseOffsetRelativeTime = 0.15;//[0..1] a time it takes to move the mouse the required distance relative to the reload time of the weapon(firing mode)
 	
 		m_CamOffsetDistance = 0.085;
-		m_CamOffsetRelativeTime = 0.5;
+		m_CamOffsetRelativeTime = 0.75;
 		
 		createHandRecoilPoints();
 	}

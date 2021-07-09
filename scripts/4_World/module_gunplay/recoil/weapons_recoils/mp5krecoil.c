@@ -17,8 +17,8 @@ modded class Mp5kRecoil{
 		m_MouseOffsetDistance = 2.85;//how far should the mouse travel
 		m_MouseOffsetRelativeTime = 0.2;//[0..1] a time it takes to move the mouse the required distance relative to the reload time of the weapon(firing mode)
 	
-		m_CamOffsetDistance = 0.020;
-		m_CamOffsetRelativeTime = 1;
+		m_CamOffsetDistance = 0.025;
+		m_CamOffsetRelativeTime = 0.95;
 		
 		createHandRecoilPoints();
 	}

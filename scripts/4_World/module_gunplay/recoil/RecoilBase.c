@@ -265,4 +265,75 @@ modded class RecoilBase{
 	vector getCurrentHandsOffset(){
 		return m_currentHandsOffset;
 	}
+	
+	/*
+	*	yikes
+	*	sed '/dd/d' raw_recoils.csv > recoils.csv
+	*/
+	static string toCSVAll(){
+		array<ref RecoilBase> recoils = {
+			new Ak101Recoil(null),
+			new Ak74Recoil(null),
+			new AkmRecoil(null),
+			new Aks74uRecoil(null),
+			new B95Recoil(null),
+			new Colt1911Recoil(null),
+			new CZ527Recoil(null),
+			new DEagleRecoil(null),
+			new FALRecoil(null),
+			new Fnx45Recoil(null),
+			new GlockRecoil(null),
+			new Izh43Recoil(null),
+			new Izh18SawedOffRecoil(null),
+			new M4a1Recoil(null),
+			new MagnumRecoil(null),
+			new MakarovRecoil(null),
+			new MkiiRecoil(null),
+			new MosinRecoil(null),
+			new MosinSawedOffRecoil(null),
+			new Mp133Recoil(null),
+			new Mp5kRecoil(null),
+			new RepeaterRecoil(null),
+			new Ruger1022Recoil(null),
+			new ScoutRecoil(null),
+			new SiagaRecoil(null),
+			new Cz61Recoil(null),
+			new SKSRecoil(null),
+			new SvdRecoil(null),
+			new Ump45Recoil(null),
+			new VSSRecoil(null),
+			new Winchester70Recoil(null)
+		};
+		return toCSV(recoils);
+	}
+	
+	
+	static string toCSV(array<ref RecoilBase> recoils){
+		string csvData = "\ntype, hands_h_min, hands_h_max, hands_v_min, hands_v_max, hands_steps, hands_rel_time, rel_reload_time, mouse_min, mouse_max, mouse_distance, mouse_rel_time, cam_offset, cam_rel_time \n";
+		SLog.d(csvData);
+		foreach(RecoilBase recoil : recoils){
+			csvData += recoil.toString() + ",\n";
+			SLog.d(recoil.toString() + ",\n");
+			
+		}
+		return csvData;
+	}
+	
+	string toString(){
+		return string.Format("\n%1, %2, %3, %4, %5, %6, %7, %8, %9, ",
+			Type(),
+			m_handsMinHorizontalRecoil,
+			m_handsMaxHorizontalRecoil,
+			m_handsMinVerticalRecoil,
+			m_handsMaxVerticalRecoil,
+			m_handsRecoilsteps,
+			m_HandsOffsetRelativeTime,
+			m_relativeReloadTime,
+			m_MouseOffsetRangeMin ) + string.Format("%1, %2, %3, %4, %5",
+			m_MouseOffsetRangeMax,
+			m_MouseOffsetDistance,
+			m_MouseOffsetRelativeTime,
+			m_CamOffsetDistance,
+			m_CamOffsetRelativeTime);
+	}
 }

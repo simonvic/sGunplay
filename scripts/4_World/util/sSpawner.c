@@ -128,8 +128,8 @@ class SSpawnable {
 	*	@brief Collect the spawned entity
 	*	 @param EntityAI [out] - spawned entity (null, if not spawned)
 	*/
-	SSpawnable collect(EntityAI entity){
-		entity = this.entity;
+	SSpawnable collect(EntityAI outEntity){
+		outEntity = entity;
 		return this;
 	}
 	
