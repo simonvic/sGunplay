@@ -57,6 +57,66 @@ class PluginSDebug extends PluginBase {
 	void onUpdateServer(float delta_time){
 	}
 	
+	static void spawnWeaponsSet(vector startPosition, vector margin){
+		
+		array<ref SSpawnable> spawnables = new array<ref SSpawnable>;
+		spawnables.Insert(SSpawnable.build("M4A1").withAttachments({
+			"M4_Suppressor",
+			"M4_OEBttstck",
+			"M4_RISHndgrd"
+		}).withSpawnableAttachments(
+			(new SSpawnable("ReflexOptic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("AK101").withAttachments({
+			"AK_Suppressor",
+			"AK_PlasticBttstck",
+			"AK_RailHndgrd"
+		}).withSpawnableAttachments(
+			(new SSpawnable("KobraOptic")).withAttachment("Battery9V"),
+			(new SSpawnable("UniversalLight")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("AK74").withAttachments({
+			"AK_Suppressor",
+			"AK_PlasticBttstck",
+			"AK_RailHndgrd"
+		}).withSpawnableAttachments(
+			(new SSpawnable("KobraOptic")).withAttachment("Battery9V"),
+			(new SSpawnable("UniversalLight")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("AKM").withAttachments({
+			"AK_Suppressor",
+			"AK_WoodBttstck",
+			"AK_WoodHndgrd"
+		}).withSpawnableAttachments(
+			(new SSpawnable("KobraOptic")).withAttachment("Battery9V")));
+		
+		spawnables.Insert(SSpawnable.build("AKS74U").withAttachments({
+			"AK_Suppressor",
+			"AKS74U_Bttstck",
+			"GhillieAtt_tan"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("B95").withAttachments({
+			"HuntingOptic"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("CZ527").withAttachments({
+			"HuntingOptic"
+		}));
+		
+		spawnables.Insert(SSpawnable.build("Colt1911").withAttachments({
+			"PistolSuppressor"
+		}).withSpawnableAttachments(
+			(new SSpawnable("TLRLight")).withAttachment("Battery9V")));
+				
+		vector position = startPosition;
+		foreach(SSpawnable s : spawnables){
+			s.spawn(position).collect().SetOrientation("0 0 0");
+			position = position + margin;
+			
+		}
+	}
+	
 	static void updateMovementSettings(){
 		PlayerBase player;
 		if(GetGame().IsClient() || !GetGame().IsMultiplayer()) {
