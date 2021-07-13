@@ -4,8 +4,8 @@ modded class M16A2Recoil{
 		m_handsMinHorizontalRecoil = -0.085;
 		m_handsMaxHorizontalRecoil = 0.115;
 				
-		m_handsMinVerticalRecoil = 0.810;
-		m_handsMaxVerticalRecoil = 1.020;
+		m_handsMinVerticalRecoil = 0.710;
+		m_handsMaxVerticalRecoil = 0.820;
 		m_handsRecoilsteps = 2;
 		
 		m_HandsOffsetRelativeTime = 2;

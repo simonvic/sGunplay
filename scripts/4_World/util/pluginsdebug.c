@@ -526,7 +526,7 @@ class PluginSDebug extends PluginBase {
 
 
 
-
+/*
 modded class Weapon_Base{
     override void EEFired(int muzzleType, int mode, string ammoType){
         super.EEFired(muzzleType, mode, ammoType);
@@ -549,3 +549,4 @@ modded class Weapon_Base{
         return false; // prevent jamming
     }
 }
+*/
