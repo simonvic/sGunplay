@@ -82,7 +82,7 @@ class GunplayConstants{
 	static const float INERTIA_MULTIPLIER_BASE = 2;                       // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3.5 * 0.0001;   // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)
 	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 2;       // Multiplier of the amount of inertia to be applied based on weapon length
-	static const float INERTIA_MULTIPLIER_PLAYER_WEIGHT = 0.49 * 0.0001;  // Multiplier of the amount of inertia to be applied based on player inventory weight
+	static const float INERTIA_MULTIPLIER_PLAYER_WEIGHT = 0.45 * 0.0001;  // Multiplier of the amount of inertia to be applied based on player inventory weight
 	static const float INERTIA_MULTIPLIER_HIPFIRE = 3.9;                  // Multiplier of the amount of inertia to be applied when the player is in hipfire
 	
 	static const float INERTIA_MULTIPLIER_STANDING = 1.0;              // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
