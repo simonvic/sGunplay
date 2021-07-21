@@ -163,13 +163,13 @@ modded class DayZPlayerCameraIronsights{
 		
 		////////////////////////
 		// Offset from center (deadzone + hands offset)
-		applyOffset(weaponCameraPointTM);
+		applyOffset(pOutResult.m_CameraTM);
 
 		
-		Math3D.MatrixInvMultiply4(inspectTM, weaponCameraPointTM, weaponCameraPointTM); //apply inspect transformation matrix
-		Math3D.MatrixMultiply4(misalignmentTM, weaponCameraPointTM, weaponCameraPointTM); //apply misalignment transformation matrix
-		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM); //apply freelook transformation matrix
-		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM); //apply weapon aiming transformation matrix
+		Math3D.MatrixInvMultiply4(inspectTM, weaponCameraPointTM, weaponCameraPointTM);            //apply inspect transformation matrix
+		Math3D.MatrixMultiply4(misalignmentTM, weaponCameraPointTM, weaponCameraPointTM);          //apply misalignment transformation matrix
+		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM);              //apply freelook transformation matrix
+		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM);          //apply weapon aiming transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM); //apply result to camera
 	}
 	
@@ -275,8 +275,8 @@ modded class DayZPlayerCameraIronsights{
 	protected void applyOffset(out vector matrix[4]){
 		vector angles = Math3D.MatrixToAngles(matrix);
 		
-		angles[0] = angles[0] - m_deadzoneY - m_handsOffsetY;
-		angles[1] = angles[1] + m_deadzoneX + m_handsOffsetX;
+		angles[0] = angles[0] - m_deadzoneX - m_handsOffsetX;
+		angles[1] = angles[1] - m_deadzoneY - m_handsOffsetY;
 		angles[2] = angles[2] + m_player.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 		
 		Math3D.YawPitchRollMatrix(angles, matrix);
