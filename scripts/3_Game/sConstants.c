@@ -86,8 +86,8 @@ class GunplayConstants{
 	static const float INERTIA_MULTIPLIER_HIPFIRE = 3.9;                  // Multiplier of the amount of inertia to be applied when the player is in hipfire
 	
 	static const float INERTIA_MULTIPLIER_STANDING = 1.0;              // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
-	static const float INERTIA_MULTIPLIER_WALKING = 1.5;               // Multiplier of the amount of inertia to be applied when the player is WALKING
-	static const float INERTIA_MULTIPLIER_JOGGING = 2.0;               // Multiplier of the amount of inertia to be applied when the player is JOGGING
+	static const float INERTIA_MULTIPLIER_WALKING = 1.1;               // Multiplier of the amount of inertia to be applied when the player is WALKING
+	static const float INERTIA_MULTIPLIER_JOGGING = 1.75;              // Multiplier of the amount of inertia to be applied when the player is JOGGING
 	
 	static const float INERTIA_MULTIPLIER_ERECT = 1;                   // Multiplier of the amount of inertia to be applied when the player is ERECT
 	static const float INERTIA_MULTIPLIER_CROUCHED = 1.5;              // Multiplier of the amount of inertia to be applied when the player is CROUCHED
