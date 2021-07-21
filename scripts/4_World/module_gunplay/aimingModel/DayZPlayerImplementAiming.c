@@ -39,6 +39,7 @@ modded class DayZPlayerImplementAiming{
 		registerFilter(new AimingModelFilterKuru(this));
 		registerFilter(new AimingModelFilterInertia(this));
 		registerFilter(new AimingModelFilterWallPush(this));
+		registerFilter(new AimingModelFilterWeaponInteraction(this));
 	}
 	
 	/**

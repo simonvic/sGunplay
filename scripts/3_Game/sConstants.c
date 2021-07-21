@@ -46,9 +46,10 @@ class GunplayConstants{
 	
 	static const bool CAMERA_FOLLOWS_BREATHING_SWAY = false;  // Camera will move along the breathing sway
 		
-	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;    // Use weapon inertia in the player aiming model
-	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;   // Use the player movement in the player aiming model
-	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;     // Use the player injure state in the player aiming model
+	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;                // Use weapon inertia in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;               // Use the player movement in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;                 // Use the player injure state in the player aiming model
+	static const bool AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION = true;     // Use the weapon interaction in the player aiming model (firemode change, zeroing, zooming)
 	
 	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.4;  // Smooth time of the movement modifier
@@ -64,6 +65,11 @@ class GunplayConstants{
 	};
 	
 	static const float AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[] = {0, 0}; //{X, Y} how much the recoil will contribute to the hands offset calculation (therefore camera offset and more). Use -1 to nullify
+	
+	static const float AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_OFFSETS[] = {-20, 10}; //{X, Y} offset to be applied when interacting with the weapon
+	static const float AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_SMOOTHNESS = 0.45;     //smoothness of animation
+	
+	
 	
 	/////////////////////////////////////////////////////////////
 	// SWAY
@@ -139,5 +145,12 @@ class GunplayConstants{
 	static const float RECOIL_CONTROL_MOVEMENT_WALKING = -0.3;            // how much WALKING will affect final recoil calculation
 	static const float RECOIL_CONTROL_MOVEMENT_JOGGING = -0.5;            // how much JOGGING will affect final recoil calculation
 	static const float RECOIL_CONTROL_MOVEMENT_MINIMUM = 0;               // minmum value added to the the movement recoil control calculation
+	
+	/////////////////////////////////////////////////////////////
+	// SOUNDS
+	static const string SOUND_CHANGE_FIREMODE = "combinationlock_close_SoundSet";
+	static const string SOUND_CHANGE_ZEROING = "combinationlock_changenumber_SoundSet";
+	static const string SOUND_CHANGE_ZOOM = "combinationlock_changedial_SoundSet";
+	
 	
 }
