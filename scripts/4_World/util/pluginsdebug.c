@@ -61,6 +61,11 @@ class PluginSDebug extends PluginBase {
 	
 	
 	static void setupShootingDebugArea(){
+		if(!simonvic){
+			array<Man> players = new array<Man>;
+			GetGame().GetPlayers(players);
+			simonvic = PlayerBase.Cast(players[0]);
+		}
 		vector startPosition = simonvic.GetPosition();
 		vector margin = "0 0 0.2";
 		vector verticalMargin = "0 0.2 0";

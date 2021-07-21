@@ -28,7 +28,9 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 		
 		if(!m_weaponChanged && (m_fireModeChanged || m_zeroingChanged || m_zoomChanged)){
 			offset = GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_OFFSETS;
-			playSounds(getSoundSet());
+			if(GetGame().IsClient() || !GetGame().IsMultiplayer()){
+				playSounds(getSoundSet());
+			}
 		}
 		
 		pModel.m_fAimXCamOffset += Math.SmoothCD(
