@@ -39,21 +39,18 @@ class CfgMods {
 			class gameScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sGunplay/scripts/defines",
 					"MyMODS/sGunplay/scripts/3_Game"
 				};
 			};
 			class worldScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sGunplay/scripts/defines",
 					"MyMODS/sGunplay/scripts/4_World"
 				};
 			};
 			class missionScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sGunplay/scripts/defines",
 					"MyMODS/sGunplay/scripts/5_Mission"
 				};
 			};
