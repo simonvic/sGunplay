@@ -1,18 +1,13 @@
-modded class CameraManager{
+modded class SCameraManager{
 	
 	//@todo move this stuff to AimingModel
 	protected SUserConfigGunplay m_sUserConfigGunplay;
 	
-	void CameraManager(DayZPlayerCameraBase camera, PlayerBase player){
-		m_sUserConfigGunplay = SUserConfig.getInstance().gunplay();
+	override void onInit(){
+		super.onInit();
+		m_sUserConfigGunplay = SUserConfig.gunplay();
 	}
-	
-	/*
-	override void onUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
-		super.onUpdate(pDt, pOutResult);
-	}
-	*/
-	
+		
 	float getAdsFovReduction(){
 		return GunplayConstants.ADS_FOV_REDUCTION;
 	}

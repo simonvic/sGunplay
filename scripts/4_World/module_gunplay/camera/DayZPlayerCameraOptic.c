@@ -2,10 +2,6 @@
 // OPTICS
 modded class DayZPlayerCameraOptics{
 	
-	override int getRegisteredCameraID(){
-		return DayZPlayerCameras.DAYZCAMERA_OPTICS;
-	}
-	
 	protected ref TFloatArray m_opticPPMask = new TFloatArray;
 	protected ref TFloatArray m_opticPPLens = new TFloatArray;
 	protected float m_opticPPBlur;

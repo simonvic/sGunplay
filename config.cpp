@@ -1,4 +1,3 @@
-#define S_UDE
 #define S_GUNPLAY
 
 class CfgPatches {
@@ -7,7 +6,7 @@ class CfgPatches {
 		weapons[] = {};
 		requiredVersion = 0.1;
 		requiredAddons[] = {
-			"sVisual"
+			"sFramework"
 		};
 	};
 };

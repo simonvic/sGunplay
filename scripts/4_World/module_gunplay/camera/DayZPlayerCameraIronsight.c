@@ -2,10 +2,6 @@
 // IRONSIGHT
 modded class DayZPlayerCameraIronsights{
 	
-	override int getRegisteredCameraID(){
-		return DayZPlayerCameras.DAYZCAMERA_IRONSIGHTS;
-	}
-	
 	protected PlayerBase m_player;
 	protected DayZPlayerImplementAiming m_aimingModel;
 	

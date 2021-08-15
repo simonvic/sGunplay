@@ -1,6 +1,6 @@
 class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	
-	protected ref SUserConfigGunplay m_sUserConfig;
+	protected SUserConfigGunplay m_sUserConfig;
 	
 	
 	///////////////// DEBUG /////////////////
@@ -78,7 +78,7 @@ class OptionsMenuSGunplay extends ScriptedWidgetEventHandler{
 	void OptionsMenuSGunplay( Widget parent, Widget details_root, OptionsMenu menu ){
 		
 		//////////////// USER CONFIG ///////////////////
-		m_sUserConfig = SUserConfig.getInstance().gunplay();
+		m_sUserConfig = SUserConfig.gunplay();
 		
 		//////////////// UI ///////////////////
 		m_Root = GetGame().GetWorkspace().CreateWidgets( GetLayoutName(), parent );			
