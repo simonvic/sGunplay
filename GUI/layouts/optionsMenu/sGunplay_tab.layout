@@ -1,4 +1,4 @@
-FrameWidgetClass sude_tab_root {
+FrameWidgetClass sude_sgunplay_tab_root {
  visible 1
  ignorepointer 1
  position 0 0
@@ -871,6 +871,7 @@ FrameWidgetClass sude_tab_root {
                  }
                 }
                 PanelWidgetClass sude_deadzone_advancedSliders_container {
+                 visible 0
                  ignorepointer 1
                  size 1 1
                  halign center_ref
