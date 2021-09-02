@@ -65,7 +65,7 @@ modded class DayZPlayerCameraIronsights{
 	protected void updateDOF(){
 		//@todo update m_isEntering
 		if( m_player.isInspectingWeapon() && canInspectWeapon()) {
-			PPEManager.requestWeaponDOF(m_inspectDOFPreset);
+			SPPEManager.requestWeaponDOF(m_inspectDOFPreset);
 			m_isInspectionDOFReset = true;
 		}else if(m_isInspectionDOFReset){
 			setNonMagnifyingOpticDOF();
@@ -356,8 +356,8 @@ modded class DayZPlayerCameraIronsights{
 			return;
 		}
 		
-		PPEManager.resetMask();
-		PPEManager.resetOpticLens();
+		SPPEManager.resetMask();
+		SPPEManager.resetOpticLens();
 		setNonMagnifyingOpticDOF();
 		checkForNVGoggles();
 		hideWeaponBarrel(false);
@@ -365,9 +365,9 @@ modded class DayZPlayerCameraIronsights{
 	}
 	
 	protected void resetPPE(){
-		PPEManager.resetMask();
-		PPEManager.resetOpticLens();
-		PPEManager.resetWeaponDOF();
+		SPPEManager.resetMask();
+		SPPEManager.resetOpticLens();
+		SPPEManager.resetWeaponDOF();
 		checkForNVGoggles();
 		hideWeaponBarrel(false);
 	}
@@ -388,13 +388,13 @@ modded class DayZPlayerCameraIronsights{
 
 		// No weapon used (handeld optic?)
 		if (!m_weaponUsed || !m_camManager.isAdsDOFEnabled()){
-			PPEManager.resetWeaponDOF();
+			SPPEManager.resetWeaponDOF();
 			return;
 		}
 		
 		DoFPreset dof = getCurrentSightDOF();
 		if(dof){
-			PPEManager.requestWeaponDOF(dof);
+			SPPEManager.requestWeaponDOF(dof);
 		}
 	}
 	

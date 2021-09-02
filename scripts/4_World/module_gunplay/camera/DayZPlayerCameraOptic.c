@@ -42,8 +42,8 @@ modded class DayZPlayerCameraOptics{
 
 		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		
-		PPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
-		PPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
+		SPPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
+		SPPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
 	}
 	
 	/**
