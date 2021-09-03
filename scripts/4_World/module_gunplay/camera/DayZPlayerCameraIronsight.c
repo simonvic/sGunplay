@@ -481,11 +481,11 @@ modded class DayZPlayerCameraIronsights{
 	}
 	
 	protected bool canApplyDeadzone(){
-		return !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon() && !(playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled());
+		return !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon() && !isNVOptic() && !(playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled());
 	}
 	
 	protected bool canApplyHandsOffset(){
-		return !playerIsFocusing();
+		return !playerIsFocusing() && !isNVOptic();
 	}
 	
 	protected bool canZoom(){
@@ -506,6 +506,10 @@ modded class DayZPlayerCameraIronsights{
 	
 	protected bool isSniperOptic(){
 		return false;
+	}
+	
+	protected bool isNVOptic(){
+		return m_opticsUsed && m_opticsUsed.IsNVOptic();
 	}
 	
 	protected bool isHandHeldOptic(){
