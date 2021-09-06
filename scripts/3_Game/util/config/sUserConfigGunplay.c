@@ -37,6 +37,10 @@ class SUserConfigGunplay : SUserConfigBase{
 	///////////////////////////////////////
 	
 	
+	bool isAdsDOFEnabled(){
+		return getAdsDOFIntensity() > 0;
+	}
+	
 	float getAdsDOFIntensity(){
 		return adsDOFIntensity;
 	}

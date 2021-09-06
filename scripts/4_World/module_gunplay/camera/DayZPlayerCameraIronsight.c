@@ -269,7 +269,6 @@ modded class DayZPlayerCameraIronsights{
 		
 		angles[0] = angles[0] - m_deadzoneX - m_handsOffsetX;
 		angles[1] = angles[1] - m_deadzoneY - m_handsOffsetY;
-		angles[2] = angles[2] + m_player.m_MovementState.m_fLeaning * m_camManager.getHeadLeanAngle();
 		
 		Math3D.YawPitchRollMatrix(angles, matrix);
 		

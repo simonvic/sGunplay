@@ -40,7 +40,7 @@ modded class SCameraManager{
 	} 
 	
 	bool isAdsDOFEnabled(){
-		return getAdsDOFIntensity() > 0;
+		return m_sUserConfigGunplay.isAdsDOFEnabled();
 	}
 	
 	float getAdsDOFIntensity(){

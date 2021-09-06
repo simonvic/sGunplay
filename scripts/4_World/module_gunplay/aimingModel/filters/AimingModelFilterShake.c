@@ -14,8 +14,8 @@ class AimingModelFilterShake : AimingModelFilterBase {
 			float weight = getPlayer().GetShakeLevel() / PlayerBase.SHAKE_LEVEL_MAX;
 			float modifier = getPlayer().GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 0.45, 0.9);
 			
-			pModel.m_fAimXHandsOffset += modifier * weight * getPlayer().GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 0, 1);
-			pModel.m_fAimYHandsOffset += modifier * weight * getPlayer().GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 0, 1);
+			pModel.m_fCamPosOffsetX += 0.0075 * modifier * weight * getPlayer().GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 0, 1);
+			pModel.m_fCamPosOffsetY += 0.005 * modifier * weight * getPlayer().GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 0, 1);
 		}
 		
 		

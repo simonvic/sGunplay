@@ -153,9 +153,39 @@ modded class DayZPlayerImplementAiming{
 	protected void updateOpticLensPosition(ItemOptics optic, float distance = 50){
 		if(!optic) return;
 		
-		vector from = optic.GetSelectionPositionLS( "eyeScope" );
-		vector to = optic.GetSelectionPositionLS( "cameraDir" );
+		vector from    = optic.GetSelectionPositionLS( "eyeScope" );
+		vector to      = optic.GetSelectionPositionLS( "cameraDir" );
 		m_lensPosition = optic.ModelToWorld(from + (vector.Direction(from, to) * distance));
+		/*
+		if (GetGame().IsServer()) return;
+		vector fromWS = optic.ModelToWorld( from );
+		vector toWS = optic.ModelToWorld( to );
+		vector playerPosWS = getPlayer().GetPosition() + Vector(0, 1.7, 0);
+		vector weaponPosWS = getWeapon().ModelToWorld(getWeapon().GetSelectionPositionLS( "usti hlavne" ));
+		
+		SDebug.destroyShapes();
+		SDebug.drawLine(
+			fromWS,
+			toWS,
+			SColor.rgb(RGBColors.YELLOW));
+				
+		SDebug.drawLine(
+			playerPosWS,
+			fromWS,
+			SColor.rgb(RGBColors.RED));
+		
+		SDebug.drawLine(
+			playerPosWS,
+			weaponPosWS,
+			SColor.rgb(RGBColors.GREEN));
+		
+		SDebug.spawnDebugDots({
+			playerPosWS,
+			weaponPosWS,
+			fromWS,
+			toWS
+			}, 0.01, 0.5);
+		*/
 	}
 	
 	/**
