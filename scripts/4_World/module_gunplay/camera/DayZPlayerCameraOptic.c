@@ -206,7 +206,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override bool canZoom(){
-		return playerIsFocusing();
+		return playerIsFocusing() && !m_player.isInspectingWeapon();
 	}
 	
 	override bool canFreelook(){
