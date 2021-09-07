@@ -34,6 +34,11 @@ The PvP/PvE has been "slowed" down in many aspect (more with the future Movement
 - "Focus" mechanic. Holding your breath will help you focus while in ADS, giving less sway and more precision. The focus speed will change based on the player stance (more to come in the future)
 - Reduced FieldOfView while aiming ADS, which combined with the new "focus" mechanic incentivate the player to think twice before shooting
 
+
+<img src="https://imgur.com/wup95MQ.gif" width="75%">
+
+<br>
+
 ---
 
 ## Procedural weapon **inertia**
@@ -47,6 +52,10 @@ No more insane 360° flicks with a 5kg weapon, thanks to the new inertia system.
   - Hipfire (inertia will be much more visible while hipfiring)
   - Player injury state
   - *... more to come with the SoftSkills module*
+
+<img src="https://imgur.com/G52jLrY.gif" width="75%">
+
+<br>
 
 ---
 
@@ -75,6 +84,10 @@ All weapon recoils have been carefully tweaked one by one, to find the perfect b
 - Customizable DepthOfField while ADS
 - It's possible to Freelook while ADS (only with ironsights and non-magnifying optics)
 - It's possible to visually inspect the weapon (only with ironsights and non-magnifying optics)
+
+<img src="https://imgur.com/lRGK3Gn.gif" width="75%">
+
+<br>
 
 ---
 
