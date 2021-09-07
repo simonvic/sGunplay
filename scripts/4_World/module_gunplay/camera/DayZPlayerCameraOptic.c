@@ -117,22 +117,26 @@ modded class DayZPlayerCameraOptics{
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
 		
-		//Handheld optics
-		if(isHandHeldOptic()){
-			targetFOV = m_opticsUsed.GetCurrentStepFOV();
-			return;
-		}
-		
 		// No optic
-		if (!m_opticsUsed){	
+		if (!m_opticsUsed) {
 			m_fFovAbsolute = targetFOV; //immediately
 			return;
 		}
 		
+		// Handheld optics
+		if (isHandHeldOptic()) {
+			targetFOV = m_opticsUsed.GetCurrentStepFOV();
+			if (isSniperOptic()) {
+				speed = 0.0001;
+			}
+			
+			return;
+		}
 		
+
 		// Non magnifying optic
-		if(!isMagnifyingOptic()){
-			if(playerIsFocusing()){
+		if (!isMagnifyingOptic()) {
+			if (canZoom()) {
 				targetFOV = m_opticsUsed.GetCurrentStepFOV();
 				speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_NON_MAGN_MULTIPLIER;
 			}
@@ -140,7 +144,7 @@ modded class DayZPlayerCameraOptics{
 		}
 		
 		// Sniping optic
-		if(isSniperOptic()){
+		if (isSniperOptic()) {
 			targetFOV = m_opticsUsed.GetCurrentStepFOV();
 			speed = 0.0001;
 			return;
@@ -152,7 +156,7 @@ modded class DayZPlayerCameraOptics{
 		if (m_isEntering){
 			m_fFovAbsolute = targetFOV; // immediately set the fov
 			m_isEntering = false;
-		}else if (playerIsFocusing()){
+		}else if (canZoom()){
 			targetFOV = m_opticsUsed.GetCurrentStepFOV();
 			speed = getFocusSpeedStance();
 		}
@@ -202,7 +206,7 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	override bool canZoom(){
-		return super.canZoom();
+		return playerIsFocusing();
 	}
 	
 	override bool canFreelook(){
