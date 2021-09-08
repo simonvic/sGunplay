@@ -28,8 +28,8 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	}
 	
 	protected void computeBreathingPattern(float weight, float frequency[2], float amplitude[2]){
-		m_breathingOffset[0] = m_breathingOffset[0] / 2 + Math.Sin(m_time + frequency[0]) * amplitude[0] * weight;
-		m_breathingOffset[1] = m_breathingOffset[1] / 2 + Math.Sin(m_time + frequency[1]) * amplitude[1] * weight;
+		m_breathingOffset[0] = m_breathingOffset[0] * 0.5 + Math.Sin(m_time * frequency[0]) * amplitude[0] * weight;
+		m_breathingOffset[1] = m_breathingOffset[1] * 0.5 + Math.Sin(m_time * frequency[1]) * amplitude[1] * weight;
 	}
 	
 	protected float getSpeed(){
