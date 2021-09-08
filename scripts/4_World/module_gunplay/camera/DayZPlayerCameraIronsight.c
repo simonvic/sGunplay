@@ -200,8 +200,8 @@ modded class DayZPlayerCameraIronsights{
 		
 		if( speed > 0 ){
 			m_movementTimeAcc += pDt;
-			aimChangeX += speed * Math.Sin(Math.PI * speed * m_movementTimeAcc);
-			aimChangeY += speed * Math.Sin(Math.PI2 * speed * m_movementTimeAcc);
+			aimChangeX += speed * Math.Sin(Math.PI * speed * m_movementTimeAcc * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
+			aimChangeY += speed * Math.Sin(Math.PI2 * speed * m_movementTimeAcc * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
 		}		
 		
 		misalignmentAngles[0] = Math.SmoothCD(

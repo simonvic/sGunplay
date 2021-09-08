@@ -37,6 +37,7 @@ class GunplayConstants{
 	static const float TIME_BACKUP_SIGHT = 0.25;  //Switching beetween optic/ironsight and viceversa
 	
 	static const float ADS_MOVEMENT_MISALIGNMENT_STRENGTH = 2;      //how strong is the misalignment
+	static const float ADS_MOVEMENT_MISALIGNMENT_FREQUENCY = 1.15;  //how fast is the misalignment
 	static const float ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS = 0.3;  //how smooth is the misalignment
 	
 	/////////////////////////////////////////////////////////////
