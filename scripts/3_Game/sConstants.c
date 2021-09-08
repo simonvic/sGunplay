@@ -7,8 +7,10 @@ class GunplayConstants{
 	static const float FOCUS_SPEED_CROUCHED = 0.4;
 	static const float FOCUS_SPEED_PRONE = 0.1;
 	
-	static const float FOCUS_SPEED_NON_MAGN_MULTIPLIER = 0.70;  // Multiplier of focus speed when using a non-magnifying optic
+	static const float FOCUS_SPEED_NON_MAGN_MULTIPLIER = 0.70;   // Multiplier of focus speed when using a non-magnifying optic
 	static const float FOCUS_SPEED_IRONSIGHT_MULTIPLIER = 0.75;  // Multiplier of focus speed when using a ironsight optic
+	
+	static const float FOCUS_RELEASE_RESET_SPEED = 0.75;          // Speed of smooth transition to normal hands offset when releasing focus
 	
 	/////////////////////////////////////////////////////////////
 	// FOV and OPTIC LENS

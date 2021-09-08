@@ -25,6 +25,7 @@ modded class DayZPlayerCameraIronsights{
 	
 	protected float m_handsOffsetX;
 	protected float m_handsOffsetY;
+	protected float m_handsOffsetStartupTime;
 	protected float m_handsOffsetResetVelX[1];
 	protected float m_handsOffsetResetVelY[1];
 	
@@ -95,13 +96,27 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param handsOffsetY \p float - 
 	*/
 	protected void computeHandsOffset(out float handsOffsetX, out float handsOffsetY, float pDt){
-		if( canApplyHandsOffset() ){
-			handsOffsetX = m_aimingModel.getHandsOffset()[0];
-			handsOffsetY = m_aimingModel.getHandsOffset()[1];
-		}else{
+		if (canApplyHandsOffset()){
+			
+			// Linear interpolation (reset) to normal hands offset value
+			if (m_handsOffsetStartupTime < 1) {
+				handsOffsetX = Math.Lerp(handsOffsetX, m_aimingModel.getHandsOffset()[0], Easing.EaseInOutSine(m_handsOffsetStartupTime));
+				handsOffsetY = Math.Lerp(handsOffsetY, m_aimingModel.getHandsOffset()[1], Easing.EaseInOutSine(m_handsOffsetStartupTime));
+				m_handsOffsetStartupTime += 2 * pDt;
+			} else {
+				handsOffsetX = m_aimingModel.getHandsOffset()[0];
+				handsOffsetY = m_aimingModel.getHandsOffset()[1];
+			}
+			
+		} else {
+			
+			// Smooth interpolation hands offset to 0
 			handsOffsetX = Math.SmoothCD(handsOffsetX, 0, m_handsOffsetResetVelX, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 			handsOffsetY = Math.SmoothCD(handsOffsetY, 0, m_handsOffsetResetVelY, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
+			
+			m_handsOffsetStartupTime = 0; //reset time for linear interpolation
 		}
+		
 	}
 	
 	
