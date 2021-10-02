@@ -22,9 +22,6 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 			m_velY,
 			0.1, 1000, pDt);
 		
-		
-		
-		
 	}
 	
 	protected void computeBreathingPattern(float weight, float frequency[2], float amplitude[2]){
@@ -56,15 +53,9 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	
 	protected float calculateWeight(int stanceIndex){
 		switch(stanceIndex){
-			case DayZPlayerConstants.STANCEIDX_RAISEDERECT:
-				return GunplayConstants.SWAY_MULTIPLEIR_ERECT;
-				break;
-			case DayZPlayerConstants.STANCEIDX_RAISEDCROUCH:
-				return GunplayConstants.SWAY_MULTIPLEIR_CROUCHED;
-				break;
-			case DayZPlayerConstants.STANCEIDX_RAISEDPRONE:
-				return GunplayConstants.SWAY_MULTIPLEIR_PRONE;
-				break;
+			case DayZPlayerConstants.STANCEIDX_RAISEDERECT:  return GunplayConstants.SWAY_MULTIPLEIR_ERECT;
+			case DayZPlayerConstants.STANCEIDX_RAISEDCROUCH: return GunplayConstants.SWAY_MULTIPLEIR_CROUCHED;
+			case DayZPlayerConstants.STANCEIDX_RAISEDPRONE:  return GunplayConstants.SWAY_MULTIPLEIR_PRONE;
 		}
 		return 1;
 	}

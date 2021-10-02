@@ -10,18 +10,20 @@ class SUserConfigGunplay : SUserConfigBase{
 	
 	override void deserialize(string data, out string error){
 		SUserConfigGunplay cfg = this;
-		m_serializer.ReadFromString(cfg, data, error);
+		getSerializer().ReadFromString(cfg, data, error);
+	}
+
+	override string serialize(){
+		string result;
+		SUserConfigGunplay cfg = this;
+		getSerializer().WriteToString(cfg, true, result);
+		return result;
 	}
 	
-	override string serialize(bool serializeDefault = false){
-		string result;		
-		SUserConfigGunplay cfg;
-		if(serializeDefault) {
-			cfg = new SUserConfigGunplay();
-		}else{
-			cfg = this;
-		}
-		m_serializer.WriteToString(cfg, true, result);
+	override string serializeDefault(){
+		string result;
+		SUserConfigGunplay cfg = new SUserConfigGunplay();
+		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
 		
