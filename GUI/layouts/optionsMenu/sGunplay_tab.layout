@@ -176,7 +176,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                  step 0.01
                  current 0.5
                  {
-                  TextWidgetClass sude_lensZoom_setting_value {
+                  TextWidgetClass sude_lensZoom_setting_option_value {
                    ignorepointer 1
                    color 0.9412 0.3294 0.298 1
                    position 0 0
@@ -275,7 +275,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                  step 0.01
                  current 0.5
                  {
-                  TextWidgetClass sude_adsDOFIntensity_setting_value {
+                  TextWidgetClass sude_adsDOFIntensity_setting_option_value {
                    ignorepointer 1
                    color 0.9412 0.3294 0.298 1
                    position 0 0
@@ -765,7 +765,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                        step 0.01
                        current 0.5
                        {
-                        TextWidgetClass sude_deadzone_UpDown_setting_value {
+                        TextWidgetClass sude_deadzone_UpDown_setting_option_value {
                          ignorepointer 1
                          color 0.9412 0.3294 0.298 1
                          position 0 0
@@ -852,7 +852,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                        step 0.01
                        current 0.5
                        {
-                        TextWidgetClass sude_deadzone_LeftRight_setting_value {
+                        TextWidgetClass sude_deadzone_LeftRight_setting_option_value {
                          ignorepointer 1
                          color 0.9412 0.3294 0.298 1
                          position 0 0
@@ -1453,6 +1453,22 @@ FrameWidgetClass sude_sgunplay_tab_root {
      }
     }
    }
+  }
+  GridSpacerWidgetClass c_description_box_root {
+   visible 0
+   ignorepointer 1
+   position 650 0
+   size 500 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 0
+   Padding 0
+   Margin 0
+   "Size To Content H" 1
+   "Size To Content V" 1
+   Columns 1
+   Rows 1
   }
  }
 }

@@ -9,20 +9,20 @@ class SUserConfigGunplay : SUserConfigBase{
 	}
 	
 	override void deserialize(string data, out string error){
-		SUserConfigGunplay cfg = this;
+		auto cfg = this;
 		getSerializer().ReadFromString(cfg, data, error);
 	}
 
 	override string serialize(){
 		string result;
-		SUserConfigGunplay cfg = this;
+		auto cfg = this;
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
 	
 	override string serializeDefault(){
 		string result;
-		SUserConfigGunplay cfg = new SUserConfigGunplay();
+		auto cfg = new SUserConfigGunplay();
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
@@ -33,10 +33,50 @@ class SUserConfigGunplay : SUserConfigBase{
 	protected bool hideWeaponBarrelInOptic = false;
 	protected bool hideClothingInOptic = true;
 	protected float lensZoomStrength = 0.75;
-	protected float deadzoneLimits[4] = { 0.0, 0.0, 0.0, 0.0 };
+	//protected float deadzoneLimits[4] = { 0.0, 0.0, 0.0, 0.0 };
+	protected ref TFloatArray deadzoneLimits = { 0.0, 0.0, 0.0, 0.0 };
 	protected bool resetDeadzoneOnFocus = true;
 	protected bool showDynamicCrosshair = true;
 	///////////////////////////////////////
+	
+	override void registerOptions() {
+		super.registerOptions();
+		registerOption("adsDOFIntensity",         new SUCOption_ADSDOFIntensity(adsDOFIntensity));
+		registerOption("hideWeaponBarrelInOptic", new SUCOption_HideWeaponBarrelInOptic(hideWeaponBarrelInOptic));
+		registerOption("hideClothingInOptic",     new SUCOption_HideClothingInOptic(hideClothingInOptic));
+		registerOption("lensZoomStrength",        new SUCOption_LensZoomStrength(lensZoomStrength));
+		registerOption("deadzoneLimits",          new SUCOption_DeadzoneLimits(deadzoneLimits));
+		registerOption("resetDeadzoneOnFocus",    new SUCOption_ResetDeadzonOnFocus(resetDeadzoneOnFocus));
+		registerOption("showDynamicCrosshair",    new SUCOption_ShowDynamicCrosshair(showDynamicCrosshair));		
+	}
+	
+	override void onConstraintsReceive(ParamsReadContext ctx) {
+		super.onConstraintsReceive(ctx);
+		
+		SUserConfigConstraints_Gunplay constraints;
+		if (!ctx.Read(constraints)) {
+			SLog.c("Can't read constraints, ignoring...",""+this);
+			return;
+		}
+		
+		SLog.i("Got constraints from server!",""+this);
+		SLog.d("\n" + constraints.serialize(),""+constraints);
+		applyConstraints(constraints);
+	}
+	
+	override void applyConstraints(SUserConfigConstraintsBase constraints) {
+		SUserConfigConstraints_Gunplay c = SUserConfigConstraints_Gunplay.Cast(constraints);
+		if (!c) return;
+		
+		getOption("adsDOFIntensity").setConstraint(c.getADSDOFIntensity());
+		getOption("hideWeaponBarrelInOptic").setConstraint(c.getHideWeaponBarrelInOptic());
+		getOption("hideClothingInOptic").setConstraint(c.getHideClothingInOptic());
+		getOption("lensZoomStrength").setConstraint(c.getLensZoomStrength());
+		getOption("deadzoneLimits").setConstraint(c.getDeadzoneLimits());
+		getOption("resetDeadzoneOnFocus").setConstraint(c.getResetDeadzoneOnFocus());
+		getOption("showDynamicCrosshair").setConstraint(c.getShowDynamicCrosshair());
+	}
+	
 	
 	
 	bool isAdsDOFEnabled(){
@@ -76,9 +116,7 @@ class SUserConfigGunplay : SUserConfigBase{
 	}
 	
 	TFloatArray getDeadzoneLimits(){
-		TFloatArray limits = {};
-		limits.Init(deadzoneLimits);
-		return limits;
+		return deadzoneLimits;
 	}
 	
 	void getDeadzoneLimits(out float limits[4]){
@@ -89,6 +127,13 @@ class SUserConfigGunplay : SUserConfigBase{
 	}
 	
 	void setDeadzoneLimits(float limits[4]){
+		deadzoneLimits[0] = limits[0];
+		deadzoneLimits[1] = limits[1];
+		deadzoneLimits[2] = limits[2];
+		deadzoneLimits[3] = limits[3];
+	}
+	
+	void setDeadzoneLimits(TFloatArray limits){
 		deadzoneLimits[0] = limits[0];
 		deadzoneLimits[1] = limits[1];
 		deadzoneLimits[2] = limits[2];
