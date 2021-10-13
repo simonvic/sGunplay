@@ -1,5 +1,5 @@
 /**
-*	@brief 
+*	@brief Option for Depth of Field effect while AimingDownSight
 */
 class SUCOption_ADSDOFIntensity : SUserConfigOption<float> {
 		
@@ -17,7 +17,7 @@ class SUCOption_ADSDOFIntensity : SUserConfigOption<float> {
 
 
 /**
-*	@brief
+*	@brief Option for hiding weapon barrel while aiming down sight in an optic
 */
 class SUCOption_HideWeaponBarrelInOptic : SUserConfigOption<bool> {
 	
@@ -35,7 +35,7 @@ class SUCOption_HideWeaponBarrelInOptic : SUserConfigOption<bool> {
 
 
 /**
-*	@brief
+*	@brief Option for hiding clothing while aiming down sight in an optic
 */
 class SUCOption_HideClothingInOptic : SUserConfigOption<bool> {
 	
@@ -53,7 +53,7 @@ class SUCOption_HideClothingInOptic : SUserConfigOption<bool> {
 
 
 /**
-*	@brief 
+*	@brief Option for intensity of lens magnification effect
 */
 class SUCOption_LensZoomStrength : SUserConfigOption<float> {
 	
@@ -71,13 +71,13 @@ class SUCOption_LensZoomStrength : SUserConfigOption<float> {
 
 
 /**
-*	@brief 
+*	@brief Option for deadzone limits, defined clockwise [UP, RIGHT, DOWN, LEFT]
 */
 class SUCOption_DeadzoneLimits : SUserConfigOptionArray<float> {
 	
 	void SUCOption_DeadzoneLimits(array<float> value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
 		if (!info) {
-			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE");
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_DESCRIPTION");
 		}
 	}
 	
@@ -114,7 +114,7 @@ class SUCOption_ShowDynamicCrosshair : SUserConfigOption<bool> {
 	
 	void SUCOption_ShowDynamicCrosshair(bool value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
 		if (!info) {
-			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR")
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_DESCRIPTION")
 		}
 	}
 	
