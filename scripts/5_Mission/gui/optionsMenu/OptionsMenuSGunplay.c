@@ -32,14 +32,14 @@ class OptionsMenuSGunplay : SOptionsMenuBase{
 	override void onBuild(){
 		super.onBuild();
 		
-		initOptionWidget(m_adsDOFIntensitySlider,   "sude_adsDOFIntensity_setting_option",    m_sUserConfig.getOptionFloat("adsDOFIntensity"));
-		initOptionWidget(m_hideBarrel,              "sude_hideBarrel_setting_option",         m_sUserConfig.getOptionBool("hideWeaponBarrelInOptic"));
-		initOptionWidget(m_hideClothing,            "sude_hideClothing_setting_option",       m_sUserConfig.getOptionBool("hideClothingInOptic"));
-		initOptionWidget(m_lensZoomSlider,          "sude_lensZoom_setting_option",           m_sUserConfig.getOptionFloat("lensZoomStrength"));
-		initOptionWidget(m_deadzoneUpDownSlider,    "sude_deadzone_UpDown_setting_option",    m_sUserConfig.getOptionArrayFloat("deadzoneLimits"), INDICES_UP_DOWN);
-		initOptionWidget(m_deadzoneLeftRightSlider, "sude_deadzone_LeftRight_setting_option", m_sUserConfig.getOptionArrayFloat("deadzoneLimits"), INDICES_LEFT_RIGHT);
-		initOptionWidget(m_resetDeadzoneOnFocus,    "sude_resetOnFocus_setting_option",       m_sUserConfig.getOptionBool("resetDeadzoneOnFocus"));
-		initOptionWidget(m_dynamicCrosshair,        "sude_dynamicCrosshair_setting_option",   m_sUserConfig.getOptionBool("showDynamicCrosshair"));
+		initOptionWidget(m_adsDOFIntensitySlider,   "sude_adsDOFIntensity_setting_option",    getUserConfig().getOptionFloat("adsDOFIntensity"));
+		initOptionWidget(m_hideBarrel,              "sude_hideBarrel_setting_option",         getUserConfig().getOptionBool("hideWeaponBarrelInOptic"));
+		initOptionWidget(m_hideClothing,            "sude_hideClothing_setting_option",       getUserConfig().getOptionBool("hideClothingInOptic"));
+		initOptionWidget(m_lensZoomSlider,          "sude_lensZoom_setting_option",           getUserConfig().getOptionFloat("lensZoomStrength"));
+		initOptionWidget(m_deadzoneUpDownSlider,    "sude_deadzone_UpDown_setting_option",    getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_UP_DOWN);
+		initOptionWidget(m_deadzoneLeftRightSlider, "sude_deadzone_LeftRight_setting_option", getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_LEFT_RIGHT);
+		initOptionWidget(m_resetDeadzoneOnFocus,    "sude_resetOnFocus_setting_option",       getUserConfig().getOptionBool("resetDeadzoneOnFocus"));
+		initOptionWidget(m_dynamicCrosshair,        "sude_dynamicCrosshair_setting_option",   getUserConfig().getOptionBool("showDynamicCrosshair"));
 	}
 	
 }

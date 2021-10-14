@@ -60,7 +60,6 @@ class SUserConfigGunplay : SUserConfigBase{
 		}
 		
 		SLog.i("Got constraints from server!",""+this);
-		SLog.d("\n" + constraints.serialize(),""+constraints);
 		applyConstraints(constraints);
 	}
 	

@@ -19,16 +19,16 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	
 	///////////////////////////////////////
 	// these go in json
-	protected ref SConstraintMinMaxNumeric       adsDOFIntensity             = new SConstraintMinMaxNumeric(0, 1);
-	protected ref SConstraintSwitch              hideWeaponBarrelInOptic     = new SConstraintSwitch(false);
-	protected ref SConstraintSwitch              hideClothingInOptic         = new SConstraintSwitch(true);
-	protected ref SConstraintMinMaxNumeric       lensZoomStrength            = new SConstraintMinMaxNumeric(0, 1);
-	protected ref SConstraintMinMaxArrayNumeric  deadzoneLimits              = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {1,1,1,1});
-	protected ref SConstraintSwitch              resetDeadzoneOnFocus        = new SConstraintSwitch(true);
-	protected ref SConstraintSwitch              showDynamicCrosshair        = new SConstraintSwitch(true);
+	protected ref SConstraintPrimitiveMinMaxNumeric adsDOFIntensity         = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintSwitch                 hideWeaponBarrelInOptic = new SConstraintSwitch(false);
+	protected ref SConstraintSwitch                 hideClothingInOptic     = new SConstraintSwitch(true);
+	protected ref SConstraintPrimitiveMinMaxNumeric lensZoomStrength        = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintMinMaxArrayNumeric     deadzoneLimits          = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {1,1,1,1});
+	protected ref SConstraintSwitch                 resetDeadzoneOnFocus    = new SConstraintSwitch(true);
+	protected ref SConstraintSwitch                 showDynamicCrosshair    = new SConstraintSwitch(true);
 	///////////////////////////////////////
 	
-	SConstraintMinMaxNumeric getADSDOFIntensity() {
+	SConstraintPrimitiveMinMaxNumeric getADSDOFIntensity() {
 		return adsDOFIntensity;
 	}
 	
@@ -40,7 +40,7 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 		return hideClothingInOptic;
 	}
 	
-	SConstraintMinMaxNumeric getLensZoomStrength() {
+	SConstraintPrimitiveMinMaxNumeric getLensZoomStrength() {
 		return lensZoomStrength;
 	}
 	
