@@ -97,15 +97,11 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 	*	 @return string - soundset classname
 	*/
 	protected string getSoundSet(){
-
-		if(m_fireModeChanged){
-			return GunplayConstants.SOUND_CHANGE_FIREMODE;
-		}else if(m_zeroingChanged){
-			return  GunplayConstants.SOUND_CHANGE_ZEROING;
-		}else if(m_zoomChanged){
+		if (m_zeroingChanged){
+			return GunplayConstants.SOUND_CHANGE_ZEROING;
+		} else if (m_zoomChanged){
 			return GunplayConstants.SOUND_CHANGE_ZOOM;
 		}
-
 		return string.Empty;
 	}
 	

@@ -151,7 +151,7 @@ class GunplayConstants{
 	
 	/////////////////////////////////////////////////////////////
 	// SOUNDS
-	static const string SOUND_CHANGE_FIREMODE = "combinationlock_close_SoundSet";
+	
 	static const string SOUND_CHANGE_ZEROING = "combinationlock_changenumber_SoundSet";
 	static const string SOUND_CHANGE_ZOOM = "combinationlock_changedial_SoundSet";
 	
