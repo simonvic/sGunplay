@@ -133,4 +133,11 @@ class cfgVehicles{
 			PPLensProperties[]={-1.0, 0.0, 0.0, 0.0};
 		};
 	};
+
+	class AugOptic : ItemOptics {
+		class OpticsInfo {
+			PPMaskProperties[] = {0.0, 0.0, 0.5, 0.01};
+			PPLensProperties[] = {0.25, 0.0, 0.0, 0.1};
+		};
+	};
 };
