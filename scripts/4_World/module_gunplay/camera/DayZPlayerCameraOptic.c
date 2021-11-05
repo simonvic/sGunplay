@@ -24,6 +24,10 @@ modded class DayZPlayerCameraOptics{
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,false,m_opticsUsed,m_camManager.isHideClothingInOpticEnabled());
 		}
+		
+		if (isSniperOptic()) {
+			SCameraOverlaysManager.getInstance().activate(m_opticMisalignmentOverlay);
+		}
 	}
 	
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
