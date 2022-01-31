@@ -12,10 +12,10 @@ modded class Winchester70Recoil{
 		
 		m_relativeReloadTime = 2;
 		
-		m_MouseOffsetRangeMin = 80;//in degrees min
-		m_MouseOffsetRangeMax = 100;//in degrees max
-		m_MouseOffsetDistance = 5.65;//how far should the mouse travel
-		m_MouseOffsetRelativeTime = 0.0325;//[0..1] a time it takes to move the mouse the required distance relative to the reload time of the weapon(firing mode)
+		m_MouseOffsetRangeMin = 80;
+		m_MouseOffsetRangeMax = 100;
+		m_MouseOffsetDistance = 5.65;
+		m_MouseOffsetRelativeTime = 0.0325;
 	
 		m_CamOffsetDistance = 0.073;
 		m_CamOffsetRelativeTime = 0.125;

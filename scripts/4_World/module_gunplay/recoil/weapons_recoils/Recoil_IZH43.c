@@ -12,10 +12,10 @@ modded class Izh43Recoil{
 		
 		m_relativeReloadTime = 2.5;
 		
-		m_MouseOffsetRangeMin = 70;//in degrees min
-		m_MouseOffsetRangeMax = 110;//in degrees max
-		m_MouseOffsetDistance = 5.95;//how far should the mouse travel
-		m_MouseOffsetRelativeTime = 0.0525; //0.03;//[0..1] a time it takes to move the mouse the required distance relative to the reload time of the weapon(firing mode)
+		m_MouseOffsetRangeMin = 70;
+		m_MouseOffsetRangeMax = 110;
+		m_MouseOffsetDistance = 5.95;
+		m_MouseOffsetRelativeTime = 0.0525; //0.03;
 				
 		m_CamOffsetDistance = 0.1;
 		m_CamOffsetRelativeTime = 0.125;
