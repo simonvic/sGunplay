@@ -175,6 +175,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                  maximum 1
                  step 0.01
                  current 0.5
+                 "fill in" 1
                  {
                   TextWidgetClass sude_lensZoom_setting_option_value {
                    ignorepointer 1
@@ -274,6 +275,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                  maximum 1
                  step 0.01
                  current 0.5
+                 "fill in" 1
                  {
                   TextWidgetClass sude_adsDOFIntensity_setting_option_value {
                    ignorepointer 1
@@ -764,6 +766,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                        maximum 1
                        step 0.01
                        current 0.5
+                       "fill in" 1
                        {
                         TextWidgetClass sude_deadzone_UpDown_setting_option_value {
                          ignorepointer 1
@@ -851,6 +854,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                        maximum 1
                        step 0.01
                        current 0.5
+                       "fill in" 1
                        {
                         TextWidgetClass sude_deadzone_LeftRight_setting_option_value {
                          ignorepointer 1
@@ -907,6 +911,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                      current 0.5
                      vertical 1
                      flipped 1
+                     "fill in" 1
                      {
                       TextWidgetClass sude_deadzoneUp_setting_value {
                        ignorepointer 1
@@ -955,6 +960,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                      current 0.5
                      vertical 0
                      flipped 1
+                     "fill in" 1
                      {
                       TextWidgetClass sude_deadzoneLeft_setting_value {
                        ignorepointer 1
@@ -1005,6 +1011,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                      current 0.5
                      vertical 0
                      flipped 0
+                     "fill in" 1
                      {
                       TextWidgetClass sude_deadzoneRight_setting_value {
                        ignorepointer 1
@@ -1055,6 +1062,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
                      current 0.5
                      vertical 1
                      flipped 0
+                     "fill in" 1
                      {
                       TextWidgetClass sude_deadzoneDown_setting_value {
                        ignorepointer 1
