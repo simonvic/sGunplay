@@ -7,6 +7,9 @@
 			<input name="SUA_ADSWeaponInspect" loc="STR_SUDE_INPUT_GUNPLAY_ADS_WEAPON_INSPECT" />
 		</actions>
 
+		<sorting name="sUDE" loc="STR_SGUNPLAY_MOD_INFO_TOOLTIP">
+			<input name="SUA_ADSWeaponInspect" />
+		</sorting>
 	</inputs>
 
 	<preset>
