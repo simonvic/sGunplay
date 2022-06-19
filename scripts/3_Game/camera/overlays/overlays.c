@@ -4,14 +4,14 @@ class SCOOpticMisalignment : SCameraOverlayTimed {
 		setImage("MyMODS/sFramework/GUI/textures/overlays/black_4x4.edds");
 		setMask(SCOMasks.CIRCULAR);
 		setPriority(eSCOPriority.HEADGEAR);		
-		setDuration(0.75);		
+		setDuration(1.0);
 		setMaskTransitionWidth(1);
 	}
 	
 	override void onAnimate(float deltaTime){
 		
 		setMaskProgress(
-			SMath.mapTo(getRemaining(), 0, getDuration(), 0.5, 1),
+			SMath.mapTo(getRemaining(), 0, getDuration(), 0, 1.0),
 		);
 		
 		setSize(
