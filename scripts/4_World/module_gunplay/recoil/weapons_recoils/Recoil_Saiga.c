@@ -12,7 +12,7 @@ modded class SiagaRecoil {
 		mouseTime          = 0.200;
 	
 		kick               = 0.095;
-		kickResetTime      = 2.550;
+		kickResetTime      = 3.550;
 	}
 	
 	override void Init() {

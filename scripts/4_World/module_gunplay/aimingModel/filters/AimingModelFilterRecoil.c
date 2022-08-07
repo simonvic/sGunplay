@@ -57,7 +57,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			m_mouseAccum[1] = m_mouseAccum[1] + deltaMouseY;
 		}
 		
-		pModel.m_fAimXMouseShift += deltaMouseX * mouseMultiplier[0]; //@todo should the multiplier be added to the r.mouse?
+		pModel.m_fAimXMouseShift -= deltaMouseX * mouseMultiplier[0]; //@todo should the multiplier be added to the r.mouse?
 		pModel.m_fAimYMouseShift += deltaMouseY * mouseMultiplier[1];
 		
 	}
@@ -104,17 +104,14 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	
 	protected void reset(float pDt, notnull RecoilBase r) {
 		float handsSmoothTime = 1 - r.handsResetSpeed;
-		m_handsAccum = {
-			Math.SmoothCD(m_handsAccum[0], 0, m_velHandsResetX, handsSmoothTime, 1000, pDt),
-			Math.SmoothCD(m_handsAccum[1], 0, m_velHandsResetY, handsSmoothTime, 1000, pDt)
-		};
+		m_handsAccum[0] = Math.SmoothCD(m_handsAccum[0], 0, m_velHandsResetX, handsSmoothTime, 1000, pDt);
+		m_handsAccum[1] = Math.SmoothCD(m_handsAccum[1], 0, m_velHandsResetY, handsSmoothTime, 1000, pDt);
 		
-		float misalignSmoothTime = 1 - r.misalignResetSpeed;
-		m_misalignAccum = {
-			Math.SmoothCD(m_misalignAccum[0], 0, m_velMisalignResetX, misalignSmoothTime, 1000, pDt),
-			Math.SmoothCD(m_misalignAccum[1], 0, m_velMisalignResetY, misalignSmoothTime, 1000, pDt)
-		};			
-		//m_mouseAccum = {0,0};
+		if (GetGame().IsClient()) {
+			float misalignSmoothTime = 1 - r.misalignResetSpeed;
+			m_misalignAccum[0] = Math.SmoothCD(m_misalignAccum[0], 0, m_velMisalignResetX, misalignSmoothTime, 1000, pDt);
+			m_misalignAccum[1] = Math.SmoothCD(m_misalignAccum[1], 0, m_velMisalignResetY, misalignSmoothTime, 1000, pDt);
+		}
 	}
 		
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
@@ -141,16 +138,16 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			float misMultX = 1;
 			float misMultY = 1;
 			float kMult = 1;
-			dui.slider("hMultX",   hMultX,   0.01, 0, 2);
-			dui.slider("hMultY",   hMultY,   0.01, 0, 2);
+			dui.slider("hMultX",   hMultX,   0.01);
+			dui.slider("hMultY",   hMultY,   0.01);
 			dui.newline();
-			dui.slider("mMultX",   mMultX,   0.01, 0, 2);
-			dui.slider("mMultY",   mMultY,   0.01, 0, 2);
+			dui.slider("mMultX",   mMultX,   0.01);
+			dui.slider("mMultY",   mMultY,   0.01);
 			dui.newline();
-			dui.slider("misMultX", misMultX, 0.01, 0, 2);
-			dui.slider("misMultY", misMultY, 0.01, 0, 2);
+			dui.slider("misMultX", misMultX, 0.01);
+			dui.slider("misMultY", misMultY, 0.01);
 			dui.newline();
-			dui.slider("kMult",    kMult,    0.01, 0, 2);
+			dui.slider("kMult",    kMult,    0.01);
 			handsMultiplier = {hMultX, hMultY};
 			mouseMultiplier = {mMultX, mMultY};
 			misalignMultiplier = {misMultX, misMultY};

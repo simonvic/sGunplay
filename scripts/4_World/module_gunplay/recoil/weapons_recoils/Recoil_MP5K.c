@@ -15,7 +15,7 @@ modded class Mp5kRecoil {
 		kickResetTime      = 1.450;
 	}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.015;
 		m_handsMaxHorizontalRecoil = 0.025;
 		

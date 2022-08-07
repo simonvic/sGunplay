@@ -75,6 +75,7 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 			m_prevWeapon = weapon;
 		}
 		
+		//@fixme shooting in double shot firemode triggers a firemodechange
 		int fireMode = weapon.GetCurrentMode(weapon.GetCurrentMuzzle());
 		if(fireMode != m_prevFireMode){
 			m_prevFireMode = fireMode;

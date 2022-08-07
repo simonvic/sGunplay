@@ -6,7 +6,7 @@ modded class DEagleRecoil{
 		
 		misalignIntensity  = {0.525, 0.525};
 		misalignAccumSpeed = 0.975;
-		misalignResetSpeed = 0.550;
+		misalignResetSpeed = 0.650;
 		
 		mouseRanges        = { 0.775, 1.150,  1.250,  1.750};
 		mouseTime          = 0.300;
