@@ -1,6 +1,7 @@
-modded class Izh43Recoil{
+modded class Izh43Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.75;
 		m_handsMaxHorizontalRecoil = 1.75;
 		

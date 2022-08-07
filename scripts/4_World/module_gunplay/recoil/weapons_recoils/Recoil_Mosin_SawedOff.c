@@ -1,6 +1,7 @@
-modded class MosinSawedOffRecoil{
-	
-	override void Init(){
+modded class MosinSawedOffRecoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.32;
 		m_handsMaxHorizontalRecoil = 1.44;
 		

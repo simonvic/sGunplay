@@ -1,6 +1,7 @@
-modded class Cz75Recoil{
+modded class Cz75Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.1;
 		m_handsMaxHorizontalRecoil = 0.120;
 		

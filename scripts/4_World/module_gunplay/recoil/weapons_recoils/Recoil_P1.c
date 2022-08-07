@@ -1,6 +1,7 @@
 modded class P1Recoil {
-	
-	override void Init(){
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.225;
 		m_handsMaxHorizontalRecoil = 0.350;
 		

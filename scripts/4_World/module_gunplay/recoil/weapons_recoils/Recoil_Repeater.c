@@ -1,6 +1,7 @@
-modded class RepeaterRecoil{
-	
-	override void Init(){
+modded class RepeaterRecoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.45;
 		m_handsMaxHorizontalRecoil = 1.56;
 		

@@ -1,6 +1,7 @@
-modded class Winchester70Recoil{
-	
-	override void Init(){
+modded class Winchester70Recoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.52;
 		m_handsMaxHorizontalRecoil = 1.34;
 		

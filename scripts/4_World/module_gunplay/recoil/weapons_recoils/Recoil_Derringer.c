@@ -1,4 +1,5 @@
 modded class DerringerRecoil {
+	override void initRecoilParameters() {}
 	
 	override void Init() {
 		m_handsMinHorizontalRecoil = -0.10;

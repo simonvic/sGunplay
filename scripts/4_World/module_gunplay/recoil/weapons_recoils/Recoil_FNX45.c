@@ -1,6 +1,7 @@
-modded class Fnx45Recoil{
+modded class Fnx45Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.1;
 		m_handsMaxHorizontalRecoil = 0.125;
 		

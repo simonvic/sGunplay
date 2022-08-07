@@ -26,18 +26,19 @@ modded class RecoilBase {
 	
 	//////////////////////////////////////////////////
 	// IN
-	float handsRanges[4]     = {-0.350, 0.450,  1.250,  1.300};
-	float handsAccumSpeed    = 0.925;
-	float handsResetSpeed    = 0.400;
+	float handsRanges[4]       = {-0.350, 0.450,  1.250,  1.300}; // Hands offset random ranges {min horizontal, max horizontal, min vertical, max vertical}
+	float handsAccumSpeed      = 0.925;                           // speed of hands offset accumulation
+	float handsResetSpeed      = 0.400;                           // speed of hands offset reset
 	
-	//@todo misalignment random synced values should be the same of the hands ranges, but misalignment should still have its own parameters
-	float misalignIntensity  = 0.15;
+	float misalignIntensity[2] = {0.150, 0.150};                  // Misalignment intensity compared to handsRanges {intensity horizontal, intensity vertical}
+	float misalignAccumSpeed   = 0.600;                           // speed of misalignment accumulation
+	float misalignResetSpeed   = 0.200;                           // speed of misalignment reset
 	
-	float mouseRanges[4]     = {-0.050, 0.100,  1.500,  1.600};
-	float mouseResetTime     = 0.25;
+	float mouseRanges[4]       = {-0.050, 0.100,  1.500,  1.600}; // Mouse offset random ranges {min horizontal, max horizontal, min vertical, max vertical}
+	float mouseTime            = 0.250;                           // speed of mouse movement
 	
-	float kick               = 0.0314;
-	float kickResetTime      = 1;
+	float kick                 = 0.0314;                          // Back kick intensity
+	float kickResetTime        = 1.000;                           // speed of back kick reset
 	//////////////////////////////////////////////////
 	
 	
@@ -52,14 +53,115 @@ modded class RecoilBase {
 		t.Insert({"handsRanges",       string.Format("%1 %2 %3 %4", handsRanges[0],    handsRanges[1],     handsRanges[2],    handsRanges[3])});
 		t.Insert({"handsAccumSpeed",   ""+handsAccumSpeed});
 		t.Insert({"handsResetSpeed",   ""+handsResetSpeed});
-		t.Insert({"misalignIntensity", ""+misalignIntensity});
-		
+		t.Insert({"misalignIntensity", string.Format("%1 %2", misalignIntensity[0],    misalignIntensity[1])});
+		t.Insert({"misalignAccumSpeed",""+misalignAccumSpeed});
+		t.Insert({"misalignResetSpeed",""+misalignResetSpeed});
 		t.Insert({"mouseRanges",       string.Format("%1 %2 %3 %4", mouseRanges[0],    mouseRanges[1],     mouseRanges[2],    mouseRanges[3])});
-		t.Insert({"mouseResetTime",    ""+mouseResetTime});
-		
+		t.Insert({"mouseTime",         ""+mouseTime});		
 		t.Insert({"kick",              ""+kick});
 		t.Insert({"kickResetTime",     ""+kickResetTime});
 		return t;
+	}
+	
+	static array<string> getCSVHeader() {
+		return {
+			"weapon"
+			"handsMinX"
+			"handsMaxX"
+			"handsMinY"
+			"handsMaxY"
+			"handsAccumSpeed"
+			"handsResetSpeed"
+			"misalignIntensityX"
+			"misalignIntensityY"
+			"mouseMinX"
+			"mouseMaxX"
+			"mouseMinY"
+			"mouseMaxY"
+			"mouseTime"
+			"kick"
+			"kickResetTime"
+		};
+	}
+	array<string> toCSV() {
+		return {
+			""+handsRanges[0]
+			""+handsRanges[1]
+			""+handsRanges[2]
+			""+handsRanges[3]
+			""+handsAccumSpeed
+			""+handsResetSpeed
+			""+misalignIntensity[0]
+			""+misalignIntensity[1]
+			""+mouseRanges[0]
+			""+mouseRanges[1]
+			""+mouseRanges[2]
+			""+mouseRanges[3]
+			""+mouseTime
+			""+kick
+			""+kickResetTime
+		};
+	}
+	
+	static array<ref array<string>> toCSV(array<ref RecoilBase> recoils) {
+		array<ref array<string>> csv = {getCSVHeader()};
+		foreach (RecoilBase r : recoils) {
+			csv.Insert(r.toCSV());
+		}
+		return csv;
+	}
+	
+	static string toCSVStringAll() {
+		array<ref RecoilBase> recoils = {
+			new Ak101Recoil(null),
+			new Ak74Recoil(null),
+			new AkmRecoil(null),
+			new Aks74uRecoil(null),
+			new B95Recoil(null),
+			new Colt1911Recoil(null),
+			new CZ527Recoil(null),
+			new DEagleRecoil(null),
+			new FALRecoil(null),
+			new Fnx45Recoil(null),
+			new GlockRecoil(null),
+			new Izh43Recoil(null),
+			new Izh18SawedOffRecoil(null),
+			new M4a1Recoil(null),
+			new MagnumRecoil(null),
+			new MakarovRecoil(null),
+			new MkiiRecoil(null),
+			new MosinRecoil(null),
+			new MosinSawedOffRecoil(null),
+			new Mp133Recoil(null),
+			new Mp5kRecoil(null),
+			new RepeaterRecoil(null),
+			new Ruger1022Recoil(null),
+			new ScoutRecoil(null),
+			new SiagaRecoil(null),
+			new Cz61Recoil(null),
+			new SKSRecoil(null),
+			new SvdRecoil(null),
+			new Ump45Recoil(null),
+			new VSSRecoil(null),
+			new Winchester70Recoil(null)
+		};
+		string delimiter = "\"";
+		string separator = ",";
+		string csv;
+		auto header = getCSVHeader();
+		foreach (auto column : header) {
+			csv += string.Format("%1%2%1%3", delimiter, column, separator);
+		}
+		csv += "\n";
+		foreach (auto recoil : recoils) {
+			csv += string.Format("%1%2%1", delimiter, recoil.Type());
+			auto values = recoil.toCSV();
+			foreach (auto value : values) {
+				csv += string.Format("%3%1%2%1", delimiter, value, separator);
+			}
+			csv += "\n";
+		}
+		return csv;
 	}
 	
 	
@@ -356,74 +458,4 @@ modded class RecoilBase {
 		return m_currentHandsOffset;
 	}
 	
-	/*
-	*	yikes
-	*	sed '/dd/d' raw_recoils.csv > recoils.csv
-	*/
-	static string toCSVAll(){
-		array<ref RecoilBase> recoils = {
-			new Ak101Recoil(null),
-			new Ak74Recoil(null),
-			new AkmRecoil(null),
-			new Aks74uRecoil(null),
-			new B95Recoil(null),
-			new Colt1911Recoil(null),
-			new CZ527Recoil(null),
-			new DEagleRecoil(null),
-			new FALRecoil(null),
-			new Fnx45Recoil(null),
-			new GlockRecoil(null),
-			new Izh43Recoil(null),
-			new Izh18SawedOffRecoil(null),
-			new M4a1Recoil(null),
-			new MagnumRecoil(null),
-			new MakarovRecoil(null),
-			new MkiiRecoil(null),
-			new MosinRecoil(null),
-			new MosinSawedOffRecoil(null),
-			new Mp133Recoil(null),
-			new Mp5kRecoil(null),
-			new RepeaterRecoil(null),
-			new Ruger1022Recoil(null),
-			new ScoutRecoil(null),
-			new SiagaRecoil(null),
-			new Cz61Recoil(null),
-			new SKSRecoil(null),
-			new SvdRecoil(null),
-			new Ump45Recoil(null),
-			new VSSRecoil(null),
-			new Winchester70Recoil(null)
-		};
-		return toCSV(recoils);
-	}
-	
-	
-	static string toCSV(array<ref RecoilBase> recoils){
-		string csvData = "\ntype, hands_h_min, hands_h_max, hands_v_min, hands_v_max, hands_steps, hands_rel_time, rel_reload_time, mouse_min, mouse_max, mouse_distance, mouse_rel_time, cam_offset, cam_rel_time \n";
-		SLog.d(csvData);
-		foreach(RecoilBase recoil : recoils){
-			csvData += recoil.toString() + ",\n";
-			SLog.d(recoil.toString() + ",\n");
-			
-		}
-		return csvData;
-	}
-	
-	string toString(){
-		return string.Format("\n%1, %2, %3, %4, %5, %6, %7, %8, %9, ",
-			Type(),
-			m_handsMinHorizontalRecoil,
-			m_handsMaxHorizontalRecoil,
-			m_handsMinVerticalRecoil,
-			m_handsMaxVerticalRecoil,
-			m_handsRecoilsteps,
-			m_HandsOffsetRelativeTime,
-			m_relativeReloadTime,
-			m_MouseOffsetRangeMin ) + string.Format("%1, %2, %3, %4, %5",
-			m_MouseOffsetRangeMax,
-			m_MouseOffsetDistance,
-			m_MouseOffsetRelativeTime,
-			m_CamOffsetDistance,
-			m_CamOffsetRelativeTime);
-	}
 }

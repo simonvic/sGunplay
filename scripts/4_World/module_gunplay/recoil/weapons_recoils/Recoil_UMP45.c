@@ -1,6 +1,7 @@
-modded class Ump45Recoil{
-	
-	override void Init(){
+modded class Ump45Recoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.060;
 		m_handsMaxHorizontalRecoil = 0.075;
 		

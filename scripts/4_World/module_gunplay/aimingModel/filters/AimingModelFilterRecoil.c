@@ -1,7 +1,7 @@
 class AimingModelFilterRecoil : AimingModelFilterBase {
 	
 	override bool isActive(){
-		//if (RecoilBase.legacyMode) return getAimingModel().getRecoil() != null;
+		if (RecoilBase.legacyMode) return getAimingModel().getRecoil() != null;
 		return true;
 	}
 	
@@ -12,11 +12,16 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		
 	protected float m_velHandsAccumX[1];
 	protected float m_velHandsAccumY[1];
-	
 	protected float m_velHandsResetX[1];
 	protected float m_velHandsResetY[1];
 	
+	protected float m_velMisalignAccumX[1];
+	protected float m_velMisalignAccumY[1];
+	protected float m_velMisalignResetX[1];
+	protected float m_velMisalignResetY[1];
+	
 	protected float m_handsAccum[2];
+	protected float m_misalignAccum[2];
 	protected float m_mouseAccum[2];
 	protected float m_kickAccum;
 	
@@ -34,19 +39,20 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		m_mouseAccum = {0,0};
 		if (GetGame().IsClient()) {
 			m_kickAccum = r.kick;
+			m_misalignAccum = {m_misalignAccum[0] + r.hands[0], m_misalignAccum[1] + r.hands[1]};
 		}
 	}
 	
 	protected void applyMouseOffset(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
+		// compute delta values of mouse shift so we spread the movement on multiple frames
 		if (m_mouseAccum[1] < r.mouse[1]) {
-			float relativeDelta = pDt / r.mouseResetTime;
+			float relativeDelta = pDt / r.mouseTime;
 			float deltaMouseX = r.mouse[0] * relativeDelta;
 			float deltaMouseY = r.mouse[1] * relativeDelta;
 			if ((m_mouseAccum[1] + deltaMouseY) > r.mouse[1]) {
 				deltaMouseX = r.mouse[0] - m_mouseAccum[0];
 				deltaMouseY = r.mouse[1] - m_mouseAccum[1];
 			}
-			
 			m_mouseAccum[0] = m_mouseAccum[0] + deltaMouseX;
 			m_mouseAccum[1] = m_mouseAccum[1] + deltaMouseY;
 		}
@@ -75,18 +81,38 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			0,
 			m_handsAccum[1] * handsMultiplier[1],
 			m_velHandsAccumY,
-			1 - r.handsAccumSpeed, 1000, pDt);
+			1 - r.handsAccumSpeed,
+			1000, pDt);
 	}
 	
 	protected void applyMisalignment(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		pModel.m_fAimXCamOffset -= m_handsAccum[0] * r.misalignIntensity * misalignMultiplier[0];
-		pModel.m_fAimYCamOffset -= m_handsAccum[1] * r.misalignIntensity * misalignMultiplier[1];
+		float smoothTime = 1 - r.misalignAccumSpeed;
+		pModel.m_fAimXCamOffset -= Math.SmoothCD(
+			0,
+			m_misalignAccum[0] * r.misalignIntensity[0] * misalignMultiplier[0],
+			m_velMisalignAccumX,
+			smoothTime,
+			1000, pDt);
+		
+		pModel.m_fAimYCamOffset -= Math.SmoothCD(
+			0,
+			m_misalignAccum[1] * r.misalignIntensity[1] * misalignMultiplier[1],
+			m_velMisalignAccumY,
+			smoothTime,
+			1000, pDt);
 	}
 	
 	protected void reset(float pDt, notnull RecoilBase r) {
+		float handsSmoothTime = 1 - r.handsResetSpeed;
 		m_handsAccum = {
-			Math.SmoothCD(m_handsAccum[0], 0, m_velHandsResetX, 1 - r.handsResetSpeed, 1000, pDt),
-			Math.SmoothCD(m_handsAccum[1], 0, m_velHandsResetY, 1 - r.handsResetSpeed, 1000, pDt)
+			Math.SmoothCD(m_handsAccum[0], 0, m_velHandsResetX, handsSmoothTime, 1000, pDt),
+			Math.SmoothCD(m_handsAccum[1], 0, m_velHandsResetY, handsSmoothTime, 1000, pDt)
+		};
+		
+		float misalignSmoothTime = 1 - r.misalignResetSpeed;
+		m_misalignAccum = {
+			Math.SmoothCD(m_misalignAccum[0], 0, m_velMisalignResetX, misalignSmoothTime, 1000, pDt),
+			Math.SmoothCD(m_misalignAccum[1], 0, m_velMisalignResetY, misalignSmoothTime, 1000, pDt)
 		};			
 		//m_mouseAccum = {0,0};
 	}
@@ -100,8 +126,9 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		bool applyMisalignment = true;
 		bool applyKick = true;
 		if (debugMonitor) {
-			dui.window(ClassName(), {(256+12)*2,1}, {0,0});
+			dui.window(ClassName(), {(256+12)*3,1}, {0,0});
 			dui.check("Legacy recoils", RecoilBase.legacyMode);
+			dui.newline();
 			dui.check("applyMouseOffset", applyMouseOffset);
 			dui.check("applyHandsOffset", applyHandsOffset);
 			dui.check("applyMisalignment", applyMisalignment);
@@ -116,17 +143,19 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			float kMult = 1;
 			dui.slider("hMultX",   hMultX,   0.01, 0, 2);
 			dui.slider("hMultY",   hMultY,   0.01, 0, 2);
+			dui.newline();
 			dui.slider("mMultX",   mMultX,   0.01, 0, 2);
 			dui.slider("mMultY",   mMultY,   0.01, 0, 2);
+			dui.newline();
 			dui.slider("misMultX", misMultX, 0.01, 0, 2);
 			dui.slider("misMultY", misMultY, 0.01, 0, 2);
+			dui.newline();
 			dui.slider("kMult",    kMult,    0.01, 0, 2);
 			handsMultiplier = {hMultX, hMultY};
 			mouseMultiplier = {mMultX, mMultY};
 			misalignMultiplier = {misMultX, misMultY};
 			kickMultiplier = kMult;
-			
-			
+			dui.newline();
 			if (m_recoil) {
 				dui.table(m_recoil.toDebugTable(), {512, 256});
 				dui.newline();
@@ -177,13 +206,14 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			dui.slider("plot size Y", plotSizeY, 128, 0, 1024);
 			plotSize = {plotSizeX, plotSizeY};
 			dui.newline();
-			dui.plotlive("hands X",        pModel.m_fAimXHandsOffset,  -5.00, 5.00, plotSize, historySize);
+			dui.plotlive("hands X",        pModel.m_fAimXHandsOffset,  -20.00, 20.00, plotSize, historySize);
+			dui.plotlive("misalignment X", pModel.m_fAimXCamOffset,    20.00, -20.00, plotSize, historySize);
 			dui.plotlive("mouse X",        pModel.m_fAimXMouseShift,   -2.00, 2.00, plotSize, historySize);
-			dui.plotlive("misalignment X", pModel.m_fAimXCamOffset,    -0.25, 0.25, plotSize, historySize);
-			dui.plotlive("hands Y",        pModel.m_fAimYHandsOffset,  -0.25, 5.00, plotSize, historySize);
+			dui.newline();
+			dui.plotlive("hands Y",        pModel.m_fAimYHandsOffset,  -20.00, 20.00, plotSize, historySize);
+			dui.plotlive("misalignment Y", pModel.m_fAimYCamOffset,    20.00, -20.00, plotSize, historySize);
 			dui.plotlive("mouse Y",        pModel.m_fAimYMouseShift,   -2.00, 2.00, plotSize, historySize);
-			dui.plotlive("mouseaccum Y",        m_mouseAccum[1],   -2.00, 2.00, plotSize, historySize);
-			dui.plotlive("misalignment Y", pModel.m_fAimYCamOffset,    -5.00, 0.50, plotSize, historySize);
+			dui.newline();
 			dui.plotlive("kick",           pModel.m_fCamPosOffsetZ,    -0.25, 0.25, plotSize, historySize);
 		}
 		dui.end();

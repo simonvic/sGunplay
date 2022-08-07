@@ -1,6 +1,7 @@
-modded class Mp133Recoil{
-	
-	override void Init(){
+modded class Mp133Recoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.55;
 		m_handsMaxHorizontalRecoil = 1.55;
 		

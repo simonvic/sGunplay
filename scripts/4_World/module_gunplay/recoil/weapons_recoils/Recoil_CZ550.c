@@ -1,6 +1,7 @@
 modded class CZ550Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.60;
 		m_handsMaxHorizontalRecoil = 1.4;
 		

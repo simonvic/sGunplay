@@ -1,6 +1,7 @@
-modded class VSSRecoil{
-	
-	override void Init(){
+modded class VSSRecoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.025;
 		m_handsMaxHorizontalRecoil = 0.055;
 		

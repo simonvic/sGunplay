@@ -1,6 +1,7 @@
-modded class M16A2Recoil{
+modded class M16A2Recoil {
+	override void initRecoilParameters() {}
 
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.085;
 		m_handsMaxHorizontalRecoil = 0.115;
 				

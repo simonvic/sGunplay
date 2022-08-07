@@ -1,6 +1,7 @@
-modded class MkiiRecoil{
-	
-	override void Init(){
+modded class MkiiRecoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.05;
 		m_handsMaxHorizontalRecoil = 0.08;
 		

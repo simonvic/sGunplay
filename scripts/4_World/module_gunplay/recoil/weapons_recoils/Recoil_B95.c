@@ -1,6 +1,7 @@
-modded class B95Recoil{
+modded class B95Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.32;
 		m_handsMaxHorizontalRecoil = 1.44;
 		

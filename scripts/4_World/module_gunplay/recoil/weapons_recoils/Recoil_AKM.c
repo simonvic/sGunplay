@@ -1,6 +1,7 @@
-modded class AkmRecoil{
+modded class AkmRecoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.075;
 		m_handsMaxHorizontalRecoil = 0.1;
 		

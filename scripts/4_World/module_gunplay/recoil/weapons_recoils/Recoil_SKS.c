@@ -1,6 +1,7 @@
-modded class SKSRecoil{
-	
-	override void Init(){
+modded class SKSRecoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.735;
 		m_handsMaxHorizontalRecoil = 0.165;
 		

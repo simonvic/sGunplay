@@ -1,18 +1,21 @@
 modded class M4a1Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-0.350, 0.450,  1.250,  1.300};	
-		handsAccumSpeed    = 0.95;
+		handsAccumSpeed    = 0.950;
 		handsResetSpeed    = 0.400;
-		misalignIntensity  = 0.25;
+		
+		misalignIntensity  = {0.250, 0.250};
+		misalignAccumSpeed = 0.950;
+		misalignResetSpeed = 0.400;
 	
 		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
-		mouseResetTime     = 0.15;
+		mouseTime          = 0.150;
 	
 		kick               = 0.045;
-		kickResetTime      = 2.25;
+		kickResetTime      = 2.250;
 	}
 
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.08;
 		m_handsMaxHorizontalRecoil = 0.105;
 				

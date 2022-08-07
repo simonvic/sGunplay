@@ -1,6 +1,7 @@
-modded class SvdRecoil{
-	
-	override void Init(){
+modded class SvdRecoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.82;
 		m_handsMaxHorizontalRecoil = 0.64;
 		

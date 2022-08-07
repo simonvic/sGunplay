@@ -1,6 +1,7 @@
-modded class Izh18Recoil{
+modded class Izh18Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -1.15;
 		m_handsMaxHorizontalRecoil = 1.28;
 		

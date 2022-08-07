@@ -1,6 +1,7 @@
-modded class Cz61Recoil{
+modded class Cz61Recoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.060;
 		m_handsMaxHorizontalRecoil = 0.075;
 		

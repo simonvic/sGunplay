@@ -1,6 +1,7 @@
-modded class FamasRecoil{
+modded class FamasRecoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.08;
 		m_handsMaxHorizontalRecoil = 0.105;
 				

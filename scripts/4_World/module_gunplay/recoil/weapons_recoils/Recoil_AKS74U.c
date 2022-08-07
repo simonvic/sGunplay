@@ -1,6 +1,7 @@
-modded class Aks74uRecoil{
+modded class Aks74uRecoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.085;
 		m_handsMaxHorizontalRecoil = 0.105;
 		

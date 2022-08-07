@@ -1,6 +1,7 @@
-modded class Ruger1022Recoil{
-	
-	override void Init(){
+modded class Ruger1022Recoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.020;
 		m_handsMaxHorizontalRecoil = 0.045;
 		

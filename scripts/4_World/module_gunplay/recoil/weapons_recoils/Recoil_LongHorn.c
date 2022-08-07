@@ -1,6 +1,7 @@
 modded class LongHornRecoil {
-	
-	override void Init(){
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.70;
 		m_handsMaxHorizontalRecoil = 1.10;
 		

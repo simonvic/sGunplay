@@ -1,6 +1,21 @@
-modded class MosinRecoil{
+modded class MosinRecoil {
+	override void initRecoilParameters() {
+		handsRanges        = { -1.165, 3.285,  7.265,  8.295};	
+		handsAccumSpeed    = 0.955;
+		handsResetSpeed    = 0.500;
+
+		misalignIntensity  = {0.05, 0.05};
+		misalignAccumSpeed = 0.955;
+		misalignResetSpeed = 0.500;
 	
-	override void Init(){
+		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseTime          = 0.200;
+	
+		kick               = 0.074;
+		kickResetTime      = 2.250;
+	}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.52;
 		m_handsMaxHorizontalRecoil = 0.94;
 		

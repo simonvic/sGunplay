@@ -3,17 +3,20 @@ modded class GlockRecoil {
 		handsRanges        = {-0.750, 1.250,  4.450,  5.600};	
 		handsAccumSpeed    = 0.955;
 		handsResetSpeed    = 0.750;
-		misalignIntensity  = 0.15;
+		
+		misalignIntensity  = {0.150, 0.150};
+		misalignAccumSpeed = 0.955;
+		misalignResetSpeed = 0.750;
 		
 		mouseRanges        = { 0.775, 1.150,  1.250,  1.750};
-		mouseResetTime     = 0.3;
+		mouseTime          = 0.300;
 	
 		kick               = 0.075;
-		kickResetTime      = 1.25;
+		kickResetTime      = 1.250;
 	}
 	
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.1;
 		m_handsMaxHorizontalRecoil = 0.120;
 		

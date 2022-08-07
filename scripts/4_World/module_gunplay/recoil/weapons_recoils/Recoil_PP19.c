@@ -1,6 +1,7 @@
-modded class PP19Recoil{
-	
-	override void Init(){
+modded class PP19Recoil {
+	override void initRecoilParameters() {}
+
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.080;
 		m_handsMaxHorizontalRecoil = 0.085;
 		

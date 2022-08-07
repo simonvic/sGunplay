@@ -1,6 +1,7 @@
-modded class FALRecoil{
+modded class FALRecoil {
+	override void initRecoilParameters() {}
 	
-	override void Init(){
+	override void Init() {
 		m_handsMinHorizontalRecoil = -0.05;
 		m_handsMaxHorizontalRecoil = 0.08;
 		
