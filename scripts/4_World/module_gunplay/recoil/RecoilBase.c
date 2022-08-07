@@ -1,5 +1,99 @@
-modded class RecoilBase{
+/**
+*	Transparent data carrier of random recoil values, to be used from outside
+*/
+modded class RecoilBase {
 	
+	static bool legacyMode = false;
+	static int refcount;
+	
+	void RecoilBase(Weapon_Base weapon) {
+		if (legacyMode) {
+			m_recoilControl = computeRecoilControl();
+		} else {
+			initRecoilParameters();
+			compute();
+		}
+		refcount++;
+	}
+	
+	void ~RecoilBase() {
+		refcount--;
+	}
+	
+	protected void initRecoilParameters();
+	
+	//@todo replace hands and mouse with vector for more precision?
+	
+	//////////////////////////////////////////////////
+	// IN
+	float handsRanges[4]     = {-0.350, 0.450,  1.250,  1.300};
+	float handsAccumSpeed    = 0.925;
+	float handsResetSpeed    = 0.400;
+	
+	//@todo misalignment random synced values should be the same of the hands ranges, but misalignment should still have its own parameters
+	float misalignIntensity  = 0.15;
+	
+	float mouseRanges[4]     = {-0.050, 0.100,  1.500,  1.600};
+	float mouseResetTime     = 0.25;
+	
+	float kick               = 0.0314;
+	float kickResetTime      = 1;
+	//////////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////////////
+	// OUT
+	float hands[2];
+	float mouse[2];
+	//////////////////////////////////////////////////
+	
+	array<ref array<string>> toDebugTable() {
+		array<ref array<string>> t = {{ClassName()}};
+		t.Insert({"handsRanges",       string.Format("%1 %2 %3 %4", handsRanges[0],    handsRanges[1],     handsRanges[2],    handsRanges[3])});
+		t.Insert({"handsAccumSpeed",   ""+handsAccumSpeed});
+		t.Insert({"handsResetSpeed",   ""+handsResetSpeed});
+		t.Insert({"misalignIntensity", ""+misalignIntensity});
+		
+		t.Insert({"mouseRanges",       string.Format("%1 %2 %3 %4", mouseRanges[0],    mouseRanges[1],     mouseRanges[2],    mouseRanges[3])});
+		t.Insert({"mouseResetTime",    ""+mouseResetTime});
+		
+		t.Insert({"kick",              ""+kick});
+		t.Insert({"kickResetTime",     ""+kickResetTime});
+		return t;
+	}
+	
+	
+	protected void compute() {
+		computeOffsetHands();
+		computeOffsetMouse();
+	}
+	
+	protected void computeOffsetHands() {
+		hands = {
+			getSyncedRandom(handsRanges[0], handsRanges[1]),
+			getSyncedRandom(handsRanges[2], handsRanges[3])
+		};
+	}
+	
+	protected void computeOffsetMouse() {
+		mouse = {
+			getSyncedRandom(mouseRanges[0], mouseRanges[1]),
+			getSyncedRandom(mouseRanges[2], mouseRanges[3])
+		};
+	}
+	
+	protected float getSyncedRandom(float min = 0, float max = 1) {
+		return m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil, min, max);
+	}
+	
+	
+	
+	
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// LEGACY
 	protected float m_recoilControl;
 	protected float m_handsMinHorizontalRecoil;
 	protected float m_handsMaxHorizontalRecoil;	
@@ -11,10 +105,6 @@ modded class RecoilBase{
 	protected vector m_currentMouseOffset;
 	protected vector m_currentHandsOffset;
 	protected vector m_currentCamOffset;
-		
-	void RecoilBase(Weapon_Base weapon){
-		m_recoilControl = computeRecoilControl();
-	}
 	
 	
 	/**

@@ -53,6 +53,8 @@ class GunplayConstants{
 	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;               // Use the player movement in the player aiming model
 	static const bool AIMING_MODEL_USE_FILTER_INJURY = true;                 // Use the player injure state in the player aiming model
 	static const bool AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION = true;     // Use the weapon interaction in the player aiming model (firemode change, zeroing, zooming)
+	static const bool AIMING_MODEL_USE_FILTER_HIPFIRE_DEADZONE = true;       // Use hipfire deadzone filter in the player aiming model
+	
 	
 	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.4;  // Smooth time of the movement modifier
@@ -88,22 +90,31 @@ class GunplayConstants{
 	//////////////////
 	// INERTIA
 	static const float INERTIA_SMOOTHNESS = 0.3;                          // how smooths the hands will "lag" behind the camera. Recommended 0.15 > x > 0.40
-	static const float INERTIA_MULTIPLIER_BASE = 2;                       // Base multiplier of the amount of inertia to be applied
+	static const float INERTIA_MULTIPLIER_BASE = 1;                       // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT = 3.5 * 0.0001;   // Multiplier of the amount of inertia to be applied based on weapon weight (example: 5 * 0.0001 means 5 every kilogram)
 	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 2;       // Multiplier of the amount of inertia to be applied based on weapon length
 	static const float INERTIA_MULTIPLIER_PLAYER_WEIGHT = 0.45 * 0.0001;  // Multiplier of the amount of inertia to be applied based on player inventory weight
-	static const float INERTIA_MULTIPLIER_HIPFIRE = 3.9;                  // Multiplier of the amount of inertia to be applied when the player is in hipfire
+	static const float INERTIA_MULTIPLIER_HIPFIRE = 1.0;                  // Multiplier of the amount of inertia to be applied when the player is in hipfire
 	
 	static const float INERTIA_MULTIPLIER_STANDING = 1.0;              // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
 	static const float INERTIA_MULTIPLIER_WALKING = 1.1;               // Multiplier of the amount of inertia to be applied when the player is WALKING
 	static const float INERTIA_MULTIPLIER_JOGGING = 1.75;              // Multiplier of the amount of inertia to be applied when the player is JOGGING
 	
 	static const float INERTIA_MULTIPLIER_ERECT = 1;                   // Multiplier of the amount of inertia to be applied when the player is ERECT
-	static const float INERTIA_MULTIPLIER_CROUCHED = 1.5;              // Multiplier of the amount of inertia to be applied when the player is CROUCHED
-	static const float INERTIA_MULTIPLIER_PRONE = 2.0;                 // Multiplier of the amount of inertia to be applied when the player is PRONE
+	static const float INERTIA_MULTIPLIER_CROUCHED = 0.5;              // Multiplier of the amount of inertia to be applied when the player is CROUCHED
+	static const float INERTIA_MULTIPLIER_PRONE = 0.75;                // Multiplier of the amount of inertia to be applied when the player is PRONE
 	
 	static const float INERTIA_MIN_MULTIPLIER = 1;                     // Minimum value of inertia
 	static const float INERTIA_MAX_MULTIPLIER = 50;                    // Maximum value of inertia
+	
+	static const float INERTIA_SPEED_ACCELERATION[2] = {0.5, 0.5};             // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
+	static const float INERTIA_SPEED_RESET[2] = {0.2, 0.2};                    // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
+	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.6, 0.6};     // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
+	static const float INERTIA_SPEED_RESET_HIPFIRE[2] = {0.3, 0.3};            // Speed of deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
+	
+	static const float INERTIA_VELOCITY_LIMIT = 250;    // Velocity limit in inertia build up (degree per second ?)
+	
+	
 	
 	/////////////////////////////////////////////////////////////
 	// DYNAMIC CROSSHAIR
@@ -121,6 +132,11 @@ class GunplayConstants{
 	static const float RECOIL_HIPFIRE_H_MULTIPLIER = 5; // how much the horizontal recoil will increase when hip firing; use 1 to keep it the same as ADS
 	static const float RECOIL_HIPFIRE_V_MULTIPLIER = 2; // how much the vertical recoil will increase when hip firing; use 1 to keep it the same as ADS
 	static const float RECOIL_HIPFIRE_RELOAD_TIME_MULTIPLIER = 2; // how much the time to repositionate the gun will increase when hip firing; use 1 to keep it the same as ADS
+	
+	static const float HIPFIRE_DEADZONE_AMOUNT_DEGREE[4] = {  // amount of deadzone to use when hipfiring (in degree)
+		    25,
+		-25,  25,
+		   -25    };
 	
 	/////////////////////////////////////////////////////////////
 	// RECOIL CONTROL

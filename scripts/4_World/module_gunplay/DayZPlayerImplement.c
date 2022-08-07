@@ -8,15 +8,6 @@ modded class DayZPlayerImplement{
 		m_inputWeaponInspect = GetUApi().GetInputByName("SUA_ADSWeaponInspect");
 	}
 	
-	
-	override void CommandHandler(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished){
-		super.CommandHandler(pDt,pCurrentCommandID,pCurrentCommandFinished);
-	}
-	
-	override bool AimingModel(float pDt, SDayZPlayerAimingModel pModel){
-		return super.AimingModel(pDt, pModel);
-	}
-			
 	override void HandleADS(){
 		super.HandleADS();
 		

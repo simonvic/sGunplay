@@ -1,6 +1,6 @@
 typedef array<ref AimingModelFilterBase> TAimingModelFiltersList;
 
-modded class DayZPlayerImplementAiming{
+modded class DayZPlayerImplementAiming {
 	
 	protected Weapon_Base m_weapon;
 	
@@ -38,8 +38,11 @@ modded class DayZPlayerImplementAiming{
 		registerFilter(new AimingModelFilterRecoil(this));
 		registerFilter(new AimingModelFilterKuru(this));
 		registerFilter(new AimingModelFilterInertia(this));
+		registerFilter(new AimingModelFilterHipfireDeadzone(this));
 		registerFilter(new AimingModelFilterWallPush(this));
 		registerFilter(new AimingModelFilterWeaponInteraction(this));
+		registerFilter(new AimingModelFilterClamps(this));
+		
 	}
 	
 	/**
@@ -73,18 +76,12 @@ modded class DayZPlayerImplementAiming{
 			to activae quickly releas right mouse button, holster weapon, and right mouse button again 
 		*/
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetHumanInventory().GetEntityInHands());
-		if(!m_weapon) return true;
-		foreach(AimingModelFilterBase filter : m_filters){
-			if(filter.isActive()){
+		if (!m_weapon) return true;
+		foreach (AimingModelFilterBase filter : m_filters) {
+			if (filter.isActive()) {
 				filter.onUpdate(pDt, pModel, stance_index);
 			}
 		}
-		
-		// @todo finish this and double check everything
-		//if (stance_index == DayZPlayerConstants.STANCEIDX_RAISEDPRONE){			
-		//	float newVal = DayZPlayerUtils.LinearRangeClamp(pModel.m_fCurrentAimX, pModel.m_fCurrentAimY, m_AimXClampRanges);
-		//	pModel.m_fAimYHandsOffset += newVal - pModel.m_fCurrentAimY;
-		//}
 		
 		updateHandsOffset(pModel);
 		
@@ -102,7 +99,7 @@ modded class DayZPlayerImplementAiming{
 			m_weapon.ModelToWorld(m_weaponTargetPosition),
 			GunplayConstants.CROSSHAIR_PRECISION);
 		
-		//The lens must be computed in the aiming model after all filters transformation
+		//The lens must be computed in the aiming model after all filters transformations
 		updateOpticLensPosition(m_weapon.GetAttachedOptics());
 		
 		return true;
@@ -116,10 +113,6 @@ modded class DayZPlayerImplementAiming{
 	protected void updateHandsOffset(SDayZPlayerAimingModel pModel){
 		m_handsOffset[0] = pModel.m_fAimXHandsOffset;
 		m_handsOffset[1] = pModel.m_fAimYHandsOffset;
-		if(m_CurrentRecoil){
-			m_handsOffset[0] = m_handsOffset[0] + m_CurrentRecoil.getCurrentHandsOffset()[0] * GunplayConstants.AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[0];
-			m_handsOffset[1] = m_handsOffset[1] + m_CurrentRecoil.getCurrentHandsOffset()[1] * GunplayConstants.AIMING_MODEL_HANDS_OFFSET_RECOIL_CONTRIBUTION[1];
-		}
 	}
 	
 
@@ -151,41 +144,10 @@ modded class DayZPlayerImplementAiming{
 	*	@brief Compute the optic lens position
 	*/
 	protected void updateOpticLensPosition(ItemOptics optic, float distance = 50){
-		if(!optic) return;
-		
-		vector from    = optic.GetSelectionPositionLS( "eyeScope" );
-		vector to      = optic.GetSelectionPositionLS( "cameraDir" );
-		m_lensPosition = optic.ModelToWorld(from + (vector.Direction(from, to) * distance));
-		/*
-		if (GetGame().IsServer()) return;
-		vector fromWS = optic.ModelToWorld( from );
-		vector toWS = optic.ModelToWorld( to );
-		vector playerPosWS = getPlayer().GetPosition() + Vector(0, 1.7, 0);
-		vector weaponPosWS = getWeapon().ModelToWorld(getWeapon().GetSelectionPositionLS( "usti hlavne" ));
-		
-		SDebug.destroyShapes();
-		SDebug.drawLine(
-			fromWS,
-			toWS,
-			SColor.rgb(RGBColors.YELLOW));
-				
-		SDebug.drawLine(
-			playerPosWS,
-			fromWS,
-			SColor.rgb(RGBColors.RED));
-		
-		SDebug.drawLine(
-			playerPosWS,
-			weaponPosWS,
-			SColor.rgb(RGBColors.GREEN));
-		
-		SDebug.spawnDebugDots({
-			playerPosWS,
-			weaponPosWS,
-			fromWS,
-			toWS
-			}, 0.01, 0.5);
-		*/
+		if (!optic) return;
+		vector eyeScopeLS  = optic.GetSelectionPositionLS( "eyeScope" );
+		vector cameraDirLS = optic.GetSelectionPositionLS( "cameraDir" );
+		m_lensPosition = optic.ModelToWorld(eyeScopeLS + (vector.Direction(eyeScopeLS, cameraDirLS) * distance));
 	}
 	
 	/**
@@ -258,11 +220,6 @@ modded class DayZPlayerImplementAiming{
 		barrelPosition = weapon.GetSelectionPositionLS( "konec hlavne" );
 		muzzlePosition = weapon.GetSelectionPositionLS( "usti hlavne" );
 		targetPosition = muzzlePosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
-		//@todo try this. Thanks Mario :)
-		//vector barrelPosition = weapon.GetSelectionPositionLS("usti hlavne");
-		//vector muzzlePosition = weapon.GetSelectionPositionLS("konec hlavne");
-		//vector directionLS = vector.Direction(barrelPosition, muzzlePosition);
-		//vector direction = directionLS[0] * weapon.GetTransformAxis(0);
 	}
 	
 	/**
@@ -285,10 +242,10 @@ modded class DayZPlayerImplementAiming{
 	*	 @return vector - Aim change of the player (x, y, 0)
 	*/
 	static vector getAimChangeDegree(DayZPlayerImplement player){
-		vector aimChange = "0 0 0";
-		aimChange[0] = player.GetInputController().GetAimChange()[0] * Math.RAD2DEG;
-		aimChange[1] = player.GetInputController().GetAimChange()[1] * Math.RAD2DEG;
-		return aimChange;
+		return Vector(
+			player.GetInputController().GetAimChange()[0] * Math.RAD2DEG,
+			player.GetInputController().GetAimChange()[1] * Math.RAD2DEG,
+			0);
 	}
 	
 }

@@ -1,4 +1,16 @@
-modded class Ak74Recoil{
+modded class Ak74Recoil {
+	override void initRecoilParameters() {
+		handsRanges        = {-0.065, 0.085,  1.265,  1.495};	
+		handsAccumSpeed    = 0.975;
+		handsResetSpeed    = 0.550;
+		misalignIntensity  = 0.250;
+	
+		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseResetTime     = 0.2;
+	
+		kick               = 0.054;
+		kickResetTime      = 2.25;
+	}
 	
 	override void Init(){
 		m_handsMinHorizontalRecoil = -0.065;

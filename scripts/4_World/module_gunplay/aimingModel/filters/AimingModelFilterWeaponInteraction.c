@@ -13,6 +13,10 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 	protected float m_velX[1];
 	protected float m_velY[1];
 	
+	protected float m_time;
+	protected bool reverse;
+	protected bool done = true;
+	
 	override bool isActive(){
 		return GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION;
 	}
@@ -28,24 +32,35 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 		
 		if(!m_weaponChanged && (m_fireModeChanged || m_zeroingChanged || m_zoomChanged)){
 			offset = GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_OFFSETS;
+			offset = {-40, 100};
+			done = false;
 			if(GetGame().IsClient() || !GetGame().IsMultiplayer()){
 				playSounds(getSoundSet());
 			}
 		}
 		
-		pModel.m_fAimXCamOffset += Math.SmoothCD(
-			0,
-			offset[0],
-			m_velX,
-			GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_SMOOTHNESS,
-			1000, pDt);
 		
-		pModel.m_fAimYCamOffset += Math.SmoothCD(
-			0,
-			offset[1],
-			m_velY,
-			GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_SMOOTHNESS,
-			1000, pDt);
+		if (m_time >= 1) reverse = true;
+		if (m_time < 0) {
+			reverse = false;
+			done = true;
+		}
+		if (done) {
+			m_time = 0;
+			return;
+		}
+		if (reverse) {
+			m_time -= pDt * 3;
+		} else {
+			m_time += pDt * 5;
+		}
+		
+		
+		pModel.m_fAimXHandsOffset += Easing.EaseInSine(m_time) * 2;
+		pModel.m_fAimYHandsOffset -= Easing.EaseOutSine(m_time) * 2;
+		pModel.m_fAimXCamOffset -= Easing.EaseInOutSine(m_time) * 3;
+		pModel.m_fCamPosOffsetZ += Easing.EaseInOutSine(m_time) * 0.025;
+
 
 	}
 	

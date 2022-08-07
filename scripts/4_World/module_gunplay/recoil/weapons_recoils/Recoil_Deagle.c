@@ -1,5 +1,17 @@
 modded class DEagleRecoil{
+	override void initRecoilParameters() {
+		handsRanges        = {-1.750, 2.550,  6.250,  8.300};	
+		handsAccumSpeed    = 0.985;
+		handsResetSpeed    = 0.550;
+		misalignIntensity  = 0.525;
+		
+		mouseRanges        = { 0.775, 1.150,  1.250,  1.750};
+		mouseResetTime     = 0.3;
 	
+		kick               = 0.080;
+		kickResetTime      = 2.25;
+	}
+
 	override void Init(){
 		m_handsMinHorizontalRecoil = -0.75;
 		m_handsMaxHorizontalRecoil = 1.23;

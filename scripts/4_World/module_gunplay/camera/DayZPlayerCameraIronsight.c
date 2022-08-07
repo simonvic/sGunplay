@@ -65,10 +65,10 @@ modded class DayZPlayerCameraIronsights{
 	*/
 	protected void updateDOF(){
 		//@todo update m_isEntering
-		if( m_player.isInspectingWeapon() && canInspectWeapon()) {
+		if (m_player.isInspectingWeapon() && canInspectWeapon()) {
 			SPPEManager.requestWeaponDOF(m_inspectDOFPreset);
 			m_isInspectionDOFReset = true;
-		}else if(m_isInspectionDOFReset){
+		} else if (m_isInspectionDOFReset) {
 			setNonMagnifyingOpticDOF();
 			m_isInspectionDOFReset = false;
 		}
@@ -81,10 +81,11 @@ modded class DayZPlayerCameraIronsights{
 	*/
 	protected void updateAimAngle(out float yaw, out float pitch, float pDt){
 		float min;
-		if (m_player && m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE))
+		if (m_player && m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE)) {
 			min = CONST_UD_MIN_BACK;
-		else
+		} else {
 			min = CONST_UD_MIN;
+		}
 		
 		pitch = UpdateUDAngle(m_fUpDownAngle, m_fUpDownAngleAdd, min, CONST_UD_MAX, pDt);
 		yaw = UpdateLRAngle(m_fLeftRightAngle, CONST_LR_MIN, CONST_LR_MAX, pDt);
@@ -96,6 +97,10 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param handsOffsetY \p float - 
 	*/
 	protected void computeHandsOffset(out float handsOffsetX, out float handsOffsetY, float pDt){
+		
+		handsOffsetX = m_aimingModel.getHandsOffset()[0];
+		handsOffsetY = m_aimingModel.getHandsOffset()[1];
+		/*
 		if (canApplyHandsOffset()){
 			
 			// Linear interpolation (reset) to normal hands offset value
@@ -116,7 +121,7 @@ modded class DayZPlayerCameraIronsights{
 			
 			m_handsOffsetStartupTime = 0; //reset time for linear interpolation
 		}
-		
+		*/
 	}
 	
 	
