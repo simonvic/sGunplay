@@ -7,6 +7,7 @@ class CfgPatches {
 		requiredVersion = 0.1;
 		requiredAddons[] = {
 			"DZ_Weapons_Supports",
+			"DZ_Weapons_Muzzles",
 			"sFramework"
 		};
 	};
@@ -260,194 +261,101 @@ class cfgVehicles{
 
 	class Static;
 	class Inventory_Base : Static {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					kick = 0.0;
-					misalignment[] = {0.0, 0.0};
-					mouse[] = {0.0, 0.0};
-					hands[] = {0.0, 0.0};
-				};
-			};
-		};
+		s_mouse[] = {0.0, 0.0};
+		s_hands[] = {0.0, 0.0};
+		s_misalignment[] = {0.0, 0.0};
+		s_kick = 0.0;
 	};
 	class M4_OEBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					kick = 0.75;
-					misalignment[] = {0.0, 0.25;
-					hands[] = {0.50, 0.50};
-				};
-			};
-		};
+		s_hands[] = {0.45, 0.45};
+		s_misalignment[] = {0.15, 0.25};
+		s_kick = 0.75;
+	};
+	class M4_MPBttstck : Inventory_Base {
+		s_hands[] = {0.50, 0.50};
+		s_misalignment[] = {0.20, 0.30};
+		s_kick = 0.80;
+	};
+	class M4_MPBttstck : Inventory_Base {
+		s_hands[] = {0.45, 0.45};
+		s_misalignment[] = {0.25, 0.35};
+		s_kick = 0.80;
 	};
 	class M4_RISHndgrd : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.50, 0.50};
-					hands[] = {0.25, 0.25};
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.25};
+		s_misalignment[] = {0.55, 0.50};
+	};
+	class M4_MPHndgrd : Inventory_Base {
+		s_hands[] = {0.30, 0.30};
+		s_misalignment[] = {0.60, 0.55};
 	};
 	class AK_WoodBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					kick = 0.75;
-					misalignment[] = {0.0, 0.25;
-					hands[] = {0.25, 0.25};
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.25};
+		s_misalignment[] = {0.0, 0.25};
+		s_kick = 0.75;
 	};
 	class AK_PlasticBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					kick = 0.75;
-					misalignment[] = {0.0, 0.25;
-					hands[] = {0.25, 0.25};
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.25};
+		s_misalignment[] = {0.0, 0.25};
+		s_kick = 0.75;
 	};
 	class AK_FoldingBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					kick = 0.75;
-					misalignment[] = {0.0, 0.25;
-					hands[] = {0.25, 0.25};
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.25};
+		s_misalignment[] = {0.0, 0.25};
+		s_kick = 0.75;
 	};
 	class AK_WoodHndgrd : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.50, 0.50};
-					hands[] = {0.25, 0.10};
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.10};
+		s_misalignment[] = {0.50, 0.50};
 	};
 	class AK_RailHndgrd : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.50, 0.50};
-					hands[] = {0.25, 0.10};
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.10};
+		s_misalignment[] = {0.50, 0.50};
 	};
 	class AKS74U_Bttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					kick = 0.75;
-					misalignment[] = {0.20, 0.20};
-					hands[] = {0.50, 0.50};
-				};
-			};
-		};
+		s_hands[] = {0.50, 0.50};
+		s_misalignment[] = {0.20, 0.20};
+		s_kick = 0.75;
 	};
 	class MP5k_StockBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.0, 0.25};
-					hands[] = {0.50, 0.50};
-					kick = 0.80;
-				};
-			};
-		};
+		s_hands[] = {0.50, 0.50};
+		s_misalignment[] = {0.0, 0.25};
+		s_kick = 0.80;
 	};
-	class MP5k_PlasticHndgrd : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.50, 0.50};
-					hands[] = {0.20, 0.20};
-				};
-			};
-		};
+	class MP5_PlasticHndgrd : Inventory_Base {
+		s_hands[] = {0.20, 0.20};
+		s_misalignment[] = {0.50, 0.50};
 	};
-	class MP5k_RailHndgrd : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.50, 0.50};
-					hands[] = {0.20, 0.20};
-				};
-			};
-		};
+	class MP5_RailHndgrd : Inventory_Base {
+		s_hands[] = {0.20, 0.20};
+		s_misalignment[] = {0.50, 0.50};
 	};
 	class MP5_Compensator : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.45, 0.05};
-				};
-			};
-		};
+		s_misalignment[] = {0.45, 0.05};
 	};
-	class Mosing_Compensator : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.50, 0.50};
-				};
-			};
-		};
+	class Mosin_Compensator : Inventory_Base {
+		s_hands[] = {0.50, 0.30};
+		s_misalignment[] = {0.50, 0.50};
 	};
 	class PP19_Bttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					misalignment[] = {0.0, 0.50};
-					hands[] = {0.25, 0.25};
-					kick = 0.50;
-				};
-			};
-		};
+		s_hands[] = {0.25, 0.25};
+		s_misalignment[] = {0.0, 0.50};
+		s_kick = 0.50;
 	};
 	class Saiga_Bttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					hands[] = {0.30, 0.30};
-					misalignment[] = {0.30, 0.30};
-					kick = 0.75;
-				};
-			};
-		};
+		s_hands[] = {0.30, 0.30};
+		s_misalignment[] = {0.30, 0.30};
+		s_kick = 0.75;
 	};
 	class Fal_OeBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					hands[] = {0.50, 0.50};
-					misalignment[] = {0.50, 0.50};
-					kick = 0.75;
-				};
-			};
-		};
+		s_hands[] = {0.50, 0.50};
+		s_misalignment[] = {0.50, 0.50};
+		s_kick = 0.75;
 	};
 	class Fal_FoldingBttstck : Inventory_Base {
-		class sUDE {
-			class sGunplay {
-				class RecoilModifiers {
-					hands[] = {0.50, 0.50};
-					misalignment[] = {0.50, 0.50};
-					kick = 0.75;
-				};
-			};
-		};
+		s_hands[] = {0.50, 0.50};
+		s_misalignment[] = {0.50, 0.50};
+		s_kick = 0.75;
 	};
 	
 };

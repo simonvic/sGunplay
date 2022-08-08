@@ -34,12 +34,15 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	
 	protected void accumulateRecoil(notnull RecoilBase r) {
 		m_time = 0;
-		m_handsAccum = {m_handsAccum[0] + r.hands[0], m_handsAccum[1] + r.hands[1]};
+		m_handsAccum[0] = m_handsAccum[0] + r.hands[0];
+		m_handsAccum[1] = m_handsAccum[1] + r.hands[1];
 		//m_mouseAccum = {r.mouse[0], r.mouse[1]};
-		m_mouseAccum = {0,0};
+		m_mouseAccum[0] = 0;
+		m_mouseAccum[1] = 0;
 		if (GetGame().IsClient()) {
 			m_kickAccum = r.kick;
-			m_misalignAccum = {m_misalignAccum[0] + r.hands[0], m_misalignAccum[1] + r.hands[1]};
+			m_misalignAccum[0] = m_misalignAccum[0] + r.hands[0];
+			m_misalignAccum[1] = m_misalignAccum[1] + r.hands[1];
 		}
 	}
 	
@@ -57,29 +60,30 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			m_mouseAccum[1] = m_mouseAccum[1] + deltaMouseY;
 		}
 		
-		pModel.m_fAimXMouseShift -= deltaMouseX * mouseMultiplier[0]; //@todo should the multiplier be added to the r.mouse?
-		pModel.m_fAimYMouseShift += deltaMouseY * mouseMultiplier[1];
+		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
+		pModel.m_fAimXMouseShift -= deltaMouseX * mouseMultiplier[0] * modifiers.recoilOffsetMouse[0];
+		pModel.m_fAimYMouseShift += deltaMouseY * mouseMultiplier[1] * modifiers.recoilOffsetMouse[1];
 		
 	}
 	
 	protected void applyKick(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		//float timeNormalized = Math.Clamp(Math.InverseLerp(0, r.kickResetTime, m_time), 0, 1);
 		float timeNormalized = SMath.normalizeClamp(m_time, 0, r.kickResetTime);
 		float easing = 1 - Easing.EaseOutElastic(timeNormalized, 0.45);
-		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * kickMultiplier, easing);
+		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * kickMultiplier * getWeapon().GetPropertyModifierObject().recoilKick, easing);
 	}
 	
 	protected void applyHandsOffset(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
+		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[0] * handsMultiplier[0],
+			m_handsAccum[0] * handsMultiplier[0] * modifiers.recoilOffsetHands[0],
 			m_velHandsAccumX,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
 		
 		pModel.m_fAimYHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[1] * handsMultiplier[1],
+			m_handsAccum[1] * handsMultiplier[1] * modifiers.recoilOffsetHands[1],
 			m_velHandsAccumY,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
@@ -87,16 +91,17 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	
 	protected void applyMisalignment(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
 		float smoothTime = 1 - r.misalignAccumSpeed;
+		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[0] * r.misalignIntensity[0] * misalignMultiplier[0],
+			m_misalignAccum[0] * r.misalignIntensity[0] * misalignMultiplier[0] * modifiers.recoilMisalignment[0],
 			m_velMisalignAccumX,
 			smoothTime,
 			1000, pDt);
 		
 		pModel.m_fAimYCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[1] * r.misalignIntensity[1] * misalignMultiplier[1],
+			m_misalignAccum[1] * r.misalignIntensity[1] * misalignMultiplier[1] * modifiers.recoilMisalignment[1],
 			m_velMisalignAccumY,
 			smoothTime,
 			1000, pDt);
@@ -153,10 +158,23 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			misalignMultiplier = {misMultX, misMultY};
 			kickMultiplier = kMult;
 			dui.newline();
+			array<ref array<string>> recoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
 			if (m_recoil) {
-				dui.table(m_recoil.toDebugTable(), {512, 256});
-				dui.newline();
+				recoilTable = m_recoil.toDebugTable();
 			}
+			dui.table(recoilTable, {400, 256});
+			auto attachHands = getWeapon().GetPropertyModifierObject().recoilOffsetHands;
+			auto attachMisalign = getWeapon().GetPropertyModifierObject().recoilMisalignment;
+			auto attachMouse = getWeapon().GetPropertyModifierObject().recoilOffsetMouse;
+			auto attachKick = getWeapon().GetPropertyModifierObject().recoilKick;
+			dui.table({
+				{"Attachments modifiers"}
+				{"recoilOffsetHands",  string.Format("-%1%% -%2%%", (1-attachHands[0])*100,    (1-attachHands[1])*100)}
+				{"recoilMisalignment", string.Format("-%1%% -%2%%", (1-attachMisalign[0])*100, (1-attachMisalign[1])*100)}
+				{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-attachMouse[0])*100,    (1-attachMouse[1])*100)}
+				{"recoilKick",         string.Format("-%1%%",       (1-attachKick)*100)}
+			}, {300, 128});
+			dui.newline();
 		}
 		
 		if (RecoilBase.legacyMode && getAimingModel().getRecoil() != null) {
