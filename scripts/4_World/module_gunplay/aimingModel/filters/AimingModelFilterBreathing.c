@@ -10,13 +10,13 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 		
 		computeBreathingPattern(calculateWeight(stanceIndex), GunplayConstants.SWAY_FREQUENCY, GunplayConstants.SWAY_AMPLITUDE);
 		
-		pModel.m_fAimXHandsOffset += Math.SmoothCD(
+		pModel.m_fAimXHandsOffset = Math.SmoothCD(
 			pModel.m_fAimXHandsOffset,
 			pModel.m_fAimXHandsOffset + m_breathingOffset[0],
 			m_velX,
 			0.1, 1000, pDt);
 		
-		pModel.m_fAimYHandsOffset += Math.SmoothCD(
+		pModel.m_fAimYHandsOffset = Math.SmoothCD(
 			pModel.m_fAimYHandsOffset,
 			pModel.m_fAimYHandsOffset + m_breathingOffset[1],
 			m_velY,
@@ -25,8 +25,8 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	}
 	
 	protected void computeBreathingPattern(float weight, float frequency[2], float amplitude[2]){
-		m_breathingOffset[0] = m_breathingOffset[0] * 0.5 + Math.Sin(m_time * frequency[0]) * amplitude[0] * weight;
-		m_breathingOffset[1] = m_breathingOffset[1] * 0.5 + Math.Sin(m_time * frequency[1]) * amplitude[1] * weight;
+		m_breathingOffset[0] = 0.5 + Math.Sin(m_time * frequency[0]) * amplitude[0] * weight;
+		m_breathingOffset[1] = 0.5 + Math.Sin(m_time * frequency[1]) * amplitude[1] * weight;
 	}
 	
 	protected float getSpeed(){

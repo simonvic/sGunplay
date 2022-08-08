@@ -269,17 +269,17 @@ class cfgVehicles{
 	class M4_OEBttstck : Inventory_Base {
 		s_hands[] = {0.45, 0.45};
 		s_misalignment[] = {0.15, 0.25};
-		s_kick = 0.75;
+		s_kick = 0.70;
 	};
 	class M4_MPBttstck : Inventory_Base {
 		s_hands[] = {0.50, 0.50};
 		s_misalignment[] = {0.20, 0.30};
-		s_kick = 0.80;
+		s_kick = 0.72;
 	};
-	class M4_MPBttstck : Inventory_Base {
+	class M4_CQBBttstck : Inventory_Base {
 		s_hands[] = {0.45, 0.45};
 		s_misalignment[] = {0.25, 0.35};
-		s_kick = 0.80;
+		s_kick = 0.75;
 	};
 	class M4_RISHndgrd : Inventory_Base {
 		s_hands[] = {0.25, 0.25};
@@ -320,7 +320,7 @@ class cfgVehicles{
 	class MP5k_StockBttstck : Inventory_Base {
 		s_hands[] = {0.50, 0.50};
 		s_misalignment[] = {0.0, 0.25};
-		s_kick = 0.80;
+		s_kick = 0.75;
 	};
 	class MP5_PlasticHndgrd : Inventory_Base {
 		s_hands[] = {0.20, 0.20};
@@ -348,12 +348,12 @@ class cfgVehicles{
 		s_kick = 0.75;
 	};
 	class Fal_OeBttstck : Inventory_Base {
-		s_hands[] = {0.50, 0.50};
+		s_hands[] = {0.10, 0.50};
 		s_misalignment[] = {0.50, 0.50};
 		s_kick = 0.75;
 	};
 	class Fal_FoldingBttstck : Inventory_Base {
-		s_hands[] = {0.50, 0.50};
+		s_hands[] = {0.00, 0.50};
 		s_misalignment[] = {0.50, 0.50};
 		s_kick = 0.75;
 	};
