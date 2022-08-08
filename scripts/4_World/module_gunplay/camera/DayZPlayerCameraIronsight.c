@@ -97,10 +97,6 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param handsOffsetY \p float - 
 	*/
 	protected void computeHandsOffset(out float handsOffsetX, out float handsOffsetY, float pDt){
-		
-		handsOffsetX = m_aimingModel.getHandsOffset()[0];
-		handsOffsetY = m_aimingModel.getHandsOffset()[1];
-		/*
 		if (canApplyHandsOffset()){
 			
 			// Linear interpolation (reset) to normal hands offset value
@@ -121,7 +117,6 @@ modded class DayZPlayerCameraIronsights{
 			
 			m_handsOffsetStartupTime = 0; //reset time for linear interpolation
 		}
-		*/
 	}
 	
 	
@@ -504,7 +499,7 @@ modded class DayZPlayerCameraIronsights{
 	}
 	
 	protected bool canApplyHandsOffset(){
-		return !playerIsFocusing() && !isNVOptic();
+		return !isSniperOptic() && !isNVOptic();
 	}
 	
 	protected bool canZoom(){
