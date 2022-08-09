@@ -1,5 +1,3 @@
-typedef array<ref AimingModelFilterBase> TAimingModelFiltersList;
-
 modded class DayZPlayerImplementAiming {
 	
 	protected Weapon_Base m_weapon;
@@ -18,11 +16,11 @@ modded class DayZPlayerImplementAiming {
 	
 	protected ref SRaycast m_sCrosshairRay;
 	
-	protected ref TAimingModelFiltersList m_filters;
+	protected ref array<ref AimingModelFilterBase> m_filters;
 	
 	void DayZPlayerImplementAiming(DayZPlayerImplement player){
 		m_sCrosshairRay = new SRaycast("0 0 0", "0 0 0", 0.01, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
-		m_filters = new TAimingModelFiltersList();
+		m_filters = new array<ref AimingModelFilterBase>();
 		registerFilters();	
 	}
 	

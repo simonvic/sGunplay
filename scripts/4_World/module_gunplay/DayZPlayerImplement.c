@@ -2,7 +2,6 @@ modded class DayZPlayerImplement{
 
 	protected bool m_isInspectingWeapon;
 	protected UAInput m_inputWeaponInspect;
-	bool m_isMoveSettingsChanged = true;
 	
 	void DayZPlayerImplement(){
 		m_inputWeaponInspect = GetUApi().GetInputByName("SUA_ADSWeaponInspect");

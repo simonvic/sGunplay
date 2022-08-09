@@ -27,12 +27,10 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			dui.window(ClassName(), {(256+12)*3,1}, {0,0});
 			createDebugRecoilMonitor(pDt, pModel);
 		}
+		getPlayer().getRecoilControl().compute(); //@todo just for debug, only compute on new recoil
 		RecoilBase r = getAimingModel().getRecoil();
 		if (r != null && m_recoil != r) {
-			// new recoil has been generated
-			delete m_recoil;
-			m_recoil = r;
-			accumulateRecoil(m_recoil);
+			onNewRecoil(r);
 		}
 		
 		if (m_recoil) {
@@ -52,22 +50,40 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	}
 	
 	/**
+	*	@brief Called when a new recoil has been generated
+	*/
+	protected void onNewRecoil(notnull RecoilBase r) {
+		delete m_recoil;
+		m_recoil = r;
+		getPlayer().getRecoilControl().compute();
+		accumulateRecoil(m_recoil);
+	}
+	
+	/**
 	*	@brief Called when a new recoil has been produced. Accumulate the recoil parameters
 	*	@param recoil to accumulate
 	*/
 	protected void accumulateRecoil(notnull RecoilBase r) {
 		m_time = 0;
-		m_handsAccum[0] = m_handsAccum[0] + r.hands[0];
-		m_handsAccum[1] = m_handsAccum[1] + r.hands[1];
+		m_handsAccum[0] = m_handsAccum[0] + controlRecoil(r.hands[0]);
+		m_handsAccum[1] = m_handsAccum[1] + controlRecoil(r.hands[1]);
 		m_mouseAccum[0] = 0;
 		m_mouseAccum[1] = 0;
 		if (GetGame().IsClient()) {
-			m_kickAccum = r.kick;
-			m_misalignAccum[0] = m_misalignAccum[0] + r.hands[0];
-			m_misalignAccum[1] = m_misalignAccum[1] + r.hands[1];
+			m_kickAccum = controlRecoil(r.kick);
+			m_misalignAccum[0] = m_misalignAccum[0] + controlRecoil(r.hands[0]);
+			m_misalignAccum[1] = m_misalignAccum[1] + controlRecoil(r.hands[1]);
 		}
 	}
 	
+	/**
+	*	@brief Apply recoil control function
+	*	@param recoil value to control
+	*/
+	protected float controlRecoil(float value) {
+		//@todo replace with constants
+		return SMath.Arctan(-value * 0.5, 4.6, 0, value, getPlayer().getRecoilControl().get());
+	}
 	
 	/**
 	*	@brief Apply mouse offset to aiming model
@@ -228,16 +244,16 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		float misMultX = 1;
 		float misMultY = 1;
 		float kMult = 1;
-		dui.slider("hMultX",   hMultX,   0.01);
-		dui.slider("hMultY",   hMultY,   0.01);
+		dui.slider("mouseMultX",   mMultX,   0.01);
+		dui.slider("mouseMultY",   mMultY,   0.01);
 		dui.newline();
-		dui.slider("mMultX",   mMultX,   0.01);
-		dui.slider("mMultY",   mMultY,   0.01);
+		dui.slider("handsMultX",   hMultX,   0.01);
+		dui.slider("handsMultY",   hMultY,   0.01);
 		dui.newline();
-		dui.slider("misMultX", misMultX, 0.01);
-		dui.slider("misMultY", misMultY, 0.01);
+		dui.slider("misalignMultX", misMultX, 0.01);
+		dui.slider("misalignMultY", misMultY, 0.01);
 		dui.newline();
-		dui.slider("kMult",    kMult,    0.01);
+		dui.slider("kickMult",    kMult,    0.01);
 		handsMultiplier = {hMultX, hMultY};
 		mouseMultiplier = {mMultX, mMultY};
 		misalignMultiplier = {misMultX, misMultY};
@@ -259,6 +275,17 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-attachMouse[0])*100,    (1-attachMouse[1])*100)}
 			{"recoilKick",         string.Format("-%1%%",       (1-attachKick)*100)}
 		}, {300, 128});
-		dui.newline();
+		
+		array<ref array<string>> controlledRecoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
+		// the following code is available only for wide desktop users :)
+		if (m_recoil) {
+			controlledRecoilTable.Clear();
+			controlledRecoilTable.Insert({""+m_recoil, "normal", "controlled"});
+			controlledRecoilTable.Insert({"mouse",   string.Format("%1 %2", m_recoil.mouse[0], m_recoil.mouse[1]), string.Format("%1 %2", controlRecoil(m_recoil.mouse[0]), controlRecoil(m_recoil.mouse[1]))});
+			controlledRecoilTable.Insert({"hands",   string.Format("%1 %2", m_recoil.hands[0], m_recoil.hands[1]), string.Format("%1 %2", controlRecoil(m_recoil.hands[0]), controlRecoil(m_recoil.hands[1]))});
+			controlledRecoilTable.Insert({"misalign",string.Format("%1 %2", m_recoil.misalignIntensity[0], m_recoil.misalignIntensity[1]), string.Format("%1 %2", controlRecoil(m_recoil.misalignIntensity[0]), controlRecoil(m_recoil.misalignIntensity[1]))});
+			controlledRecoilTable.Insert({"kick",    ""+m_recoil.kick, ""+controlRecoil(m_recoil.kick)});
+		}
+		dui.table(controlledRecoilTable, {512, 128});
 	}
 }

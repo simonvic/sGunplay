@@ -79,7 +79,7 @@ class GunplayConstants{
 	/////////////////////////////////////////////////////////////
 	// SWAY
 	static const float SWAY_AMPLITUDE[] = {1.5, 2.8};    //{X, Y} amplitude of sway with no modifiers
-	static const float SWAY_FREQUENCY[] = {0.2, 0.7};    //{X, Y} frequency of sway with no modifiers
+	static const float SWAY_FREQUENCY[] = {0.2, 1.1};    //{X, Y} frequency of sway with no modifiers
 	static const float SWAY_MULTIPLEIR_ERECT = 1;        // Multiplier to be applied when the player is ERECT
 	static const float SWAY_MULTIPLEIR_CROUCHED = 0.3;   // Multiplier to be applied when the player is CROUCHED
 	static const float SWAY_MULTIPLEIR_PRONE = 0.1;      // Multiplier to be applied when the player is PRONE
@@ -150,13 +150,13 @@ class GunplayConstants{
 	static const bool RECOIL_CONTROL_USE_STANCE = true;                   // the player stance will contribute to the recoil control
 	static const bool RECOIL_CONTROL_USE_MOVEMENT = true;                 // the player movement will contribute to the recoil control
 		
-	static const float RECOIL_CONTROL_STRENGTH_WEIGHT = 1;                // how much the strength (soft skills) will affect final recoil calculation. The strength goes from -1 to 1
+	static const float RECOIL_CONTROL_STRENGTH_WEIGHT = 0.5;              // how much the strength (soft skills) will affect final recoil calculation. The strength goes from -1 to 1
 	
 	static const float RECOIL_CONTROL_INVENTORY_WEIGHT = -0.4 * 0.0001;   // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
 	static const float RECOIL_CONTROL_INVENTORY_MINIMUM = 1;              // minmum value added to the the inventory recoil control calculation
 	
 	static const float RECOIL_CONTROL_STANCE_ERECT = 0;                   // how much the ERECT stance will affect final recoil calculation
-	static const float RECOIL_CONTROL_STANCE_CROUCHED = 0.4;              // how much the CROUCHED stance will affect final recoil calculation
+	static const float RECOIL_CONTROL_STANCE_CROUCHED = 0.5;              // how much the CROUCHED stance will affect final recoil calculation
 	static const float RECOIL_CONTROL_STANCE_PRONE = 0.75;                // how much the PRONE stance will affect final recoil calculation
 	static const float RECOIL_CONTROL_STANCE_MINIMUM = 0;                 // minmum value added to the the stance recoil control calculation
 	

@@ -22,7 +22,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		dui = SDebugUI.of(ClassName());
 		dui.begin();
 		if (debugMonitor) {
-			dui.window(GetDebugName(), {(256+12)*1,512}, {(256+12)*4,0});
+			dui.window(GetDebugName(), {(256+12)*1,512}, {(256+12)*5,0});
 			bool useInertia = true;
 			dui.check("useInertia", useInertia);
 			dui.newline();

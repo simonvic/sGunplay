@@ -43,17 +43,13 @@ modded class RecoilBase {
 	}
 	
 	protected void computeOffsetHands() {
-		hands = {
-			getSyncedRandom(handsRanges[0], handsRanges[1]),
-			getSyncedRandom(handsRanges[2], handsRanges[3])
-		};
+		hands[0] = getSyncedRandom(handsRanges[0], handsRanges[1]);
+		hands[1] = getSyncedRandom(handsRanges[2], handsRanges[3]);
 	}
 	
 	protected void computeOffsetMouse() {
-		mouse = {
-			getSyncedRandom(mouseRanges[0], mouseRanges[1]),
-			getSyncedRandom(mouseRanges[2], mouseRanges[3])
-		};
+		mouse[0] = getSyncedRandom(mouseRanges[0], mouseRanges[1]);
+		mouse[1] = getSyncedRandom(mouseRanges[2], mouseRanges[3]);
 	}
 	
 	protected float getSyncedRandom(float min = 0, float max = 1) {
