@@ -3,6 +3,7 @@ modded class DayZPlayerImplementAiming {
 	protected Weapon_Base m_weapon;
 	
 	protected vector m_handsOffset;
+	static vector m_misalignment;
 	
 	protected vector m_lensPosition;
 	
@@ -82,6 +83,7 @@ modded class DayZPlayerImplementAiming {
 		}
 		
 		updateHandsOffset(pModel);
+		updateMisalignment(pModel);
 		
 		//get positions in local space so we don't lose precision
 		DayZPlayerImplementAiming.getWeaponComponentsPositionLS(
@@ -111,6 +113,16 @@ modded class DayZPlayerImplementAiming {
 	protected void updateHandsOffset(SDayZPlayerAimingModel pModel){
 		m_handsOffset[0] = pModel.m_fAimXHandsOffset;
 		m_handsOffset[1] = pModel.m_fAimYHandsOffset;
+	}
+	
+	
+	/**
+	*	@brief Update the current value of the misalignment
+	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
+	*/
+	protected void updateMisalignment(SDayZPlayerAimingModel pModel){
+		m_misalignment[0] = SMath.mapTo(pModel.m_fAimXCamOffset, -5, 5, -0.13, 0.13);
+		m_misalignment[1] = SMath.mapTo(pModel.m_fAimYCamOffset, -5, 5, -0.23, 0.23);
 	}
 	
 
@@ -171,6 +183,14 @@ modded class DayZPlayerImplementAiming {
 	*/
 	vector getHandsOffset(){
 		return m_handsOffset;
+	}
+	
+	/**
+	*	@brief Get current aiming model hands offset
+	*	 @return vector - Hands offset (x, y, 0);
+	*/
+	vector getMisalignment(){
+		return m_misalignment;
 	}
 		
 	/**

@@ -148,13 +148,6 @@ modded class DayZPlayerCameraIronsights{
 		}
 		
 		////////////////////////
-		// Misalignment
-		vector misalignmentTM[4];
-		computeMisalignment(aimChangeX, aimChangeY, misalignmentTM, pDt);
-		
-		
-		
-		////////////////////////
 		// Inspection
 		computeInspectAngles(aimChangeX, aimChangeY, m_inspectAngles, pDt);
 		vector inspectTM[4];
@@ -178,7 +171,6 @@ modded class DayZPlayerCameraIronsights{
 
 		
 		Math3D.MatrixInvMultiply4(inspectTM, weaponCameraPointTM, weaponCameraPointTM);            //apply inspect transformation matrix
-		Math3D.MatrixMultiply4(misalignmentTM, weaponCameraPointTM, weaponCameraPointTM);          //apply misalignment transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM);              //apply freelook transformation matrix
 		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM);          //apply weapon aiming transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM); //apply result to camera
@@ -191,37 +183,6 @@ modded class DayZPlayerCameraIronsights{
 		m_pPlayer.GetItemAccessor().WeaponGetAimingModelDirTm(aimingTM);
 	}
 	
-	/**
-	*
-	*/
-	protected void computeMisalignment(float aimChangeX, float aimChangeY, out vector misalignmentTM[4], float pDt){
-		vector misalignmentAngles;
-		float speed = m_player.m_MovementState.m_iMovement;
-		
-		if( speed > 0 ){
-			m_movementTimeAcc += pDt;
-			aimChangeX += speed * Math.Sin(Math.PI * speed * m_movementTimeAcc * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
-			aimChangeY += speed * Math.Sin(Math.PI2 * speed * m_movementTimeAcc * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
-		}		
-		
-		misalignmentAngles[0] = Math.SmoothCD(
-			misalignmentAngles[0],
-			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * aimChangeY,
-			m_velocityYaw,
-			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS,
-			1000, pDt);
-		
-		misalignmentAngles[1] = Math.SmoothCD(
-			misalignmentAngles[1], 
-			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * aimChangeX,
-			m_velocityPitch,
-			GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS,
-			1000, pDt);
-		
-		misalignmentAngles[2] = 0;
-		Math3D.YawPitchRollMatrix(misalignmentAngles, misalignmentTM);
-		misalignmentTM[3] = vector.Zero;
-	}
 	
 	/**
 	*	@brief Compute the angles of the camera when inspecting the weapon
