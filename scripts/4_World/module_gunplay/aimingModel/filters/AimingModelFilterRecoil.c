@@ -79,10 +79,10 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	/**
 	*	@brief Apply recoil control function
 	*	@param recoil value to control
+	*	@return value controlled
 	*/
 	protected float controlRecoil(float value) {
-		//@todo replace with constants
-		return SMath.Arctan(-value * 0.5, 4.6, 0, value, getPlayer().getRecoilControl().get());
+		return -value * GunplayConstants.RECOIL_CONTROL_COEFF * Math.Atan(Math.Pow(getPlayer().getRecoilControl().get(), 3) * GunplayConstants.RECOIL_CONTROL_STEEPNESS) + value;
 	}
 	
 	/**

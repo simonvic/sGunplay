@@ -24,8 +24,8 @@ class RecoilControl : Managed {
 			bool useRecoilControl = true;
 			dui.check("useRecoilControl", useRecoilControl);
 			if (!useRecoilControl) return;
-			
 		}
+		
 		if (GunplayConstants.RECOIL_CONTROL_USE_STRENGTH) {
 			m_control += getModifierStrength();
 		}
@@ -46,16 +46,15 @@ class RecoilControl : Managed {
 		
 		if (debugMonitor) {
 			dui.newline();
-			float steepness = 1;
-			dui.slider("steepness", steepness, 0.1, 0, 10);
-			float amplitude = 1;
-			dui.slider("amplitude", amplitude, 0.1, 0, 10);
+			dui.slider("Coefficient", GunplayConstants.RECOIL_CONTROL_COEFF, 0.01);
+			dui.slider("Steepness", GunplayConstants.RECOIL_CONTROL_STEEPNESS, 0.1, 0, 10);
 			array<ref array<float>> line = {};
 			for (float x=-1; x<1; x+=0.1) {
-				line.Insert({x, Math.Atan(x * steepness) * amplitude});
+				line.Insert({x, GunplayConstants.RECOIL_CONTROL_COEFF * Math.Atan(Math.Pow(x, 3) * GunplayConstants.RECOIL_CONTROL_STEEPNESS)});
+				
 			}
-			float atan = Math.Atan(get() * steepness) * amplitude;
-			dui.plot("", {line, {{-1,0},{get(), atan}}}, {128, 128}, {0.5, 0.5}, {0.5, 0.5}, 1);
+			float atan = GunplayConstants.RECOIL_CONTROL_COEFF * Math.Atan(Math.Pow(get(), 3) * GunplayConstants.RECOIL_CONTROL_STEEPNESS);
+			dui.plot("", {line, {{0,1},{get(), atan}}}, {128, 128}, {0.5, 0.5}, {0.5, 0.5}, 1);
 			dui.table({
 				{"Recoil control"}
 				{"Strength",    ""+getModifierStrength(),        "+"}

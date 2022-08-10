@@ -140,7 +140,8 @@ class GunplayConstants{
 	
 	/////////////////////////////////////////////////////////////
 	// RECOIL CONTROL
-	static const float RECOIL_CONTROL_COEFF = 0.5;                        // how much the specialty will impact the recoil during early stages of Strength progression. (see arctan function)
+	static /*const*/ float RECOIL_CONTROL_COEFF = 0.5;                    // how much the specialty will impact the overall recoil. (see arctan function)
+	static /*const*/ float RECOIL_CONTROL_STEEPNESS = 4.6;                // "steepness" of the arctan function curve (see arctan function)
 	static const float RECOIL_CONTROL_MINIMUM = -1;                       // minimum value of recoil control (used on arctangent function)
 	static const float RECOIL_CONTROL_MAXIMUM = 1;                        // maximum value of recoil control (used on arctangent function)
 	
@@ -150,7 +151,7 @@ class GunplayConstants{
 	static const bool RECOIL_CONTROL_USE_STANCE = true;                   // the player stance will contribute to the recoil control
 	static const bool RECOIL_CONTROL_USE_MOVEMENT = true;                 // the player movement will contribute to the recoil control
 		
-	static const float RECOIL_CONTROL_STRENGTH_WEIGHT = 0.5;              // how much the strength (soft skills) will affect final recoil calculation. The strength goes from -1 to 1
+	static const float RECOIL_CONTROL_STRENGTH_WEIGHT = 0.25;             // how much the strength (soft skills) will affect final recoil calculation. The strength goes from -1 to 1
 	
 	static const float RECOIL_CONTROL_INVENTORY_WEIGHT = -0.4 * 0.0001;   // how much every Gram of your inventory will affect final recoil calculation (0.2 * 0.0001 = 0.2 per kilogram)	
 	static const float RECOIL_CONTROL_INVENTORY_MINIMUM = 1;              // minmum value added to the the inventory recoil control calculation
