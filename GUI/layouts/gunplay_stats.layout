@@ -1,0 +1,190 @@
+GridSpacerWidgetClass root_gunplay_stats {
+ position 300 -12
+ size 1 1
+ valign bottom_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ priority 999
+ Padding 4
+ Margin 4
+ "Size To Content H" 1
+ "Size To Content V" 1
+ content_halign center
+ content_valign center
+ Columns 1
+ Rows 2
+ {
+  GridSpacerWidgetClass recoil_control {
+   ignorepointer 1
+   position 0 0
+   size 1 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   Padding 4
+   Margin 4
+   "Size To Content H" 1
+   "Size To Content V" 1
+   content_halign center
+   content_valign center
+   Rows 1
+   {
+    ImageWidgetClass recoil_control_low {
+     ignorepointer 1
+     position 0 0
+     size 32 32
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     image0 "set:sGunplay_stats image:inaccuracy"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+    }
+    ImageWidgetClass recoil_control_bar {
+     visible 1
+     clipchildren 0
+     position 0 0
+     size 180 8
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     image0 "set:dayz_gui image:icon_bar_specialisation"
+     mode additive
+     "src alpha" 1
+     "no wrap" 1
+     "flip u" 0
+     "flip v" 0
+     filter 0
+     {
+      ImageWidgetClass recoil_control_indicator {
+       visible 1
+       clipchildren 0
+       position 0 -0.75
+       size 17 11
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 1
+       vexactsize 1
+       fixaspect fixwidth
+       priority 999
+       image0 "set:dayz_gui image:specialization_arrow"
+       mode additive
+       "src alpha" 1
+       "no wrap" 1
+       "flip u" 0
+       "flip v" 0
+       filter 1
+      }
+     }
+    }
+    ImageWidgetClass recoil_control_high {
+     ignorepointer 1
+     position 0 0
+     size 32 32
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     image0 "set:sGunplay_stats image:accuracy"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+    }
+   }
+  }
+  GridSpacerWidgetClass weight {
+   ignorepointer 1
+   position 0 0
+   size 1 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   Padding 4
+   Margin 4
+   "Size To Content H" 1
+   "Size To Content V" 1
+   content_halign center
+   content_valign center
+   Rows 1
+   {
+    ImageWidgetClass weight_light {
+     ignorepointer 1
+     position 0 0
+     size 32 32
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     image0 "set:sGunplay_stats image:light"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+    }
+    ImageWidgetClass weight_bar {
+     visible 1
+     clipchildren 0
+     position 0 0
+     size 180 8
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     image0 "set:dayz_gui image:icon_bar_specialisation"
+     mode additive
+     "src alpha" 1
+     "no wrap" 1
+     "flip u" 0
+     "flip v" 0
+     filter 0
+     {
+      ImageWidgetClass weight_indicator {
+       visible 1
+       clipchildren 0
+       position 0 -0.75
+       size 17 11
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 1
+       vexactsize 1
+       fixaspect fixwidth
+       priority 999
+       image0 "set:dayz_gui image:specialization_arrow"
+       mode additive
+       "src alpha" 1
+       "no wrap" 1
+       "flip u" 0
+       "flip v" 0
+       filter 1
+      }
+     }
+    }
+    ImageWidgetClass weight_heavy {
+     ignorepointer 1
+     position 0 0
+     size 32 32
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     image0 "set:sGunplay_stats image:heavy"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+    }
+   }
+  }
+ }
+}

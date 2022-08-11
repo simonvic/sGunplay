@@ -47,6 +47,7 @@ class RecoilControl : Managed {
 		if (debugMonitor) {
 			dui.newline();
 			dui.text("coefficient * arctan(x^3 * steepness)");
+			dui.newline();
 			dui.slider("Coefficient", GunplayConstants.RECOIL_CONTROL_COEFF, 0.01);
 			dui.slider("Steepness", GunplayConstants.RECOIL_CONTROL_STEEPNESS, 0.1, 0, 10);
 			array<ref array<float>> line = {};

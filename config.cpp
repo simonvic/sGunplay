@@ -37,6 +37,11 @@ class CfgMods {
 		inputs = "MyMODS/sGunplay/scripts/data/inputs.xml";
 
 		class defs {
+			class imageSets{
+				files[]={
+					"MyMODS/sGunplay/GUI/imagesets/sGunplay_stats.imageset"
+				};
+			};
 			class gameScriptModule {
 				value = "";
 				files[] = {
