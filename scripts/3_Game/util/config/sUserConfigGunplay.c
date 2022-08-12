@@ -1,4 +1,4 @@
-class SUserConfigGunplay : SUserConfigBase{
+class SUserConfigGunplay : SUserConfigBase {
 
 	override string getPath(){
 		return "$saves:\\sUDE\\config\\sGunplay.json";
@@ -34,9 +34,11 @@ class SUserConfigGunplay : SUserConfigBase{
 	protected bool hideClothingInOptic = true;
 	protected float lensZoomStrength = 0.75;
 	//protected float deadzoneLimits[4] = { 0.0, 0.0, 0.0, 0.0 };
-	protected ref TFloatArray deadzoneLimits = { 0.0, 0.0, 0.0, 0.0 };
+	protected ref array<float> deadzoneLimits = { 0.0, 0.0, 0.0, 0.0 };
 	protected bool resetDeadzoneOnFocus = true;
 	protected bool showDynamicCrosshair = true;
+	protected int dynamicCrosshairType = 0;
+	protected ref array<float> dynamicCrosshairRGBA = {130, 255, 255, 255};
 	///////////////////////////////////////
 	
 	override void registerOptions() {
@@ -48,6 +50,8 @@ class SUserConfigGunplay : SUserConfigBase{
 		registerOption("deadzoneLimits",          new SUCOption_DeadzoneLimits(deadzoneLimits));
 		registerOption("resetDeadzoneOnFocus",    new SUCOption_ResetDeadzonOnFocus(resetDeadzoneOnFocus));
 		registerOption("showDynamicCrosshair",    new SUCOption_ShowDynamicCrosshair(showDynamicCrosshair));		
+		registerOption("dynamicCrosshairType",    new SUCOption_DynamicCrosshairType(dynamicCrosshairType));		
+		registerOption("dynamicCrosshairRGBA",    new SUCOption_DynamicCrosshairRGBA(dynamicCrosshairRGBA));		
 	}
 	
 	override void onConstraintsReceive(ParamsReadContext ctx) {
@@ -74,6 +78,8 @@ class SUserConfigGunplay : SUserConfigBase{
 		getOption("deadzoneLimits").setConstraint(c.getDeadzoneLimits());
 		getOption("resetDeadzoneOnFocus").setConstraint(c.getResetDeadzoneOnFocus());
 		getOption("showDynamicCrosshair").setConstraint(c.getShowDynamicCrosshair());
+		getOption("dynamicCrosshairType").setConstraint(c.getDynamicCrosshairType());
+		getOption("dynamicCrosshairRGBA").setConstraint(c.getDynamicCrosshairRGBA());
 	}
 	
 	
@@ -114,7 +120,7 @@ class SUserConfigGunplay : SUserConfigBase{
 		lensZoomStrength = Math.Clamp(strength, 0, 1);
 	}
 	
-	TFloatArray getDeadzoneLimits(){
+	array<float> getDeadzoneLimits(){
 		return deadzoneLimits;
 	}
 	
@@ -132,7 +138,7 @@ class SUserConfigGunplay : SUserConfigBase{
 		deadzoneLimits[3] = limits[3];
 	}
 	
-	void setDeadzoneLimits(TFloatArray limits){
+	void setDeadzoneLimits(array<float> limits){
 		deadzoneLimits[0] = limits[0];
 		deadzoneLimits[1] = limits[1];
 		deadzoneLimits[2] = limits[2];
@@ -158,6 +164,43 @@ class SUserConfigGunplay : SUserConfigBase{
 	
 	void setDynamicCrosshairEnabled(bool enabled){
 		showDynamicCrosshair = enabled;
+	}
+	
+	int getDynamicCrosshairType() {
+		return dynamicCrosshairType;
+	}
+	
+	string getDynamicCrosshairImage() {
+		switch (dynamicCrosshairType) {
+			case 0: return "set:sCrosshairs image:curve";
+			case 1: return "set:sCrosshairs image:curve";
+			case 2: return "set:sCrosshairs image:chevron";
+			case 3: return "set:sCrosshairs image:cross";
+			case 4: return "set:sCrosshairs image:tcross";
+			case 5: return "set:sCrosshairs image:angles";
+			case 6: return "set:sCrosshairs image:dot";
+			case 7: return "set:sCrosshairs image:double_curve";
+		}
+		return string.Empty;
+	}
+	
+	void setDynamicCrosshairType(int type) {
+		dynamicCrosshairType = type;
+	}
+	
+	array<float> getDynamicCrosshairRGBA() {
+		return dynamicCrosshairRGBA;
+	}
+	
+	SColor getDynamicCrosshairColor() {
+		return SColor.rgba(dynamicCrosshairRGBA[0], dynamicCrosshairRGBA[1], dynamicCrosshairRGBA[2], dynamicCrosshairRGBA[3]);
+	}
+	
+	void setDynamicCrosshairRGBA(SColor color) {
+		dynamicCrosshairRGBA[0] = color.getRed();
+		dynamicCrosshairRGBA[1] = color.getGreen();
+		dynamicCrosshairRGBA[2] = color.getBlue();
+		dynamicCrosshairRGBA[3] = color.getAlpha();
 	}
 	
 }

@@ -123,3 +123,37 @@ class SUCOption_ShowDynamicCrosshair : SUserConfigOption<bool> {
 	}
 	
 }
+
+/**
+*	@brief 
+*/
+class SUCOption_DynamicCrosshairType : SUserConfigOption<int> {
+	
+	void SUCOption_DynamicCrosshairType(int value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_DESCRIPTION")
+		}
+	}
+	
+	override void onValueChange(int previousValue, int newValue) {
+		SUserConfig.gunplay().setDynamicCrosshairType(newValue);
+	}
+	
+}
+
+/**
+*	@brief 
+*/
+class SUCOption_DynamicCrosshairRGBA : SUserConfigOptionArray<float> {
+	
+	void SUCOption_DynamicCrosshairRGBA(array<float> value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_COLOR", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_COLOR_DESCRIPTION")
+		}
+	}
+	
+	override void onValueChange(array<float> previousValue, array<float> newValue) {
+		SUserConfig.gunplay().setDynamicCrosshairRGBA(SColor.rgba(newValue[0], newValue[1], newValue[2], newValue[3]));
+	}
+	
+}

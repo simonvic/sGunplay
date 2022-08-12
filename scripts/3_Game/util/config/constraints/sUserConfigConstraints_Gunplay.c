@@ -19,13 +19,15 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	
 	///////////////////////////////////////
 	// these go in json
-	protected ref SConstraintPrimitiveMinMaxNumeric adsDOFIntensity         = new SConstraintPrimitiveMinMaxNumeric(0, 1);
-	protected ref SConstraintSwitch                 hideWeaponBarrelInOptic = new SConstraintSwitch(false);
-	protected ref SConstraintSwitch                 hideClothingInOptic     = new SConstraintSwitch(true);
-	protected ref SConstraintPrimitiveMinMaxNumeric lensZoomStrength        = new SConstraintPrimitiveMinMaxNumeric(0, 1);
-	protected ref SConstraintMinMaxArrayNumeric     deadzoneLimits          = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {1,1,1,1});
-	protected ref SConstraintSwitch                 resetDeadzoneOnFocus    = new SConstraintSwitch(true);
-	protected ref SConstraintSwitch                 showDynamicCrosshair    = new SConstraintSwitch(true);
+	protected ref SConstraintPrimitiveMinMaxNumeric  adsDOFIntensity         = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintSwitch                  hideWeaponBarrelInOptic = new SConstraintSwitch(false);
+	protected ref SConstraintSwitch                  hideClothingInOptic     = new SConstraintSwitch(true);
+	protected ref SConstraintPrimitiveMinMaxNumeric  lensZoomStrength        = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintMinMaxArrayNumeric      deadzoneLimits          = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {1,1,1,1});
+	protected ref SConstraintSwitch                  resetDeadzoneOnFocus    = new SConstraintSwitch(true);
+	protected ref SConstraintSwitch                  showDynamicCrosshair    = new SConstraintSwitch(true);
+	protected ref SConstraintPrimitiveSimple<int>    dynamicCrosshairType    = new SConstraintPrimitiveSimple<int>(0);
+	protected ref SConstraintMinMaxArrayNumeric      dynamicCrosshairRGBA    = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {255,255,255,255});
 	///////////////////////////////////////
 	
 	SConstraintPrimitiveMinMaxNumeric getADSDOFIntensity() {
@@ -55,5 +57,12 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	SConstraintSwitch getShowDynamicCrosshair() {
 		return showDynamicCrosshair;
 	}
-		
+	
+	SConstraintPrimitiveSimple<int> getDynamicCrosshairType() {
+		return dynamicCrosshairType;
+	}
+	
+	SConstraintMinMaxArrayNumeric getDynamicCrosshairRGBA() {
+		return dynamicCrosshairRGBA;
+	}
 }
