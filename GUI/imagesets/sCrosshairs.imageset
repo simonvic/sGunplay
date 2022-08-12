@@ -1,0 +1,56 @@
+ImageSetClass {
+ Name "sCrosshairs"
+ RefSize 256 256
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{E23DEAF839909028}MyMODS/sGunplay/GUI/imagesets/sCrosshairs.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass curve {
+   Name "curve"
+   Pos 0 0
+   Size 64 64
+   Flags 0
+  }
+  ImageSetDefClass double_curve {
+   Name "double_curve"
+   Pos 64 0
+   Size 64 64
+   Flags 0
+  }
+  ImageSetDefClass cross {
+   Name "cross"
+   Pos 128 0
+   Size 64 64
+   Flags 0
+  }
+  ImageSetDefClass tcross {
+   Name "tcross"
+   Pos 192 0
+   Size 64 64
+   Flags 0
+  }
+  ImageSetDefClass angles {
+   Name "angles"
+   Pos 0 64
+   Size 64 64
+   Flags 0
+  }
+  ImageSetDefClass chevron {
+   Name "chevron"
+   Pos 64 64
+   Size 64 64
+   Flags 0
+  }
+  ImageSetDefClass dot {
+   Name "dot"
+   Pos 128 64
+   Size 64 64
+   Flags 0
+  }
+ }
+ Groups {
+ }
+}

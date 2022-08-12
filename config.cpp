@@ -39,7 +39,8 @@ class CfgMods {
 		class defs {
 			class imageSets{
 				files[]={
-					"MyMODS/sGunplay/GUI/imagesets/sGunplay_stats.imageset"
+					"MyMODS/sGunplay/GUI/imagesets/sGunplay_stats.imageset",
+					"MyMODS/sGunplay/GUI/imagesets/sCrosshairs.imageset"
 				};
 			};
 			class gameScriptModule {

@@ -1,12 +1,13 @@
 modded class IngameHud {
 
+	protected ref Widget m_sCrosshairRoot;
 	protected ref ImageWidget m_sCrosshair;
 	protected PlayerBase m_player;
 	
 
 	void IngameHud(){
-		Widget sRoot = GetGame().GetWorkspace().CreateWidgets( getCrosshairLayoutName(), m_HudPanelWidget );
-		m_sCrosshair = ImageWidget.Cast(sRoot.FindWidget("img_crosshair"));
+		m_sCrosshairRoot = GetGame().GetWorkspace().CreateWidgets( getCrosshairLayoutName(), m_HudPanelWidget );
+		m_sCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_crosshair"));
 		
 	}
 	
@@ -14,23 +15,22 @@ modded class IngameHud {
 		return "MyMODS/sGunplay/scripts/5_Mission/gui/crosshair/sCrosshair.layout";
 	}
 	
-	void setSCrosshairPosition(float x, float y){
-		m_sCrosshair.SetPos(x,y);
-	}
-	
 	override void Update( float timeslice ){
 		super.Update( timeslice );
 		m_player = PlayerBase.Cast(GetGame().GetPlayer());
-		if(!m_player) return; //@todo temp-fix, change this
+		if (!m_player) return; //@todo temp-fix, change this
 		
-		if(!canShowCrosshair()){
+		m_sCrosshairRoot.Unlink();
+		m_sCrosshairRoot = GetGame().GetWorkspace().CreateWidgets( getCrosshairLayoutName(), m_HudPanelWidget );
+		m_sCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_crosshair"));
+		
+		if (!canShowCrosshair()) {
 			m_sCrosshair.Show(false);
 			return;
 		}
 		
-		setSCrosshairPosition(
-			m_player.GetAimingModel().getSCrosshairPosition()[0] - 0.5 - 0.005,
-			m_player.GetAimingModel().getSCrosshairPosition()[1] - 0.5 - 0.005);
+		vector pos = m_player.GetAimingModel().getSCrosshairPosition();
+		m_sCrosshairRoot.SetPos(pos[0], pos[1]);
 		
 		m_sCrosshair.Show(true);
 	
@@ -42,7 +42,7 @@ modded class IngameHud {
 	}
 	
 	protected bool canShowCrosshair(){
-		return m_player && m_player.IsFireWeaponRaised() && (!m_player.IsInIronsights() && !m_player.IsInOptics()) && SUserConfig.gunplay().isDynamicCrosshairEnabled();
+		return SUserConfig.gunplay().isDynamicCrosshairEnabled() && m_player && m_player.IsFireWeaponRaised() && (!m_player.IsInIronsights() && !m_player.IsInOptics());
 	}
 
 }
