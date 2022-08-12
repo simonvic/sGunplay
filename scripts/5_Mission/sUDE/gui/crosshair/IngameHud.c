@@ -12,7 +12,7 @@ modded class IngameHud {
 	}
 	
 	string getCrosshairLayoutName(){
-		return "MyMODS/sGunplay/scripts/5_Mission/gui/crosshair/sCrosshair.layout";
+		return "MyMODS/sGunplay/GUI/layouts/ingame/hud/sCrosshair.layout";
 	}
 	
 	override void Update( float timeslice ){
