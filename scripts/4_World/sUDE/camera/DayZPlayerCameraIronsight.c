@@ -45,7 +45,7 @@ modded class DayZPlayerCameraIronsights{
 	}
 		
 		
-	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){ 
+	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) { 
 		
 		updateDOF();
 		updateAimAngle(m_fLeftRightAngle, m_CurrentCameraPitch, pDt);		
@@ -63,7 +63,7 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Update the Depth of Field
 	*/
-	protected void updateDOF(){
+	protected void updateDOF() {
 		//@todo update m_isEntering
 		if (m_player.isInspectingWeapon() && canInspectWeapon()) {
 			SPPEManager.requestWeaponDOF(m_inspectDOFPreset);
@@ -79,7 +79,7 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param yaw \p float - Yaw angle
 	*	 @param pitch \p float - Pitch angle
 	*/
-	protected void updateAimAngle(out float yaw, out float pitch, float pDt){
+	protected void updateAimAngle(out float yaw, out float pitch, float pDt) {
 		float min;
 		if (m_player && m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE)) {
 			min = CONST_UD_MIN_BACK;
@@ -96,8 +96,8 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param handsOffsetX \p float - 
 	*	 @param handsOffsetY \p float - 
 	*/
-	protected void computeHandsOffset(out float handsOffsetX, out float handsOffsetY, float pDt){
-		if (canApplyHandsOffset()){
+	protected void computeHandsOffset(out float handsOffsetX, out float handsOffsetY, float pDt) {
+		if (canApplyHandsOffset()) {
 			
 			// Linear interpolation (reset) to normal hands offset value
 			if (m_handsOffsetStartupTime < 1) {
@@ -128,7 +128,7 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Update the camera based with user input
 	*/
-	protected void updateCamera(float pDt, out DayZPlayerCameraResult pOutResult){
+	protected void updateCamera(float pDt, out DayZPlayerCameraResult pOutResult) {
 
 		float aimChangeX = m_aimingModel.getAimChangeDegree()[0];
 		float aimChangeY = m_aimingModel.getAimChangeDegree()[1];
@@ -179,7 +179,7 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Compute the transformation matrix for the weapon aiming model direction
 	*/
-	protected void computeWeaponAimingMatrix(out vector aimingTM[4]){
+	protected void computeWeaponAimingMatrix(out vector aimingTM[4]) {
 		m_pPlayer.GetItemAccessor().WeaponGetAimingModelDirTm(aimingTM);
 	}
 	
@@ -190,11 +190,11 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param y \p float -
 	*	 @param angles \p vector - Result angles
 	*/
-	protected void computeInspectAngles(float x, float y, out vector angles, float pDt){
-		if( canInspectWeapon() ){
+	protected void computeInspectAngles(float x, float y, out vector angles, float pDt) {
+		if (canInspectWeapon()) {
 			angles[0] = Math.Clamp(angles[0] - y, GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[3], GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[0]);
 			angles[2] = Math.Clamp(angles[2] + x, GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[1], GunplayConstants.ANGLES_CONSTRAINT_WEAPON_INSPECT[2]);
-		}else{
+		} else {
 			angles[0] = Math.SmoothCD(angles[0], 0, m_inspectVelX, GunplayConstants.RESET_SPEED_INSPECTION, 1000, pDt);
 			angles[2] = Math.SmoothCD(angles[2], 0, m_inspectVelY, GunplayConstants.RESET_SPEED_INSPECTION, 1000, pDt);
 		}
@@ -206,11 +206,11 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param y \p float -
 	*	 @param angles \p vector - Result angles	
 	*/
-	protected void computeFreelookAngles(float x, float y, out vector angles, float pDt){
-		if( canFreelook() ){
+	protected void computeFreelookAngles(float x, float y, out vector angles, float pDt) {
+		if (canFreelook()) {
 			angles[0] = Math.Clamp(angles[0] + x, GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[3], GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[0]);
 			angles[1] = Math.Clamp(angles[1] + y, GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[1], GunplayConstants.ANGLES_CONSTRAINT_FREELOOK[2]);
-		}else{
+		} else {
 			angles[0] = Math.SmoothCD(angles[0], 0, m_freelookVelX, GunplayConstants.RESET_SPEED_FREELOOK, 1000, pDt);
 			angles[1] = Math.SmoothCD(angles[1], 0, m_freelookVelY, GunplayConstants.RESET_SPEED_FREELOOK, 1000, pDt);
 		}
@@ -224,12 +224,12 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param deadzoneX \p float - Result deadzone X
 	*	 @param deadzoneX \p float - Result deadzone Y	
 	*/
-	protected void computeDeadzone(float aimChangeX, float aimChangeY, out float deadzoneX, out float deadzoneY, float pDt){
-		if( canApplyDeadzone() ){
-			TFloatArray deadzoneLimits = m_camManager.getDeadzoneLimits();
+	protected void computeDeadzone(float aimChangeX, float aimChangeY, out float deadzoneX, out float deadzoneY, float pDt) {
+		if (canApplyDeadzone()) {
+			TFloatArray deadzoneLimits = getDeadzoneLimits();
 			deadzoneX = Math.Clamp(deadzoneX + aimChangeX, deadzoneLimits[3] * -20, deadzoneLimits[1] * 20);
 			deadzoneY = Math.Clamp(deadzoneY + aimChangeY, deadzoneLimits[2] * -20, deadzoneLimits[0] * 20);
-		}else{
+		} else {
 			deadzoneX = Math.SmoothCD(deadzoneX, 0, m_offsetXResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 			deadzoneY = Math.SmoothCD(deadzoneY, 0, m_offsetYResetVel, GunplayConstants.RESET_SPEED_DEADZONE, 1000, pDt);
 		}
@@ -240,7 +240,7 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Apply final offset to matrix 
 	*	 @param matrix \p vector[4] - Matrix to apply offset to
 	*/	
-	protected void applyOffset(out vector matrix[4]){
+	protected void applyOffset(out vector matrix[4]) {
 		vector angles = Math3D.MatrixToAngles(matrix);
 		
 		angles[0] = angles[0] - m_deadzoneX - m_handsOffsetX;
@@ -258,9 +258,8 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Adjust camera result parameters. Called by vanilla
 	*/
-	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){	
+	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult) {	
 		m_iBoneIndex = m_pPlayer.GetBoneIndexByName("RightHand_Dummy");
-		if(m_iBoneIndex == -1 ) m_iBoneIndex = m_pPlayer.GetBoneIndexByName("Head");
 		pOutResult.m_iDirectBone 			= m_iBoneIndex;
 		pOutResult.m_iDirectBoneMode 		= 3;
 	
@@ -280,7 +279,7 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Update the FoV 
 	*/	
-	protected void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult){
+	protected void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult) {
 		computeFOVFocusValues(m_focusTargetFOV, m_focusSpeed);
 		m_fFovAbsolute = Math.SmoothCD(m_fFovAbsolute, m_focusTargetFOV, m_focusVel, m_focusSpeed, 1000, pDt);
 	}
@@ -290,11 +289,11 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param targetFOV \p float - fov computed
 	*	 @param speed \p float - speed computed
 	*/
-	protected void computeFOVFocusValues(out float targetFOV, out float speed){
-		if(canZoom()){
+	protected void computeFOVFocusValues(out float targetFOV, out float speed) {
+		if (canZoom()) {
 			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
 			speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_IRONSIGHT_MULTIPLIER;
-		}else{
+		} else {
 			targetFOV = GetDayZGame().GetUserFOV();
 			speed = GunplayConstants.FOCUS_RESET_SPEED;
 		}
@@ -306,11 +305,11 @@ modded class DayZPlayerCameraIronsights{
 	* 	@return \p float - focus speed
 	*/
 	protected float getFocusSpeedStance() {
-		if(m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
+		if (m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)) {
 			return GunplayConstants.FOCUS_SPEED_ERECT;
-		} else if(m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)){
+		} else if (m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)) {
 			return GunplayConstants.FOCUS_SPEED_CROUCHED;
-		} else if(m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)){
+		} else if (m_pPlayer.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)) {
 			return GunplayConstants.FOCUS_SPEED_PRONE;
 		} else {
 			return 0.2;
@@ -325,8 +324,8 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Set camera Post Processing stuff, called by vanilla
 	*/
-	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){
-		if (needPPEReset(state, launchedFrom)){
+	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {
+		if (needPPEReset(state, launchedFrom)) {
 			resetPPE();
 			return;
 		}
@@ -339,7 +338,7 @@ modded class DayZPlayerCameraIronsights{
 		
 	}
 	
-	protected void resetPPE(){
+	protected void resetPPE() {
 		SPPEManager.resetMask();
 		SPPEManager.resetOpticLens();
 		SPPEManager.resetWeaponDOF();
@@ -351,7 +350,7 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Check if camera post processing effect has to be reset
 	*/
-	protected bool needPPEReset(bool state, DayZPlayerCamera launchedFrom){
+	protected bool needPPEReset(bool state, DayZPlayerCamera launchedFrom) {
 		return !state || !m_weaponUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
 		
@@ -359,16 +358,16 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Set the depth of field based on current sight (optic or ironsight)
 	*/
-	protected void setNonMagnifyingOpticDOF(){
+	protected void setNonMagnifyingOpticDOF() {
 
 		// No weapon used (handeld optic?)
-		if (!m_weaponUsed || !m_camManager.isAdsDOFEnabled()){
+		if (!m_weaponUsed || !isAdsDOFEnabled()) {
 			SPPEManager.resetWeaponDOF();
 			return;
 		}
 		
 		DoFPreset dof = getCurrentSightDOF();
-		if(dof){
+		if (dof) {
 			SPPEManager.requestWeaponDOF(dof);
 		}
 	}
@@ -377,20 +376,20 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Update the night vision based on the optics
 	*	 @param allowNightVisionGoggles \p bool - if night vision should be applied if no optic is used (ironsight)
 	*/
-	protected void updateNightVision(bool allowsNVGoggles){
-		if (!m_opticsUsed.IsNVOptic()){
-			if(allowsNVGoggles) {
+	protected void updateNightVision(bool allowsNVGoggles) {
+		if (!m_opticsUsed.IsNVOptic()) {
+			if (allowsNVGoggles) {
 				checkForNVGoggles();
-			}else{
+			} else {
 				SetNVPostprocess(NVTypes.NONE);
 			}
 			return;
 		}
 		
-		if (m_opticsUsed.IsWorking()){
+		if (m_opticsUsed.IsWorking()) {
 			SetCameraNV(true);
 			SetNVPostprocess(NVTypes.NV_OPTICS_ON);
-		}else{
+		} else {
 			SetCameraNV(false);
 			SetNVPostprocess(NVTypes.NV_OPTICS_OFF);
 		}
@@ -400,10 +399,10 @@ modded class DayZPlayerCameraIronsights{
 	/**
 	*	@brief Check if the current camera is night vision (night vision goggles)
 	*/
-	protected void checkForNVGoggles(){
-		if (IsCameraNV()){
+	protected void checkForNVGoggles() {
+		if (IsCameraNV()) {
 			SetNVPostprocess(NVTypes.NV_GOGGLES);
-		}else{
+		} else {
 			SetNVPostprocess(NVTypes.NONE);
 		}
 	}
@@ -413,7 +412,7 @@ modded class DayZPlayerCameraIronsights{
 	*	 @param hidden \p bool - visibility of the weapon barrel
 	*/
 	protected void hideWeaponBarrel(bool hidden){
-		if (m_weaponUsed){
+		if (m_weaponUsed) {
 			m_weaponUsed.HideWeaponBarrel(hidden);
 		}
 	}
@@ -425,16 +424,16 @@ modded class DayZPlayerCameraIronsights{
 	protected DoFPreset getCurrentSightDOF(){
 		DoFPreset dof = new DoFPreset();
 		temp_array = {};
-		if (m_opticsUsed && m_opticsUsed.GetOpticsDOF().Count() == 6){
+		if (m_opticsUsed && m_opticsUsed.GetOpticsDOF().Count() == 6) {
 			temp_array = m_opticsUsed.GetOpticsDOF();
-		}else{
+		} else {
 			temp_array = m_weaponUsed.GetWeaponDOF();
 		}
 		
 		//@todo find a proper way to reduce the ads dof
-		if(temp_array.Count() == 6 && temp_array[0]){//correctly got the array from config and DOF is enabled (0 or 1)
+		if (temp_array.Count() == 6 && temp_array[0]) {//correctly got the array from config and DOF is enabled (0 or 1)
 			//                   blur,         focus distance, focuse length, fLength near,  fDepthOffset,  fMinDistance, fMaxDistance
-			dof.initPreset(temp_array[4] * m_camManager.getAdsDOFIntensity(), temp_array[1], temp_array[2], temp_array[3] * m_camManager.getAdsDOFIntensity(), temp_array[5], 1, 100);
+			dof.initPreset(temp_array[4] * getAdsDOFIntensity(), temp_array[1], temp_array[2], temp_array[3] * getAdsDOFIntensity(), temp_array[5], 1, 100);
 			return dof;
 		}
 		return null; 
@@ -442,52 +441,53 @@ modded class DayZPlayerCameraIronsights{
 	
 	
 	
-	float getCurrentDeadzoneX(){
+	float getCurrentDeadzoneX() {
 		return m_deadzoneX;
 	}
 	
-	float getCurrentDeadzoneY(){
+	float getCurrentDeadzoneY() {
 		return m_deadzoneY;
 	}
 
 	
-	protected bool playerIsFocusing(){
+	protected bool playerIsFocusing() {
 		return m_pPlayer.IsHoldingBreath();
 	}
 	
-	protected bool canApplyDeadzone(){
-		return !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon() && !isNVOptic() && !(playerIsFocusing() && m_camManager.isResetDeadzoneOnFocusEnabled());
+	protected bool canApplyDeadzone() {
+		return !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon() && !isNVOptic() && !(playerIsFocusing() && isResetDeadzoneOnFocusEnabled());
 	}
 	
-	protected bool canApplyHandsOffset(){
+	protected bool canApplyHandsOffset() {
 		return !isSniperOptic() && !isNVOptic();
 	}
 	
-	protected bool canZoom(){
+	protected bool canZoom() {
 		return playerIsFocusing() && !m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon();
 	}
 	
-	protected bool canFreelook(){
+	protected bool canFreelook() {
 		return m_pInput.CameraIsFreeLook() && !m_player.isInspectingWeapon();
 	}
 	
-	protected bool canInspectWeapon(){
+	protected bool canInspectWeapon() {
 		return m_player.isInspectingWeapon();
 	}
 	
-	protected bool isMagnifyingOptic(){
+	protected bool isMagnifyingOptic() {
 		return false;
 	}
 	
-	protected bool isSniperOptic(){
+	protected bool isSniperOptic() {
 		return false;
 	}
 	
-	protected bool isNVOptic(){
+	protected bool isNVOptic() {
 		return m_opticsUsed && m_opticsUsed.IsNVOptic();
 	}
 	
-	protected bool isHandHeldOptic(){
+	protected bool isHandHeldOptic() {
 		return !m_weaponUsed && m_opticsUsed;
 	}
+	
 }

@@ -1,5 +1,3 @@
-//////////////////////////////////////////
-// OPTICS
 modded class DayZPlayerCameraOptics{
 	
 	protected ref TFloatArray m_opticPPMask = new TFloatArray;
@@ -22,7 +20,7 @@ modded class DayZPlayerCameraOptics{
 		//Hide player clothing when transition is done
 		if (m_player){
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,false,m_opticsUsed,m_camManager.isHideClothingInOpticEnabled());
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,false,m_opticsUsed,isHideClothingInOpticEnabled());
 		}
 		
 		if (isSniperOptic()) {
@@ -64,10 +62,10 @@ modded class DayZPlayerCameraOptics{
 	*/
 	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){		
 		return {
-			mask[0] + offsetX,                                                        //X position
-			mask[1] + offsetY,                                                        //Y position
-			mask[2] / Math.Pow(m_camManager.getAdsFovReduction(),2) / m_fFovAbsolute, //radius
-			mask[3]};                                                                 //blur
+			mask[0] + offsetX,                                                          //X position
+			mask[1] + offsetY,                                                          //Y position
+			mask[2] / Math.Pow(GunplayConstants.ADS_FOV_REDUCTION, 2) / m_fFovAbsolute, //radius    //@todo find proper way of handling radius
+			mask[3]};                                                                   //blur
 	}
 	
 	/**
@@ -78,13 +76,12 @@ modded class DayZPlayerCameraOptics{
 	*	 @param offsetY \p float - arbitrary Y offset
 	*	 @return TFloatArray - computed lens array
 	*/
-	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY){
-		//offsetX * 2 - 1; //@todo why the fuck does this work????!!!
-		return  {
-			lens[0] * m_camManager.getLensZoomStrength(),                                   //intensity
-			lens[1] + (offsetX * 2 - 1),                                                    //X position
-			lens[2] + (offsetY * 2 - 1) /*+ getLensZeroingOffset(m_opticsUsed, 0.6, 0.05)*/,    //Y position
-			lens[3]};                                                                       //chrom aber	
+	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY) {
+		return {
+			lens[0] * getLensZoomStrength(),  //intensity
+			lens[1] + (offsetX * 2 - 1),      //X position
+			lens[2] + (offsetY * 2 - 1),      //Y position
+			lens[3]};                         //chrom aber	
 	}
 	
 	/**
@@ -159,7 +156,7 @@ modded class DayZPlayerCameraOptics{
 		}
 			
 		// Magnifying optic
-		targetFOV = m_opticsUsed.GetCurrentStepFOV() * m_camManager.getAdsFovReduction();
+		targetFOV = m_opticsUsed.GetCurrentStepFOV() * GunplayConstants.ADS_FOV_REDUCTION;
 			
 		if (m_isEntering){
 			m_fFovAbsolute = targetFOV; // immediately set the fov
@@ -188,7 +185,7 @@ modded class DayZPlayerCameraOptics{
 			updateNightVision(false);
 		}
 		
-		hideWeaponBarrel(m_camManager.isHideWeaponBarrelInOpticEnabled());
+		hideWeaponBarrel(isHideWeaponBarrelInOpticEnabled());
 		
 	}
 	
