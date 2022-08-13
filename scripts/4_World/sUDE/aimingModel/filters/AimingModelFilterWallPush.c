@@ -17,7 +17,7 @@ class AimingModelFilterWallPush : AimingModelFilterBase {
 		
 		float targetOffset;
 		if(distance < 0.5){
-			targetOffset = (0.05 - SMath.mapTo(distance, 0, 0.5, 0, 0.05));
+			targetOffset = (0.05 - SMath.mapTo(distance, 0, 0.5, 0, 0.05)) / Math.Max(getWeapon().getWeaponLength(), 0.01);
 		}
 		
 		m_currentOffset = Math.SmoothCD(
