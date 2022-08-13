@@ -38,18 +38,23 @@ modded class DayZPlayerCameraOptics{
 	*/
 	protected void updateLens(float pDt){
 		
-		if( !m_player.IsInOptics() || !isMagnifyingOptic() || !canShowLens() || isHandHeldOptic()) {
+		if (!m_player.IsInOptics() || !isMagnifyingOptic() || !canShowLens() || isHandHeldOptic()) {
 			return;
 		}
 
 		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		
 		// @todo yikes... are there no alternatives?
-		m_lensOffset[0] = m_lensOffset[0] + m_aimingModel.getMisalignment()[0];
-		m_lensOffset[1] = m_lensOffset[1] - m_aimingModel.getMisalignment()[1];
+		
+		int sX, sY;
+		GetScreenSize(sX, sY);
+		
+		m_lensOffset[0] = m_lensOffset[0] + SMath.mapTo(m_aimingModel.getMisalignment()[0], 0, 5, 0, 0.15);
+		m_lensOffset[1] = m_lensOffset[1] - SMath.mapTo(m_aimingModel.getMisalignment()[1], 0, 5, 0, 0.15) * (sX / sY);
 		
 		SPPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
 		SPPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
+		
 	}
 	
 	/**
@@ -65,7 +70,7 @@ modded class DayZPlayerCameraOptics{
 			mask[0] + offsetX,                         //X position
 			mask[1] + offsetY,                         //Y position
 			mask[2] / 9.8696 / Camera.GetCurrentFOV(), //radius ( current radius / pi^2 / fov )
-			mask[3]                                    //blur
+			mask[3]                                   //blur
 		};
 	}
 	

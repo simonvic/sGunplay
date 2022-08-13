@@ -121,8 +121,8 @@ modded class DayZPlayerImplementAiming {
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
 	*/
 	protected void updateMisalignment(SDayZPlayerAimingModel pModel){
-		m_misalignment[0] = SMath.mapTo(pModel.m_fAimXCamOffset, -5, 5, -0.13, 0.13);
-		m_misalignment[1] = SMath.mapTo(pModel.m_fAimYCamOffset, -5, 5, -0.23, 0.23);
+		m_misalignment[0] = pModel.m_fAimXCamOffset;
+		m_misalignment[1] = pModel.m_fAimYCamOffset;
 	}
 	
 

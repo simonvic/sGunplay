@@ -196,65 +196,65 @@ class cfgVehicles{
 
 	class ACOGOptic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.3, 0.01};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
+			PPMaskProperties[] = {0.0, 0.0, 0.3, 0.01};
+			PPLensProperties[] = {0.5, 0.0, 0.0, 0.2};
 		};
 	};
 	
 	class ACOGOptic_6x: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.2, 0.01};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.0};
+			PPMaskProperties[] = {0.0, 0.0, 0.2, 0.01};
+			PPLensProperties[] = {0.5, 0.0, 0.0, 0.0};
 		};
 	};
 	
 
 	class PUScopeOptic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.38, 0.007};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
+			PPMaskProperties[] = {0.0, 0.0, 0.38, 0.007};
+			PPLensProperties[] = {0.5, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class KashtanOptic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.5, 0.01};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.2};
+			PPMaskProperties[] = {0.0, 0.0, 0.5, 0.01};
+			PPLensProperties[] = {0.5, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class HuntingOptic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.7, 0.05};
-			PPLensProperties[]={0.3, 0.0, 0.0, 0.3};
+			PPMaskProperties[] = {0.0, 0.0, 0.7, 0.05};
+			PPLensProperties[] = {0.3, 0.0, 0.0, 0.3};
 		};
 	};
 
 	class PistolOptic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.42, 0.005};
-			PPLensProperties[]={0.5, 0.0, 0.0, 0.0};
+			PPMaskProperties[] = {0.0, 0.0, 0.42, 0.005};
+			PPLensProperties[] = {0.5, 0.0, 0.0, 0.0};
 		};
 	};
 
 	class PSO1Optic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.31, 0.01};
-			PPLensProperties[]={0.35, 0.0, 0.0, 0.2};
+			PPMaskProperties[] = {0.0, 0.0, 0.31, 0.01};
+			PPLensProperties[] = {0.35, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class PSO11Optic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 0.31, 0.01};
-			PPLensProperties[]={0.35, 0.0, 0.0, 0.2};
+			PPMaskProperties[] = {0.0, 0.0, 0.31, 0.01};
+			PPLensProperties[] = {0.35, 0.0, 0.0, 0.2};
 		};
 	};
 
 	class KazuarOptic: ItemOptics{
 		class OpticsInfo{
-			PPMaskProperties[]={0.0, 0.0, 2.0, 0.05};
-			PPLensProperties[]={-1.0, 0.0, 0.0, 0.0};
+			PPMaskProperties[] = {0.0, 0.0, 2.0, 0.05};
+			PPLensProperties[] = {-1.0, 0.0, 0.0, 0.0};
 		};
 	};
 
