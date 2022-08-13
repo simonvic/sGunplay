@@ -37,19 +37,19 @@ class OptionsMenuSGunplay : SOptionsMenuBase{
 	override void onBuild(){
 		super.onBuild();
 		
-		initOptionWidget(m_adsDOFIntensitySlider,   "sude_adsDOFIntensity_setting_option",       getUserConfig().getOptionFloat("adsDOFIntensity"));
-		initOptionWidget(m_hideBarrel,              "sude_hideBarrel_setting_option",            getUserConfig().getOptionBool("hideWeaponBarrelInOptic"));
-		initOptionWidget(m_hideClothing,            "sude_hideClothing_setting_option",          getUserConfig().getOptionBool("hideClothingInOptic"));
-		initOptionWidget(m_lensZoomSlider,          "sude_lensZoom_setting_option",              getUserConfig().getOptionFloat("lensZoomStrength"));
-		initOptionWidget(m_deadzoneUpDownSlider,    "sude_deadzone_UpDown_setting_option",       getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_UP_DOWN);
-		initOptionWidget(m_deadzoneLeftRightSlider, "sude_deadzone_LeftRight_setting_option",    getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_LEFT_RIGHT);
-		initOptionWidget(m_resetDeadzoneOnFocus,    "sude_resetOnFocus_setting_option",          getUserConfig().getOptionBool("resetDeadzoneOnFocus"));
-		initOptionWidget(m_dynamicCrosshair,        "sude_dynamicCrosshair_setting_option",      getUserConfig().getOptionBool("showDynamicCrosshair"));
-		initOptionWidget(m_dynamicCrosshairType,    "sude_dynamicCrosshairType_setting_option",  getUserConfig().getOptionInt("dynamicCrosshairType"));
-		initOptionWidget(m_dynamicCrosshairRed,     "sude_dynamicCrosshairRed_setting_option",   getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), "red");
-		initOptionWidget(m_dynamicCrosshairGreen,   "sude_dynamicCrosshairGreen_setting_option", getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), "green");
-		initOptionWidget(m_dynamicCrosshairBlue,    "sude_dynamicCrosshairBlue_setting_option",  getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), "blue");
-		initOptionWidget(m_dynamicCrosshairAlpha,   "sude_dynamicCrosshairAlpha_setting_option", getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), "alpha");
+		initOptionWidget(m_adsDOFIntensitySlider,   "adsDOFIntensity",         getUserConfig().getOptionFloat("adsDOFIntensity"));
+		initOptionWidget(m_hideBarrel,              "hideWeaponBarrelInOptic", getUserConfig().getOptionBool("hideWeaponBarrelInOptic"));
+		initOptionWidget(m_hideClothing,            "hideClothingInOptic",     getUserConfig().getOptionBool("hideClothingInOptic"));
+		initOptionWidget(m_lensZoomSlider,          "lensZoomStrength",        getUserConfig().getOptionFloat("lensZoomStrength"));
+		initOptionWidget(m_deadzoneUpDownSlider,    "deadzoneY",               getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_UP_DOWN);
+		initOptionWidget(m_deadzoneLeftRightSlider, "deadzoneX",               getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_LEFT_RIGHT);
+		initOptionWidget(m_resetDeadzoneOnFocus,    "resetDeadzoneOnFocus",    getUserConfig().getOptionBool("resetDeadzoneOnFocus"));
+		initOptionWidget(m_dynamicCrosshair,        "dynCrosshair",            getUserConfig().getOptionBool("showDynamicCrosshair"));
+		initOptionWidget(m_dynamicCrosshairType,    "dynCrosshairStyle",       getUserConfig().getOptionInt("dynamicCrosshairType"));
+		initOptionWidget(m_dynamicCrosshairRed,     "dynCrosshairRed",         getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 0);
+		initOptionWidget(m_dynamicCrosshairGreen,   "dynCrosshairGreen",       getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 1);
+		initOptionWidget(m_dynamicCrosshairBlue,    "dynCrosshairBlue",        getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 2);
+		initOptionWidget(m_dynamicCrosshairAlpha,   "dynCrosshairAlpha",       getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 3);
 	}
 	
 }

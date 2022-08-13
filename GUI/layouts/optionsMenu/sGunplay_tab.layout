@@ -8,1738 +8,6 @@ FrameWidgetClass sude_sgunplay_tab_root {
  hexactsize 0
  vexactsize 0
  {
-  ScrollWidgetClass sude_settings_scroll {
-   visible 1
-   clipchildren 1
-   inheritalpha 0
-   ignorepointer 1
-   color 1 1 1 0
-   position 0 0
-   size 600 1
-   hexactpos 1
-   vexactpos 1
-   hexactsize 1
-   vexactsize 0
-   "Scrollbar V" 1
-   {
-    WrapSpacerWidgetClass sude_settings_root {
-     visible 1
-     ignorepointer 1
-     color 0 0 0 0
-     position 0 0
-     size 1 1
-     hexactpos 1
-     vexactpos 1
-     hexactsize 0
-     vexactsize 0
-     priority 3
-     "no focus" 1
-     Padding 15
-     Margin 0
-     content_halign center
-     {
-      WrapSpacerWidgetClass sude_gunplay_settings_root {
-       visible 1
-       ignorepointer 1
-       size 1 1
-       halign center_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 0
-       vexactsize 0
-       "no focus" 1
-       Padding 0
-       Margin 0
-       "Size To Content H" 1
-       "Size To Content V" 1
-       {
-        PanelWidgetClass sude_gunplay_settings_header {
-         visible 1
-         ignorepointer 1
-         color 0 0 0 1
-         position 0 0
-         size 1 36
-         hexactpos 1
-         vexactpos 1
-         hexactsize 0
-         vexactsize 1
-         style DayZDefaultPanel
-         {
-          TextWidgetClass sude_gunplay_text {
-           visible 1
-           ignorepointer 1
-           position 0 0
-           size 1 22
-           valign center_ref
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           style Normal
-           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY"
-           font "gui/fonts/sdf_MetronLight72"
-           "exact text" 0
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        WrapSpacerWidgetClass sude_gunplay_settings_content {
-         ignorepointer 1
-         color 0 0 0 0.549
-         position 0 0
-         size 1 0.998
-         hexactpos 1
-         vexactpos 1
-         hexactsize 0
-         vexactsize 0
-         style DayZDefaultPanel
-         Padding 0
-         Margin 0
-         "Size To Content H" 1
-         "Size To Content V" 1
-         {
-          FrameWidgetClass sude_lensZoom_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 30
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_lensZoom_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 30
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 1
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_lensZoom_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_lensZoom_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass sude_lensZoom_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                SliderWidgetClass sude_lensZoom_setting_option {
-                 ignorepointer 0
-                 position 0 0
-                 size 1 0.8
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 maximum 1
-                 step 0.01
-                 current 0.5
-                 "fill in" 1
-                 {
-                  TextWidgetClass sude_lensZoom_setting_option_value {
-                   ignorepointer 1
-                   color 0.9412 0.3294 0.298 1
-                   position 0 0
-                   size 0.95 0.95
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          FrameWidgetClass sude_adsDOFIntensity_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 30
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_adsDOFIntensity_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 30
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 1
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_adsDOFIntensity_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_adsDOFIntensity_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_DOF_INTENSITY"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass sude_adsDOFIntensity_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                SliderWidgetClass sude_adsDOFIntensity_setting_option {
-                 ignorepointer 0
-                 position 0 0
-                 size 1 0.8
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 maximum 1
-                 step 0.01
-                 current 0.5
-                 "fill in" 1
-                 {
-                  TextWidgetClass sude_adsDOFIntensity_setting_option_value {
-                   ignorepointer 1
-                   color 0.9412 0.3294 0.298 1
-                   position 0 0
-                   size 0.95 0.95
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          FrameWidgetClass sude_hideBarrel_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 30
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_hideBarrel_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 30
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 1
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_hideBarrel_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_hideBarrel_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass sude_hideBarrel_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                CheckBoxWidgetClass sude_hideBarrel_setting_option {
-                 position 0 0
-                 size 1 1
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 font "gui/fonts/metronlight16"
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          FrameWidgetClass sude_hideClothing_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 30
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_hideClothing_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 30
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 1
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_hideClothing_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_hideClothing_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_CLOTHING"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass sude_hideClothing_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                CheckBoxWidgetClass sude_hideClothing_setting_option {
-                 position 0 0
-                 size 1 1
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 font "gui/fonts/metronlight16"
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          FrameWidgetClass sude_dynamicCrosshair_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 30
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_dynamicCrosshair_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 30
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 1
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_dynamicCrosshair_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_dynamicCrosshair_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass sude_dynamicCrosshair_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                CheckBoxWidgetClass sude_dynamicCrosshair_setting_option {
-                 position 0 0
-                 size 1 1
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 font "gui/fonts/metronlight16"
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          FrameWidgetClass sude_dynamicCrosshairType_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 30
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_dynamicCrosshairType_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 30
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 1
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_dynamicCrosshairType_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_dynamicCrosshairType_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass sude_dynamicCrosshairType_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                XComboBoxWidgetClass sude_dynamicCrosshairType_setting_option {
-                 disabled 0
-                 size 1 1
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 style Default
-                 font "gui/fonts/metron16"
-                 items "default;curve;chevron;cross;tcross;angles;dot;double_curve"
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          FrameWidgetClass sude_dynamicCrosshairRGBA_setting_container {
-           ignorepointer 1
-           color 0 0 0 0
-           position 0 0
-           size 1 130
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           {
-            GridSpacerWidgetClass sude_dynamicCrosshairRGBA_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 1
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 0
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             Columns 2
-             Rows 1
-             {
-              FrameWidgetClass sude_dynamicCrosshairRGBA_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 0.5 0.6
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               {
-                TextWidgetClass sude_dynamicCrosshairRGBA_setting_label {
-                 ignorepointer 1
-                 size 1 0.55
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 0
-                 "exact text size" 18
-                 "text valign" center
-                }
-               }
-              }
-              GridSpacerWidgetClass sude_dynamicCrosshairRGBA_setting_panel {
-               ignorepointer 1
-               size 0.5 1
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               Padding 4
-               Margin 4
-               "Size To Content H" 1
-               Columns 1
-               Rows 4
-               {
-                SliderWidgetClass sude_dynamicCrosshairRed_setting_option {
-                 ignorepointer 0
-                 color 1 0.0941 0.0941 1
-                 position 0 0
-                 size 1 0.8
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 maximum 255
-                 current 130
-                 "fill in" 1
-                 {
-                  TextWidgetClass sude_dynamicCrosshairRed_setting_option_value {
-                   ignorepointer 1
-                   color 0 0 0 1
-                   position 0 0
-                   size 0.95 0.95
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-                SliderWidgetClass sude_dynamicCrosshairGreen_setting_option {
-                 ignorepointer 0
-                 color 0.0941 1 0.1098 1
-                 position 0 0
-                 size 1 0.8
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 maximum 255
-                 current 130
-                 "fill in" 1
-                 {
-                  TextWidgetClass sude_dynamicCrosshairGreen_setting_option_value {
-                   ignorepointer 1
-                   color 0 0 0 1
-                   position 0 0
-                   size 0.95 0.95
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-                SliderWidgetClass sude_dynamicCrosshairBlue_setting_option {
-                 ignorepointer 0
-                 color 0.0941 0.2 1 1
-                 position 0 0
-                 size 1 0.8
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 maximum 255
-                 current 130
-                 "fill in" 1
-                 {
-                  TextWidgetClass sude_dynamicCrosshairBlue_setting_option_value {
-                   ignorepointer 1
-                   color 0 0 0 1
-                   position 0 0
-                   size 0.95 0.95
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-                SliderWidgetClass sude_dynamicCrosshairAlpha_setting_option {
-                 ignorepointer 0
-                 position 0 0
-                 size 1 0.8
-                 halign center_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 maximum 255
-                 current 130
-                 "fill in" 1
-                 {
-                  TextWidgetClass sude_dynamicCrosshairAlpha_setting_option_value {
-                   ignorepointer 1
-                   color 0 0 0 1
-                   position 0 0
-                   size 0.95 0.95
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-          WrapSpacerWidgetClass sude_deadzone_setting_container {
-           ignorepointer 1
-           color 0 0 0 0.5843
-           position 0 0
-           size 1 500
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           style DayZDefaultPanel
-           Padding 0
-           Margin 0
-           "Size To Content H" 1
-           "Size To Content V" 1
-           {
-            WrapSpacerWidgetClass sude_deadzone_setting {
-             ignorepointer 0
-             color 0 0 0 0
-             position 0 0
-             size 1 1
-             hexactpos 1
-             vexactpos 1
-             hexactsize 0
-             vexactsize 0
-             style DayZDefaultPanel
-             "no focus" 1
-             Padding 0
-             Margin 0
-             "Size To Content H" 1
-             "Size To Content V" 1
-             {
-              PanelWidgetClass sude_deadzone_setting_label_container {
-               ignorepointer 1
-               position 0 0
-               size 1 0.1
-               hexactpos 1
-               vexactpos 1
-               hexactsize 0
-               vexactsize 0
-               style blank
-               {
-                TextWidgetClass sude_deadzone_setting_label {
-                 ignorepointer 1
-                 size 1 1
-                 valign center_ref
-                 hexactpos 1
-                 vexactpos 1
-                 hexactsize 0
-                 vexactsize 0
-                 text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE"
-                 font "gui/fonts/sdf_MetronLight24"
-                 "text offset" 8 0
-                 "exact text" 1
-                 "exact text size" 18
-                 "size to text h" 0
-                 "size to text v" 0
-                 "text halign" center
-                 "text valign" center
-                }
-               }
-              }
-              WrapSpacerWidgetClass sude_deadzone_settings_panel {
-               ignorepointer 1
-               size 1 0.9
-               halign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               style Colorable
-               Padding 0
-               Margin 0
-               "Size To Content H" 1
-               "Size To Content V" 1
-               {
-                WrapSpacerWidgetClass sude_deadzone_simpleSliders_container {
-                 ignorepointer 1
-                 position 0 0
-                 size 1 1
-                 halign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 Padding 0
-                 Margin 0
-                 "Size To Content H" 1
-                 "Size To Content V" 1
-                 {
-                  FrameWidgetClass sude_resetOnFocus_setting_container {
-                   ignorepointer 1
-                   color 0 0 0 0
-                   position 0 0
-                   size 1 30
-                   hexactpos 1
-                   vexactpos 1
-                   hexactsize 0
-                   vexactsize 1
-                   {
-                    GridSpacerWidgetClass sude_resetOnFocus_setting {
-                     ignorepointer 0
-                     color 0 0 0 0
-                     position 0 0
-                     size 1 30
-                     hexactpos 1
-                     vexactpos 1
-                     hexactsize 0
-                     vexactsize 1
-                     style DayZDefaultPanel
-                     "no focus" 1
-                     Padding 0
-                     Margin 0
-                     "Size To Content H" 1
-                     Columns 2
-                     Rows 1
-                     {
-                      FrameWidgetClass sude_resetOnFocus_setting_label_container {
-                       ignorepointer 1
-                       position 0 0
-                       size 0.5 0.6
-                       hexactpos 1
-                       vexactpos 1
-                       hexactsize 0
-                       vexactsize 0
-                       {
-                        TextWidgetClass sude_resetOnFocus_setting_label {
-                         ignorepointer 1
-                         size 1 0.55
-                         valign center_ref
-                         hexactpos 1
-                         vexactpos 1
-                         hexactsize 0
-                         vexactsize 0
-                         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS"
-                         font "gui/fonts/sdf_MetronLight24"
-                         "text offset" 8 0
-                         "exact text" 0
-                         "exact text size" 18
-                         "text valign" center
-                        }
-                       }
-                      }
-                      PanelWidgetClass sude_resetOnFocus_setting_panel {
-                       ignorepointer 1
-                       size 0.5 1
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       {
-                        CheckBoxWidgetClass sude_resetOnFocus_setting_option {
-                         position 0 0
-                         size 1 1
-                         hexactpos 0
-                         vexactpos 0
-                         hexactsize 0
-                         vexactsize 0
-                         font "gui/fonts/metronlight16"
-                        }
-                       }
-                      }
-                     }
-                    }
-                   }
-                  }
-                  GridSpacerWidgetClass sude_deadzone_UpDown_setting {
-                   ignorepointer 0
-                   color 0 0 0 0
-                   position 0 0
-                   size 1 30
-                   hexactpos 1
-                   vexactpos 1
-                   hexactsize 0
-                   vexactsize 1
-                   style DayZDefaultPanel
-                   "no focus" 1
-                   Padding 0
-                   Margin 0
-                   "Size To Content H" 1
-                   Columns 2
-                   Rows 1
-                   {
-                    FrameWidgetClass sude_deadzone_UpDown_setting_label_container {
-                     ignorepointer 1
-                     position 0 0
-                     size 0.5 0.6
-                     hexactpos 1
-                     vexactpos 1
-                     hexactsize 0
-                     vexactsize 0
-                     {
-                      TextWidgetClass sude_deadzone_UpDown_setting_label {
-                       ignorepointer 1
-                       size 1 0.55
-                       valign center_ref
-                       hexactpos 1
-                       vexactpos 1
-                       hexactsize 0
-                       vexactsize 0
-                       text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE +/-Y"
-                       font "gui/fonts/sdf_MetronLight24"
-                       "text offset" 8 0
-                       "exact text" 0
-                       "exact text size" 18
-                       "text valign" center
-                      }
-                     }
-                    }
-                    PanelWidgetClass sude_deadzone_UpDown_setting_panel {
-                     ignorepointer 1
-                     size 0.5 1
-                     halign center_ref
-                     valign center_ref
-                     hexactpos 0
-                     vexactpos 0
-                     hexactsize 0
-                     vexactsize 0
-                     {
-                      SliderWidgetClass sude_deadzone_UpDown_setting_option {
-                       ignorepointer 0
-                       position 0 0
-                       size 1 0.8
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       maximum 1
-                       step 0.01
-                       current 0.5
-                       "fill in" 1
-                       {
-                        TextWidgetClass sude_deadzone_UpDown_setting_option_value {
-                         ignorepointer 1
-                         color 0.9412 0.3294 0.298 1
-                         position 0 0
-                         size 0.95 0.95
-                         halign center_ref
-                         valign center_ref
-                         hexactpos 0
-                         vexactpos 0
-                         hexactsize 0
-                         vexactsize 0
-                         "text halign" center
-                         "text valign" center
-                        }
-                       }
-                      }
-                     }
-                    }
-                   }
-                  }
-                  GridSpacerWidgetClass sude_deadzone_LeftRight_setting {
-                   ignorepointer 0
-                   color 0 0 0 0
-                   position 0 0
-                   size 1 30
-                   hexactpos 1
-                   vexactpos 1
-                   hexactsize 0
-                   vexactsize 1
-                   style DayZDefaultPanel
-                   "no focus" 1
-                   Padding 0
-                   Margin 0
-                   "Size To Content H" 1
-                   Columns 2
-                   Rows 1
-                   {
-                    FrameWidgetClass sude_deadzone_LeftRight_setting_label_container {
-                     ignorepointer 1
-                     position 0 0
-                     size 0.5 0.6
-                     hexactpos 1
-                     vexactpos 1
-                     hexactsize 0
-                     vexactsize 0
-                     {
-                      TextWidgetClass sude_deadzone_LeftRight_setting_label {
-                       ignorepointer 1
-                       size 1 0.55
-                       valign center_ref
-                       hexactpos 1
-                       vexactpos 1
-                       hexactsize 0
-                       vexactsize 0
-                       text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE +/-X"
-                       font "gui/fonts/sdf_MetronLight24"
-                       "text offset" 8 0
-                       "exact text" 0
-                       "exact text size" 18
-                       "text valign" center
-                      }
-                     }
-                    }
-                    PanelWidgetClass sude_deadzone_LeftRight_setting_panel {
-                     ignorepointer 1
-                     size 0.5 1
-                     halign center_ref
-                     valign center_ref
-                     hexactpos 0
-                     vexactpos 0
-                     hexactsize 0
-                     vexactsize 0
-                     {
-                      SliderWidgetClass sude_deadzone_LeftRight_setting_option {
-                       ignorepointer 0
-                       position 0 0
-                       size 1 0.8
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       maximum 1
-                       step 0.01
-                       current 0.5
-                       "fill in" 1
-                       {
-                        TextWidgetClass sude_deadzone_LeftRight_setting_option_value {
-                         ignorepointer 1
-                         color 0.9412 0.3294 0.298 1
-                         position 0 0
-                         size 0.95 0.95
-                         halign center_ref
-                         valign center_ref
-                         hexactpos 0
-                         vexactpos 0
-                         hexactsize 0
-                         vexactsize 0
-                         "text halign" center
-                         "text valign" center
-                        }
-                       }
-                      }
-                     }
-                    }
-                   }
-                  }
-                 }
-                }
-                PanelWidgetClass sude_deadzone_advancedSliders_container {
-                 visible 0
-                 ignorepointer 1
-                 size 1 1
-                 halign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 {
-                  PanelWidgetClass sude_deadzoneUp_container {
-                   ignorepointer 1
-                   size 40 0.45
-                   halign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 1
-                   vexactsize 0
-                   {
-                    SliderWidgetClass sude_deadzoneUp_setting_option {
-                     ignorepointer 0
-                     size 40 1
-                     halign center_ref
-                     valign center_ref
-                     hexactpos 0
-                     vexactpos 0
-                     hexactsize 1
-                     vexactsize 0
-                     maximum 1
-                     step 0.01
-                     current 0.5
-                     vertical 1
-                     flipped 1
-                     "fill in" 1
-                     {
-                      TextWidgetClass sude_deadzoneUp_setting_value {
-                       ignorepointer 1
-                       color 0.9412 0.3294 0.298 1
-                       position 0 0
-                       size 1 1
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       scaled 1
-                       text "0"
-                       font "gui/fonts/metron22"
-                       "exact text" 1
-                       "size to text h" 0
-                       "size to text v" 0
-                       "text halign" center
-                       "text valign" center
-                      }
-                     }
-                    }
-                   }
-                  }
-                  PanelWidgetClass sude_deadzoneLeft_container {
-                   ignorepointer 1
-                   size 0.45 40
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 1
-                   {
-                    SliderWidgetClass sude_deadzoneLeft_setting_option {
-                     ignorepointer 0
-                     size 1 40
-                     halign center_ref
-                     valign center_ref
-                     hexactpos 0
-                     vexactpos 0
-                     hexactsize 0
-                     vexactsize 1
-                     maximum 1
-                     step 0.01
-                     current 0.5
-                     vertical 0
-                     flipped 1
-                     "fill in" 1
-                     {
-                      TextWidgetClass sude_deadzoneLeft_setting_value {
-                       ignorepointer 1
-                       color 0.9412 0.3294 0.298 1
-                       position 0 0
-                       size 1 1
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       scaled 1
-                       text "0"
-                       font "gui/fonts/metron22"
-                       "exact text" 1
-                       "size to text h" 0
-                       "size to text v" 0
-                       "text halign" center
-                       "text valign" center
-                      }
-                     }
-                    }
-                   }
-                  }
-                  PanelWidgetClass sude_deadzoneRight_container {
-                   ignorepointer 1
-                   position 0 0
-                   size 0.45 40
-                   halign right_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 1
-                   {
-                    SliderWidgetClass sude_deadzoneRight_setting_option {
-                     ignorepointer 0
-                     size 1 40
-                     halign center_ref
-                     valign center_ref
-                     hexactpos 0
-                     vexactpos 0
-                     hexactsize 0
-                     vexactsize 1
-                     maximum 1
-                     step 0.01
-                     current 0.5
-                     vertical 0
-                     flipped 0
-                     "fill in" 1
-                     {
-                      TextWidgetClass sude_deadzoneRight_setting_value {
-                       ignorepointer 1
-                       color 0.9412 0.3294 0.298 1
-                       position 0 0
-                       size 1 1
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       scaled 1
-                       text "0"
-                       font "gui/fonts/metron22"
-                       "exact text" 1
-                       "size to text h" 0
-                       "size to text v" 0
-                       "text halign" center
-                       "text valign" center
-                      }
-                     }
-                    }
-                   }
-                  }
-                  PanelWidgetClass sude_deadzoneDown_container {
-                   ignorepointer 1
-                   position 0 0
-                   size 40 0.45
-                   halign center_ref
-                   valign bottom_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 1
-                   vexactsize 0
-                   {
-                    SliderWidgetClass sude_deadzoneDown_setting_option {
-                     ignorepointer 0
-                     size 40 1
-                     halign center_ref
-                     valign center_ref
-                     hexactpos 0
-                     vexactpos 0
-                     hexactsize 1
-                     vexactsize 0
-                     maximum 1
-                     step 0.01
-                     current 0.5
-                     vertical 1
-                     flipped 0
-                     "fill in" 1
-                     {
-                      TextWidgetClass sude_deadzoneDown_setting_value {
-                       ignorepointer 1
-                       color 0.9412 0.3294 0.298 1
-                       size 1 1
-                       halign center_ref
-                       valign center_ref
-                       hexactpos 0
-                       vexactpos 0
-                       hexactsize 0
-                       vexactsize 0
-                       scaled 1
-                       text "0"
-                       font "gui/fonts/metron22"
-                       "exact text" 1
-                       "size to text h" 0
-                       "size to text v" 0
-                       "text halign" center
-                       "text valign" center
-                      }
-                     }
-                    }
-                   }
-                  }
-                 }
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-         }
-        }
-       }
-      }
-      WrapSpacerWidgetClass sude_debug_settings_root {
-       visible 0
-       ignorepointer 1
-       position 0 0
-       size 1 1
-       hexactpos 1
-       vexactpos 1
-       hexactsize 0
-       vexactsize 0
-       "no focus" 1
-       Padding 0
-       Margin 0
-       "Size To Content H" 1
-       "Size To Content V" 1
-       {
-        PanelWidgetClass sude_debug_settings_header {
-         visible 1
-         ignorepointer 1
-         color 0 0 0 1
-         position 0 0
-         size 1 36
-         hexactpos 1
-         vexactpos 1
-         hexactsize 0
-         vexactsize 1
-         style DayZDefaultPanel
-         {
-          TextWidgetClass sude_debug_title {
-           visible 1
-           ignorepointer 1
-           position 0 0
-           size 1 22
-           valign center_ref
-           hexactpos 1
-           vexactpos 1
-           hexactsize 0
-           vexactsize 1
-           style Normal
-           text "DEBUG"
-           font "gui/fonts/sdf_MetronLight72"
-           "exact text" 0
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        GridSpacerWidgetClass sude_debug_settings_content {
-         ignorepointer 1
-         color 0 0 0 0.549
-         position 0 0
-         size 1 1
-         hexactpos 1
-         vexactpos 1
-         hexactsize 0
-         vexactsize 0
-         style DayZDefaultPanel
-         Padding 0
-         Margin 0
-         "Size To Content H" 1
-         "Size To Content V" 1
-         Columns 1
-         Rows 1
-         {
-          PanelWidgetClass sude_compass_container {
-           disabled 0
-           ignorepointer 1
-           position 0 0
-           size 1 30
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 1
-           {
-            PanelWidgetClass sude_compass_label_container {
-             ignorepointer 1
-             position 0 0
-             size 0.5 1
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             {
-              TextWidgetClass sude_compass_label {
-               ignorepointer 1
-               position 0 0
-               size 1 1
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_COMPASS"
-               font "gui/fonts/sdf_metronlight24"
-               "exact text" 1
-               "exact text size" 18
-               "text valign" center
-              }
-             }
-            }
-            PanelWidgetClass sude_compass_setting_container {
-             disabled 0
-             ignorepointer 1
-             size 0.5 1
-             halign right_ref
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             {
-              CheckBoxWidgetClass sude_compass_setting_option {
-               disabled 1
-               position 0 0
-               size 1 1
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-              }
-             }
-            }
-           }
-          }
-          PanelWidgetClass sude_crosshair_container {
-           disabled 0
-           ignorepointer 1
-           position 0 0
-           size 1 30
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 1
-           {
-            PanelWidgetClass sude_crosshair_label_container {
-             ignorepointer 1
-             position 0 0
-             size 0.5 1
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             {
-              TextWidgetClass sude_crosshair_label {
-               ignorepointer 1
-               position 0 0
-               size 1 1
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_CROSSHAIR"
-               font "gui/fonts/sdf_metronlight24"
-               "exact text" 1
-               "exact text size" 18
-               "text valign" center
-              }
-             }
-            }
-            PanelWidgetClass sude_crosshair_setting_container {
-             disabled 0
-             ignorepointer 1
-             size 0.5 1
-             halign right_ref
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             {
-              CheckBoxWidgetClass sude_crosshair_setting_option {
-               disabled 0
-               position 0 0
-               size 1 1
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-              }
-             }
-            }
-           }
-          }
-          PanelWidgetClass sude_body_clip_container {
-           ignorepointer 1
-           color 0.2902 0.2902 0.2902 1
-           position 0 0
-           size 1 90
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 1
-           style blank
-           {
-            PanelWidgetClass sude_body_clip_label_container {
-             ignorepointer 1
-             color 0.1098 0.1098 0.1098 0.7843
-             size 1 0.33
-             halign center_ref
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             style DayZDefaultPanel
-             {
-              TextWidgetClass sude_body_clip_label {
-               ignorepointer 1
-               position 0 0
-               size 1 1
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_BODY_CLIP"
-               font "gui/fonts/sdf_metronlight30"
-               "exact text" 1
-               "exact text size" 20
-               "text halign" center
-               "text valign" center
-              }
-             }
-            }
-            PanelWidgetClass sude_body_clip_setting_container {
-             ignorepointer 1
-             size 1 0.66
-             halign center_ref
-             valign bottom_ref
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             {
-              PanelWidgetClass sude_body_clip_all_contact_container {
-               ignorepointer 1
-               size 0.5 1
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                PanelWidgetClass sude_body_clip_all_contact_label_container {
-                 ignorepointer 1
-                 size 1 0.5
-                 halign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 {
-                  TextWidgetClass sude_body_clip_all_contact_label {
-                   ignorepointer 1
-                   size 1 1
-                   halign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_BODY_CLIP_ALL_CONTACT"
-                   font "gui/fonts/sdf_metronlight24"
-                   "exact text" 1
-                   "exact text size" 15
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-                PanelWidgetClass sude_body_clip_all_contact_setting_container {
-                 ignorepointer 1
-                 position 0 0
-                 size 1 0.5
-                 halign center_ref
-                 valign bottom_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 {
-                  CheckBoxWidgetClass sude_body_clip_all_contact_setting_option {
-                   position 0 0
-                   size 30 1
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 1
-                   vexactsize 0
-                  }
-                 }
-                }
-               }
-              }
-              PanelWidgetClass sude_body_clip_contact_pos_container {
-               ignorepointer 1
-               size 0.5 1
-               halign right_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                PanelWidgetClass sude_body_clip_contact_post_label_container {
-                 ignorepointer 1
-                 size 1 0.5
-                 halign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 {
-                  TextWidgetClass sude_body_clip_contact_pos_label {
-                   ignorepointer 1
-                   size 1 1
-                   halign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   text "#STR_SUDE_LAYOUT_OPTIONS_DEBUG_BODY_CLIP_CONTACT_POS"
-                   font "gui/fonts/sdf_metronlight24"
-                   "exact text" 1
-                   "exact text size" 15
-                   "text halign" center
-                   "text valign" center
-                  }
-                 }
-                }
-                PanelWidgetClass sude_body_clip_contact_pos_setting_container {
-                 ignorepointer 1
-                 position 0 0
-                 size 1 0.5
-                 halign center_ref
-                 valign bottom_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 {
-                  CheckBoxWidgetClass sude_body_clip_contact_pos_setting_option {
-                   position 0 0
-                   size 30 1
-                   halign center_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 1
-                   vexactsize 0
-                  }
-                 }
-                }
-               }
-              }
-             }
-            }
-           }
-          }
-         }
-        }
-       }
-      }
-     }
-    }
-   }
-  }
   GridSpacerWidgetClass c_description_box_root {
    visible 0
    ignorepointer 1
@@ -1755,6 +23,797 @@ FrameWidgetClass sude_sgunplay_tab_root {
    "Size To Content V" 1
    Columns 1
    Rows 1
+  }
+  GridSpacerWidgetClass c_body {
+   ignorepointer 1
+   position 0 0
+   size 600 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 0
+   style Colorable
+   Padding 10
+   Margin 10
+   "Size To Content V" 1
+   content_valign center
+   Columns 1
+   {
+    GridSpacerWidgetClass c_general {
+     ignorepointer 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     Padding 0
+     Margin 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 2
+     {
+      PanelWidgetClass ct_general {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 0 0
+       size 1 48
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 1
+       style DayZDefaultPanelTop
+       {
+        TextWidgetClass t_general {
+         ignorepointer 1
+         size 1 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      GridSpacerWidgetClass c_body_general {
+       ignorepointer 1
+       color 0 0 0 0.5098
+       position 0 0
+       size 1 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       style DayZDefaultPanel
+       Padding 8
+       Margin 8
+       "Size To Content V" 1
+       Columns 1
+       Rows 4
+       {
+        GridSpacerWidgetClass c_lensZoomStrength {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_lensZoomStrength {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           scaled 1
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_LENSZOOM"
+           "exact text" 0
+          }
+          SliderWidgetClass lensZoomStrength {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 1
+           step 0.01
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass lensZoomStrength_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_adsDOFIntensity {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_adsDOFIntensity {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_DOF_INTENSITY"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass adsDOFIntensity {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 1
+           step 0.01
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass adsDOFIntensity_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_hideWeaponBarrelInOptic {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_hideWeaponBarrelInOptic {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_BARREL"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          CheckBoxWidgetClass hideWeaponBarrelInOptic {
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+          }
+         }
+        }
+        GridSpacerWidgetClass c_hideClothingInOptic {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_hideClothingInOptic {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_HIDE_CLOTHING"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          CheckBoxWidgetClass hideClothingInOptic {
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    GridSpacerWidgetClass c_crosshair {
+     ignorepointer 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     Padding 0
+     Margin 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 2
+     {
+      PanelWidgetClass ct_crosshair {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 0 0
+       size 1 48
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 1
+       style DayZDefaultPanelTop
+       {
+        TextWidgetClass t_crosshair {
+         ignorepointer 1
+         size 1 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      GridSpacerWidgetClass c_body_crosshair {
+       ignorepointer 1
+       color 0 0 0 0.5098
+       position 0 0
+       size 1 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       style DayZDefaultPanel
+       Padding 8
+       Margin 8
+       "Size To Content V" 1
+       Columns 1
+       Rows 2
+       {
+        GridSpacerWidgetClass c_dynCrosshair {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_dynCrosshair {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          CheckBoxWidgetClass dynCrosshair {
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+          }
+         }
+        }
+        GridSpacerWidgetClass c_dynCrosshairStyle {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_dynCrosshairStyle {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          XComboBoxWidgetClass dynCrosshairStyle {
+           color 0.9412 0.3294 0.298 1
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style debugUI
+           items "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_DEFAULT;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_CURVE;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_CHEVRON;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_DOUBLECURVE;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_DOT;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_CROSS;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_TCROSS;#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_TYPE_ANGLES"
+          }
+         }
+        }
+        GridSpacerWidgetClass c_dynCrosshairColor {
+         ignorepointer 1
+         size 1 109
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_dynCrosshairColor {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR_COLOR"
+           "exact text" 0
+           text_proportion 0.25
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          GridSpacerWidgetClass cc_dynCrosshairColor {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           Padding 4
+           Margin 4
+           "Size To Content V" 1
+           Columns 1
+           Rows 4
+           {
+            SliderWidgetClass dynCrosshairRed {
+             color 0.898 0.3647 0.3647 0.2706
+             size 1 24
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style Default
+             maximum 255
+             current 69
+             "fill in" 1
+             "draw marker" 0
+             "listen to input" 1
+             {
+              TextWidgetClass dynCrosshairRed_value {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "6.9"
+               "size to text h" 0
+               "size to text v" 0
+               "text halign" center
+               "text valign" center
+              }
+             }
+            }
+            SliderWidgetClass dynCrosshairGreen {
+             color 0.2941 0.8902 0.3569 0.2706
+             size 1 24
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style Default
+             maximum 255
+             current 69
+             "fill in" 1
+             "draw marker" 0
+             "listen to input" 1
+             {
+              TextWidgetClass dynCrosshairGreen_value {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "6.9"
+               "size to text h" 0
+               "size to text v" 0
+               "text halign" center
+               "text valign" center
+              }
+             }
+            }
+            SliderWidgetClass dynCrosshairBlue {
+             color 0.2353 0.4471 0.8784 0.2706
+             size 1 24
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style Default
+             maximum 255
+             current 69
+             "fill in" 1
+             "draw marker" 0
+             "listen to input" 1
+             {
+              TextWidgetClass dynCrosshairBlue_value {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "6.9"
+               "size to text h" 0
+               "size to text v" 0
+               "text halign" center
+               "text valign" center
+              }
+             }
+            }
+            SliderWidgetClass dynCrosshairAlpha {
+             color 1 1 1 0.2706
+             size 1 24
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style Default
+             maximum 255
+             current 69
+             "fill in" 1
+             "draw marker" 0
+             "listen to input" 1
+             {
+              TextWidgetClass dynCrosshairAlpha_value {
+               ignorepointer 1
+               position 0 0
+               size 1 1
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "6.9"
+               "exact text" 0
+               "size to text h" 0
+               "size to text v" 0
+               "text halign" center
+               "text valign" center
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    GridSpacerWidgetClass c_deadzone {
+     ignorepointer 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     Padding 0
+     Margin 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 2
+     {
+      PanelWidgetClass ct_deadzone {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 0 0
+       size 1 48
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 1
+       style DayZDefaultPanelTop
+       {
+        TextWidgetClass t_deadzone {
+         ignorepointer 1
+         size 1 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      GridSpacerWidgetClass c_body_deadzone {
+       ignorepointer 1
+       color 0 0 0 0.5098
+       position 0 0
+       size 1 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       style DayZDefaultPanel
+       Padding 8
+       Margin 8
+       "Size To Content V" 1
+       Columns 1
+       Rows 2
+       {
+        GridSpacerWidgetClass c_resetDeadzoneOnFocus {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_resetDeadzoneOnFocus {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE_RESET_ON_FOCUS"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          CheckBoxWidgetClass resetDeadzoneOnFocus {
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+          }
+         }
+        }
+        GridSpacerWidgetClass c_deadzoneY {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_deadzoneY {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE +/-Y"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass deadzoneY {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 1
+           step 0.01
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass deadzoneY_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass c_deadzoneX {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_deadzoneX {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DEADZONE +/-X"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          SliderWidgetClass deadzoneX {
+           color 1 1 1 0.2706
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+           maximum 1
+           step 0.01
+           current 0.69
+           "fill in" 1
+           "draw marker" 0
+           "listen to input" 1
+           {
+            TextWidgetClass deadzoneX_value {
+             ignorepointer 1
+             color 0.9412 0.3294 0.298 1
+             position 0 0
+             size 1 1
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "6.9"
+             "size to text h" 0
+             "size to text v" 0
+             "text halign" center
+             "text valign" center
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
   }
  }
 }
