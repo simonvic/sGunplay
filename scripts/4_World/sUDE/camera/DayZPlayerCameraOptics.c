@@ -60,12 +60,13 @@ modded class DayZPlayerCameraOptics{
 	*	 @param offsetY \p float - arbitrary Y offset
 	*	 @return TFloatArray - computed mask array
 	*/
-	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){		
+	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){
 		return {
-			mask[0] + offsetX,                                                          //X position
-			mask[1] + offsetY,                                                          //Y position
-			mask[2] / Math.Pow(GunplayConstants.ADS_FOV_REDUCTION, 2) / m_fFovAbsolute, //radius    //@todo find proper way of handling radius
-			mask[3]};                                                                   //blur
+			mask[0] + offsetX,                         //X position
+			mask[1] + offsetY,                         //Y position
+			mask[2] / 9.8696 / Camera.GetCurrentFOV(), //radius ( current radius / pi^2 / fov )
+			mask[3]                                    //blur
+		};
 	}
 	
 	/**
@@ -81,7 +82,8 @@ modded class DayZPlayerCameraOptics{
 			lens[0] * getLensZoomStrength(),  //intensity
 			lens[1] + (offsetX * 2 - 1),      //X position
 			lens[2] + (offsetY * 2 - 1),      //Y position
-			lens[3]};                         //chrom aber	
+			lens[3]                           //chrom aber	
+		};
 	}
 	
 	/**
