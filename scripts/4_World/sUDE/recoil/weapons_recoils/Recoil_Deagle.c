@@ -1,4 +1,4 @@
-modded class DEagleRecoil{
+modded class DEagleRecoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-1.750, 2.550,  6.250,  8.300};	
 		handsAccumSpeed    = 0.985;

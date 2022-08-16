@@ -1,9 +1,5 @@
-
-/////////////////////////////////////////////
-// Gunplay Module
-/////////////////////////////////////////////
-class SGameConfigGunplay : SGameConfigBase{	
-	override string getModuleName(){
+class SGameConfigGunplay : SGameConfigBase {	
+	override string getModuleName() {
 		return "Gunplay";
 	}
 }

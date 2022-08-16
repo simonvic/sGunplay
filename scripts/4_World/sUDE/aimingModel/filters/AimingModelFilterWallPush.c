@@ -1,6 +1,6 @@
 class AimingModelFilterWallPush : AimingModelFilterBase {
 	
-	override bool isActive(){
+	override bool isActive() {
 		return GetGame().IsClient();
 	}
 	
@@ -8,11 +8,11 @@ class AimingModelFilterWallPush : AimingModelFilterBase {
 	protected float m_vel[1];
 	protected float m_currentOffset;
 	
-	void AimingModelFilterWallPush(DayZPlayerImplementAiming aimingModel){
+	void AimingModelFilterWallPush(DayZPlayerImplementAiming aimingModel) {
 		m_ray = new SRaycast(vector.Zero, vector.Zero, 0.1, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		vector barrel, muzzle, target;
 		DayZPlayerImplementAiming.getWeaponComponentsPositionWS(getWeapon(),barrel, muzzle, target, 5);
 		

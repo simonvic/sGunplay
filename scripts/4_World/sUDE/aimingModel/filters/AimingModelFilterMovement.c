@@ -1,4 +1,4 @@
-class AimingModelFilterMovement : AimingModelFilterBase{
+class AimingModelFilterMovement : AimingModelFilterBase {
 	
 	
 	protected float m_time;

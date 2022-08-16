@@ -19,7 +19,7 @@ modded class DayZPlayerImplementAiming {
 	
 	protected ref array<ref AimingModelFilterBase> m_filters;
 	
-	void DayZPlayerImplementAiming(DayZPlayerImplement player){
+	void DayZPlayerImplementAiming(DayZPlayerImplement player) {
 		m_sCrosshairRay = new SRaycast("0 0 0", "0 0 0", 0.01, ObjIntersectFire, CollisionFlags.NEARESTCONTACT);
 		m_filters = new array<ref AimingModelFilterBase>();
 		registerFilters();	
@@ -29,7 +29,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Register the filters to be applied to the aiming model
 	*	 @note The order matters! Filters operation may not be commutative
 	*/
-	protected void registerFilters(){
+	protected void registerFilters() {
 		//@todo add cam shake
 		registerFilter(new AimingModelFilterBreathing(this));
 		registerFilter(new AimingModelFilterMovement(this));
@@ -48,19 +48,19 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Register a filter
 	*	 @param filter \p AimingModelFilterBase - Filter to register
 	*/
-	protected void registerFilter(AimingModelFilterBase filter){
-		if((!filter || !m_filters) && m_filters.Find(filter) == -1) return;
+	protected void registerFilter(AimingModelFilterBase filter) {
+		if ((!filter || !m_filters) && m_filters.Find(filter) == -1) return;
 		m_filters.Insert(filter);
 	}
 	
 	
 	//on raise begin doesn't get called when quickly changing weapon while lowering
-	override void OnRaiseBegin(DayZPlayerImplement player){
+	override void OnRaiseBegin(DayZPlayerImplement player) {
 		super.OnRaiseBegin(player);
 	}
 	
 	//@todo update all aiming model variables from the filter, so we don't break other mods that use them
-	override void OnSwayStateChange(int state){
+	override void OnSwayStateChange(int state) {
 		super.OnSwayStateChange(state);
 	}
 	
@@ -70,7 +70,7 @@ modded class DayZPlayerImplementAiming {
 	*	 @param pModel \p SDayZPlayerAimingModel - aiming model values
 	*	 @param stance_index \p ind - stance index
 	*/
-	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index){
+	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index) {
 		/* @todo process aim filters keeps getting called even after holstered weapon.
 			to activae quickly releas right mouse button, holster weapon, and right mouse button again 
 		*/
@@ -110,7 +110,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Update the current value of the hands offset
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
 	*/
-	protected void updateHandsOffset(SDayZPlayerAimingModel pModel){
+	protected void updateHandsOffset(SDayZPlayerAimingModel pModel) {
 		m_handsOffset[0] = pModel.m_fAimXHandsOffset;
 		m_handsOffset[1] = pModel.m_fAimYHandsOffset;
 	}
@@ -120,7 +120,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Update the current value of the misalignment
 	*	 @param pModel \p SDayZPlayerAimingModel - Player aiming model
 	*/
-	protected void updateMisalignment(SDayZPlayerAimingModel pModel){
+	protected void updateMisalignment(SDayZPlayerAimingModel pModel) {
 		m_misalignment[0] = pModel.m_fAimXCamOffset;
 		m_misalignment[1] = pModel.m_fAimYCamOffset;
 	}
@@ -130,7 +130,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Update the crosshair position on the screen vector and its visibility
 	*	 @param weapon \p Weapon_Base - Weapon used to get the direction of the raycast
 	*/
-	protected void updateSCrosshair(float pDt, Weapon_Base weapon, vector from, vector to, float distance = 1){
+	protected void updateSCrosshair(float pDt, Weapon_Base weapon, vector from, vector to, float distance = 1) {
 		m_sCrosshairRay.from(from);
 		m_sCrosshairRay.to(from + (vector.Direction(from, to) * distance));
 		m_sCrosshairRay.ignore(weapon, m_PlayerPb);
@@ -142,18 +142,18 @@ modded class DayZPlayerImplementAiming {
 		m_sCrosshairPosition[1] = Math.SmoothCD(m_sCrosshairPosition[1], pos[1], m_sCrosshairYVel, GunplayConstants.CROSSHAIR_SMOOTHNESS, 1000, pDt);
 	}
 	
-	PlayerBase getPlayer(){
+	PlayerBase getPlayer() {
 		return m_PlayerPb;
 	}
 	
-	Weapon_Base getWeapon(){
+	Weapon_Base getWeapon() {
 		return m_weapon;
 	}
 	
 	/**
 	*	@brief Compute the optic lens position
 	*/
-	protected void updateOpticLensPosition(ItemOptics optic, float distance = 50){
+	protected void updateOpticLensPosition(ItemOptics optic, float distance = 50) {
 		if (!optic) return;
 		vector eyeScopeLS  = optic.GetSelectionPositionLS( "eyeScope" );
 		vector cameraDirLS = optic.GetSelectionPositionLS( "cameraDir" );
@@ -164,7 +164,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get the computed position of where the optic lens should be
 	*	 @return vector - Position in WS
 	*/
-	vector getLensPositionWS(){
+	vector getLensPositionWS() {
 		return m_lensPosition;
 	}
 	
@@ -172,7 +172,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get the user input aim change
 	*	 @return vector - Aim change of the player (x, y, 0)
 	*/
-	vector getAimChangeDegree(){
+	vector getAimChangeDegree() {
 		return DayZPlayerImplementAiming.getAimChangeDegree(m_PlayerDpi);
 	}
 	
@@ -181,7 +181,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get current aiming model hands offset
 	*	 @return vector - Hands offset (x, y, 0);
 	*/
-	vector getHandsOffset(){
+	vector getHandsOffset() {
 		return m_handsOffset;
 	}
 	
@@ -189,7 +189,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get current aiming model hands offset
 	*	 @return vector - Hands offset (x, y, 0);
 	*/
-	vector getMisalignment(){
+	vector getMisalignment() {
 		return m_misalignment;
 	}
 		
@@ -197,7 +197,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get where the weapon is pointing
 	*	 @return vector - Weapon target position
 	*/
-	vector getWeaponTargetPosition(){
+	vector getWeaponTargetPosition() {
 		return m_weaponTargetPosition;
 	}
 	
@@ -205,7 +205,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get relative position on screen (0.0 - 1.0) of the crosshair
 	*	 @return vector - Relative screen position (x, y, 0);
 	*/
-	vector getSCrosshairPosition(){
+	vector getSCrosshairPosition() {
 		return m_sCrosshairPosition;
 	}	
 	
@@ -213,7 +213,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get the current Kuru shake. 
 	*	 @return current kuru shake, null if not present
 	*/
-	KuruShake getKuruShake(){
+	KuruShake getKuruShake() {
 		return m_KuruShake;
 	}
 	
@@ -221,7 +221,7 @@ modded class DayZPlayerImplementAiming {
 	*	@brief Get the current recoil . 
 	*	 @return current recoil, null if not present
 	*/
-	RecoilBase getRecoil(){
+	RecoilBase getRecoil() {
 		return m_CurrentRecoil;
 	}
 	
@@ -234,7 +234,7 @@ modded class DayZPlayerImplementAiming {
 	*	 @param targetPosition \p vector - 
 	*	 @param distance \p float - 
 	*/
-	static void getWeaponComponentsPositionLS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
+	static void getWeaponComponentsPositionLS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1) {
 		barrelPosition = weapon.GetSelectionPositionLS( "konec hlavne" );
 		muzzlePosition = weapon.GetSelectionPositionLS( "usti hlavne" );
 		targetPosition = muzzlePosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
@@ -248,7 +248,7 @@ modded class DayZPlayerImplementAiming {
 	*	 @param targetPosition \p vector - 
 	*	 @param distance \p float - 
 	*/
-	static void getWeaponComponentsPositionWS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1){
+	static void getWeaponComponentsPositionWS(Weapon_Base weapon, out vector barrelPosition, out vector muzzlePosition, out vector targetPosition, float distance = 1) {
 		barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
 		muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
 		targetPosition = muzzlePosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
@@ -259,7 +259,7 @@ modded class DayZPlayerImplementAiming {
 	*	 @param player \p DayZPlayerImplement player
 	*	 @return vector - Aim change of the player (x, y, 0)
 	*/
-	static vector getAimChangeDegree(DayZPlayerImplement player){
+	static vector getAimChangeDegree(DayZPlayerImplement player) {
 		return Vector(
 			player.GetInputController().GetAimChange()[0] * Math.RAD2DEG,
 			player.GetInputController().GetAimChange()[1] * Math.RAD2DEG,

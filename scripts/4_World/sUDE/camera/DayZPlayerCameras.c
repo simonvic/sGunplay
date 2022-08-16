@@ -1,4 +1,4 @@
-modded class DayZPlayerCameras{
+modded class DayZPlayerCameras {
 	
 	static const float TIME_TO_ADS = GunplayConstants.TIME_TO_ADS;
 	static const float TIME_FROM_ADS = GunplayConstants.TIME_FROM_ADS;

@@ -1,4 +1,4 @@
-class GunplayConstants{
+class GunplayConstants {
 	/////////////////////////////////////////////////////////////
 	// FOCUS
 	static const float FOCUS_RESET_SPEED = 0.2;

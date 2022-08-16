@@ -1,6 +1,6 @@
-modded class Weapon_Base{
+modded class Weapon_Base {
 	
-	float getWeaponLength(){
+	float getWeaponLength() {
 		return m_WeaponLength;
 	}
 	

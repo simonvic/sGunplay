@@ -1,11 +1,11 @@
-class AimingModelFilterBreathing : AimingModelFilterBase{
+class AimingModelFilterBreathing : AimingModelFilterBase {
 	
 	protected float m_time;
 	protected vector m_breathingOffset;
 	protected float m_velX[1];
 	protected float m_velY[1];
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		m_time += pDt * getSpeed();
 		
 		computeBreathingPattern(calculateWeight(stanceIndex), GunplayConstants.SWAY_FREQUENCY, GunplayConstants.SWAY_AMPLITUDE);
@@ -24,21 +24,21 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 		
 	}
 	
-	protected void computeBreathingPattern(float weight, float frequency[2], float amplitude[2]){
+	protected void computeBreathingPattern(float weight, float frequency[2], float amplitude[2]) {
 		m_breathingOffset[0] = 0.5 + Math.Sin(m_time * frequency[0]) * amplitude[0] * weight;
 		m_breathingOffset[1] = 0.5 + Math.Sin(m_time * frequency[1]) * amplitude[1] * weight;
 	}
 	
-	protected float getSpeed(){
+	protected float getSpeed() {
 		float playerStamina =  getPlayerStamina() / getPlayer().GetStaminaHandler().GetStaminaCap();
-		if( getPlayer().IsHoldingBreath() ){
+		if (getPlayer().IsHoldingBreath()) {
 			playerStamina *= GunplayConstants.SWAY_DECREASE_FOCUSING;
 		}
 		return (Math.Pow(GunplayConstants.SWAY_DECAY_POWER, 1 - playerStamina)) + GunplayConstants.SWAY_MINIMUM * getSwayModifier()[2];
 	}
 	
-	protected float getPlayerStamina(){
-		if(!GetGame().IsMultiplayer()){
+	protected float getPlayerStamina() {
+		if (!GetGame().IsMultiplayer()) {
 			return getPlayer().GetStaminaHandler().GetStamina();
 		}
 		
@@ -46,13 +46,13 @@ class AimingModelFilterBreathing : AimingModelFilterBase{
 	}
 	
 
-	protected vector getSwayModifier(){
+	protected vector getSwayModifier() {
 		return getWeapon().GetPropertyModifierObject().m_SwayModifiers;
 	}
 	
 	
-	protected float calculateWeight(int stanceIndex){
-		switch(stanceIndex){
+	protected float calculateWeight(int stanceIndex) {
+		switch (stanceIndex) {
 			case DayZPlayerConstants.STANCEIDX_RAISEDERECT:  return GunplayConstants.SWAY_MULTIPLEIR_ERECT;
 			case DayZPlayerConstants.STANCEIDX_RAISEDCROUCH: return GunplayConstants.SWAY_MULTIPLEIR_CROUCHED;
 			case DayZPlayerConstants.STANCEIDX_RAISEDPRONE:  return GunplayConstants.SWAY_MULTIPLEIR_PRONE;

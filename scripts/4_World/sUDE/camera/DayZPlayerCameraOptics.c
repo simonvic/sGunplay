@@ -1,4 +1,4 @@
-modded class DayZPlayerCameraOptics{
+modded class DayZPlayerCameraOptics {
 	
 	protected ref TFloatArray m_opticPPMask = new TFloatArray;
 	protected ref TFloatArray m_opticPPLens = new TFloatArray;
@@ -9,7 +9,7 @@ modded class DayZPlayerCameraOptics{
 	protected float m_lensOffsetVelX[1];
 	protected float m_lensOffsetVelY[1];
 	
-	override void OnActivate (DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult){
+	override void OnActivate (DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
@@ -18,7 +18,7 @@ modded class DayZPlayerCameraOptics{
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
 		
 		//Hide player clothing when transition is done
-		if (m_player){
+		if (m_player) {
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,false,m_opticsUsed,isHideClothingInOpticEnabled());
 		}
@@ -28,7 +28,7 @@ modded class DayZPlayerCameraOptics{
 		}
 	}
 	
-	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult){
+	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
 		super.OnUpdate(pDt, pOutResult);
 		updateLens(pDt);
 	}
@@ -36,7 +36,7 @@ modded class DayZPlayerCameraOptics{
 	/**
 	*	@brief Update the lens effect position and strength along with the PP mask
 	*/
-	protected void updateLens(float pDt){
+	protected void updateLens(float pDt) {
 		
 		if (!m_player.IsInOptics() || !isMagnifyingOptic() || !canShowLens() || isHandHeldOptic()) {
 			return;
@@ -44,8 +44,21 @@ modded class DayZPlayerCameraOptics{
 
 		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		
-		// @todo yikes... are there no alternatives?
 		
+		/*
+		auto dui = SDebugUI.of("optic");
+		dui.begin();
+		dui.window("PiP");
+		dui.table({
+			{"",     "pos X",               "pos Y",             "radius",            "blur"}
+			{"mask", ""+m_opticPPMask[0], ""+m_opticPPMask[1], ""+m_opticPPMask[2], ""+m_opticPPMask[3]}
+			{"",     "magnification",       "pos X",             "pos Y",             "chrom aber"}
+			{"lens", ""+m_opticPPLens[0], ""+m_opticPPLens[1], ""+m_opticPPLens[2], ""+m_opticPPLens[3]}
+		}, {512, 128});
+		dui.end();
+		*/
+		
+		// @todo yikes... are there no alternatives?
 		int sX, sY;
 		GetScreenSize(sX, sY);
 		
@@ -65,12 +78,12 @@ modded class DayZPlayerCameraOptics{
 	*	 @param offsetY \p float - arbitrary Y offset
 	*	 @return TFloatArray - computed mask array
 	*/
-	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY){
+	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY) {
 		return {
 			mask[0] + offsetX,                         //X position
 			mask[1] + offsetY,                         //Y position
 			mask[2] / 9.8696 / Camera.GetCurrentFOV(), //radius ( current radius / pi^2 / fov )
-			mask[3]                                   //blur
+			mask[3]                                    //blur
 		};
 	}
 	
@@ -97,12 +110,12 @@ modded class DayZPlayerCameraOptics{
 	*	 @param decay \p float - 
 	*	 @param amplitude \p float - 
 	*/
-	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude){
+	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude) {
 		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 	
 	
-	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult){
+	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult) {
 		pOutResult.m_iDirectBone 			= m_iBoneIndex;
 		pOutResult.m_iDirectBoneMode 		= 3;
 		
@@ -125,7 +138,7 @@ modded class DayZPlayerCameraOptics{
 	}
 			
 
-	override void computeFOVFocusValues(out float targetFOV, out float speed){
+	override void computeFOVFocusValues(out float targetFOV, out float speed) {
 		speed = 0.2;
 		targetFOV = GetDayZGame().GetUserFOV();
 		
@@ -165,10 +178,10 @@ modded class DayZPlayerCameraOptics{
 		// Magnifying optic
 		targetFOV = m_opticsUsed.GetCurrentStepFOV() * GunplayConstants.ADS_FOV_REDUCTION;
 			
-		if (m_isEntering){
+		if (m_isEntering) {
 			m_fFovAbsolute = targetFOV; // immediately set the fov
 			m_isEntering = false;
-		}else if (canZoom()){
+		} else if (canZoom()) {
 			targetFOV = m_opticsUsed.GetCurrentStepFOV();
 			speed = getFocusSpeedStance();
 		}
@@ -176,16 +189,16 @@ modded class DayZPlayerCameraOptics{
 	}
 	
 	
-	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom){	
-		if (needPPEReset(state, launchedFrom)){
+	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {	
+		if (needPPEReset(state, launchedFrom)) {
 			resetPPE();
 			return;
 		}
 			
-		if (!isMagnifyingOptic() && !NVGoggles.Cast(m_opticsUsed)){ // 1x scopes only
+		if (!isMagnifyingOptic() && !NVGoggles.Cast(m_opticsUsed)) { // 1x scopes only
 			setNonMagnifyingOpticDOF();
 			updateNightVision(true);
-		}else {//magnifying scopes
+		} else {//magnifying scopes
 			
 			//lens is updated everyframe
 			//blur is disabled
@@ -196,44 +209,44 @@ modded class DayZPlayerCameraOptics{
 		
 	}
 	
-	override bool needPPEReset(bool state, DayZPlayerCamera launchedFrom){
+	override bool needPPEReset(bool state, DayZPlayerCamera launchedFrom) {
 		return !state || !m_opticsUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
 	
 	
-	protected bool canShowLens(){
+	protected bool canShowLens() {
 		return m_canShowLens;
 	}
 	
-	protected void setShowLens(bool showable){
+	protected void setShowLens(bool showable) {
 		m_canShowLens = showable;
 	}
 	
-	override bool canApplyDeadzone(){
+	override bool canApplyDeadzone() {
 		return super.canApplyDeadzone() && !isSniperOptic();
 	}
 	
-	override bool canApplyHandsOffset(){
+	override bool canApplyHandsOffset() {
 		return super.canApplyHandsOffset() && !isSniperOptic();
 	}
 	
-	override bool canZoom(){
+	override bool canZoom() {
 		return playerIsFocusing() && !m_player.isInspectingWeapon();
 	}
 	
-	override bool canFreelook(){
+	override bool canFreelook() {
 		return super.canFreelook() && !isMagnifyingOptic();
 	}
 	
-	override bool canInspectWeapon(){
+	override bool canInspectWeapon() {
 		return super.canInspectWeapon() && !isMagnifyingOptic();
 	}
 	
-	override bool isMagnifyingOptic(){
+	override bool isMagnifyingOptic() {
 		return !m_opticsUsed.AllowsDOF();
 	}
 	
-	override bool isSniperOptic(){
+	override bool isSniperOptic() {
 		return m_opticsUsed.GetStepFOVCount() > 0;
 	}
 		

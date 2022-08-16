@@ -1,6 +1,6 @@
 //////////////////////////////////////////
 // IRONSIGHT
-modded class DayZPlayerCameraIronsights{
+modded class DayZPlayerCameraIronsights {
 	
 	protected PlayerBase m_player;
 	protected DayZPlayerImplementAiming m_aimingModel;
@@ -35,7 +35,7 @@ modded class DayZPlayerCameraIronsights{
 	protected ref DOFPresetWeaponInspect m_inspectDOFPreset = new DOFPresetWeaponInspect();
 	
 	
-	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput){
+	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput) {
 		m_player = PlayerBase.Cast(pPlayer);
 		m_aimingModel = m_player.GetAimingModel();
 		
@@ -142,7 +142,7 @@ modded class DayZPlayerCameraIronsights{
 		////////////////////////
 		// Weapon cam point
 		vector weaponCameraPointTM[4];
-		if(GetCurrentSightEntity()){
+		if (GetCurrentSightEntity()) {
 			m_pPlayer.GetItemAccessor().WeaponGetCameraPointBoneRelative(GetCurrentSightEntity(), m_OpticsCamPos, m_OpticsCamDir, m_iBoneIndex, weaponCameraPointTM);
 			//m_pPlayer.GetItemAccessor().WeaponGetCameraPointMSTransform(GetCurrentSightEntity(), m_OpticsCamPos, dummyDir, positionTM);
 		}
@@ -411,7 +411,7 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Toggle the weapon barrel visibility
 	*	 @param hidden \p bool - visibility of the weapon barrel
 	*/
-	protected void hideWeaponBarrel(bool hidden){
+	protected void hideWeaponBarrel(bool hidden) {
 		if (m_weaponUsed) {
 			m_weaponUsed.HideWeaponBarrel(hidden);
 		}
@@ -421,7 +421,7 @@ modded class DayZPlayerCameraIronsights{
 	*	@brief Get the current sight (weapon, optic or backup ironsigh) Depth of Field
 	*	 @return dof \p DoFPreset - Result Depth of field, null if not enabled or can't load it from cfg
 	*/
-	protected DoFPreset getCurrentSightDOF(){
+	protected DoFPreset getCurrentSightDOF() {
 		DoFPreset dof = new DoFPreset();
 		temp_array = {};
 		if (m_opticsUsed && m_opticsUsed.GetOpticsDOF().Count() == 6) {

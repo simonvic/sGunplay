@@ -1,26 +1,26 @@
 class SUserConfigGunplay : SUserConfigBase {
 
-	override string getPath(){
+	override string getPath() {
 		return "$saves:\\sUDE\\config\\sGunplay.json";
 	}
 	
-	override string getDefaultPath(){
+	override string getDefaultPath() {
 		return "$profile:\\sUDE\\config\\sGunplay_default.json";
 	}
 	
-	override void deserialize(string data, out string error){
+	override void deserialize(string data, out string error) {
 		auto cfg = this;
 		getSerializer().ReadFromString(cfg, data, error);
 	}
 
-	override string serialize(){
+	override string serialize() {
 		string result;
 		auto cfg = this;
 		getSerializer().WriteToString(cfg, true, result);
 		return result;
 	}
 	
-	override string serializeDefault(){
+	override string serializeDefault() {
 		string result;
 		auto cfg = new SUserConfigGunplay();
 		getSerializer().WriteToString(cfg, true, result);
@@ -84,85 +84,85 @@ class SUserConfigGunplay : SUserConfigBase {
 	
 	
 	
-	bool isAdsDOFEnabled(){
+	bool isAdsDOFEnabled() {
 		return getAdsDOFIntensity() > 0;
 	}
 	
-	float getAdsDOFIntensity(){
+	float getAdsDOFIntensity() {
 		return adsDOFIntensity;
 	}
 	
-	void setAdsDOFIntensity(float intensity){
+	void setAdsDOFIntensity(float intensity) {
 		adsDOFIntensity = intensity;
 	}
 	
-	bool isHideWeaponBarrelInOpticEnabled(){
+	bool isHideWeaponBarrelInOpticEnabled() {
 		return hideWeaponBarrelInOptic;
 	}
 	
-	void hideWeaponBarrelInOptic(bool enabled){
+	void hideWeaponBarrelInOptic(bool enabled) {
 		hideWeaponBarrelInOptic = enabled;
 	}
 	
-	bool isHideClothingInOpticEnabled(){
+	bool isHideClothingInOpticEnabled() {
 		return hideClothingInOptic;
 	}
 	
-	void hideClothingInOptic(bool enabled){
+	void hideClothingInOptic(bool enabled) {
 		hideClothingInOptic = enabled;
 	}
 	
-	float getLensZoomStrength(){
+	float getLensZoomStrength() {
 		return lensZoomStrength;
 	}
 	
-	void setLensZoomStrength(float strength){
+	void setLensZoomStrength(float strength) {
 		lensZoomStrength = Math.Clamp(strength, 0, 1);
 	}
 	
-	array<float> getDeadzoneLimits(){
+	array<float> getDeadzoneLimits() {
 		return deadzoneLimits;
 	}
 	
-	void getDeadzoneLimits(out float limits[4]){
+	void getDeadzoneLimits(out float limits[4]) {
 		limits[0] = deadzoneLimits[0];
 		limits[1] = deadzoneLimits[1];
 		limits[2] = deadzoneLimits[2];
 		limits[3] = deadzoneLimits[3];
 	}
 	
-	void setDeadzoneLimits(float limits[4]){
+	void setDeadzoneLimits(float limits[4]) {
 		deadzoneLimits[0] = limits[0];
 		deadzoneLimits[1] = limits[1];
 		deadzoneLimits[2] = limits[2];
 		deadzoneLimits[3] = limits[3];
 	}
 	
-	void setDeadzoneLimits(array<float> limits){
+	void setDeadzoneLimits(array<float> limits) {
 		deadzoneLimits[0] = limits[0];
 		deadzoneLimits[1] = limits[1];
 		deadzoneLimits[2] = limits[2];
 		deadzoneLimits[3] = limits[3];
 	}
 	
-	void setDeadzoneLimit(int i, float limit){
-		if(i < 0 || i > 3) return;
+	void setDeadzoneLimit(int i, float limit) {
+		if (i < 0 || i > 3) return;
 		deadzoneLimits[i] = limit;
 	}
 	
-	bool isResetDeadzoneOnFocusEnabled(){
+	bool isResetDeadzoneOnFocusEnabled() {
 		return resetDeadzoneOnFocus;
 	}
 	
-	void resetDeadzoneOnFocus(bool enabled){
+	void resetDeadzoneOnFocus(bool enabled) {
 		resetDeadzoneOnFocus = enabled;
 	}
 	
-	bool isDynamicCrosshairEnabled(){
+	bool isDynamicCrosshairEnabled() {
 		return showDynamicCrosshair;
 	}
 	
-	void setDynamicCrosshairEnabled(bool enabled){
+	void setDynamicCrosshairEnabled(bool enabled) {
 		showDynamicCrosshair = enabled;
 	}
 	

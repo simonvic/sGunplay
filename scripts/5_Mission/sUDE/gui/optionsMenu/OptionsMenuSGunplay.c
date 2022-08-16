@@ -1,10 +1,10 @@
-class OptionsMenuSGunplay : SOptionsMenuBase{
+class OptionsMenuSGunplay : SOptionsMenuBase {
 	
-	override string getName(){
+	override string getName() {
 		return "sGunplay";
 	}
 	
-	override string getLayout(){
+	override string getLayout() {
 		return "MyMODS/sGunplay/GUI/layouts/optionsMenu/sGunplay_tab.layout";	
 	}
 	
@@ -29,12 +29,12 @@ class OptionsMenuSGunplay : SOptionsMenuBase{
 	protected static const ref TIntArray INDICES_UP_DOWN = {0, 2};
 	protected static const ref TIntArray INDICES_LEFT_RIGHT = {1, 3};
 	
-	override void onInit(){
+	override void onInit() {
 		super.onInit();
 		setUserConfig(SUserConfig.gunplay());
 	}
 	
-	override void onBuild(){
+	override void onBuild() {
 		super.onBuild();
 		
 		initOptionWidget(m_adsDOFIntensitySlider,   "adsDOFIntensity",         getUserConfig().getOptionFloat("adsDOFIntensity"));

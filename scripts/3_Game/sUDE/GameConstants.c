@@ -1,4 +1,4 @@
-modded class GameConstants{
+modded class GameConstants {
 
 	const float	STAMINA_DRAIN_HOLD_BREATH_START = 0.075; //in units (how much holding breath depletes stamina at the start)
 	const float	STAMINA_DRAIN_HOLD_BREATH_END = 0.15; //in units (how much holding breath depletes stamina at the end)

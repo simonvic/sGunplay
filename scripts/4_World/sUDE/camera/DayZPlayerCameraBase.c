@@ -13,7 +13,7 @@ modded class DayZPlayerCameraBase {
 		SPPEManager.resetOpticLens();
 	}
 	
-	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult){
+	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
 		super.OnActivate(pPrevCamera, pPrevCameraResult);
 		if (pPrevCamera && pPrevCamera.Type() == DayZPlayerCameraOptics) {
 			SCameraOverlaysManager.getInstance().deactivate(m_opticMisalignmentOverlay);

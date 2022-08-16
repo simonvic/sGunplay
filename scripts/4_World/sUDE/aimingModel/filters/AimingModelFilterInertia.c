@@ -141,11 +141,11 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*	 @return float - inertia multiplier
 	*/
 	protected float getInertiaMultiplierStance() {
-		if(getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)){
+		if (getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)) {
 			return GunplayConstants.INERTIA_MULTIPLIER_ERECT;
-		} else if(getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)){
+		} else if (getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)) {
 			return GunplayConstants.INERTIA_MULTIPLIER_CROUCHED;
-		} else if(getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)){
+		} else if (getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)) {
 			return GunplayConstants.INERTIA_MULTIPLIER_PRONE;
 		} 
 		
@@ -157,7 +157,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*	 @return float - inertia multiplier
 	*/
 	protected float getInertiaMultiplierMovement() {
-		switch(getPlayer().m_MovementState.m_iMovement){ 
+		switch (getPlayer().m_MovementState.m_iMovement) { 
 			case 0:	return GunplayConstants.INERTIA_MULTIPLIER_STANDING;
 			case 1: return GunplayConstants.INERTIA_MULTIPLIER_WALKING;
 			case 2:	return GunplayConstants.INERTIA_MULTIPLIER_JOGGING;
@@ -203,7 +203,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*	@brief Get the hipfire inertia multiplier
 	*	 @return float - inertia multiplier
 	*/
-	protected float getInertiaMultiplierHipfire(){
+	protected float getInertiaMultiplierHipfire() {
 		if (!getPlayer().IsInOptics() && !getPlayer().IsInIronsights()) {
 			return GunplayConstants.INERTIA_MULTIPLIER_HIPFIRE;
 		}

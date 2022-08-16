@@ -1,4 +1,4 @@
-modded class SUserConfigConstraints{
+modded class SUserConfigConstraints {
 	
 	static SUserConfigConstraints_Gunplay gunplay(bool reload = false) {
 		getInstance().load(SUserConfigConstraints_Gunplay, reload);

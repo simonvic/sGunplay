@@ -1,5 +1,5 @@
 modded class OptionsMenuSUDE {
-	override void initMenus(){
+	override void initMenus() {
 		super.initMenus();
 		addMenu(new OptionsMenuSGunplay());
 	}	

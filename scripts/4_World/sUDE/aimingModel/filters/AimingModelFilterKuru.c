@@ -1,12 +1,12 @@
 class AimingModelFilterKuru : AimingModelFilterBase {
 	
-	override bool isActive(){
+	override bool isActive() {
 		return getAimingModel().getKuruShake() != null;
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		KuruShake kuru = getAimingModel().getKuruShake();
-		if(!kuru) return;
+		if (!kuru) return;
 		float kuruOffsetX;
 		float kuruOffsetY;
 		kuru.Update(pDt, kuruOffsetX, kuruOffsetY);

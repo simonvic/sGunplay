@@ -1,4 +1,4 @@
-class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
+class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 	
 	protected Weapon_Base m_prevWeapon;
 	protected int m_prevFireMode;
@@ -17,11 +17,11 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 	protected bool reverse;
 	protected bool done = true;
 	
-	override bool isActive(){
+	override bool isActive() {
 		return GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION;
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		m_fireModeChanged = false;
 		m_zeroingChanged = false;
 		m_zoomChanged = false;
@@ -30,11 +30,11 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 		
 		updateState();
 		
-		if(!m_weaponChanged && (m_fireModeChanged || m_zeroingChanged || m_zoomChanged)){
+		if (!m_weaponChanged && (m_fireModeChanged || m_zeroingChanged || m_zoomChanged)) {
 			offset = GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_OFFSETS;
 			offset = {-40, 100};
 			done = false;
-			if(GetGame().IsClient() || !GetGame().IsMultiplayer()){
+			if (GetGame().IsClient() || !GetGame().IsMultiplayer()) {
 				playSounds(getSoundSet());
 			}
 		}
@@ -67,31 +67,31 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 	/**
 	*	@brief Check if a state has changed. Can't use HumanInputController
 	*/
-	protected void updateState(){
+	protected void updateState() {
 		Weapon_Base weapon = getWeapon();
 		
-		if(weapon != m_prevWeapon){
+		if (weapon != m_prevWeapon) {
 			m_weaponChanged = true;
 			m_prevWeapon = weapon;
 		}
 		
 		//@fixme shooting in double shot firemode triggers a firemodechange
 		int fireMode = weapon.GetCurrentMode(weapon.GetCurrentMuzzle());
-		if(fireMode != m_prevFireMode){
+		if (fireMode != m_prevFireMode) {
 			m_prevFireMode = fireMode;
 			m_fireModeChanged = true;
 		}
 		
 		int stepZeroing = weapon.GetStepZeroing();
-		if(stepZeroing != m_prevStepZeroing){
+		if (stepZeroing != m_prevStepZeroing) {
 			m_prevStepZeroing = stepZeroing;
 			m_zeroingChanged = true;
 		}
 		
 		ItemOptics optic = weapon.GetAttachedOptics();
-		if(optic){
+		if (optic) {
 			int stepZoom = optic.GetStepFOVIndex();
-			if(stepZoom != m_prevStepZoom){
+			if (stepZoom != m_prevStepZoom) {
 				m_prevStepZoom = stepZoom;
 				m_zoomChanged = true;
 			}
@@ -102,8 +102,8 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 	*	@brief Play sounds only on client
 	*	 @param soundSet \p string - classname of soundset (from DZ/sounds/hpp/config.cpp) to be played
 	*/
-	protected void playSounds(string soundSet){
-		if(soundSet != string.Empty){
+	protected void playSounds(string soundSet) {
+		if (soundSet != string.Empty) {
 			SEffectManager.PlaySoundOnObject( soundSet , getWeapon()).SetSoundAutodestroy( true );
 		}
 	}
@@ -112,10 +112,10 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase{
 	*	@brief Get soundset to play based on performed interaction
 	*	 @return string - soundset classname
 	*/
-	protected string getSoundSet(){
-		if (m_zeroingChanged){
+	protected string getSoundSet() {
+		if (m_zeroingChanged) {
 			return GunplayConstants.SOUND_CHANGE_ZEROING;
-		} else if (m_zoomChanged){
+		} else if (m_zoomChanged) {
 			return GunplayConstants.SOUND_CHANGE_ZOOM;
 		}
 		return string.Empty;
