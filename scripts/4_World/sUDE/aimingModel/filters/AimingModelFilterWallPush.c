@@ -1,5 +1,9 @@
 class AimingModelFilterWallPush : AimingModelFilterBase {
 	
+	override bool isActive(){
+		return GetGame().IsClient();
+	}
+	
 	protected ref SRaycast m_ray; //@todo use RaycastBullet
 	protected float m_vel[1];
 	protected float m_currentOffset;
@@ -16,7 +20,7 @@ class AimingModelFilterWallPush : AimingModelFilterBase {
 		float distance = vector.Distance(muzzle, m_ray.getContactPosition());
 		
 		float targetOffset;
-		if(distance < 0.5){
+		if (distance < 0.5) {
 			targetOffset = (0.05 - SMath.mapTo(distance, 0, 0.5, 0, 0.05)) / Math.Max(getWeapon().getWeaponLength(), 0.01);
 		}
 		
