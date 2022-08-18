@@ -47,7 +47,7 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 		initOptionWidget(m_deadzoneLeftRightSlider, "deadzoneX",               getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_LEFT_RIGHT);
 		initOptionWidget(m_resetDeadzoneOnFocus,    "resetDeadzoneOnFocus",    getUserConfig().getOptionBool("resetDeadzoneOnFocus"));
 		initOptionWidget(m_dynamicCrosshair,        "dynCrosshair",            getUserConfig().getOptionBool("showDynamicCrosshair"));
-		initOptionWidget(m_dynamicCrosshairType,    "dynCrosshairStyle",       getUserConfig().getOptionInt("dynamicCrosshairType"));
+		initOptionWidget(m_dynamicCrosshairType,    "dynCrosshairStyle",       getUserConfig().getOptionInt("dynamicCrosshairType"), SCrosshair.getStyleNames());
 		initOptionWidget(m_dynamicCrosshairRed,     "dynCrosshairRed",         getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 0);
 		initOptionWidget(m_dynamicCrosshairGreen,   "dynCrosshairGreen",       getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 1);
 		initOptionWidget(m_dynamicCrosshairBlue,    "dynCrosshairBlue",        getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 2);

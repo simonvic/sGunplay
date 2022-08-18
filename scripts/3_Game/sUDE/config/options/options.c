@@ -169,7 +169,7 @@ class SUCOption_DynamicCrosshairRGBA : SUserConfigOptionArray<float> {
 	}
 	
 	override void onValueChange(array<float> previousValue, array<float> newValue) {
-		SUserConfig.gunplay().setDynamicCrosshairRGBA(SColor.rgba(newValue[0], newValue[1], newValue[2], newValue[3]));
+		SUserConfig.gunplay().setDynamicCrosshairColor(SColor.rgba(newValue[0], newValue[1], newValue[2], newValue[3]));
 	}
 	
 }

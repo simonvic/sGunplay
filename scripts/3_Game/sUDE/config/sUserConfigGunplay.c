@@ -179,33 +179,15 @@ class SUserConfigGunplay : SUserConfigBase {
 		return dynamicCrosshairType;
 	}
 	
-	string getDynamicCrosshairImage() {
-		switch (dynamicCrosshairType) {
-			case 0: return "set:sCrosshairs image:curve";
-			case 1: return "set:sCrosshairs image:curve";
-			case 2: return "set:sCrosshairs image:chevron";
-			case 3: return "set:sCrosshairs image:cross";
-			case 4: return "set:sCrosshairs image:tcross";
-			case 5: return "set:sCrosshairs image:angles";
-			case 6: return "set:sCrosshairs image:dot";
-			case 7: return "set:sCrosshairs image:double_curve";
-		}
-		return string.Empty;
-	}
-	
 	void setDynamicCrosshairType(int type) {
 		dynamicCrosshairType = type;
-	}
-	
-	array<float> getDynamicCrosshairRGBA() {
-		return dynamicCrosshairRGBA;
 	}
 	
 	SColor getDynamicCrosshairColor() {
 		return SColor.rgba(dynamicCrosshairRGBA[0], dynamicCrosshairRGBA[1], dynamicCrosshairRGBA[2], dynamicCrosshairRGBA[3]);
 	}
 	
-	void setDynamicCrosshairRGBA(SColor color) {
+	void setDynamicCrosshairColor(SColor color) {
 		dynamicCrosshairRGBA[0] = color.getRed();
 		dynamicCrosshairRGBA[1] = color.getGreen();
 		dynamicCrosshairRGBA[2] = color.getBlue();
