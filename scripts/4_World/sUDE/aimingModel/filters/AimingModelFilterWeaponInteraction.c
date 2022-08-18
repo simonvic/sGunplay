@@ -58,8 +58,11 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 		
 		pModel.m_fAimXHandsOffset += Easing.EaseInSine(m_time) * 2;
 		pModel.m_fAimYHandsOffset -= Easing.EaseOutSine(m_time) * 2;
-		pModel.m_fAimXCamOffset -= Easing.EaseInOutSine(m_time) * 3;
-		pModel.m_fCamPosOffsetZ += Easing.EaseInOutSine(m_time) * 0.025;
+		
+		if (GetGame().IsClient()) {
+			pModel.m_fAimXCamOffset -= Easing.EaseInOutSine(m_time) * 3;
+			pModel.m_fCamPosOffsetZ += Easing.EaseInOutSine(m_time) * 0.025;
+		}
 
 
 	}

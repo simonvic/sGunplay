@@ -55,16 +55,18 @@ class AimingModelFilterMovement : AimingModelFilterBase {
 			m_velHandsY,
 			GunplayConstants.AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME, 1000, pDt);
 		
-		pModel.m_fAimXCamOffset = Math.SmoothCD(
-			pModel.m_fAimXCamOffset,
-			pModel.m_fAimXCamOffset + aimChangeX,
-			m_velMisalignX,
-			0.3, 1000, pDt);
-		
-		pModel.m_fAimYCamOffset = Math.SmoothCD(
-			pModel.m_fAimYCamOffset,
-			pModel.m_fAimYCamOffset + aimChangeY,
-			m_velMisalignY,
-			0.3, 1000, pDt);
+		if (GetGame().IsClient()) {
+			pModel.m_fAimXCamOffset = Math.SmoothCD(
+				pModel.m_fAimXCamOffset,
+				pModel.m_fAimXCamOffset + aimChangeX,
+				m_velMisalignX,
+				0.3, 1000, pDt);
+			
+			pModel.m_fAimYCamOffset = Math.SmoothCD(
+				pModel.m_fAimYCamOffset,
+				pModel.m_fAimYCamOffset + aimChangeY,
+				m_velMisalignY,
+				0.3, 1000, pDt);
+		}
 	}
 }

@@ -34,7 +34,7 @@ class AimingModelFilterBreathing : AimingModelFilterBase {
 		if (getPlayer().IsHoldingBreath()) {
 			playerStamina *= GunplayConstants.SWAY_DECREASE_FOCUSING;
 		}
-		return (Math.Pow(GunplayConstants.SWAY_DECAY_POWER, 1 - playerStamina)) + GunplayConstants.SWAY_MINIMUM * getSwayModifier()[2];
+		return Math.Pow(GunplayConstants.SWAY_DECAY_POWER, 1 - playerStamina) + GunplayConstants.SWAY_MINIMUM * getSwayModifier()[2];
 	}
 	
 	protected float getPlayerStamina() {

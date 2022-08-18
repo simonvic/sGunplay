@@ -2,11 +2,11 @@ class AimingModelFilterShake : AimingModelFilterBase {
 	
 	protected int m_shakeCount;
 	
-	override bool isActive(){
+	override bool isActive() {
 		return GetGame().IsClient() && getPlayer().GetShakeLevel() != 0;
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex){
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		m_shakeCount++;
 		//greater than threshold
 		if (m_shakeCount > Math.Round(getPlayer().GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 2, 4))) {
