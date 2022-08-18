@@ -33,6 +33,7 @@ modded class DayZPlayerCameraIronsights {
 	protected float m_offsetYResetVel[1];	
 	
 	protected ref DOFPresetWeaponInspect m_inspectDOFPreset = new DOFPresetWeaponInspect();
+	protected static ref SCOFocusing m_scoFocusing = new SCOFocusing();
 	
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput) {
@@ -42,6 +43,11 @@ modded class DayZPlayerCameraIronsights {
 		//just to be sure, other mods may need this :shrug:
 		m_dynamicsSmoothTime = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS;
 		m_dynamicsStrength = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH;
+		
+		if (!SCameraOverlaysManager.getInstance().isActive(m_scoFocusing)) {
+			SCameraOverlaysManager.getInstance().activate(m_scoFocusing);
+		}
+		
 	}
 		
 		
@@ -55,11 +61,12 @@ modded class DayZPlayerCameraIronsights {
 
 		AdjustCameraParameters(pDt, pOutResult);
 		updateFOVFocus(pDt, pOutResult);
+		updateFocusingOverlay(pDt, pOutResult);
 		UpdateBatteryOptics(GetCurrentSightEntity());
 		UpdateCameraNV(m_player);
 	}
 	
- 
+
 	/**
 	*	@brief Update the Depth of Field
 	*/
@@ -277,12 +284,34 @@ modded class DayZPlayerCameraIronsights {
 	
 	
 	/**
-	*	@brief Update the FoV 
+	*	@brief Update the FoV
+	*	@param delta time
+	*	@param camera result
 	*/	
 	protected void updateFOVFocus(float pDt, out DayZPlayerCameraResult pOutResult) {
 		computeFOVFocusValues(m_focusTargetFOV, m_focusSpeed);
 		m_fFovAbsolute = Math.SmoothCD(m_fFovAbsolute, m_focusTargetFOV, m_focusVel, m_focusSpeed, 1000, pDt);
 	}
+	
+	
+	/**
+	*	@brief Update the focus camera overlay
+	*	@param delta time
+	*	@param camera result
+	*/
+	protected void updateFocusingOverlay(float pDt, DayZPlayerCameraResult pOutResult) {
+		m_scoFocusing.setRestingFOV(getRestingFOV());
+		m_scoFocusing.setFocusingFOV(m_focusTargetFOV);
+	}
+	
+	/**
+	*	@brief Get FoV value at resting state
+	*	@return fov
+	*/
+	protected float getRestingFOV() {
+		return Math.Max(GetDayZGame().GetUserFOV() * userCfgGunplay.getAdsFOVMultiplier(), GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
+	}
+	
 	
 	/**
 	*	@brief Compute the targeted FOV and focusing speed
@@ -294,7 +323,7 @@ modded class DayZPlayerCameraIronsights {
 			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
 			speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_IRONSIGHT_MULTIPLIER;
 		} else {
-			targetFOV = GetDayZGame().GetUserFOV();
+			targetFOV = getRestingFOV();
 			speed = GunplayConstants.FOCUS_RESET_SPEED;
 		}
 		

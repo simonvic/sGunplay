@@ -12,6 +12,7 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 		return "c_description_box_root";
 	}
 		
+	protected ref SliderWidget    m_adsFOVMultiplier;	
 	protected ref SliderWidget    m_adsDOFIntensitySlider;	
 	protected ref CheckBoxWidget  m_hideBarrel;
 	protected ref CheckBoxWidget  m_hideClothing;	
@@ -37,6 +38,7 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 	override void onBuild() {
 		super.onBuild();
 		
+		initOptionWidget(m_adsFOVMultiplier,        "adsFOVMultiplier",        getUserConfig().getOptionFloat("adsFOVMultiplier"));
 		initOptionWidget(m_adsDOFIntensitySlider,   "adsDOFIntensity",         getUserConfig().getOptionFloat("adsDOFIntensity"));
 		initOptionWidget(m_hideBarrel,              "hideWeaponBarrelInOptic", getUserConfig().getOptionBool("hideWeaponBarrelInOptic"));
 		initOptionWidget(m_hideClothing,            "hideClothingInOptic",     getUserConfig().getOptionBool("hideClothingInOptic"));

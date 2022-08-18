@@ -1,4 +1,20 @@
 /**
+*	@brief Option for ADS field of view multiplier
+*/
+class SUCOption_ADSFOVMultiplier : SUserConfigOption<float> {
+		
+	void SUCOption_ADSFOVMultiplier(float value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_MULTIPLIER", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_MULTIPLIER_DESCRIPTION")
+		}
+	}
+	
+	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.gunplay().setAdsFOVMultiplier(newValue);
+	}
+}
+
+/**
 *	@brief Option for Depth of Field effect while AimingDownSight
 */
 class SUCOption_ADSDOFIntensity : SUserConfigOption<float> {

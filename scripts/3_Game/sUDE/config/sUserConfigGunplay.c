@@ -29,11 +29,11 @@ class SUserConfigGunplay : SUserConfigBase {
 		
 	///////////////////////////////////////
 	// these go in json
+	protected float adsFOVMultiplier = 1.0;
 	protected float adsDOFIntensity = 0.0;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected bool hideClothingInOptic = true;
 	protected float lensZoomStrength = 0.75;
-	//protected float deadzoneLimits[4] = { 0.0, 0.0, 0.0, 0.0 };
 	protected ref array<float> deadzoneLimits = { 0.0, 0.0, 0.0, 0.0 };
 	protected bool resetDeadzoneOnFocus = true;
 	protected bool showDynamicCrosshair = true;
@@ -43,6 +43,7 @@ class SUserConfigGunplay : SUserConfigBase {
 	
 	override void registerOptions() {
 		super.registerOptions();
+		registerOption("adsFOVMultiplier",        new SUCOption_ADSFOVMultiplier(adsFOVMultiplier));
 		registerOption("adsDOFIntensity",         new SUCOption_ADSDOFIntensity(adsDOFIntensity));
 		registerOption("hideWeaponBarrelInOptic", new SUCOption_HideWeaponBarrelInOptic(hideWeaponBarrelInOptic));
 		registerOption("hideClothingInOptic",     new SUCOption_HideClothingInOptic(hideClothingInOptic));
@@ -71,6 +72,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		SUserConfigConstraints_Gunplay c = SUserConfigConstraints_Gunplay.Cast(constraints);
 		if (!c) return;
 		
+		getOption("adsFOVMultiplier").setConstraint(c.getADSFOVMultiplier());
 		getOption("adsDOFIntensity").setConstraint(c.getADSDOFIntensity());
 		getOption("hideWeaponBarrelInOptic").setConstraint(c.getHideWeaponBarrelInOptic());
 		getOption("hideClothingInOptic").setConstraint(c.getHideClothingInOptic());
@@ -83,6 +85,13 @@ class SUserConfigGunplay : SUserConfigBase {
 	}
 	
 	
+	float getAdsFOVMultiplier() {
+		return adsFOVMultiplier;
+	}
+	
+	void setAdsFOVMultiplier(float multiplier) {
+		adsFOVMultiplier = multiplier;
+	}
 	
 	bool isAdsDOFEnabled() {
 		return getAdsDOFIntensity() > 0;

@@ -19,6 +19,7 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	
 	///////////////////////////////////////
 	// these go in json
+	protected ref SConstraintPrimitiveMinMaxNumeric  adsFOVMultiplier        = new SConstraintPrimitiveMinMaxNumeric(0.5, 1);
 	protected ref SConstraintPrimitiveMinMaxNumeric  adsDOFIntensity         = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintSwitch                  hideWeaponBarrelInOptic = new SConstraintSwitch(false);
 	protected ref SConstraintSwitch                  hideClothingInOptic     = new SConstraintSwitch(true);
@@ -29,6 +30,10 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	protected ref SConstraintPrimitiveSimple<int>    dynamicCrosshairType    = new SConstraintPrimitiveSimple<int>(0);
 	protected ref SConstraintMinMaxArrayNumeric      dynamicCrosshairRGBA    = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {255,255,255,255});
 	///////////////////////////////////////
+	
+	SConstraintPrimitiveMinMaxNumeric getADSFOVMultiplier() {
+		return adsFOVMultiplier;
+	}
 	
 	SConstraintPrimitiveMinMaxNumeric getADSDOFIntensity() {
 		return adsDOFIntensity;
