@@ -127,7 +127,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           minimum 0.5
+           minimum 0.75
            maximum 1
            step 0.01
            current 0.69

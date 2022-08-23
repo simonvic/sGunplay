@@ -6,7 +6,7 @@ class SCOFocusing : SCameraOverlayAnimated {
 	protected float m_focus;
 	protected float m_vel[1];
 
-	protected static const float MAX_INTENSITY = 0.45;
+	protected static const float MAX_INTENSITY = 0.4;
 	
 	override void onInit() {
 		setImage("MyMODS/sFramework/GUI/textures/overlays/black_4x4.edds");

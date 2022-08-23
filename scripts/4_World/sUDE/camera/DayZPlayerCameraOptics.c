@@ -138,12 +138,17 @@ modded class DayZPlayerCameraOptics {
 	}
 			
 	override float getRestingFOV() {
+		
+		if (!m_opticsUsed || isHandHeldOptic() || !isMagnifyingOptic()) {
+			return super.getRestingFOV();
+		}
+		
 		return m_opticsUsed.GetCurrentStepFOV() * GunplayConstants.ADS_FOV_REDUCTION_OPTICS;
 	}
 
 	override void computeFOVFocusValues(out float targetFOV, out float speed) {
 		speed = 0.2;
-		targetFOV = GetDayZGame().GetUserFOV() * userCfgGunplay.getAdsFOVMultiplier();
+		targetFOV = getRestingFOV();
 		
 		// No optic
 		if (!m_opticsUsed) {
@@ -177,9 +182,6 @@ modded class DayZPlayerCameraOptics {
 			speed = 0.0001;
 			return;
 		}
-			
-		// Magnifying optic
-		targetFOV = getRestingFOV();
 			
 		if (m_isEntering) {
 			m_fFovAbsolute = targetFOV; // immediately set the fov
