@@ -318,6 +318,10 @@ class cfgVehicles{
 		s_hands[] = {0.25, 0.10};
 		s_misalignment[] = {0.50, 0.50};
 	};
+	class AK_PlasticHndgrd : Inventory_Base {
+		s_hands[] = {0.25, 0.10};
+		s_misalignment[] = {0.50, 0.50};
+	};
 	class AKS74U_Bttstck : Inventory_Base {
 		s_hands[] = {0.50, 0.50};
 		s_misalignment[] = {0.20, 0.20};

@@ -1,6 +1,6 @@
 modded class AUGRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-0.250, 0.550,  2.750,  3.985};	
+		handsRanges        = {-0.250, 0.550,  2.750,  3.985};
 		handsAccumSpeed    = 0.920;
 		handsResetSpeed    = 0.700;
 		

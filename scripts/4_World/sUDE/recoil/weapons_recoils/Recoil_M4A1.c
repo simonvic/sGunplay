@@ -1,6 +1,6 @@
 modded class M4a1Recoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-1.050, 2.250,  2.750 ,  3.985};	
+		handsRanges        = {-1.050, 2.250,  2.750,  3.985};	
 		handsAccumSpeed    = 0.950;
 		handsResetSpeed    = 0.400;
 		
