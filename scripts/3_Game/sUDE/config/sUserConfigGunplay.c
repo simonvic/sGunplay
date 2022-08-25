@@ -38,7 +38,7 @@ class SUserConfigGunplay : SUserConfigBase {
 	protected bool resetDeadzoneOnFocus = true;
 	protected bool showDynamicCrosshair = true;
 	protected int dynamicCrosshairType = 0;
-	protected ref array<float> dynamicCrosshairRGBA = {130, 255, 255, 255};
+	protected ref array<float> dynamicCrosshairRGBA = {255, 255, 255, 130};
 	///////////////////////////////////////
 	
 	override void registerOptions() {
