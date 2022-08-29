@@ -417,7 +417,7 @@ modded class DayZPlayerCameraIronsights {
 		
 		if (m_opticsUsed.IsWorking()) {
 			SetCameraNV(true);
-			SetNVPostprocess(NVTypes.NV_OPTICS_ON);
+			SetNVPostprocess(m_opticsUsed.GetCurrentNVType());
 		} else {
 			SetCameraNV(false);
 			SetNVPostprocess(NVTypes.NV_OPTICS_OFF);
@@ -430,7 +430,7 @@ modded class DayZPlayerCameraIronsights {
 	*/
 	protected void checkForNVGoggles() {
 		if (IsCameraNV()) {
-			SetNVPostprocess(NVTypes.NV_GOGGLES);
+			SetNVPostprocess(GetCameraNVType());
 		} else {
 			SetNVPostprocess(NVTypes.NONE);
 		}
