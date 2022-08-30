@@ -2,7 +2,7 @@ modded class RepeaterRecoil {
 	override void initRecoilParameters() {
 		handsRanges        = { -1.165, 3.285,  5.275,  6.050};	
 		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.550;
+		handsResetSpeed    = 0.750;
 
 		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.955;

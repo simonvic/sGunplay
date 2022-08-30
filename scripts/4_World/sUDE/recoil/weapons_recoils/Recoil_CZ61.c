@@ -2,7 +2,7 @@ modded class Cz61Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-0.750, 1.050,  1.350 ,  1.985};	
 		handsAccumSpeed    = 0.975;
-		handsResetSpeed    = 0.550;
+		handsResetSpeed    = 0.720;
 		
 		misalignIntensity  = {0.125, 0.125};
 		misalignAccumSpeed = 0.975;

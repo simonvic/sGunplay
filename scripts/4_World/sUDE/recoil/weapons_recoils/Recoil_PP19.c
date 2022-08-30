@@ -2,7 +2,7 @@ modded class PP19Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-0.060, 0.750,  1.450 ,  1.785};	
 		handsAccumSpeed    = 0.975;
-		handsResetSpeed    = 0.550;
+		handsResetSpeed    = 0.700;
 		
 		misalignIntensity  = {0.250, 0.750};
 		misalignAccumSpeed = 0.855;

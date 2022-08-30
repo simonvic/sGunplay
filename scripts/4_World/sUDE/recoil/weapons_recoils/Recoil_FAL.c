@@ -2,7 +2,7 @@ modded class FALRecoil {
 	override void initRecoilParameters() {
 		handsRanges        = { -1.165, 2.285,  7.565,  8.795};	
 		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.500;
+		handsResetSpeed    = 0.750;
 
 		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.925;

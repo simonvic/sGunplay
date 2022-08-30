@@ -2,7 +2,7 @@ modded class CZ527Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = { -1.165, 3.285,  6.265,  7.595};	
 		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.500;
+		handsResetSpeed    = 0.800;
 
 		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.955;

@@ -2,10 +2,10 @@ modded class M16A2Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-0.250, 0.550,  2.750,  3.985};	
 		handsAccumSpeed    = 0.920;
-		handsResetSpeed    = 0.700;
+		handsResetSpeed    = 0.800;
 		
 		misalignIntensity  = {0.250, 0.250};
-		misalignAccumSpeed = 0.975;
+		misalignAccumSpeed = 0.905;
 		misalignResetSpeed = 0.750;
 	
 		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};

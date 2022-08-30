@@ -2,7 +2,7 @@ modded class MagnumRecoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-1.750, 2.550,  7.250,  9.300};	
 		handsAccumSpeed    = 0.985;
-		handsResetSpeed    = 0.550;
+		handsResetSpeed    = 0.750;
 		
 		misalignIntensity  = {0.125, 0.125};
 		misalignAccumSpeed = 0.985;

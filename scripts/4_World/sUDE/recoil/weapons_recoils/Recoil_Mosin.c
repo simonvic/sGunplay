@@ -2,7 +2,7 @@ modded class MosinRecoil {
 	override void initRecoilParameters() {
 		handsRanges        = { -1.165, 3.285,  7.265,  8.295};	
 		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.500;
+		handsResetSpeed    = 0.700;
 
 		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.955;
