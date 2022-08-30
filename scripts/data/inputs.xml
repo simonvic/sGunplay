@@ -11,7 +11,7 @@
 			<input name="SUA_ADSWeaponInspect" />
 		</sorting>
 	</inputs>
-
+<!--
 	<preset>
 		
 		<input name="SUA_ADSWeaponInspect">
@@ -19,5 +19,5 @@
 		</input>
 		
 	</preset>
-
+-->
 </modded_inputs>
