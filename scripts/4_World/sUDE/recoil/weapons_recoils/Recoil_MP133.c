@@ -2,7 +2,7 @@ modded class Mp133Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = { -1.165, 3.285,  7.765,  9.295};	
 		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.500;
+		handsResetSpeed    = 0.600;
 
 		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.955;
