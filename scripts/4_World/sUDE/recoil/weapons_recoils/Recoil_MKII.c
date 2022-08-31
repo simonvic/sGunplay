@@ -8,7 +8,7 @@ modded class MkiiRecoil {
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.500;
 		
-		mouseRanges        = { -0.175, 0.500,  0.250,  0.500};
+		mouseRanges        = { -0.120, 0.120,  0.200,  0.350};
 		mouseTime          = 0.050;
 	
 		kick               = 0.040;

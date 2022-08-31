@@ -9,7 +9,7 @@ modded class LongHornRecoil {
 		misalignResetSpeed = 0.650;
 	
 		mouseRanges        = { 0.175, 0.250,  1.550,  2.275};
-		mouseTime          = 0.200;
+		mouseTime          = 0.100;
 	
 		kick               = 0.080;
 		kickResetTime      = 2.250;

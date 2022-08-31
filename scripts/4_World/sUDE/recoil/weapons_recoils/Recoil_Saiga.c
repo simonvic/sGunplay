@@ -8,8 +8,8 @@ modded class SiagaRecoil {
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.500;
 	
-		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
-		mouseTime          = 0.200;
+		mouseRanges        = { 0.175, 0.250,  1.750,  2.775};
+		mouseTime          = 0.075;
 	
 		kick               = 0.095;
 		kickResetTime      = 3.550;

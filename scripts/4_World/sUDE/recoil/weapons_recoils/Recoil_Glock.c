@@ -6,9 +6,9 @@ modded class GlockRecoil {
 		
 		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.975;
-		misalignResetSpeed = 0.500;
+		misalignResetSpeed = 0.650;
 		
-		mouseRanges        = { -0.575, 0.700,  0.550,  1.050};
+		mouseRanges        = { -0.150, 0.150,  0.250,  0.550};
 		mouseTime          = 0.050;
 	
 		kick               = 0.075;

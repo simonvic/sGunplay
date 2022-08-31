@@ -4,11 +4,11 @@ modded class Fnx45Recoil {
 		handsAccumSpeed    = 0.955;
 		handsResetSpeed    = 0.750;
 		
-		misalignIntensity  = {0.450, 0.450};
+		misalignIntensity  = {0.275, 0.275};
 		misalignAccumSpeed = 0.975;
 		misalignResetSpeed = 0.650;
 		
-		mouseRanges        = { -0.575, 0.700,  0.750,  1.100};
+		mouseRanges        = { -0.155, 0.155,  0.250,  0.550};
 		mouseTime          = 0.050;
 	
 		kick               = 0.075;

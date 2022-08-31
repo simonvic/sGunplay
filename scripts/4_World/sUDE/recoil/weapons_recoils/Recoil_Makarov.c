@@ -8,7 +8,7 @@ modded class MakarovRecoil {
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.650;
 		
-		mouseRanges        = { -0.575, 0.700,  0.550,  1.050};
+		mouseRanges        = { -0.125, 0.125,  0.250,  0.500};
 		mouseTime          = 0.050;
 	
 		kick               = 0.045;
