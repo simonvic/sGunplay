@@ -68,125 +68,146 @@ class CfgMods {
 	};
 };
 
-class Cfg_sUDE{
-	class sGunplay{
+class Cfg_sUDE {
+	class sGunplay {
 		enabled = 1;
-		class Gunplay {
-			class Focus {
-				speedReset = 0.2;
-				speedErect = 0.6;
-				speedCrouched = 0.4;
-				speedProne = 0.1;
-				speedMultiplierNoMagnification = 0.70;
-				speedMultiplierIronsight = 0.75;
-				releaseSpeed = 0.75;
-			};
-			class ADS {
-				lensActivationDelayMS = -250;
-				lensStrengthConstraints[] = {0, 4};
-				hideClothingDelayMS = -200;
-				fovReduction = 3;
-				weaponInspectConstraintsDegree[] = {
-					   10,
-					-35, 35,
-					   -5
-				};
-				resetSpeedInspection = 0.1;
-				freelookConstraintsDegree[] = {
-					   45,
-					-45, 45,
-					   -45
-				};
-				resetSpeedFreelook = 0.1;
-				timeToADS = 0.4;
-				timeFromADS = 0.3:
-				time3rd = -0.2;
-				timeBackupSight = 0.25;
-				movementMisalignmentStrength = 2;
-				movementMisalignmentFrequency = 1.15;
-				movementMisalignmentSmoothness = 0.3;
-			};
-			class AimingModel {
-				resetSpeedDeadzone = 0.3;
-				resetSpeedWeaponInertia = 0.3;
-				cameraFollowsBreathingSway = 0;
-				class Filters {
-					class FilterBase {
-						enabled = 1;
-					};
-					class WeaponInertia : FilterBase{
-						smoothness = 0.3;
-						multiplierBase = 2;
-						multiplierWeaponWeight = 3.5 * 0.0001;
-						multiplierWeaponLength = 2;
-						multiplierPlayerWeight = 0.45 * 0.0001;
-						multiplierHipfire = 1.0;
-						multiplierStanding = 1.0;
-						multiplierWalking = 1.1;
-						multiplierJogging = 1.75;
-						multiplierErect = 1;
-						multiplierCrouched = 0.5;
-						multiplierProne = 0.75;
-						minMultiplier = 1;
-						maxMultiplier = 50;
-						speedAcceleration[] = {0.5, 0.5};
-						speedReset[] = {0.2, 0.2}; 
-						speedAccelerationHipfire[] = {0.6, 0.6}; 
-						speedResetHipfire[] = {0.3, 0.3}; 
-						velocityLimit = 250;
-					};
-					class Movement : FilterBase{
-						multiplier = 2;
-						smoothTime = 0.4;
-						strength[] = {
-							2.5, 2.0,  //yaw strength, yaw frequency
-							3.5, 7.5   //pitch strength, pitch frequency
-						};
-					};
-					class Injury : FilterBase{
-						multiplier = 1;
-						strength[] = {
-							15, 2,
-							2, 0
-						};
-					};
-					class WeaponInteraction : FilterBase{
-						offsets[] = {-20, 10};
-						smoothTime = 0.45;
-					};
-					class HipfireDeadzone : FilterBase{
-						amountDegree[] = {
-							   25,
-							-25, 25,
-							  -25
-						};
-					};
-				};
-				recoilHandsOffsetContribution[] = {0, 0};
-			};
-			class Sway {
-				amplitude[] = {1.5, 2.8};
-				frequency[] = {0.2, 0.7};
-				multiplierErect = 1;
-				multiplierCrouched = 0.3;
-				multiplierProne = 0.1;
-				decreaseFocusing = 4;
-				decayPower = 8;
-				minimum = 0.2;
-			};
-			class Recoil {
-				handMultiplier = 1;
-				reloadTimeMultiplier = 1;
-				hipfireMultiplierH = 5;
-				hipfireMultiplierV = 2;
-				hipfireMultiplierReloadTime = 2;
-
-			};
-		};
+		/*
 		class DynamicCrosshair {
-			precision = 50;
-			smoothness = 0.05;
+			precisionMetres = 50;            // How precise the crosshair placement will be (metres)
+			smoothness = 0.05;               // How smooth the crosshair movement will be
 		};
+		class Sway {
+			amplitude[] = {1.5, 2.8};        //{X, Y} amplitude of sway with no modifiers
+			frequency[] = {0.2, 1.1};        //{X, Y} frequency of sway with no modifiers
+			multiplierErect = 1;             // Multiplier to be applied when the player is ERECT
+			multiplierCrouched = 0.3;        // Multiplier to be applied when the player is CROUCHED
+			multiplierProne = 0.1;           // Multiplier to be applied when the player is PRONE
+			decreaseFocusing = 4;            // Amount of sway to reduce while holding breath
+			decayPower = 8;                  // How much the percentage left of stamina will impact the sway (SWAY_DECAY_POWER ^ stamina_percentage)
+			minimum = 0.2;                   // This minimum will be added during the sway multiplication (even while holding breath)
+		};
+		class AimingModel {
+			resetSpeedInspection = 0.1:      // how fast the camera will reset from inspection angles to default.      0.1 = fast | 0.4 = slow
+			resetSpeedFreelook = 0.1;        // how fast the camera will reset from freelook angles to default.        0.1 = fast | 0.4 = slow
+			resetSpeedDeadzone = 0.3;        // how fast the camera will reset from deadzone angles to default.        0.1 = fast | 0.4 = slow
+			class Filters {
+				class AimingModelFilterBase {
+					enabled = 1;
+				};
+				class HipfireDeadzone : AimingModelFilterBase {
+					// amount of deadzone to use when hipfiring (in degrees: up, left, right, down)
+					amountDegree[] = {
+							25,
+						-25,   25,
+							-25
+					};
+				};
+				class WeaponInertia : AimingModelFilterBase {
+					velocityLimit = 250;                       // Velocity limit in inertia build up (degree per second ?)
+					speedAcceleration[] = {0.5, 0.5};          // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
+					speedReset[] = {0.2, 0.2};                 // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime value)
+					speedAccelerationHipfire[] = {0.6, 0.6};   // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
+					speedResetHipfire[] = {0.3, 0.3};          // Speed of deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
+					multiplierBase = 1;                        // Base multiplier of the amount of inertia to be applied
+					multiplierMinimum = 1;                     // Minimum value of inertia
+					multiplierMaximum = 50;                    // Maximum value of inertia
+
+					// Multiplier of the amount of inertia to be applied when the player is ...
+					multiplierStanding = 1.0;   // ... NOT MOVING
+					multiplierWalking = 1.1;    // ... WALKING
+					multiplierJogging = 1.75;   // ... JOGGING
+					multiplierErect = 1;        // ... ERECT
+					multiplierCrouched = 0.5;   // ... CROUCHED
+					multiplierProne = 0.75;     // ... PRONE
+					multiplierHipfire = 1.0;    // ... in HIPFIRE
+					multiplierWeaponLength = 2; // Multiplier of the amount of inertia to be applied based on weapon length
+				};
+				class Movement : AimingModelFilterBase {
+					multiplier = 2;    // Overall strength of the movement modifier
+					smoothTime = 0.4;  // Smooth time of the movement modifier
+					intensity[] = {
+						2.5, 2.0,   //yaw strength, yaw frequency
+						3.5, 7.5    //pitch strength, pitch frequency
+					};
+				};
+				class Injury : AimingModelFilterBase {
+					intensity[] = {
+						15.0, 2.0,  //yaw strength, yaw frequency
+						2.0, 0.0    //pitch strength, pitch frequency
+					};
+				};
+				class WeaponInteraction : AimingModelFilterBase {
+					class Sounds {
+						changeZeroing = "combinationlock_changenumber_SoundSet";  // sound to play when changing zeroing
+						changeZoom = "combinationlock_changedial_SoundSet";       // sound to play when changing zoom
+						//changeFiremode = "";
+					};
+				};
+			};
+		};
+		class ADS {
+			weaponInspectConstraintsDegree[] = {
+					10,
+				-35,   35,
+				    -5
+			};
+			freelookConstraintsDegree[] = {
+					45,
+				-45,   45,
+				   -45
+			};
+			timeToADS = 0.4;                        // Entering ADS
+			timeFromADS = 0.3:                      // Exiting ADS
+			time3rd = -0.2;                         // Summed to timeToADS
+			timeBackupSight = 0.25;                 // Opting to backup sight and viceversa
+			movementMisalignmentStrength = 2;       // how strong is misalignment caused by movement
+			movementMisalignmentFrequency = 1.15;   // how fast is misalignment caused by movement
+			movementMisalignmentSmoothness = 0.3;   // how smooth is misalignment caused by movement
+			lensActivationDelayMS = -250;           // Delay in milliseconds for the optic lens (PiP) activation
+			hideClothingDelayMS = -200;             // Delay in milliseconds to hide the clothing
+			lensStrengthConstraints[] = {0, 4};     // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
+			fovReductionOptics = 3;                 // FoV reduction when in optics
+		};
+		class Focus {
+			// Focus speed when player is ...
+			speedErect = 0.6;    // ... ERECT
+			speedCrouched = 0.4; // ... CROUCHED
+			speedProne = 0.1;    // ... PRONE
+			speedMultiplierNoMagnification = 0.70;  // Focus speed when using a non-magnifying optic
+			speedMultiplierIronsight = 0.75;        // Focus speed when using ironsight
+			speedReset = 0.2;                       // Focus reset speed
+		};
+		class Recoil {
+			// Recoil control function: coefficient * arctan(recoilControl^3 * steepness)
+			recoilControlCoefficient = 0.5;         // Overall impact of the recoil control. Defines the arctan function shape.
+			recoilControlSteepness = 4.6;           // Overall impact of the recoil control. Defines the arctan function shape.
+			recoilControlMinimum = -1;              // minimum value of recoil control. Used on arctan function.
+			recoilControlMaximum = 1;               // maximum value of recoil control. Used on arctan function.
+			class Modifiers {
+				class RecoilControlModifierBase {
+					enabled = 1;
+				};
+				class Strength : RecoilControlModifierBase {
+					weight = 0.25;   // how much the strength (soft skill) will affect recoil control
+				};
+				class InventoryWeight : RecoilControlModifierBase {
+					//@todo add weights
+				};
+				class Stance : RecoilControlModifierBase {
+					// how much the recoil control will be affected when player is ...
+					erect = 0.00;     // ... ERECT
+					crouched = 0.70;  // ... CROUCHED
+					prone = 0.80;     // ... PRONE
+				};
+				class Movement : RecoilControlModifierBase {
+					// how much the recoil control will be affected when player is ...
+					standing = 0.00;  // ... NOT MOVING
+					walking = -0.30;  // ... WALKING
+					jogging = -0.50;  // ... JOGGING
+				};
+			};
+		};
+		*/
 	};	
 };
 

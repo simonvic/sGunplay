@@ -1,5 +1,5 @@
-class SGameConfigGunplay : SGameConfigBase {	
+class SGameConfigGunplay : SGameConfigBase {
 	override string getModuleName() {
-		return "Gunplay";
+		return "sGunplay";
 	}
 }
