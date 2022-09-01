@@ -22,7 +22,6 @@ class GunplayConstants {
 	static const float RESET_SPEED_INSPECTION = 0.1;          // how fast the camera will reset from inspection angles to default. 0.1 = fast | 0.4 = slow
 	static const float RESET_SPEED_FREELOOK = 0.1;            // how fast the camera will reset from freelook angles to default. 0.1 = fast | 0.4 = slow
 	static const float RESET_SPEED_DEADZONE = 0.3;            // how fast the camera will reset from deadzone angles to default. 0.1 = fast | 0.4 = slow
-	static const float RESET_SPEED_WEAPON_INERTIA = 0.3;      // how fast the camera will reset from weapon deadzone angles to default. 0.1 = fast | 0.4 = slow
 	
 	///////////////////
 	// HIPFIRE
@@ -107,7 +106,7 @@ class GunplayConstants {
 	// FOV and OPTIC LENS
 	static const float ADS_LENS_ACTIVATION_DELAY = -250;            // Delay in milliseconds added to the camera transition time
 	static const float ADS_HIDE_CLOTHING_DELAY = -200;              // Delay in milliseconds added to the camera transition time
-	static /*const*/ float ADS_FOV_REDUCTION_OPTICS = 3;            // Minimum and maximum ads fov reduction in optics
+	static const float ADS_FOV_REDUCTION_OPTICS = 3;                // Minimum and maximum ads fov reduction in optics
 	static const float ADS_LENS_STRENGTH_CONSTRAINTS[] = {0, 4};    // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
 	
 	///////////////////

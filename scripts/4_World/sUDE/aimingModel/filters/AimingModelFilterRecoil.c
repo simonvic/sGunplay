@@ -24,7 +24,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		dui = SDebugUI.of("RecoilBase");
 		dui.begin();
 		if (debugMonitor) {
-			dui.window(ClassName(), {(256+12)*3,1}, {0,0});
+			dui.window(ClassName(), {(256+12)*2,1}, {(256+12),0});
 			createDebugRecoilMonitor(pDt, pModel);
 		}
 		getPlayer().getRecoilControl().compute(); //@todo just for debug, only compute on new recoil
@@ -199,7 +199,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// DEBUG
 	static SDebugUI dui;
-	static bool debugMonitor = true;
+	static bool debugMonitor = false;
 	static float mouseMultiplier[2]    = {1,1};
 	static float handsMultiplier[2]    = {1,1};
 	static float misalignMultiplier[2] = {1,1};
@@ -244,6 +244,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		float misMultX = 1;
 		float misMultY = 1;
 		float kMult = 1;
+		/*
 		dui.slider("mouseMultX",   mMultX,   0.01);
 		dui.slider("mouseMultY",   mMultY,   0.01);
 		dui.newline();
@@ -259,11 +260,12 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		misalignMultiplier = {misMultX, misMultY};
 		kickMultiplier = kMult;
 		dui.newline();
+		*/
 		array<ref array<string>> recoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
 		if (m_recoil) {
 			recoilTable = m_recoil.toDebugTable();
 		}
-		dui.table(recoilTable, {400, 256});
+		dui.table(recoilTable, {400, 128});
 		auto attachHands = getWeapon().GetPropertyModifierObject().recoilOffsetHands;
 		auto attachMisalign = getWeapon().GetPropertyModifierObject().recoilMisalignment;
 		auto attachMouse = getWeapon().GetPropertyModifierObject().recoilOffsetMouse;
@@ -274,18 +276,25 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			{"recoilMisalignment", string.Format("-%1%% -%2%%", (1-attachMisalign[0])*100, (1-attachMisalign[1])*100)}
 			{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-attachMouse[0])*100,    (1-attachMouse[1])*100)}
 			{"recoilKick",         string.Format("-%1%%",       (1-attachKick)*100)}
-		}, {300, 128});
+		}, {256, 64});
 		
 		array<ref array<string>> controlledRecoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
-		// the following code is available only for wide desktop users :)
 		if (m_recoil) {
 			controlledRecoilTable.Clear();
+			/*
+			controlledRecoilTable.Clear();
+			controlledRecoilTable.Insert({""+m_recoil, "mouse", "hands", "misalign", "kick"});
+			controlledRecoilTable.Insert({"normal",     string.Format("%1 %2", m_recoil.mouse[0], m_recoil.mouse[1]), string.Format("%1 %2", m_recoil.hands[0], m_recoil.hands[1]), string.Format("%1 %2", m_recoil.misalignIntensity[0], m_recoil.misalignIntensity[1]), ""+m_recoil.kick});
+			controlledRecoilTable.Insert({"controlled", string.Format("%1 %2", controlRecoil(m_recoil.mouse[0]), controlRecoil(m_recoil.mouse[1])), string.Format("%1 %2", controlRecoil(m_recoil.hands[0]), controlRecoil(m_recoil.hands[1])), string.Format("%1 %2", controlRecoil(m_recoil.misalignIntensity[0]), controlRecoil(m_recoil.misalignIntensity[1])), ""+controlRecoil(m_recoil.kick)});
+			*/
+
 			controlledRecoilTable.Insert({""+m_recoil, "normal", "controlled"});
 			controlledRecoilTable.Insert({"mouse",   string.Format("%1 %2", m_recoil.mouse[0], m_recoil.mouse[1]), string.Format("%1 %2", controlRecoil(m_recoil.mouse[0]), controlRecoil(m_recoil.mouse[1]))});
 			controlledRecoilTable.Insert({"hands",   string.Format("%1 %2", m_recoil.hands[0], m_recoil.hands[1]), string.Format("%1 %2", controlRecoil(m_recoil.hands[0]), controlRecoil(m_recoil.hands[1]))});
 			controlledRecoilTable.Insert({"misalign",string.Format("%1 %2", m_recoil.misalignIntensity[0], m_recoil.misalignIntensity[1]), string.Format("%1 %2", controlRecoil(m_recoil.misalignIntensity[0]), controlRecoil(m_recoil.misalignIntensity[1]))});
 			controlledRecoilTable.Insert({"kick",    ""+m_recoil.kick, ""+controlRecoil(m_recoil.kick)});
+			
 		}
-		dui.table(controlledRecoilTable, {512, 128});
+		dui.table(controlledRecoilTable, {512, 64});
 	}
 }

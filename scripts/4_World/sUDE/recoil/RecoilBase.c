@@ -104,9 +104,9 @@ modded class RecoilBase {
 	array<string> toCSV() {
 		float handsDelta = Math.AbsFloat(handsRanges[0] - handsRanges[1]) + Math.AbsFloat(handsRanges[2] - handsRanges[3]);
 		float handsSpeedDelta = handsAccumSpeed - handsResetSpeed;
-		float hands = handsDelta * (1 - handsSpeedDelta);
-		float misalign = misalignIntensity[0] + misalignIntensity[1];
-		float mouse = Math.AbsFloat(mouseRanges[0] - mouseRanges[1]) + Math.AbsFloat(mouseRanges[2] - mouseRanges[3]);
+		float handsFinal = handsDelta * (1 - handsSpeedDelta);
+		float misalignFinal = misalignIntensity[0] + misalignIntensity[1];
+		float mouseFinal = Math.AbsFloat(mouseRanges[0] - mouseRanges[1]) + Math.AbsFloat(mouseRanges[2] - mouseRanges[3]);
 		return {
 			""+handsRanges[0]
 			""+handsRanges[1]
@@ -127,9 +127,9 @@ modded class RecoilBase {
 			""+kickResetTime
 			""+handsDelta
 			""+handsSpeedDelta
-			""+hands
-			""+misalign
-			""+mouse
+			""+handsFinal
+			""+misalignFinal
+			""+mouseFinal
 		};
 	}
 	

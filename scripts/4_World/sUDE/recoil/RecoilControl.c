@@ -4,7 +4,7 @@ class RecoilControl : Managed {
 	protected float m_control;
 	
 	static SDebugUI dui;
-	static bool debugMonitor = true;
+	static bool debugMonitor = false;
 	
 	void RecoilControl(PlayerBase player) {
 		m_player = player;
@@ -20,7 +20,7 @@ class RecoilControl : Managed {
 		dui = SDebugUI.of(ClassName());
 		dui.begin();
 		if (debugMonitor) {
-			dui.window(GetDebugName(), {(256+12)*2,512}, {(256+12)*3,0});
+			dui.window(GetDebugName(), {(256+12)*1,512}, {(256+12)*3,0});
 			bool useRecoilControl = true;
 			dui.check("useRecoilControl", useRecoilControl);
 			if (!useRecoilControl) return;
@@ -45,7 +45,6 @@ class RecoilControl : Managed {
 		m_control = Math.Clamp(m_control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM);
 		
 		if (debugMonitor) {
-			dui.newline();
 			dui.text("coefficient * arctan(x^3 * steepness)");
 			dui.newline();
 			dui.slider("Coefficient", GunplayConstants.RECOIL_CONTROL_COEFF, 0.01);
@@ -63,9 +62,10 @@ class RecoilControl : Managed {
 				{"Inv weight",  ""+getModifierInventoryWeight(), "+"}
 				{"Stance",      ""+getModifierStance(),          "+"}
 				{"Movement",    ""+getModifierMovement(),        "="}
+				{"--------------------"}
 				{"total",       ""+get(),                        ""}
 				{"atan",        ""+atan,                         ""}
-			}, {384, 128});
+			}, {256, 128});
 		}
 		dui.end();
 	}

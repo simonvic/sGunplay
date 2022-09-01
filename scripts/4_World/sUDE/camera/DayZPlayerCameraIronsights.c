@@ -1,5 +1,3 @@
-//////////////////////////////////////////
-// IRONSIGHT
 modded class DayZPlayerCameraIronsights {
 	
 	protected PlayerBase m_player;

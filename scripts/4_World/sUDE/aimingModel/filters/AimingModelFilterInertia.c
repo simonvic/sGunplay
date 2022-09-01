@@ -10,7 +10,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	protected float m_currResetVelY[1];
 	
 	static SDebugUI dui;
-	static bool debugMonitor = true;
+	static bool debugMonitor = false;
 	
 	override bool isActive() {
 		return GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA;
@@ -22,7 +22,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		dui = SDebugUI.of(ClassName());
 		dui.begin();
 		if (debugMonitor) {
-			dui.window(GetDebugName(), {(256+12)*1,512}, {(256+12)*5,0});
+			dui.window(GetDebugName(), {(256+12)*1,512}, {(256+12)*4,0});
 			bool useInertia = true;
 			dui.check("useInertia", useInertia);
 			dui.newline();
@@ -127,8 +127,9 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 				{"wep length",     ""+getInertiaMultiplierWeaponLength(),    "x"}
 				{"inventory",      ""+getInertiaMultiplierInventoryWeight(), "x"}
 				{"hipfire",        ""+getInertiaMultiplierHipfire(),         "="}
+				{"--------------------"}
 				{"total",          ""+inertiaMultiplier,                     " "}
-			});
+			}, {256, 128});
 		}
 		
 		
