@@ -10,11 +10,7 @@ class AimingModelFilterKuru : AimingModelFilterBase {
 		float kuruOffsetX;
 		float kuruOffsetY;
 		kuru.Update(pDt, kuruOffsetX, kuruOffsetY);
-		pModel.m_fAimXHandsOffset += kuruOffsetX;
-		pModel.m_fAimYHandsOffset += kuruOffsetY;
-		//pModel.m_fAimXCamOffset   -= kuruOffsetX;
-		//pModel.m_fAimYCamOffset   -= kuruOffsetY;
-		pModel.m_fAimXMouseShift  -= kuruOffsetX / 10;
-		pModel.m_fAimYMouseShift  += kuruOffsetY / 10;
+		pModel.m_fAimXHandsOffset += kuruOffsetX * 0.1;
+		pModel.m_fAimYHandsOffset += kuruOffsetY * 0.1;
 	}
 }
