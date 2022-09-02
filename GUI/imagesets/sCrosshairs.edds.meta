@@ -1,7 +1,7 @@
 MetaFileClass {
  Name "{E23DEAF839909028}MyMODS/sGunplay/GUI/imagesets/sCrosshairs.edds"
  Author "simonvic-pc"
- ChangeDate 664595723
+ ChangeDate 48622882
  Configurations {
   PNGResourceClass PC {
    SourceFile "sCrosshairs.png"
