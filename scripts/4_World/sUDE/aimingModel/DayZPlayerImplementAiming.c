@@ -150,6 +150,10 @@ modded class DayZPlayerImplementAiming {
 		return m_weapon;
 	}
 	
+	vector getCamShake() {
+		return Vector(m_CamShakeX, m_CamShakeY, 0);
+	}
+	
 	/**
 	*	@brief Compute the optic lens position
 	*/

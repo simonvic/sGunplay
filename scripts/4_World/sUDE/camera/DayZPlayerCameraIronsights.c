@@ -49,14 +49,12 @@ modded class DayZPlayerCameraIronsights {
 	}
 		
 		
-	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) { 
-		
+	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
 		updateDOF();
 		updateAimAngle(m_fLeftRightAngle, m_CurrentCameraPitch, pDt);		
 		computeHandsOffset(m_handsOffsetX, m_handsOffsetY, pDt);
-		
 		updateCamera(pDt, pOutResult);
-
+		updateCameraShake(pDt);
 		AdjustCameraParameters(pDt, pOutResult);
 		updateFOVFocus(pDt, pOutResult);
 		updateFocusingOverlay(pDt, pOutResult);
@@ -179,6 +177,17 @@ modded class DayZPlayerCameraIronsights {
 		Math3D.MatrixMultiply4(weaponCameraPointTM, freelookTM, weaponCameraPointTM);              //apply freelook transformation matrix
 		Math3D.MatrixMultiply4(weaponAimingTM, weaponCameraPointTM, weaponCameraPointTM);          //apply weapon aiming transformation matrix
 		Math3D.MatrixMultiply4(weaponCameraPointTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM); //apply result to camera
+	}
+	
+	/**
+	*	@brief Update the camera shake values
+	*/
+	protected void updateCameraShake(float pDt) {
+		if (m_CameraShake) {
+			float x,y;
+			m_CameraShake.Update(pDt, x, y);
+			m_player.GetAimingModel().SetCamShakeValues(x, y);
+		}
 	}
 	
 	/**
