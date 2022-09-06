@@ -87,7 +87,7 @@ class Cfg_sUDE {
 			minimum = 0.2;                   // This minimum will be added during the sway multiplication (even while holding breath)
 		};
 		class AimingModel {
-			resetSpeedInspection = 0.1:      // how fast the camera will reset from inspection angles to default.      0.1 = fast | 0.4 = slow
+			resetSpeedInspection = 0.1;      // how fast the camera will reset from inspection angles to default.      0.1 = fast | 0.4 = slow
 			resetSpeedFreelook = 0.1;        // how fast the camera will reset from freelook angles to default.        0.1 = fast | 0.4 = slow
 			resetSpeedDeadzone = 0.3;        // how fast the camera will reset from deadzone angles to default.        0.1 = fast | 0.4 = slow
 			class Filters {
@@ -157,7 +157,7 @@ class Cfg_sUDE {
 				   -45
 			};
 			timeToADS = 0.4;                        // Entering ADS
-			timeFromADS = 0.3:                      // Exiting ADS
+			timeFromADS = 0.3;                      // Exiting ADS
 			time3rd = -0.2;                         // Summed to timeToADS
 			timeBackupSight = 0.25;                 // Opting to backup sight and viceversa
 			movementMisalignmentStrength = 2;       // how strong is misalignment caused by movement
