@@ -1,0 +1,10 @@
+name = "sGunplay";
+picture = "MyMODS/sGunplay/GUI/icons/logo/sGunplay.edds";
+logoSmall = "MyMODS/sGunplay/GUI/icons/logo/sGunplay.edds";
+logo = "MyMODS/sGunplay/GUI/icons/logo/sGunplay.edds";
+logoOver = "MyMODS/sGunplay/GUI/icons/logo/sGunplay.edds";
+tooltip = "$STR_SGUNPLAY_MOD_INFO_TOOLTIP";
+overview = "$STR_SGUNPLAY_MOD_INFO_OVERVIEW";
+action = "https://github.com/simonvic/sGunplay";
+author = "simonvic";
+version = "2.0.0";

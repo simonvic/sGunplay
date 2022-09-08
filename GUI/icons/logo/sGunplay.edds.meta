@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{AF8806E111531A68}MyMODS/sGunplay/GUI/icons/logo/sGunplay.edds"
+ Author "simonvic-pc"
+ ChangeDate -1624478424
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "sGunplay.png"
+   Conversion ColorHQCompression
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
