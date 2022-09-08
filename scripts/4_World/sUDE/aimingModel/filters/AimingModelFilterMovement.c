@@ -14,13 +14,13 @@ class AimingModelFilterMovement : AimingModelFilterBase {
 		
 		float amplitudeX, frequencyX, amplitudeY, frequencyY;
 		float speed = getPlayer().m_MovementState.m_iMovement;
-		float aimChangeX = getAimingModel().getAimChangeDegree()[0];
-		float aimChangeY = getAimingModel().getAimChangeDegree()[1];
+		float aimChangeX;
+		float aimChangeY;
 		
 		if (speed > 0) {
 			m_time += pDt;
-			aimChangeX += GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * speed * Math.Sin(Math.PI * speed * m_time * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
-			aimChangeY += GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * speed * Math.Sin(Math.PI2 * speed * m_time * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
+			aimChangeX = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * speed * Math.Sin(Math.PI * speed * m_time * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
+			aimChangeY = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH * speed * Math.Sin(Math.PI2 * speed * m_time * GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_FREQUENCY);
 		} else {
 			m_time = 0;
 		}
