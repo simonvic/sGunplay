@@ -36,8 +36,8 @@ class GunplayConstants {
 	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;                  // Use weapon inertia in the player aiming model
 	
 	static const float INERTIA_VELOCITY_LIMIT = 250;                           // Velocity limit in inertia build up (degree per second ?)
-	static const float INERTIA_SPEED_ACCELERATION[2] = {0.5, 0.5};             // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
-	static const float INERTIA_SPEED_RESET[2] = {0.2, 0.2};                    // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
+	static const float INERTIA_SPEED_ACCELERATION[2] = {0.6, 0.6};             // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
+	static const float INERTIA_SPEED_RESET[2] = {0.3, 0.3};                    // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
 	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.6, 0.6};     // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
 	static const float INERTIA_SPEED_RESET_HIPFIRE[2] = {0.3, 0.3};            // Speed of deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
 	
