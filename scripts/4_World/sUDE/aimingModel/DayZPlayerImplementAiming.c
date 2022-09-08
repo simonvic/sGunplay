@@ -30,7 +30,6 @@ modded class DayZPlayerImplementAiming {
 	*	 @note The order matters! Filters operation may not be commutative
 	*/
 	protected void registerFilters() {
-		//@todo add cam shake
 		registerFilter(new AimingModelFilterBreathing(this));
 		registerFilter(new AimingModelFilterMovement(this));
 		registerFilter(new AimingModelFilterShake(this));
@@ -53,7 +52,7 @@ modded class DayZPlayerImplementAiming {
 		m_filters.Insert(filter);
 	}
 	
-	
+	/*
 	//on raise begin doesn't get called when quickly changing weapon while lowering
 	override void OnRaiseBegin(DayZPlayerImplement player) {
 		super.OnRaiseBegin(player);
@@ -63,6 +62,7 @@ modded class DayZPlayerImplementAiming {
 	override void OnSwayStateChange(int state) {
 		super.OnSwayStateChange(state);
 	}
+	*/
 	
 	/**
 	*	@brief Process all registered aiming model filters

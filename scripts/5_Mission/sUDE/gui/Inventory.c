@@ -10,10 +10,6 @@ modded class Inventory {
 		m_meterWeight = m_rootGunplayStats.FindAnyWidget("weight_indicator");
 	}
 	
-	override void OnShow() {
-		super.OnShow();
-	}
-	
 	override void Update(float timeslice) {
 		super.Update(timeslice);
 		updateStatMeters();

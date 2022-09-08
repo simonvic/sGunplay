@@ -4,7 +4,7 @@ class AimingModelFilterWallPush : AimingModelFilterBase {
 		return GetGame().IsClient();
 	}
 	
-	protected ref SRaycast m_ray; //@todo use RaycastBullet
+	protected ref SRaycast m_ray;
 	protected float m_vel[1];
 	protected float m_currentOffset;
 	
