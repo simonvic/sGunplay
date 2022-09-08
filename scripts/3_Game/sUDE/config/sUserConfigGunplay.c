@@ -29,7 +29,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		
 	///////////////////////////////////////
 	// these go in json
-	protected float adsFOVMultiplier = 1.0;
+	protected float adsFOVMultiplier = 0.90;
 	protected float adsDOFIntensity = 0.0;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected bool hideClothingInOptic = true;
