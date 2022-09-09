@@ -308,12 +308,16 @@ class cfgVehicles{
 		s_misalignment[] = {0.25, 0.35};
 		s_kick = 0.75;
 	};
+	class M4_PlasticHndgrd : Inventory_Base {
+		s_hands[] = {0.15, 0.15};
+		s_misalignment[] = {0.55, 0.50};
+	};
 	class M4_RISHndgrd : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
+		s_hands[] = {0.20, 0.20};
 		s_misalignment[] = {0.55, 0.50};
 	};
 	class M4_MPHndgrd : Inventory_Base {
-		s_hands[] = {0.30, 0.30};
+		s_hands[] = {0.25, 0.25};
 		s_misalignment[] = {0.60, 0.55};
 	};
 	class AK_WoodBttstck : Inventory_Base {

@@ -44,7 +44,9 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		}
 		
 		if (debugMonitor) {
-			createDebugRecoilPlots(pDt, pModel);
+			bool showPlot;
+			dui.check("showPlot", showPlot);
+			if (showPlot) createDebugRecoilPlots(pDt, pModel);
 		}
 		dui.end();
 	}
