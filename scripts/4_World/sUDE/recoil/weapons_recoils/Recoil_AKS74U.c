@@ -1,12 +1,12 @@
 modded class Aks74uRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-1.050, 1.550,  2.250 ,  3.285};	
-		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.60;
+		handsRanges        = {-1.450, 1.450,  2.750,  3.985};	
+		handsAccumSpeed    = 0.975;
+		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = {0.075, 0.075};
-		misalignAccumSpeed = 0.875;
-		misalignResetSpeed = 0.500;
+		misalignIntensity  = {0.250, 0.250};
+		misalignAccumSpeed = 0.855;
+		misalignResetSpeed = 0.600;
 	
 		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
 		mouseTime          = 0.150;

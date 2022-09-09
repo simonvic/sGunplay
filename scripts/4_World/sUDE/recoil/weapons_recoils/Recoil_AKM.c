@@ -1,17 +1,17 @@
 modded class AkmRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-1.500, 2.075,  2.750,  3.985};	
-		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.550;
+		handsRanges        = {-1.550, 1.550,  2.750,  3.985};	
+		handsAccumSpeed    = 0.975;
+		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = {0.550, 0.750};
+		misalignIntensity  = {0.760, 0.755};
 		misalignAccumSpeed = 0.955;
-		misalignResetSpeed = 0.550;
+		misalignResetSpeed = 0.650;
 	
-		mouseRanges        = { 0.175, 0.250,  2.250,  2.750};
-		mouseTime          = 0.200;
+		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseTime          = 0.150;
 	
-		kick               = 0.074;
+		kick               = 0.050;
 		kickResetTime      = 2.250;
 	}
 }

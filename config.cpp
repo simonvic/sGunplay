@@ -321,40 +321,40 @@ class cfgVehicles{
 		s_misalignment[] = {0.60, 0.55};
 	};
 	class AK_WoodBttstck : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
-		s_misalignment[] = {0.0, 0.25};
+		s_hands[] = {0.45, 0.45};
+		s_misalignment[] = {0.20, 0.25};
 		s_kick = 0.75;
 	};
 	class AK_PlasticBttstck : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
-		s_misalignment[] = {0.0, 0.25};
+		s_hands[] = {0.45, 0.45};
+		s_misalignment[] = {0.15, 0.25};
 		s_kick = 0.75;
 	};
 	class AK_FoldingBttstck : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
-		s_misalignment[] = {0.0, 0.25};
+		s_hands[] = {0.45, 0.45};
+		s_misalignment[] = {0.15, 0.25};
 		s_kick = 0.75;
 	};
 	class AK_WoodHndgrd : Inventory_Base {
-		s_hands[] = {0.25, 0.10};
-		s_misalignment[] = {0.50, 0.50};
+		s_hands[] = {0.20, 0.20};
+		s_misalignment[] = {0.55, 0.50};
 	};
 	class AK_RailHndgrd : Inventory_Base {
-		s_hands[] = {0.25, 0.10};
-		s_misalignment[] = {0.50, 0.50};
+		s_hands[] = {0.20, 0.20};
+		s_misalignment[] = {0.55, 0.50};
 	};
 	class AK_PlasticHndgrd : Inventory_Base {
-		s_hands[] = {0.25, 0.10};
-		s_misalignment[] = {0.50, 0.50};
+		s_hands[] = {0.20, 0.20};
+		s_misalignment[] = {0.55, 0.50};
 	};
 	class AK74_WoodBttstck : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
-		s_misalignment[] = {0.0, 0.25};
+		s_hands[] = {0.45, 0.45};
+		s_misalignment[] = {0.20, 0.25};
 		s_kick = 0.75;
 	};
 	class AK74_Hndgrd : Inventory_Base {
-		s_hands[] = {0.25, 0.10};
-		s_misalignment[] = {0.50, 0.50};
+		s_hands[] = {0.20, 0.20};
+		s_misalignment[] = {0.55, 0.50};
 	};
 	class AKS74U_Bttstck : Inventory_Base {
 		s_hands[] = {0.50, 0.50};
