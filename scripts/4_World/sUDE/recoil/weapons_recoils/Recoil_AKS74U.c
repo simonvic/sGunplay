@@ -4,7 +4,7 @@ modded class Aks74uRecoil {
 		handsAccumSpeed    = 0.975;
 		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = {0.250, 0.250};
+		misalignIntensity  = {0.800, 0.800};
 		misalignAccumSpeed = 0.855;
 		misalignResetSpeed = 0.600;
 	

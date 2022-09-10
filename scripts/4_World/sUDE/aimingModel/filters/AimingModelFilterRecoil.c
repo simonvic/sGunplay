@@ -109,8 +109,8 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		}
 		
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
-		pModel.m_fAimXMouseShift -= deltaMouseX * mouseMultiplier[0] * modifiers.recoilOffsetMouse[0];
-		pModel.m_fAimYMouseShift += deltaMouseY * mouseMultiplier[1] * modifiers.recoilOffsetMouse[1];
+		pModel.m_fAimXMouseShift -= deltaMouseX * mouseMultiplier[0] * modifiers.recoilControlMouseX;
+		pModel.m_fAimYMouseShift += deltaMouseY * mouseMultiplier[1] * modifiers.recoilControlMouseY;
 		
 	}
 	
@@ -124,7 +124,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		if (!applyKick) return;
 		float timeNormalized = SMath.normalizeClamp(m_time, 0, r.kickResetTime);
 		float easing = 1 - Easing.EaseOutElastic(timeNormalized, 0.45);
-		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * kickMultiplier * getWeapon().GetPropertyModifierObject().recoilKick, easing);
+		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * kickMultiplier * getWeapon().GetPropertyModifierObject().recoilControlKick, easing);
 	}
 	
 	/**
@@ -138,14 +138,14 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[0] * handsMultiplier[0] * modifiers.recoilOffsetHands[0],
+			m_handsAccum[0] * handsMultiplier[0] * modifiers.recoilControlHandsX,
 			m_velHandsAccumX,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
 		
 		pModel.m_fAimYHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[1] * handsMultiplier[1] * modifiers.recoilOffsetHands[1],
+			m_handsAccum[1] * handsMultiplier[1] * modifiers.recoilControlHandsY,
 			m_velHandsAccumY,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
@@ -163,14 +163,14 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[0] * r.misalignIntensity[0] * misalignMultiplier[0] * modifiers.recoilMisalignment[0],
+			m_misalignAccum[0] * r.misalignIntensity[0] * misalignMultiplier[0] * modifiers.recoilControlMisalignmentX,
 			m_velMisalignAccumX,
 			smoothTime,
 			1000, pDt);
 		
 		pModel.m_fAimYCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[1] * r.misalignIntensity[1] * misalignMultiplier[1] * modifiers.recoilMisalignment[1],
+			m_misalignAccum[1] * r.misalignIntensity[1] * misalignMultiplier[1] * modifiers.recoilControlMisalignmentY,
 			m_velMisalignAccumY,
 			smoothTime,
 			1000, pDt);
@@ -268,16 +268,13 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			recoilTable = m_recoil.toDebugTable();
 		}
 		dui.table(recoilTable, {400, 128});
-		auto attachHands = getWeapon().GetPropertyModifierObject().recoilOffsetHands;
-		auto attachMisalign = getWeapon().GetPropertyModifierObject().recoilMisalignment;
-		auto attachMouse = getWeapon().GetPropertyModifierObject().recoilOffsetMouse;
-		auto attachKick = getWeapon().GetPropertyModifierObject().recoilKick;
+		auto m = getWeapon().GetPropertyModifierObject();
 		dui.table({
 			{"Attachments modifiers"}
-			{"recoilOffsetHands",  string.Format("-%1%% -%2%%", (1-attachHands[0])*100,    (1-attachHands[1])*100)}
-			{"recoilMisalignment", string.Format("-%1%% -%2%%", (1-attachMisalign[0])*100, (1-attachMisalign[1])*100)}
-			{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-attachMouse[0])*100,    (1-attachMouse[1])*100)}
-			{"recoilKick",         string.Format("-%1%%",       (1-attachKick)*100)}
+			{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-m.recoilControlMouseX)*100,    (1-m.recoilControlMouseY)*100)}
+			{"recoilOffsetHands",  string.Format("-%1%% -%2%%", (1-m.recoilControlHandsX)*100,    (1-m.recoilControlHandsY)*100)}
+			{"recoilMisalignment", string.Format("-%1%% -%2%%", (1-m.recoilControlMisalignmentX)*100, (1-m.recoilControlMisalignmentY)*100)}
+			{"recoilKick",         string.Format("-%1%%",       (1-m.recoilControlKick)*100)}
 		}, {256, 64});
 		
 		array<ref array<string>> controlledRecoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};

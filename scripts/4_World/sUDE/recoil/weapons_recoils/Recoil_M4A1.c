@@ -5,8 +5,8 @@ modded class M4a1Recoil {
 		handsResetSpeed    = 0.725;
 		
 		misalignIntensity  = {0.750, 0.750};
-		misalignAccumSpeed = 0.855;
-		misalignResetSpeed = 0.600;
+		misalignAccumSpeed = 0.925;
+		misalignResetSpeed = 0.700;
 	
 		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
 		mouseTime          = 0.150;

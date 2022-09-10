@@ -4,7 +4,7 @@ modded class AUGRecoil {
 		handsAccumSpeed    = 0.920;
 		handsResetSpeed    = 0.700;
 		
-		misalignIntensity  = {0.125, 0.125};
+		misalignIntensity  = {0.250, 0.250};
 		misalignAccumSpeed = 0.925;
 		misalignResetSpeed = 0.750;
 	

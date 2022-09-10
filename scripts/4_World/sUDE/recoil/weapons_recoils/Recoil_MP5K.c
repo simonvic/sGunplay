@@ -1,6 +1,6 @@
 modded class Mp5kRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-1.250, 2.250,  2.450 ,  3.785};	
+		handsRanges        = {-0.690, 0.690,  2.450,  3.750};	
 		handsAccumSpeed    = 0.975;
 		handsResetSpeed    = 0.650;
 		

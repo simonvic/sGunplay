@@ -288,118 +288,206 @@ class cfgVehicles{
 
 	class Static;
 	class Inventory_Base : Static {
-		s_mouse[] = {0.0, 0.0};
-		s_hands[] = {0.0, 0.0};
-		s_misalignment[] = {0.0, 0.0};
-		s_kick = 0.0;
+		s_recoilControlMouseX = 0.00;
+		s_recoilControlMouseY = 0.00;
+		s_recoilControlHandsX = 0.00;
+		s_recoilControlHandsY = 0.00;
+		s_recoilControlMisalignmentX = 0.00;
+		s_recoilControlMisalignmentY = 0.00;
+		s_recoilControlKick = 0.00;
 	};
 	class M4_OEBttstck : Inventory_Base {
-		s_hands[] = {0.45, 0.45};
-		s_misalignment[] = {0.15, 0.25};
-		s_kick = 0.70;
+		s_recoilControlHandsX = 0.45;
+		s_recoilControlHandsY = 0.45;
+		s_recoilControlMisalignmentX = 0.15;
+		s_recoilControlMisalignmentY = 0.25;
+		s_recoilControlKick = 0.70;
 	};
 	class M4_MPBttstck : Inventory_Base {
-		s_hands[] = {0.50, 0.50};
-		s_misalignment[] = {0.20, 0.30};
-		s_kick = 0.72;
+		s_recoilControlHandsX = 0.50;
+		s_recoilControlHandsY = 0.50;
+		s_recoilControlMisalignmentX = 0.20;
+		s_recoilControlMisalignmentY = 0.30;
+		s_recoilControlKick = 0.72;
 	};
 	class M4_CQBBttstck : Inventory_Base {
-		s_hands[] = {0.45, 0.45};
-		s_misalignment[] = {0.25, 0.35};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.45;
+		s_recoilControlHandsY = 0.45;
+		s_recoilControlMisalignmentX = 0.25;
+		s_recoilControlMisalignmentY = 0.35;
+		s_recoilControlKick = 0.75;
 	};
 	class M4_PlasticHndgrd : Inventory_Base {
-		s_hands[] = {0.15, 0.15};
-		s_misalignment[] = {0.55, 0.50};
+		s_recoilControlHandsX = 0.15;
+		s_recoilControlHandsY = 0.15;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class M4_RISHndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.55, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class M4_MPHndgrd : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
-		s_misalignment[] = {0.60, 0.55};
+		s_recoilControlHandsX = 0.25;
+		s_recoilControlHandsY = 0.25;
+		s_recoilControlMisalignmentX = 0.60;
+		s_recoilControlMisalignmentY = 0.55;
 	};
 	class AK_WoodBttstck : Inventory_Base {
-		s_hands[] = {0.45, 0.45};
-		s_misalignment[] = {0.20, 0.25};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.45;
+		s_recoilControlHandsY = 0.45;
+		s_recoilControlMisalignmentX = 0.20;
+		s_recoilControlMisalignmentY = 0.25;
+		s_recoilControlKick = 0.75;
 	};
 	class AK_PlasticBttstck : Inventory_Base {
-		s_hands[] = {0.45, 0.45};
-		s_misalignment[] = {0.15, 0.25};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.45;
+		s_recoilControlHandsY = 0.45;
+		s_recoilControlMisalignmentX = 0.15;
+		s_recoilControlMisalignmentY = 0.25;
+		s_recoilControlKick = 0.75;
 	};
 	class AK_FoldingBttstck : Inventory_Base {
-		s_hands[] = {0.45, 0.45};
-		s_misalignment[] = {0.15, 0.25};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.45;
+		s_recoilControlHandsY = 0.45;
+		s_recoilControlMisalignmentX = 0.15;
+		s_recoilControlMisalignmentY = 0.25;
+		s_recoilControlKick = 0.75;
 	};
 	class AK_WoodHndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.55, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class AK_RailHndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.55, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class AK_PlasticHndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.55, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class AK74_WoodBttstck : Inventory_Base {
-		s_hands[] = {0.45, 0.45};
-		s_misalignment[] = {0.20, 0.25};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.45;
+		s_recoilControlHandsY = 0.45;
+		s_recoilControlMisalignmentX = 0.20;
+		s_recoilControlMisalignmentY = 0.25;
+		s_recoilControlKick = 0.75;
 	};
 	class AK74_Hndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.55, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class AKS74U_Bttstck : Inventory_Base {
-		s_hands[] = {0.50, 0.50};
-		s_misalignment[] = {0.20, 0.20};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.50;
+		s_recoilControlHandsY = 0.50;
+		s_recoilControlMisalignmentX = 0.20;
+		s_recoilControlMisalignmentY = 0.20;
+		s_recoilControlKick = 0.75;
 	};
 	class MP5k_StockBttstck : Inventory_Base {
-		s_hands[] = {0.50, 0.50};
-		s_misalignment[] = {0.0, 0.25};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.50;
+		s_recoilControlHandsY = 0.50;
+		s_recoilControlMisalignmentX = 0.00;
+		s_recoilControlMisalignmentY = 0.25;
+		s_recoilControlKick = 0.75;
 	};
 	class MP5_PlasticHndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.50, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class MP5_RailHndgrd : Inventory_Base {
-		s_hands[] = {0.20, 0.20};
-		s_misalignment[] = {0.50, 0.50};
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class MP5_Compensator : Inventory_Base {
-		s_misalignment[] = {0.45, 0.05};
+		s_recoilControlMisalignmentX = 0.45;
+		s_recoilControlMisalignmentY = 0.05;
 	};
 	class Mosin_Compensator : Inventory_Base {
-		s_hands[] = {0.50, 0.30};
-		s_misalignment[] = {0.50, 0.50};
+		s_recoilControlHandsX = 0.50;
+		s_recoilControlHandsY = 0.30;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 	class PP19_Bttstck : Inventory_Base {
-		s_hands[] = {0.25, 0.25};
-		s_misalignment[] = {0.0, 0.50};
-		s_kick = 0.50;
+		s_recoilControlHandsX = 0.25;
+		s_recoilControlHandsY = 0.25;
+		s_recoilControlMisalignmentX = 0.00;
+		s_recoilControlMisalignmentY = 0.50;
+		s_recoilControlKick = 0.50;
 	};
 	class Saiga_Bttstck : Inventory_Base {
-		s_hands[] = {0.30, 0.30};
-		s_misalignment[] = {0.30, 0.30};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.30;
+		s_recoilControlHandsY = 0.30;
+		s_recoilControlMisalignmentX = 0.30;
+		s_recoilControlMisalignmentY = 0.30;
+		s_recoilControlKick = 0.75;
 	};
 	class Fal_OeBttstck : Inventory_Base {
-		s_hands[] = {0.10, 0.50};
-		s_misalignment[] = {0.50, 0.50};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.10;
+		s_recoilControlHandsY = 0.50;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.50;
+		s_recoilControlKick = 0.75;
 	};
 	class Fal_FoldingBttstck : Inventory_Base {
-		s_hands[] = {0.00, 0.50};
-		s_misalignment[] = {0.50, 0.50};
-		s_kick = 0.75;
+		s_recoilControlHandsX = 0.00;
+		s_recoilControlHandsY = 0.50;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.50;
+		s_recoilControlKick = 0.75;
 	};
-	
+};
+
+class cfgWeapons {
+	class Rifle_Base;
+	class UMP45_Base : Rifle_Base {
+		s_recoilControlHandsX = 0.70;
+		s_recoilControlHandsY = 0.70;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.75;
+		s_recoilControlKick = 0.75;
+	};
+	class CZ61_Base : Rifle_Base {
+		s_recoilControlHandsX = 0.70;
+		s_recoilControlHandsY = 0.70;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.65;
+		s_recoilControlKick = 0.75;
+	};
+	class M16A2_Base : Rifle_Base {
+		s_recoilControlHandsX = 0.65;
+		s_recoilControlHandsY = 0.65;
+		s_recoilControlMisalignmentX = 0.75;
+		s_recoilControlMisalignmentY = 0.80;
+		s_recoilControlKick = 0.75;
+	};
+	class Famas_Base : Rifle_Base {
+		s_recoilControlHandsX = 0.65;
+		s_recoilControlHandsY = 0.65;
+		s_recoilControlMisalignmentX = 0.75;
+		s_recoilControlMisalignmentY = 0.80;
+		s_recoilControlKick = 0.75;
+	};
+	class AK74_Base;
+	class AKS74U: AK74_Base {
+		s_recoilControlHandsX = 0.20;
+		s_recoilControlHandsY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.50;
+	};
 };

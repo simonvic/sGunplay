@@ -8,7 +8,7 @@ modded class Izh18Recoil {
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.550;
 	
-		mouseRanges        = { 0.175, 0.250,  1.550,  2.275};
+		mouseRanges        = { 0.175, 0.250,  3.750,  3.775};
 		mouseTime          = 0.200;
 	
 		kick               = 0.035;

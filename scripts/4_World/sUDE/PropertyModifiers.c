@@ -1,56 +1,60 @@
 modded class PropertyModifiers {
+
+	float recoilControlMouseX;
+	float recoilControlMouseY;
+	float recoilControlHandsX;
+	float recoilControlHandsY;
+	float recoilControlMisalignmentX;
+	float recoilControlMisalignmentY;
+	float recoilControlKick;
 	
-	ref array<float> recoilOffsetHands;
-	ref array<float> recoilMisalignment;
-	ref array<float> recoilOffsetMouse;
-	float recoilKick;
-	
+	//@todo improve this. Instead of recalculating everything, just add/remove when needed
 	override void UpdateModifiers() {
 		super.UpdateModifiers();
-		recoilOffsetHands = {0,0};
-		recoilMisalignment = {0,0};
-		recoilOffsetMouse = {0,0};
-		recoilKick = 0;
+
+		recoilControlMouseX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMouseX");
+		recoilControlMouseY        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMouseY");
+		recoilControlHandsX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlHandsX");
+		recoilControlHandsY        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlHandsY");		
+		recoilControlMisalignmentX = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMisalignmentX");
+		recoilControlMisalignmentY = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMisalignmentY");		
+		recoilControlKick          = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlKick");
+
 		for (int i = 0; i < m_OwnerItem.GetInventory().AttachmentCount(); i++) {
 			applyAttachmentModifiers(ItemBase.Cast(m_OwnerItem.GetInventory().GetAttachmentFromIndex(i)));
 		}
-		
-		recoilOffsetHands[0] =  1 - recoilOffsetHands[0];   //@todo check for needed clamps
-		recoilOffsetHands[1] =  1 - recoilOffsetHands[1];
-		recoilMisalignment[0] = 1 - recoilMisalignment[0];
-		recoilMisalignment[1] = 1 - recoilMisalignment[1];
-		recoilOffsetMouse[0] =  1 - recoilOffsetMouse[0];
-		recoilOffsetMouse[1] =  1 - recoilOffsetMouse[1];
-		recoilKick =            1 - recoilKick;
+
+		//@todo check for needed clamps
+		recoilControlMouseX        = 1 - recoilControlMouseX;
+		recoilControlMouseY        = 1 - recoilControlMouseY;		
+		recoilControlHandsX        = 1 - recoilControlHandsX;
+		recoilControlHandsY        = 1 - recoilControlHandsY;
+		recoilControlMisalignmentX = 1 - recoilControlMisalignmentX;
+		recoilControlMisalignmentY = 1 - recoilControlMisalignmentY;
+		recoilControlKick          = 1 - recoilControlKick;
 	}
 	
-	protected void applyAttachmentModifiers(ItemBase attachment) {
-		array<float> temp = PropertyModifiers.getModifierFloatArray(attachment, "s_hands");
-		recoilOffsetHands[0] = recoilOffsetHands[0] + temp[0];
-		recoilOffsetHands[1] = recoilOffsetHands[1] + temp[1];
-		
-		temp = PropertyModifiers.getModifierFloatArray(attachment, "s_misalignment");
-		recoilMisalignment[0] = recoilMisalignment[0] + temp[0];
-		recoilMisalignment[1] = recoilMisalignment[1] + temp[1];
-		
-		temp = PropertyModifiers.getModifierFloatArray(attachment, "s_mouse");
-		recoilOffsetMouse[0] = recoilOffsetMouse[0] + temp[0];
-		recoilOffsetMouse[1] = recoilOffsetMouse[1] + temp[1];
-		
-		recoilKick += PropertyModifiers.getModifierFloat(attachment, "s_kick");
+	protected void applyAttachmentModifiers(EntityAI attachment) {
+		recoilControlMouseX        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMouseX");
+		recoilControlMouseY        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMouseY");
+		recoilControlHandsX        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlHandsX");
+		recoilControlHandsY        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlHandsY");		
+		recoilControlMisalignmentX += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMisalignmentX");
+		recoilControlMisalignmentY += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMisalignmentY");		
+		recoilControlKick          += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlKick");
 	}
 	
-	static float getModifierFloat(ItemBase item, string modifierName, float defaultValue = 0.0) {
-		if (item.ConfigIsExisting(modifierName)) {
-			return item.ConfigGetFloat(modifierName);
+	static float getModifierFloat(EntityAI entity, string modifierName, float defaultValue = 0.0) {
+		if (entity.ConfigIsExisting(modifierName)) {
+			return entity.ConfigGetFloat(modifierName);
 		}
 		return defaultValue;
 	}
 	
-	static array<float> getModifierFloatArray(ItemBase item, string modifierName, array<float> defaultValue = null) {
+	static array<float> getModifierFloatArray(EntityAI entity, string modifierName, array<float> defaultValue = null) {
 		array<float> temp = {};
-		if (item.ConfigIsExisting(modifierName)) {
-			item.ConfigGetFloatArray(modifierName, temp);
+		if (entity.ConfigIsExisting(modifierName)) {
+			entity.ConfigGetFloatArray(modifierName, temp);
 			return temp;
 		}
 		
