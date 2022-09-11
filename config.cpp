@@ -245,6 +245,8 @@ class cfgVehicles{
 	};
 
 	class HuntingOptic: ItemOptics{
+		showEnterMisalignment = 1;
+		isFullscreen = 1;
 		class OpticsInfo{
 			PPMaskProperties[] = {0.0, 0.0, 0.7, 0.05};
 			PPLensProperties[] = {0.3, 0.0, 0.0, 0.3};

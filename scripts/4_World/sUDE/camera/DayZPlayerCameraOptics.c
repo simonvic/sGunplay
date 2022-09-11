@@ -9,10 +9,15 @@ modded class DayZPlayerCameraOptics {
 	protected float m_lensOffsetVelX[1];
 	protected float m_lensOffsetVelY[1];
 	
-	override void OnActivate (DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
+	protected bool m_showEnterMisalignment;
+	protected bool m_isFullscreen;
+	
+	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
+		m_showEnterMisalignment = m_opticsUsed.ConfigGetBool("showEnterMisalignment");
+		m_isFullscreen = m_opticsUsed.ConfigGetBool("isFullscreen");
 		
 		//Show lens when transition is done
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
@@ -23,7 +28,7 @@ modded class DayZPlayerCameraOptics {
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,false,m_opticsUsed,isHideClothingInOpticEnabled());
 		}
 		
-		if (isSniperOptic()) {
+		if (showEnterMisalignment()) {
 			SCameraOverlaysManager.getInstance().activate(m_opticMisalignmentOverlay);
 		}
 	}
@@ -138,11 +143,9 @@ modded class DayZPlayerCameraOptics {
 	}
 			
 	override float getRestingFOV() {
-		
 		if (!m_opticsUsed || isHandHeldOptic() || !isMagnifyingOptic()) {
 			return super.getRestingFOV();
 		}
-		
 		return m_opticsUsed.GetCurrentStepFOV() * GunplayConstants.ADS_FOV_REDUCTION_OPTICS;
 	}
 
@@ -159,10 +162,9 @@ modded class DayZPlayerCameraOptics {
 		// Handheld optics
 		if (isHandHeldOptic()) {
 			targetFOV = m_opticsUsed.GetCurrentStepFOV();
-			if (isSniperOptic()) {
+			if (isFullscreenOptic()) {
 				speed = 0.0001;
 			}
-			
 			return;
 		}
 		
@@ -177,7 +179,7 @@ modded class DayZPlayerCameraOptics {
 		}
 		
 		// Sniping optic
-		if (isSniperOptic()) {
+		if (isFullscreenOptic()) {
 			targetFOV = m_opticsUsed.GetCurrentStepFOV();
 			speed = 0.0001;
 			return;
@@ -228,11 +230,11 @@ modded class DayZPlayerCameraOptics {
 	}
 	
 	override bool canApplyDeadzone() {
-		return super.canApplyDeadzone() && !isSniperOptic();
+		return super.canApplyDeadzone() && !isFullscreenOptic();
 	}
 	
 	override bool canApplyHandsOffset() {
-		return super.canApplyHandsOffset() && !isSniperOptic();
+		return super.canApplyHandsOffset() && !isFullscreenOptic();
 	}
 	
 	override bool canZoom() {
@@ -251,8 +253,13 @@ modded class DayZPlayerCameraOptics {
 		return !m_opticsUsed.AllowsDOF();
 	}
 	
-	override bool isSniperOptic() {
-		return m_opticsUsed.GetStepFOVCount() > 0;
+	override bool isFullscreenOptic() {
+		return m_isFullscreen;
+		//return m_opticsUsed.GetStepFOVCount() > 0;
+	}
+	
+	bool showEnterMisalignment() {
+		return m_showEnterMisalignment;
 	}
 		
 }

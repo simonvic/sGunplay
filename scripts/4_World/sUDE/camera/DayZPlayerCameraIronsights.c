@@ -495,7 +495,7 @@ modded class DayZPlayerCameraIronsights {
 	}
 	
 	protected bool canApplyHandsOffset() {
-		return !isSniperOptic() && !isNVOptic();
+		return !isFullscreenOptic() && !isNVOptic();
 	}
 	
 	protected bool canZoom() {
@@ -514,7 +514,7 @@ modded class DayZPlayerCameraIronsights {
 		return false;
 	}
 	
-	protected bool isSniperOptic() {
+	protected bool isFullscreenOptic() {
 		return false;
 	}
 	
