@@ -25,13 +25,13 @@ modded class PropertyModifiers {
 		}
 
 		//@todo check for needed clamps
-		recoilControlMouseX        = 1 - recoilControlMouseX;
-		recoilControlMouseY        = 1 - recoilControlMouseY;		
-		recoilControlHandsX        = 1 - recoilControlHandsX;
-		recoilControlHandsY        = 1 - recoilControlHandsY;
-		recoilControlMisalignmentX = 1 - recoilControlMisalignmentX;
-		recoilControlMisalignmentY = 1 - recoilControlMisalignmentY;
-		recoilControlKick          = 1 - recoilControlKick;
+		recoilControlMouseX        = Math.Clamp(1 - recoilControlMouseX, 0, 1);
+		recoilControlMouseY        = Math.Clamp(1 - recoilControlMouseY, 0, 1);
+		recoilControlHandsX        = Math.Clamp(1 - recoilControlHandsX, 0, 1);
+		recoilControlHandsY        = Math.Clamp(1 - recoilControlHandsY, 0, 1);
+		recoilControlMisalignmentX = Math.Clamp(1 - recoilControlMisalignmentX, 0, 1);
+		recoilControlMisalignmentY = Math.Clamp(1 - recoilControlMisalignmentY, 0, 1);
+		recoilControlKick          = Math.Clamp(1 - recoilControlKick, 0, 1);
 	}
 	
 	protected void applyAttachmentModifiers(EntityAI attachment) {
