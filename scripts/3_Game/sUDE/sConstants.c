@@ -35,7 +35,10 @@ class GunplayConstants {
 	// INERTIA
 	static const bool AIMING_MODEL_USE_WEAPON_INERTIA = true;                  // Use weapon inertia in the player aiming model
 	
-	static const float INERTIA_VELOCITY_LIMIT = 250;                           // Velocity limit in inertia build up (degree per second ?)
+	static const float INERTIA_VELOCITY_LIMIT[] = {                            // Velocity limit in inertia build up (degree per second ?)
+		    10,
+		-30,   30,
+		   -10    };
 	static const float INERTIA_SPEED_ACCELERATION[2] = {0.6, 0.6};             // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
 	static const float INERTIA_SPEED_RESET[2] = {0.3, 0.3};                    // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
 	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.6, 0.6};     // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
@@ -43,7 +46,7 @@ class GunplayConstants {
 	
 	static const float INERTIA_MULTIPLIER_BASE = 1;                            // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MIN_MULTIPLIER = 1;                             // Minimum value of inertia
-	static const float INERTIA_MAX_MULTIPLIER = 50;                            // Maximum value of inertia
+	static const float INERTIA_MAX_MULTIPLIER = 20;                            // Maximum value of inertia
 	
 	static const float INERTIA_MULTIPLIER_STANDING = 1.0;                      // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
 	static const float INERTIA_MULTIPLIER_WALKING = 1.1;                       // Multiplier of the amount of inertia to be applied when the player is WALKING

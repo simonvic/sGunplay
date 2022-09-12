@@ -31,10 +31,10 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 				
 		//////////////////////////
 		// ACCELERATION
-		m_accel = getAimingModel().getAimChangeDegree() * computeInertiaMultiplier();
+		m_accel = getAimingModel().getAimChangeDegree();
 		m_vel += m_accel;
-		m_vel[0] = Math.Clamp(m_vel[0], -GunplayConstants.INERTIA_VELOCITY_LIMIT, GunplayConstants.INERTIA_VELOCITY_LIMIT);
-		m_vel[1] = Math.Clamp(m_vel[1], -GunplayConstants.INERTIA_VELOCITY_LIMIT, GunplayConstants.INERTIA_VELOCITY_LIMIT);
+		m_vel[0] = Math.Clamp(m_vel[0], GunplayConstants.INERTIA_VELOCITY_LIMIT[1], GunplayConstants.INERTIA_VELOCITY_LIMIT[2]);
+		m_vel[1] = Math.Clamp(m_vel[1], GunplayConstants.INERTIA_VELOCITY_LIMIT[3], GunplayConstants.INERTIA_VELOCITY_LIMIT[0]);
 		
 		float inertiaSpeedAcceleration[2];
 		float inertiaSpeedReset[2];
@@ -45,18 +45,19 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		} else {
 			inertiaSpeedAcceleration = GunplayConstants.INERTIA_SPEED_ACCELERATION_HIPFIRE;
 			inertiaSpeedReset = GunplayConstants.INERTIA_SPEED_RESET_HIPFIRE;
-		}	
+		}
 		
+		float multiplier = computeInertiaMultiplier();
 		
-		pModel.m_fAimXHandsOffset = Math.SmoothCD(
-			pModel.m_fAimXHandsOffset,
-			pModel.m_fAimXHandsOffset + m_vel[0],
+		pModel.m_fAimXHandsOffset += Math.SmoothCD(
+			0,
+			m_vel[0] * multiplier,
 			m_currInertiaVelX,
 			inertiaSpeedAcceleration[0], 1000, pDt);
 		
-		pModel.m_fAimYHandsOffset = Math.SmoothCD(
-			pModel.m_fAimYHandsOffset,
-			pModel.m_fAimYHandsOffset + m_vel[1],
+		pModel.m_fAimYHandsOffset += Math.SmoothCD(
+			0,
+			m_vel[1] * multiplier,
 			m_currInertiaVelY,
 			inertiaSpeedAcceleration[1], 1000, pDt);
 		
@@ -76,8 +77,8 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 			inertiaSpeedReset[1], 1000, pDt);
 		
 		if (GetGame().IsClient()) {
-			pModel.m_fAimXCamOffset -= m_vel[0] * 0.0025;
-			pModel.m_fAimYCamOffset -= m_vel[1] * 0.0025;
+			pModel.m_fAimXCamOffset -= m_vel[0] * 0.025;
+			pModel.m_fAimYCamOffset -= m_vel[1] * 0.025;
 		}
 		
 		
