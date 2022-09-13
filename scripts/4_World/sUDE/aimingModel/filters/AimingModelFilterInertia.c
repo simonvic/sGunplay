@@ -77,8 +77,8 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 			inertiaSpeedReset[1], 1000, pDt);
 		
 		if (GetGame().IsClient()) {
-			pModel.m_fAimXCamOffset -= m_vel[0] * 0.025;
-			pModel.m_fAimYCamOffset -= m_vel[1] * 0.025;
+			pModel.m_fAimXCamOffset -= m_vel[0] * 0.01;
+			pModel.m_fAimYCamOffset -= m_vel[1] * 0.01;
 		}
 		
 		
