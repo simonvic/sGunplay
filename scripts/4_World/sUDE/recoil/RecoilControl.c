@@ -3,9 +3,6 @@ class RecoilControl : Managed {
 	protected PlayerBase m_player;
 	protected float m_control;
 	
-	static SDebugUI dui;
-	static bool debugMonitor = false;
-	
 	void RecoilControl(PlayerBase player) {
 		m_player = player;
 		compute();
@@ -17,14 +14,6 @@ class RecoilControl : Managed {
 	
 	void compute() {
 		m_control = 0;
-		dui = SDebugUI.of(ClassName());
-		dui.begin();
-		if (debugMonitor) {
-			dui.pos("768px 0px").window(GetDebugName());
-			bool useRecoilControl = true;
-			dui.check("useRecoilControl", useRecoilControl);
-			if (!useRecoilControl) return;
-		}
 		
 		if (GunplayConstants.RECOIL_CONTROL_USE_STRENGTH) {
 			m_control += getModifierStrength();
@@ -43,31 +32,6 @@ class RecoilControl : Managed {
 		}
 		
 		m_control = Math.Clamp(m_control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM);
-		
-		if (debugMonitor) {
-			dui.text("coefficient * arctan(x^3 * steepness)");
-			dui.newline();
-			dui.slider("Coefficient", GunplayConstants.RECOIL_CONTROL_COEFF, 0.01);
-			dui.slider("Steepness", GunplayConstants.RECOIL_CONTROL_STEEPNESS, 0.1, 0, 10);
-			array<ref array<float>> line = {};
-			for (float x=-1; x<1; x+=0.1) {
-				line.Insert({x, GunplayConstants.RECOIL_CONTROL_COEFF * Math.Atan(Math.Pow(x, 3) * GunplayConstants.RECOIL_CONTROL_STEEPNESS)});
-				
-			}
-			float atan = GunplayConstants.RECOIL_CONTROL_COEFF * Math.Atan(Math.Pow(get(), 3) * GunplayConstants.RECOIL_CONTROL_STEEPNESS);
-			dui.plot("", {line, {{0,1},{get(), atan}}}, {128, 128}, {0.5, 0.5}, {0.5, 0.5}, 1);
-			dui.table({
-				{"Recoil control"}
-				{"Strength",    ""+getModifierStrength(),        "+"}
-				{"Inv weight",  ""+getModifierInventoryWeight(), "+"}
-				{"Stance",      ""+getModifierStance(),          "+"}
-				{"Movement",    ""+getModifierMovement(),        "="}
-				{"--------------------"}
-				{"total",       ""+get(),                        ""}
-				{"atan",        ""+atan,                         ""}
-			});
-		}
-		dui.end();
 	}
 	
 	/**

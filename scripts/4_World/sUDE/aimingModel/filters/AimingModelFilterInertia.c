@@ -9,26 +9,12 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	protected float m_currResetVelX[1];
 	protected float m_currResetVelY[1];
 	
-	static SDebugUI dui;
-	static bool debugMonitor = false;
-	
 	override bool isActive() {
 		return GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA;
 	}
 	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
-		//DEADZONE_AMOUNT *= getInertiaMultiplierWeaponLength();
 		
-		dui = SDebugUI.of(ClassName());
-		dui.begin();
-		if (debugMonitor) {
-			dui.pos("1024px 0px").window(GetDebugName());
-			bool useInertia = true;
-			dui.check("useInertia", useInertia);
-			dui.newline();
-			if (!useInertia) return;
-		}
-				
 		//////////////////////////
 		// ACCELERATION
 		m_accel = getAimingModel().getAimChangeDegree();
@@ -82,9 +68,6 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		}
 		
 		
-		
-		dui.end();
-		
 	}
 	
 	/**
@@ -119,24 +102,6 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		////////////////////////
 		// HIPFIRE 
 		inertiaMultiplier *= getInertiaMultiplierHipfire();
-		
-		
-		
-		if (debugMonitor) {
-			dui.table({
-				{"",               "inertia multipliers",                    ""}
-				{"base",           ""+GunplayConstants.INERTIA_MULTIPLIER_BASE,"x"}
-				{"stance",         ""+getInertiaMultiplierStance(),          "x"}
-				{"movement",       ""+getInertiaMultiplierMovement(),        "x"}
-				{"wep weight",     ""+getInertiaMultiplierWeapon(),          "x"}
-				{"wep length",     ""+getInertiaMultiplierWeaponLength(),    "x"}
-				{"inventory",      ""+getInertiaMultiplierInventoryWeight(), "x"}
-				{"hipfire",        ""+getInertiaMultiplierHipfire(),         "="}
-				{"--------------------"}
-				{"total",          ""+inertiaMultiplier,                     " "}
-			});
-		}
-		
 		
 		return Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
 	}

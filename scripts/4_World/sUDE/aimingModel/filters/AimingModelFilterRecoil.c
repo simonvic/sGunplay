@@ -21,13 +21,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		m_time += pDt;
-		dui = SDebugUI.of("RecoilBase");
-		dui.begin();
-		if (debugMonitor) {
-			dui.pos("256px 0").size("512px").window(ClassName());
-			createDebugRecoilMonitor(pDt, pModel);
-		}
-		getPlayer().getRecoilControl().compute(); //@todo just for debug, only compute on new recoil
+		
 		RecoilBase r = getAimingModel().getRecoil();
 		if (r != null && m_recoil != r) {
 			onNewRecoil(r);
@@ -43,12 +37,6 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			reset(pDt, m_recoil);
 		}
 		
-		if (debugMonitor) {
-			bool showPlot;
-			dui.check("showPlot", showPlot);
-			if (showPlot) createDebugRecoilPlots(pDt, pModel);
-		}
-		dui.end();
 	}
 	
 	/**
@@ -94,7 +82,6 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	*	@param recoil to apply
 	*/
 	protected void applyMouseOffset(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		if (!applyMouseOffset) return;
 		// compute delta values of mouse shift so we spread the movement on multiple frames while not making harsh movements
 		if (m_mouseAccum[1] < r.mouse[1]) {
 			float relativeDelta = pDt / r.mouseTime;
@@ -109,8 +96,8 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		}
 		
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
-		pModel.m_fAimXMouseShift -= deltaMouseX * mouseMultiplier[0] * modifiers.recoilControlMouseX;
-		pModel.m_fAimYMouseShift += deltaMouseY * mouseMultiplier[1] * modifiers.recoilControlMouseY;
+		pModel.m_fAimXMouseShift -= deltaMouseX * modifiers.recoilControlMouseX;
+		pModel.m_fAimYMouseShift += deltaMouseY * modifiers.recoilControlMouseY;
 		
 	}
 	
@@ -121,10 +108,9 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	*	@param recoil to apply
 	*/
 	protected void applyKick(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		if (!applyKick) return;
 		float timeNormalized = SMath.normalizeClamp(m_time, 0, r.kickResetTime);
 		float easing = 1 - Easing.EaseOutElastic(timeNormalized, 0.45);
-		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * kickMultiplier * getWeapon().GetPropertyModifierObject().recoilControlKick, easing);
+		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * getWeapon().GetPropertyModifierObject().recoilControlKick, easing);
 	}
 	
 	/**
@@ -134,18 +120,18 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	*	@param recoil to apply
 	*/
 	protected void applyHandsOffset(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		if (!applyHandsOffset) return;
+		
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[0] * handsMultiplier[0] * modifiers.recoilControlHandsX,
+			m_handsAccum[0] * modifiers.recoilControlHandsX,
 			m_velHandsAccumX,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
 		
 		pModel.m_fAimYHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[1] * handsMultiplier[1] * modifiers.recoilControlHandsY,
+			m_handsAccum[1] * modifiers.recoilControlHandsY,
 			m_velHandsAccumY,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
@@ -158,19 +144,18 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	*	@param recoil to apply
 	*/
 	protected void applyMisalignment(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		if (!applyMisalignment) return;
 		float smoothTime = 1 - r.misalignAccumSpeed;
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[0] * r.misalignIntensity[0] * misalignMultiplier[0] * modifiers.recoilControlMisalignmentX,
+			m_misalignAccum[0] * r.misalignIntensity[0] * modifiers.recoilControlMisalignmentX,
 			m_velMisalignAccumX,
 			smoothTime,
 			1000, pDt);
 		
 		pModel.m_fAimYCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[1] * r.misalignIntensity[1] * misalignMultiplier[1] * modifiers.recoilControlMisalignmentY,
+			m_misalignAccum[1] * r.misalignIntensity[1] * modifiers.recoilControlMisalignmentY,
 			m_velMisalignAccumY,
 			smoothTime,
 			1000, pDt);
@@ -193,109 +178,4 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// DEBUG
-	static SDebugUI dui;
-	static bool debugMonitor = false;
-	static float mouseMultiplier[2]    = {1,1};
-	static float handsMultiplier[2]    = {1,1};
-	static float misalignMultiplier[2] = {1,1};
-	static float kickMultiplier        = 1;
-	
-	static bool applyMouseOffset = true;
-	static bool applyHandsOffset = true;
-	static bool applyMisalignment = true;
-	static bool applyKick = true;
-	
-	protected void createDebugRecoilPlots(float pDt, SDayZPlayerAimingModel pModel) {
-		array<int> plotSize = {128,128};
-		int historySize = 25;
-		dui.newline();
-		float plotSizeX = 128;
-		float plotSizeY = 128;
-		dui.slider("plot size X", plotSizeX, 128, 0, 1024);
-		dui.slider("plot size Y", plotSizeY, 128, 0, 1024);
-		plotSize = {plotSizeX, plotSizeY};
-		dui.newline();
-		dui.plotlive("hands X",        pModel.m_fAimXHandsOffset,  -20.00, 20.00, plotSize, historySize);
-		dui.plotlive("misalignment X", pModel.m_fAimXCamOffset,    20.00, -20.00, plotSize, historySize);
-		dui.plotlive("mouse X",        pModel.m_fAimXMouseShift,   -2.00, 2.00, plotSize, historySize);
-		dui.newline();
-		dui.plotlive("hands Y",        pModel.m_fAimYHandsOffset,  -20.00, 20.00, plotSize, historySize);
-		dui.plotlive("misalignment Y", pModel.m_fAimYCamOffset,    20.00, -20.00, plotSize, historySize);
-		dui.plotlive("mouse Y",        pModel.m_fAimYMouseShift,   -2.00, 2.00, plotSize, historySize);
-		dui.newline();
-		dui.plotlive("kick",           pModel.m_fCamPosOffsetZ,    -0.25, 0.25, plotSize, historySize);
-	}
-	
-	protected void createDebugRecoilMonitor(float pDt, SDayZPlayerAimingModel pModel) {
-		dui.check("applyMouseOffset", applyMouseOffset);
-		dui.check("applyHandsOffset", applyHandsOffset);
-		dui.check("applyMisalignment", applyMisalignment);
-		dui.check("applyKick", applyKick);
-		dui.newline();
-		float hMultX = 1;
-		float hMultY = 1;
-		float mMultX = 1;
-		float mMultY = 1;
-		float misMultX = 1;
-		float misMultY = 1;
-		float kMult = 1;
-		/*
-		dui.slider("mouseMultX",   mMultX,   0.01);
-		dui.slider("mouseMultY",   mMultY,   0.01);
-		dui.newline();
-		dui.slider("handsMultX",   hMultX,   0.01);
-		dui.slider("handsMultY",   hMultY,   0.01);
-		dui.newline();
-		dui.slider("misalignMultX", misMultX, 0.01);
-		dui.slider("misalignMultY", misMultY, 0.01);
-		dui.newline();
-		dui.slider("kickMult",    kMult,    0.01);
-		handsMultiplier = {hMultX, hMultY};
-		mouseMultiplier = {mMultX, mMultY};
-		misalignMultiplier = {misMultX, misMultY};
-		kickMultiplier = kMult;
-		dui.newline();
-		*/
-		array<ref array<string>> recoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
-		if (m_recoil) {
-			recoilTable = m_recoil.toDebugTable();
-		}
-		dui.table(recoilTable);
-		dui.newline();
-		auto m = getWeapon().GetPropertyModifierObject();
-		dui.color(SColor.rgba(0xaa)).table({
-			{"Attachments modifiers"}
-			{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-m.recoilControlMouseX)*100,    (1-m.recoilControlMouseY)*100)}
-			{"recoilOffsetHands",  string.Format("-%1%% -%2%%", (1-m.recoilControlHandsX)*100,    (1-m.recoilControlHandsY)*100)}
-			{"recoilMisalignment", string.Format("-%1%% -%2%%", (1-m.recoilControlMisalignmentX)*100, (1-m.recoilControlMisalignmentY)*100)}
-			{"recoilKick",         string.Format("-%1%%",       (1-m.recoilControlKick)*100)}
-		});
-		dui.newline();
-		
-		array<ref array<string>> controlledRecoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
-		if (m_recoil) {
-			controlledRecoilTable.Clear();
-			/*
-			controlledRecoilTable.Clear();
-			controlledRecoilTable.Insert({""+m_recoil, "mouse", "hands", "misalign", "kick"});
-			controlledRecoilTable.Insert({"normal",     string.Format("%1 %2", m_recoil.mouse[0], m_recoil.mouse[1]), string.Format("%1 %2", m_recoil.hands[0], m_recoil.hands[1]), string.Format("%1 %2", m_recoil.misalignIntensity[0], m_recoil.misalignIntensity[1]), ""+m_recoil.kick});
-			controlledRecoilTable.Insert({"controlled", string.Format("%1 %2", controlRecoil(m_recoil.mouse[0]), controlRecoil(m_recoil.mouse[1])), string.Format("%1 %2", controlRecoil(m_recoil.hands[0]), controlRecoil(m_recoil.hands[1])), string.Format("%1 %2", controlRecoil(m_recoil.misalignIntensity[0]), controlRecoil(m_recoil.misalignIntensity[1])), ""+controlRecoil(m_recoil.kick)});
-			*/
-
-			controlledRecoilTable.Insert({""+m_recoil, "normal", "controlled"});
-			controlledRecoilTable.Insert({"mouse",   string.Format("%1 %2", m_recoil.mouse[0], m_recoil.mouse[1]), string.Format("%1 %2", controlRecoil(m_recoil.mouse[0]), controlRecoil(m_recoil.mouse[1]))});
-			controlledRecoilTable.Insert({"hands",   string.Format("%1 %2", m_recoil.hands[0], m_recoil.hands[1]), string.Format("%1 %2", controlRecoil(m_recoil.hands[0]), controlRecoil(m_recoil.hands[1]))});
-			controlledRecoilTable.Insert({"misalign",string.Format("%1 %2", m_recoil.misalignIntensity[0], m_recoil.misalignIntensity[1]), string.Format("%1 %2", controlRecoil(m_recoil.misalignIntensity[0]), controlRecoil(m_recoil.misalignIntensity[1]))});
-			controlledRecoilTable.Insert({"kick",    ""+m_recoil.kick, ""+controlRecoil(m_recoil.kick)});
-			
-		}
-		dui.table(controlledRecoilTable);
-	}
 }
