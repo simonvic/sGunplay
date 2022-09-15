@@ -8,6 +8,11 @@ class CfgPatches {
 		requiredAddons[] = {
 			"DZ_Weapons_Supports",
 			"DZ_Weapons_Muzzles",
+			"DZ_Weapons_Firearms_UMP",
+			"DZ_Weapons_Firearms_cz61",
+			"DZ_Weapons_Firearms_M16A2",
+			"DZ_Weapons_Firearms_Famas",
+			"DZ_Weapons_Firearms_AK74",
 			"sFramework"
 		};
 	};
