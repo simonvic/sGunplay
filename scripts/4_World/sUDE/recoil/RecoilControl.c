@@ -20,7 +20,7 @@ class RecoilControl : Managed {
 		dui = SDebugUI.of(ClassName());
 		dui.begin();
 		if (debugMonitor) {
-			dui.window(GetDebugName(), {(256+12)*1,512}, {(256+12)*3,0});
+			dui.pos("768px 0px").window(GetDebugName());
 			bool useRecoilControl = true;
 			dui.check("useRecoilControl", useRecoilControl);
 			if (!useRecoilControl) return;
@@ -65,7 +65,7 @@ class RecoilControl : Managed {
 				{"--------------------"}
 				{"total",       ""+get(),                        ""}
 				{"atan",        ""+atan,                         ""}
-			}, {256, 128});
+			});
 		}
 		dui.end();
 	}

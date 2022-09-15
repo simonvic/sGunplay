@@ -53,13 +53,13 @@ modded class DayZPlayerCameraOptics {
 		/*
 		auto dui = SDebugUI.of("optic");
 		dui.begin();
-		dui.window("PiP");
-		dui.table({
+		dui.pos("1024px 0").size("512px").window("PiP");
+		dui.size("512px 128px").table({
 			{"",     "pos X",               "pos Y",             "radius",            "blur"}
 			{"mask", ""+m_opticPPMask[0], ""+m_opticPPMask[1], ""+m_opticPPMask[2], ""+m_opticPPMask[3]}
 			{"",     "magnification",       "pos X",             "pos Y",             "chrom aber"}
 			{"lens", ""+m_opticPPLens[0], ""+m_opticPPLens[1], ""+m_opticPPLens[2], ""+m_opticPPLens[3]}
-		}, {512, 128});
+		});
 		dui.end();
 		*/
 		

@@ -24,7 +24,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		dui = SDebugUI.of("RecoilBase");
 		dui.begin();
 		if (debugMonitor) {
-			dui.window(ClassName(), {(256+12)*2,1}, {(256+12),0});
+			dui.pos("256px 0").size("512px").window(ClassName());
 			createDebugRecoilMonitor(pDt, pModel);
 		}
 		getPlayer().getRecoilControl().compute(); //@todo just for debug, only compute on new recoil
@@ -267,15 +267,17 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		if (m_recoil) {
 			recoilTable = m_recoil.toDebugTable();
 		}
-		dui.table(recoilTable, {400, 128});
+		dui.table(recoilTable);
+		dui.newline();
 		auto m = getWeapon().GetPropertyModifierObject();
-		dui.table({
+		dui.color(SColor.rgba(0xaa)).table({
 			{"Attachments modifiers"}
 			{"recoilOffsetMouse",  string.Format("-%1%% -%2%%", (1-m.recoilControlMouseX)*100,    (1-m.recoilControlMouseY)*100)}
 			{"recoilOffsetHands",  string.Format("-%1%% -%2%%", (1-m.recoilControlHandsX)*100,    (1-m.recoilControlHandsY)*100)}
 			{"recoilMisalignment", string.Format("-%1%% -%2%%", (1-m.recoilControlMisalignmentX)*100, (1-m.recoilControlMisalignmentY)*100)}
 			{"recoilKick",         string.Format("-%1%%",       (1-m.recoilControlKick)*100)}
-		}, {256, 64});
+		});
+		dui.newline();
 		
 		array<ref array<string>> controlledRecoilTable = {{"No data available."}, {"Shoot once to show recoil stats"}};
 		if (m_recoil) {
@@ -294,6 +296,6 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			controlledRecoilTable.Insert({"kick",    ""+m_recoil.kick, ""+controlRecoil(m_recoil.kick)});
 			
 		}
-		dui.table(controlledRecoilTable, {512, 64});
+		dui.table(controlledRecoilTable);
 	}
 }
