@@ -14,8 +14,8 @@ modded class PropertyModifiers {
 
 		recoilControlMouseX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMouseX");
 		recoilControlMouseY        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMouseY");
-		recoilControlHandsX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlHandsX");
-		recoilControlHandsY        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlHandsY");		
+		recoilControlHandsX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlStabilityX");
+		recoilControlHandsY        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlStabilityY");		
 		recoilControlMisalignmentX = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMisalignmentX");
 		recoilControlMisalignmentY = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMisalignmentY");		
 		recoilControlKick          = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlKick");
@@ -37,8 +37,8 @@ modded class PropertyModifiers {
 	protected void applyAttachmentModifiers(EntityAI attachment) {
 		recoilControlMouseX        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMouseX");
 		recoilControlMouseY        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMouseY");
-		recoilControlHandsX        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlHandsX");
-		recoilControlHandsY        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlHandsY");		
+		recoilControlHandsX        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlStabilityX");
+		recoilControlHandsY        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlStabilityY");		
 		recoilControlMisalignmentX += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMisalignmentX");
 		recoilControlMisalignmentY += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMisalignmentY");		
 		recoilControlKick          += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlKick");
