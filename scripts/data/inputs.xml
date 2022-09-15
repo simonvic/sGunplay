@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <modded_inputs>
-
 	<inputs>
-
 		<actions>
-			<input name="SUA_ADSWeaponInspect" loc="STR_SUDE_INPUT_GUNPLAY_ADS_WEAPON_INSPECT" />
+			<input name="SUA_ADSWeaponInspect" loc="STR_SUDE_INPUT_GUNPLAY_ADS_WEAPON_INSPECT"/>
 		</actions>
-
 		<sorting name="sUDE" loc="STR_SGUNPLAY_MOD_INFO_TOOLTIP">
-			<input name="SUA_ADSWeaponInspect" />
+			<input name="SUA_ADSWeaponInspect"/>
 		</sorting>
 	</inputs>
-<!--
 	<preset>
-		
 		<input name="SUA_ADSWeaponInspect">
-            <btn name="mBMiddle"/>
+			<btn name=""/>
 		</input>
-		
 	</preset>
--->
 </modded_inputs>
