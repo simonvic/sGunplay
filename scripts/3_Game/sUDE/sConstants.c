@@ -63,8 +63,8 @@ class GunplayConstants {
 	// MOVEMENT
 	static const bool AIMING_MODEL_USE_FILTER_MOVEMENT = true;  // Use the player movement in the player aiming model
 	static const float AIMING_MODEL_FILTER_MOVEMENT[] = {
-		2.5, 2.0,  //yaw strength, yaw frequency
-		3.5, 7.5   //pitch strength, pitch frequency
+		1.25, 2.0,  //yaw strength, yaw frequency
+		1.75, 7.5   //pitch strength, pitch frequency
 	};
 	static const float AIMING_MODEL_FILTER_MOVEMENT_MULTIPLIER = 2;    // Overall strength of the movement modifier
 	static const float AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME = 0.4;  // Smooth time of the movement modifier
