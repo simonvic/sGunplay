@@ -1,20 +1,21 @@
 GridSpacerWidgetClass root_gunplay_stats {
- position 300 -12
+ ignorepointer 1
+ position 0 0
  size 1 1
- valign bottom_ref
- hexactpos 1
- vexactpos 1
+ halign right_ref
+ hexactpos 0
+ vexactpos 0
  hexactsize 0
  vexactsize 0
  priority 999
- Padding 4
- Margin 4
+ Padding 16
+ Margin 0
  "Size To Content H" 1
  "Size To Content V" 1
  content_halign center
  content_valign center
- Columns 1
- Rows 2
+ Columns 2
+ Rows 1
  {
   GridSpacerWidgetClass recoil_control {
    ignorepointer 1
@@ -49,6 +50,7 @@ GridSpacerWidgetClass root_gunplay_stats {
     ImageWidgetClass recoil_control_bar {
      visible 1
      clipchildren 0
+     ignorepointer 1
      position 0 0
      size 180 8
      hexactpos 0
@@ -66,6 +68,7 @@ GridSpacerWidgetClass root_gunplay_stats {
       ImageWidgetClass recoil_control_indicator {
        visible 1
        clipchildren 0
+       ignorepointer 1
        position 0 -0.75
        size 17 11
        halign center_ref
@@ -134,6 +137,7 @@ GridSpacerWidgetClass root_gunplay_stats {
     ImageWidgetClass weight_bar {
      visible 1
      clipchildren 0
+     ignorepointer 1
      position 0 0
      size 180 8
      hexactpos 0
@@ -151,6 +155,7 @@ GridSpacerWidgetClass root_gunplay_stats {
       ImageWidgetClass weight_indicator {
        visible 1
        clipchildren 0
+       ignorepointer 1
        position 0 -0.75
        size 17 11
        halign center_ref

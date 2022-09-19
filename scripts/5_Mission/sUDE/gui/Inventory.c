@@ -5,7 +5,7 @@ modded class Inventory {
 	protected Widget m_meterWeight;
 	
 	void Inventory(LayoutHolder parent) {
-		m_rootGunplayStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/gunplay_stats.layout", m_SpecializationPanel.GetParent());
+		m_rootGunplayStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/gunplay_stats.layout", GetMainWidget().FindAnyWidget("InventoryFrameWidget"));
 		m_meterRecoilControl = m_rootGunplayStats.FindAnyWidget("recoil_control_indicator");
 		m_meterWeight = m_rootGunplayStats.FindAnyWidget("weight_indicator");
 	}
