@@ -27,9 +27,9 @@ class GunplayConstants {
 	// HIPFIRE
 	static const bool AIMING_MODEL_USE_FILTER_HIPFIRE_DEADZONE = true;       // Use hipfire deadzone filter in the player aiming model
 	static const float HIPFIRE_DEADZONE_AMOUNT_DEGREE[4] = {                 // amount of deadzone to use when hipfiring (in degrees)
-		    25,
-		-25,  25,
-		   -25    };
+		    5,
+		-10,   10,
+		   -5    };
 	
 	///////////////////
 	// INERTIA
@@ -39,25 +39,29 @@ class GunplayConstants {
 		    10,
 		-30,   30,
 		   -10    };
-	static const float INERTIA_SPEED_ACCELERATION[2] = {0.6, 0.6};             // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
-	static const float INERTIA_SPEED_RESET[2] = {0.3, 0.3};                    // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
-	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.6, 0.6};     // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
-	static const float INERTIA_SPEED_RESET_HIPFIRE[2] = {0.3, 0.3};            // Speed of deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
+	static const float INERTIA_SPEED_ACCELERATION[2]         = {0.1, 0.1};     // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
+	static const float INERTIA_SPEED_RESET[2]                = {0.2, 0.2};     // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
+	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.1, 0.1};     // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
+	static const float INERTIA_SPEED_RESET_HIPFIRE[2]        = {0.2, 0.2};     // Speed of deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
 	
 	static const float INERTIA_MULTIPLIER_BASE = 1;                            // Base multiplier of the amount of inertia to be applied
-	static const float INERTIA_MIN_MULTIPLIER = 1;                             // Minimum value of inertia
-	static const float INERTIA_MAX_MULTIPLIER = 20;                            // Maximum value of inertia
+	static const float INERTIA_MIN_MULTIPLIER  = 0;                            // Minimum value of inertia
+	static const float INERTIA_MAX_MULTIPLIER  = 1;                            // Maximum value of inertia
 	
-	static const float INERTIA_MULTIPLIER_STANDING = 1.0;                      // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
-	static const float INERTIA_MULTIPLIER_WALKING = 1.1;                       // Multiplier of the amount of inertia to be applied when the player is WALKING
-	static const float INERTIA_MULTIPLIER_JOGGING = 1.75;                      // Multiplier of the amount of inertia to be applied when the player is JOGGING
+	static const float INERTIA_MULTIPLIER_STANDING = 1.00;                     // Multiplier of the amount of inertia to be applied when the player is NOT MOVING
+	static const float INERTIA_MULTIPLIER_WALKING  = 1.25;                     // Multiplier of the amount of inertia to be applied when the player is WALKING
+	static const float INERTIA_MULTIPLIER_JOGGING  = 1.50;                     // Multiplier of the amount of inertia to be applied when the player is JOGGING
 	
-	static const float INERTIA_MULTIPLIER_ERECT = 1;                           // Multiplier of the amount of inertia to be applied when the player is ERECT
-	static const float INERTIA_MULTIPLIER_CROUCHED = 0.5;                      // Multiplier of the amount of inertia to be applied when the player is CROUCHED
-	static const float INERTIA_MULTIPLIER_PRONE = 0.75;                        // Multiplier of the amount of inertia to be applied when the player is PRONE
+	static const float INERTIA_MULTIPLIER_ERECT    = 1.00;                     // Multiplier of the amount of inertia to be applied when the player is ERECT
+	static const float INERTIA_MULTIPLIER_CROUCHED = 0.30;                     // Multiplier of the amount of inertia to be applied when the player is CROUCHED
+	static const float INERTIA_MULTIPLIER_PRONE    = 0.25;                     // Multiplier of the amount of inertia to be applied when the player is PRONE
 	
-	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 2;            // Multiplier of the amount of inertia to be applied based on weapon length
-	static const float INERTIA_MULTIPLIER_HIPFIRE = 1.0;                       // Multiplier of the amount of inertia to be applied when the player is in hipfire
+	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 0.25;         // Multiplier of the amount of inertia to be applied based on weapon length
+	
+	static const float INERTIA_MULTIPLIER_HIPFIRE = 1.00;                      // Multiplier of the amount of inertia to be applied when the player is in hipfire
+
+	static const float INERTIA_MISALIGNMENT_INTENSITY[2] = {0.05, 0.05};       // Horizontal and vertical misalignment caused by weapon inertia
+	
 	
 	///////////////////
 	// MOVEMENT
