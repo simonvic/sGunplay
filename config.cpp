@@ -216,81 +216,89 @@ class Cfg_sUDE {
 	};	
 };
 
-class cfgVehicles{
-	
-	class ItemOptics;
+class cfgVehicles {
 
-	class ACOGOptic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.314, 0.01};
-			PPLensProperties[] = {0.314, 0.0, 0.0, 0.2};
-		};
+	class Inventory_Base;
+	class ItemOptics : Inventory_Base {
+		s_pipOffset[] = {0.0, 0.0};        // Offset of PiP mask position
+		s_pipLensOffset[] = {0.0, 0.0};    // Offset of PiP magnification lens
+		s_pipRadius = 0.0;                 // Radius of PiP
+		s_pipMagnification = 0.0;          // Intensity of magnification
+		s_pipBlur = 0.01;                  // Blur of PiP circumference
+		s_pipChromAber = 0.01;             // Chromatic aberration intensity of PiP
+	};
+
+	class ACOGOptic : ItemOptics {
+		s_pipRadius = 0.314;
+		s_pipMagnification = 0.314;
+		s_pipBlur = 0.01;
+		s_pipChromAber = 0.2;
 	};
 	
-	class ACOGOptic_6x: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.2, 0.01};
-			PPLensProperties[] = {0.5, 0.0, 0.0, 0.0};
-		};
+	class ACOGOptic_6x : ItemOptics {
+		s_pipRadius = 0.2;
+		s_pipMagnification = 0.5;
+		s_pipBlur = 0.01;
+		s_pipChromAber = 0.01;
 	};
 	
 
-	class PUScopeOptic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.42, 0.007};
-			PPLensProperties[] = {0.5, 0.0, 0.0, 0.2};
-		};
+	class PUScopeOptic : ItemOptics {
+		s_pipRadius = 0.42;
+		s_pipMagnification = 0.5;
+		s_pipBlur = 0.007;
+		s_pipChromAber = 0.2;
 	};
 
-	class KashtanOptic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.5, 0.05};
-			PPLensProperties[] = {0.5, 0.0, 0.0, 0.2};
-		};
+	class KashtanOptic : ItemOptics {
+		s_pipRadius = 0.5;
+		s_pipMagnification = 0.5;
+		s_pipBlur = 0.05;
+		s_pipChromAber = 0.2;
 	};
 
-	class HuntingOptic: ItemOptics{
-		showEnterMisalignment = 1;
-		isFullscreen = 1;
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.7, 0.05};
-			PPLensProperties[] = {0.3, 0.0, 0.0, 0.3};
-		};
+	class HuntingOptic : ItemOptics {
+		s_showEnterMisalignment = 1;
+		s_isFullscreen = 1;
+		s_pipRadius = 0.7;
+		s_pipMagnification = 0.3;
+		s_pipBlur = 0.05;
+		s_pipChromAber = 0.3;
 	};
 
-	class PistolOptic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.47, 0.005};
-			PPLensProperties[] = {0.5, 0.0, 0.0, 0.0};
-		};
+	class PistolOptic : ItemOptics {
+		s_pipRadius = 0.47;
+		s_pipMagnification = 0.3;
+		s_pipBlur = 0.005;
+		s_pipChromAber = 0.001;
 	};
 
-	class PSO1Optic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.34, 0.005};
-			PPLensProperties[] = {0.314, 0.0, 0.0, 0.2};
-		};
+	class PSO1Optic : ItemOptics {
+		s_pipRadius = 0.34;
+		s_pipMagnification = 0.314;
+		s_pipBlur = 0.005;
+		s_pipChromAber = 0.2;
 	};
 
-	class PSO11Optic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 0.34, 0.005};
-			PPLensProperties[] = {0.314, 0.0, 0.0, 0.2};
-		};
+	class PSO11Optic : ItemOptics {
+		s_pipRadius = 0.34;
+		s_pipMagnification = 0.314;
+		s_pipBlur = 0.005;
+		s_pipChromAber = 0.2;
 	};
 
 	class KazuarOptic: ItemOptics{
-		class OpticsInfo{
-			PPMaskProperties[] = {0.0, 0.0, 2.0, 0.05};
-			PPLensProperties[] = {-1.0, 0.0, 0.0, 0.0};
-		};
+		s_pipRadius = 2.0;
+		s_pipMagnification = -1.0;
+		s_pipBlur = 0.05;
+		s_pipChromAber = 0.01;
 	};
 
 	class AugOptic : ItemOptics {
-		class OpticsInfo {
-			PPMaskProperties[] = {0.0, 0.0, 0.6, 0.01};
-			PPLensProperties[] = {0.25, 0.0, 0.0, 0.1};
-		};
+		s_pipRadius = 0.6;
+		s_pipMagnification = 0.25;
+		s_pipBlur = 0.01;
+		s_pipChromAber = 0.1;
 	};
 
 	class Static;

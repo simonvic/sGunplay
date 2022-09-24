@@ -1,23 +1,23 @@
 modded class DayZPlayerCameraOptics {
 	
-	protected ref TFloatArray m_opticPPMask = new TFloatArray;
-	protected ref TFloatArray m_opticPPLens = new TFloatArray;
-	protected float m_opticPPBlur;
+	protected ref array<float> m_pipOffset = {0.0, 0.0};
+	protected ref array<float> m_pipLensOffset = {0.0, 0.0};
+	protected float m_pipRadius;
+	protected float m_pipMagnification;
+	protected float m_pipBlur;
+	protected float m_pipChromAber;
 	
 	protected bool m_canShowLens = false;
-	protected vector m_lensOffset;
-	protected float m_lensOffsetVelX[1];
-	protected float m_lensOffsetVelY[1];
+	protected vector m_opticPositionSS;
 	
 	protected bool m_showEnterMisalignment;
 	protected bool m_isFullscreen;
 	
 	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
-		
-		m_opticsUsed.InitOpticsPP(m_opticPPMask, m_opticPPLens, m_opticPPBlur);
-		m_showEnterMisalignment = m_opticsUsed.ConfigGetBool("showEnterMisalignment");
-		m_isFullscreen = m_opticsUsed.ConfigGetBool("isFullscreen");
+		initPiP(m_opticsUsed);
+		m_showEnterMisalignment = m_opticsUsed.ConfigGetBool("s_showEnterMisalignment");
+		m_isFullscreen = m_opticsUsed.ConfigGetBool("s_isFullscreen");
 		
 		//Show lens when transition is done
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
@@ -38,6 +38,23 @@ modded class DayZPlayerCameraOptics {
 		updateLens(pDt);
 	}
 	
+	protected void initPiP(ItemOptics optic) {
+		if (optic.ConfigIsExisting("s_pipOffset")) {
+			optic.ConfigGetFloatArray("s_pipOffset", m_pipOffset);
+		} else {
+			m_pipOffset = {0, 0};
+		}
+		if (optic.ConfigIsExisting("s_pipLensOffset")) {
+			optic.ConfigGetFloatArray("s_pipLensOffset", m_pipLensOffset);
+		} else {
+			m_pipLensOffset = {0, 0};
+		}
+		m_pipRadius = optic.ConfigGetFloat("s_pipRadius");
+		m_pipMagnification = optic.ConfigGetFloat("s_pipMagnification");
+		m_pipBlur = optic.ConfigGetFloat("s_pipBlur");
+		m_pipChromAber = optic.ConfigGetFloat("s_pipChromAber");
+	}
+	
 	/**
 	*	@brief Update the lens effect position and strength along with the PP mask
 	*/
@@ -47,19 +64,30 @@ modded class DayZPlayerCameraOptics {
 			return;
 		}
 
-		m_lensOffset = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
-		
+		m_opticPositionSS = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		
 		/*
 		auto dui = SDebugUI.of("optic");
 		dui.begin();
-		dui.pos("1024px 0").size("512px").window("PiP");
-		dui.size("512px 128px").table({
-			{"",     "pos X",               "pos Y",             "radius",            "blur"}
-			{"mask", ""+m_opticPPMask[0], ""+m_opticPPMask[1], ""+m_opticPPMask[2], ""+m_opticPPMask[3]}
-			{"",     "magnification",       "pos X",             "pos Y",             "chrom aber"}
-			{"lens", ""+m_opticPPLens[0], ""+m_opticPPLens[1], ""+m_opticPPLens[2], ""+m_opticPPLens[3]}
-		});
+		dui.pos("0 0.5").window();
+		dui.check("m_isFullscreen", m_isFullscreen);
+		dui.slider("m_pipMagnification", m_pipMagnification, 0.01, 0, 1);
+		dui.slider("m_pipRadius", m_pipRadius, 0.01, 0, 1);
+		dui.slider("m_pipBlur", m_pipBlur, 0.01, 0.001, 1);
+		dui.slider("m_pipChromAber", m_pipChromAber, 0.01, 0, 1);
+		float offsetX = m_pipOffset[0];
+		float offsetY = m_pipOffset[1];
+		dui.slider("m_pipOffsetX", offsetX, 0.01, -1, 1);
+		dui.slider("m_pipOffsetY", offsetY, 0.01, -1, 1);
+		m_pipOffset[0] = offsetX;
+		m_pipOffset[1] = offsetY;
+		
+		float lensOffsetX = m_pipLensOffset[0];
+		float lensOffsetY = m_pipLensOffset[1];
+		dui.slider("m_pipLensOffsetX", lensOffsetX, 0.01, -1, 10);
+		dui.slider("m_pipLensOffsetY", lensOffsetY, 0.01, -1, 10);
+		m_pipLensOffset[0] = lensOffsetX;
+		m_pipLensOffset[1] = lensOffsetY;
 		dui.end();
 		*/
 		
@@ -67,46 +95,27 @@ modded class DayZPlayerCameraOptics {
 		int sX, sY;
 		GetScreenSize(sX, sY);
 		
-		m_lensOffset[0] = m_lensOffset[0] + SMath.mapTo(m_aimingModel.getMisalignment()[0], 0, 5, 0, 0.15);
-		m_lensOffset[1] = m_lensOffset[1] - SMath.mapTo(m_aimingModel.getMisalignment()[1], 0, 5, 0, 0.15) * (sX / sY);
+		m_opticPositionSS[0] = m_opticPositionSS[0] + SMath.mapTo(m_aimingModel.getMisalignment()[0], 0, 5, 0, 0.15);
+		m_opticPositionSS[1] = m_opticPositionSS[1] - SMath.mapTo(m_aimingModel.getMisalignment()[1], 0, 5, 0, 0.15) * (sX / sY);
 		
-		SPPEManager.requestOpticMask(computeMask(m_opticPPMask, m_lensOffset[0], m_lensOffset[1]));
-		SPPEManager.requestOpticLens(computeLens(m_opticPPLens, m_lensOffset[0], m_lensOffset[1]));
-		
+		applyPiP();
 	}
 	
 	/**
-	*	@brief Compute the mask position, radius, and blur(smooth opacity)
-	*	 Mask = {positionX [-1, 1], positionY [-1, 1], radius, blur}
-	*	 @param mask \p TFloatArray - Starting mask array
-	*	 @param offsetX \p float - arbitrary X offset
-	*	 @param offsetY \p float - arbitrary Y offset
-	*	 @return TFloatArray - computed mask array
+	*	@brief Apply the PiP (mask and lens)
 	*/
-	protected TFloatArray computeMask(TFloatArray mask, float offsetX, float offsetY) {
-		return {
-			mask[0] + offsetX,                         //X position
-			mask[1] + offsetY,                         //Y position
-			mask[2] / 9.8696 / Camera.GetCurrentFOV(), //radius ( current radius / pi^2 / fov )
-			mask[3]                                    //blur
-		};
-	}
-	
-	/**
-	*	@brief Compute the lens intensity, position, and chromatic aberration
-	*	 Lens = {intensity [-i, +i], positionX [-1, 1], positionY [-1, 1], chromatic aberration}
-	*	 @param lens \p TFloatArray - Starting lens array
-	*	 @param offsetX \p float - arbitrary X offset
-	*	 @param offsetY \p float - arbitrary Y offset
-	*	 @return TFloatArray - computed lens array
-	*/
-	protected TFloatArray computeLens(TFloatArray lens, float offsetX, float offsetY) {
-		return {
-			lens[0] * getLensZoomStrength(),  //intensity
-			lens[1] + (offsetX * 2 - 1),      //X position
-			lens[2] + (offsetY * 2 - 1),      //Y position
-			lens[3]                           //chrom aber	
-		};
+	protected void applyPiP() {
+		SPPEManager.requestOpticMask(
+			m_opticPositionSS[0] + m_pipOffset[0],
+			m_opticPositionSS[1] + m_pipOffset[1],
+			m_pipRadius / SMath.PI_SQ / Camera.GetCurrentFOV(),
+			m_pipBlur);
+		
+		SPPEManager.requestOpticLens(
+			m_pipMagnification * getLensZoomStrength(),
+			(m_opticPositionSS[0] * 2 - 1) + m_pipOffset[0] + m_pipLensOffset[0],
+			(m_opticPositionSS[1] * 2 - 1) + m_pipOffset[1] + m_pipLensOffset[1],
+			m_pipChromAber);
 	}
 	
 	/**
