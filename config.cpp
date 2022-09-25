@@ -218,7 +218,17 @@ class Cfg_sUDE {
 
 class cfgVehicles {
 
-	class Inventory_Base;
+	class Static;
+	class Inventory_Base : Static {
+		s_recoilControlMouseX = 0.00;
+		s_recoilControlMouseY = 0.00;
+		s_recoilControlStabilityX = 0.00;
+		s_recoilControlStabilityY = 0.00;
+		s_recoilControlMisalignmentX = 0.00;
+		s_recoilControlMisalignmentY = 0.00;
+		s_recoilControlKick = 0.00;
+	};
+	
 	class ItemOptics : Inventory_Base {
 		s_pipOffset[] = {0.0, 0.0};        // Offset of PiP mask position
 		s_pipLensOffset[] = {0.0, 0.0};    // Offset of PiP magnification lens
@@ -301,16 +311,6 @@ class cfgVehicles {
 		s_pipChromAber = 0.1;
 	};
 
-	class Static;
-	class Inventory_Base : Static {
-		s_recoilControlMouseX = 0.00;
-		s_recoilControlMouseY = 0.00;
-		s_recoilControlStabilityX = 0.00;
-		s_recoilControlStabilityY = 0.00;
-		s_recoilControlMisalignmentX = 0.00;
-		s_recoilControlMisalignmentY = 0.00;
-		s_recoilControlKick = 0.00;
-	};
 	class M4_OEBttstck : Inventory_Base {
 		s_recoilControlStabilityX = 0.45;
 		s_recoilControlStabilityY = 0.45;
