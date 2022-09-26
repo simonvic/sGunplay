@@ -1,9 +1,10 @@
 modded class DayZPlayerCameraBase {
 	
-	protected static ref SCOOpticMisalignment m_opticMisalignmentOverlay = new SCOOpticMisalignment();
+	protected static ref SCOOpticMisalignment m_opticMisalignmentOverlay;
 	protected static SUserConfigGunplay userCfgGunplay;
 	
 	void DayZPlayerCameraBase(DayZPlayer pPlayer, HumanInputController pInput) {
+		if (!m_opticMisalignmentOverlay) m_opticMisalignmentOverlay = new SCOOpticMisalignment();
 		userCfgGunplay = SUserConfig.gunplay();
 	}
 	

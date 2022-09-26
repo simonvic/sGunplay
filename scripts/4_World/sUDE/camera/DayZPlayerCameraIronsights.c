@@ -30,8 +30,8 @@ modded class DayZPlayerCameraIronsights {
 	protected float m_offsetXResetVel[1];
 	protected float m_offsetYResetVel[1];	
 	
-	protected ref DOFPresetWeaponInspect m_inspectDOFPreset = new DOFPresetWeaponInspect();
-	protected static ref SCOFocusing m_scoFocusing = new SCOFocusing();
+	protected static ref DOFPresetWeaponInspect m_inspectDOFPreset;
+	protected static ref SCOFocusing m_scoFocusing;
 	
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput) {
@@ -42,6 +42,8 @@ modded class DayZPlayerCameraIronsights {
 		m_dynamicsSmoothTime = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS;
 		m_dynamicsStrength = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH;
 		
+		if (!m_inspectDOFPreset) m_inspectDOFPreset = new DOFPresetWeaponInspect();
+		if (!m_scoFocusing) m_scoFocusing = new SCOFocusing();
 		if (!SCameraOverlaysManager.getInstance().isActive(m_scoFocusing)) {
 			SCameraOverlaysManager.getInstance().activate(m_scoFocusing);
 		}
