@@ -27,9 +27,9 @@ class GunplayConstants {
 	// HIPFIRE
 	static const bool AIMING_MODEL_USE_FILTER_HIPFIRE_DEADZONE = true;       // Use hipfire deadzone filter in the player aiming model
 	static const float HIPFIRE_DEADZONE_AMOUNT_DEGREE[4] = {                 // amount of deadzone to use when hipfiring (in degrees)
-		    5,
+		    1,
 		-10,   10,
-		   -5    };
+		   -1    };
 	
 	///////////////////
 	// INERTIA
