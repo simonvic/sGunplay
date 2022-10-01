@@ -24,14 +24,13 @@ modded class PropertyModifiers {
 			applyAttachmentModifiers(ItemBase.Cast(m_OwnerItem.GetInventory().GetAttachmentFromIndex(i)));
 		}
 
-		//@todo check for needed clamps
-		recoilControlMouseX        = Math.Clamp(1 - recoilControlMouseX, 0, 1);
-		recoilControlMouseY        = Math.Clamp(1 - recoilControlMouseY, 0, 1);
-		recoilControlHandsX        = Math.Clamp(1 - recoilControlHandsX, 0, 1);
-		recoilControlHandsY        = Math.Clamp(1 - recoilControlHandsY, 0, 1);
-		recoilControlMisalignmentX = Math.Clamp(1 - recoilControlMisalignmentX, 0, 1);
-		recoilControlMisalignmentY = Math.Clamp(1 - recoilControlMisalignmentY, 0, 1);
-		recoilControlKick          = Math.Clamp(1 - recoilControlKick, 0, 1);
+		recoilControlMouseX        = Math.Clamp(recoilControlMouseX, -1, 1);
+		recoilControlMouseY        = Math.Clamp(recoilControlMouseY, -1, 1);
+		recoilControlHandsX        = Math.Clamp(recoilControlHandsX, -1, 1);
+		recoilControlHandsY        = Math.Clamp(recoilControlHandsY, -1, 1);
+		recoilControlMisalignmentX = Math.Clamp(recoilControlMisalignmentX, -1, 1);
+		recoilControlMisalignmentY = Math.Clamp(recoilControlMisalignmentY, -1, 1);
+		recoilControlKick          = Math.Clamp(recoilControlKick, -1, 1);
 	}
 	
 	protected void applyAttachmentModifiers(EntityAI attachment) {

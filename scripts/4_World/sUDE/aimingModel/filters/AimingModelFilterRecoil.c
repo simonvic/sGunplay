@@ -96,8 +96,8 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		}
 		
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
-		pModel.m_fAimXMouseShift -= deltaMouseX * modifiers.recoilControlMouseX;
-		pModel.m_fAimYMouseShift += deltaMouseY * modifiers.recoilControlMouseY;
+		pModel.m_fAimXMouseShift -= deltaMouseX * (1 - modifiers.recoilControlMouseX);
+		pModel.m_fAimYMouseShift += deltaMouseY * (1 - modifiers.recoilControlMouseY);
 		
 	}
 	
@@ -110,7 +110,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	protected void applyKick(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
 		float timeNormalized = SMath.normalizeClamp(m_time, 0, r.kickResetTime);
 		float easing = 1 - Easing.EaseOutElastic(timeNormalized, 0.45);
-		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * getWeapon().GetPropertyModifierObject().recoilControlKick, easing);
+		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * (1 - getWeapon().GetPropertyModifierObject().recoilControlKick), easing);
 	}
 	
 	/**
@@ -124,14 +124,14 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[0] * modifiers.recoilControlHandsX,
+			m_handsAccum[0] * (1 - modifiers.recoilControlHandsX),
 			m_velHandsAccumX,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
 		
 		pModel.m_fAimYHandsOffset += Math.SmoothCD(
 			0,
-			m_handsAccum[1] * modifiers.recoilControlHandsY,
+			m_handsAccum[1] * (1 - modifiers.recoilControlHandsY),
 			m_velHandsAccumY,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
@@ -148,14 +148,14 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[0] * r.misalignIntensity[0] * modifiers.recoilControlMisalignmentX,
+			m_misalignAccum[0] * r.misalignIntensity[0] * (1 - modifiers.recoilControlMisalignmentX),
 			m_velMisalignAccumX,
 			smoothTime,
 			1000, pDt);
 		
 		pModel.m_fAimYCamOffset -= Math.SmoothCD(
 			0,
-			m_misalignAccum[1] * r.misalignIntensity[1] * modifiers.recoilControlMisalignmentY,
+			m_misalignAccum[1] * r.misalignIntensity[1] * (1 - modifiers.recoilControlMisalignmentY),
 			m_velMisalignAccumY,
 			smoothTime,
 			1000, pDt);
