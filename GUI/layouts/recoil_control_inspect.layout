@@ -1,0 +1,249 @@
+FrameWidgetClass rootFrame {
+ ignorepointer 1
+ size 1 128
+ halign right_ref
+ valign bottom_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 1
+ priority 100
+ {
+  GridSpacerWidgetClass GridSpacerWidget0 {
+   ignorepointer 1
+   size 1 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   Padding 4
+   Margin 4
+   content_halign center
+   content_valign center
+   Columns 2
+   {
+    SliderWidgetClass stabilityX {
+     disabled 0
+     ignorepointer 1
+     color 0.4275 0.4275 0.4275 0.5686
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     maximum 1
+     step 0.01
+     current 0.69
+     "fill in" 1
+     "listen to input" 0
+     {
+      RichTextWidgetClass stabilityX_txt {
+       ignorepointer 1
+       position 0 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "<image set=\"sGunplay_stats\" name=\"stability\"/> #STR_SUDE_LAYOUT_RECOIL_CONTROL_STABILITY_X"
+       font "gui/fonts/sdf_metronbook24"
+       "size to text h" 0
+       "text valign" center
+      }
+      TextWidgetClass stabilityX_value {
+       ignorepointer 1
+       position 0.5 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "69%"
+       font "gui/fonts/metron"
+       "size to text h" 0
+       "text halign" right
+       "text valign" center
+      }
+     }
+    }
+    SliderWidgetClass stabilityY {
+     disabled 0
+     ignorepointer 1
+     color 0.4275 0.4275 0.4275 0.5686
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     maximum 1
+     step 0.01
+     current 0.69
+     "fill in" 1
+     "listen to input" 0
+     {
+      RichTextWidgetClass stabilityY_txt {
+       ignorepointer 1
+       position 0 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "<image set=\"sGunplay_stats\" name=\"stability\"/> #STR_SUDE_LAYOUT_RECOIL_CONTROL_STABILITY_Y"
+       font "gui/fonts/sdf_metronbook24"
+       "size to text h" 0
+       "text valign" center
+      }
+      TextWidgetClass stabilityY_value {
+       ignorepointer 1
+       position 0.5 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "69%"
+       font "gui/fonts/metron"
+       "size to text h" 0
+       "text halign" right
+      }
+     }
+    }
+    SliderWidgetClass misalignX {
+     disabled 0
+     ignorepointer 1
+     color 0.4275 0.4275 0.4275 0.5686
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     maximum 1
+     step 0.01
+     current 0.69
+     "fill in" 1
+     "listen to input" 0
+     {
+      RichTextWidgetClass misalignX_txt {
+       ignorepointer 1
+       position 0 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "<image set=\"sGunplay_stats\" name=\"misalignment\"/> #STR_SUDE_LAYOUT_RECOIL_CONTROL_MISALIGNMENT_X"
+       font "gui/fonts/sdf_metronbook24"
+       "size to text h" 0
+       "text valign" center
+      }
+      TextWidgetClass misalignX_value {
+       ignorepointer 1
+       position 0.5 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "69%"
+       font "gui/fonts/metron"
+       "size to text h" 0
+       "text halign" right
+      }
+     }
+    }
+    SliderWidgetClass misalignY {
+     disabled 0
+     ignorepointer 1
+     color 0.4275 0.4275 0.4275 0.5686
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     maximum 1
+     step 0.01
+     current 0.69
+     "fill in" 1
+     "listen to input" 0
+     {
+      RichTextWidgetClass misalignY_txt {
+       ignorepointer 1
+       position 0 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "<image set=\"sGunplay_stats\" name=\"misalignment\"/> #STR_SUDE_LAYOUT_RECOIL_CONTROL_MISALIGNMENT_Y"
+       font "gui/fonts/sdf_metronbook24"
+       "size to text h" 0
+       "text valign" center
+      }
+      TextWidgetClass misalignY_value {
+       ignorepointer 1
+       position 0.5 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "69%"
+       font "gui/fonts/metron"
+       "size to text h" 0
+       "text halign" right
+      }
+     }
+    }
+    SliderWidgetClass kick {
+     disabled 0
+     ignorepointer 1
+     color 0.4275 0.4275 0.4275 0.5686
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     maximum 1
+     step 0.01
+     current 0.69
+     "fill in" 1
+     "listen to input" 0
+     {
+      RichTextWidgetClass kick_txt {
+       ignorepointer 1
+       position 0 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "<image set=\"sGunplay_stats\" name=\"kick\"/> #STR_SUDE_LAYOUT_RECOIL_CONTROL_KICK"
+       font "gui/fonts/sdf_metronbook24"
+       "size to text h" 0
+       "text valign" center
+      }
+      TextWidgetClass kick_value {
+       ignorepointer 1
+       position 0.5 0
+       size 0.5 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "69%"
+       font "gui/fonts/metron"
+       "size to text h" 0
+       "text halign" right
+      }
+     }
+    }
+   }
+  }
+ }
+}

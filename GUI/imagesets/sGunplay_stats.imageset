@@ -4,7 +4,7 @@ ImageSetClass {
  Textures {
   ImageSetTextureClass {
    mpix 1
-   path "{45F2A9D65D231A36}MyMODS/sGunplay/GUI/imagesets/sGunplay_stats.edds"
+   path "{8B4BD0DDCB443FF2}MyMODS/sGunplay/GUI/imagesets/sGunplay_stats.edds"
   }
  }
  Images {
@@ -29,6 +29,24 @@ ImageSetClass {
   ImageSetDefClass accuracy {
    Name "accuracy"
    Pos 96 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass stability {
+   Name "stability"
+   Pos 128 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass misalignment {
+   Name "misalignment"
+   Pos 160 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass kick {
+   Name "kick"
+   Pos 192 0
    Size 32 32
    Flags 0
   }

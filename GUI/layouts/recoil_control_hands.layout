@@ -1,0 +1,158 @@
+FrameWidgetClass rootFrame {
+ ignorepointer 1
+ position 0 0
+ size 128 64
+ halign right_ref
+ valign bottom_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 1
+ vexactsize 1
+ {
+  GridSpacerWidgetClass GridSpacerWidget0 {
+   ignorepointer 1
+   color 0 0 0 0.6157
+   size 1 1
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   Padding 4
+   Margin 4
+   "Size To Content H" 1
+   "Size To Content V" 1
+   content_halign center
+   content_valign center
+   {
+    ImageWidgetClass stability_icon {
+     ignorepointer 1
+     position 0 0
+     size 16 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     scaled 1
+     image0 "set:sGunplay_stats image:stability"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+     "flip u" 0
+     "flip v" 0
+    }
+    RichTextWidgetClass stabilityX {
+     ignorepointer 1
+     position 0 0
+     size 32 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     text "+69%"
+     font "gui/fonts/sdf_metronbook24"
+     "exact text" 0
+     "size to text h" 0
+     "text halign" right
+     "text valign" center
+    }
+    RichTextWidgetClass stabilityY {
+     ignorepointer 1
+     position 0 0
+     size 32 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     text "+69%"
+     font "gui/fonts/sdf_metronbook24"
+     "exact text" 0
+     "size to text h" 0
+     "text halign" right
+     "text valign" center
+    }
+    ImageWidgetClass misalign_icon {
+     ignorepointer 1
+     position 0 0
+     size 16 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     scaled 1
+     image0 "set:sGunplay_stats image:misalignment"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+     "flip u" 0
+     "flip v" 0
+    }
+    RichTextWidgetClass misalignX {
+     ignorepointer 1
+     position 0 0
+     size 32 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     text "+69%"
+     font "gui/fonts/sdf_metronbook24"
+     "exact text" 0
+     "size to text h" 0
+     "text halign" right
+     "text valign" center
+    }
+    RichTextWidgetClass misalignY {
+     ignorepointer 1
+     position 0 0
+     size 32 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     text "+69%"
+     font "gui/fonts/sdf_metronbook24"
+     "exact text" 0
+     "size to text h" 0
+     "text halign" right
+     "text valign" center
+    }
+    ImageWidgetClass kick_icon {
+     ignorepointer 1
+     position 0 0
+     size 16 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     scaled 1
+     image0 "set:sGunplay_stats image:kick"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+     "flip u" 0
+     "flip v" 0
+    }
+    RichTextWidgetClass kick {
+     ignorepointer 1
+     position 0 0
+     size 32 16
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     text "+69%"
+     font "gui/fonts/sdf_metronbook24"
+     "exact text" 0
+     "size to text h" 0
+     "text halign" right
+     "text valign" center
+    }
+   }
+  }
+ }
+}
