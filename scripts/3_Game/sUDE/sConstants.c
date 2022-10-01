@@ -84,7 +84,6 @@ class GunplayConstants {
 	///////////////////
 	// WEAPON INTERACTION
 	static const bool AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION = true;     // Use the weapon interaction in the player aiming model (firemode change, zeroing, zooming)
-	static const float AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION_OFFSETS[] = {-20, 10}; //{X, Y} offset to be applied when interacting with the weapon
 	
 	/////////////////////////////////////////////////////////////
 	
