@@ -41,7 +41,7 @@ FrameWidgetClass rootFrame {
       RichTextWidgetClass stabilityX_txt {
        ignorepointer 1
        position 0 0
-       size 0.5 1
+       size 1 1
        hexactpos 0
        vexactpos 0
        hexactsize 0
@@ -86,7 +86,7 @@ FrameWidgetClass rootFrame {
       RichTextWidgetClass stabilityY_txt {
        ignorepointer 1
        position 0 0
-       size 0.5 1
+       size 1 1
        hexactpos 0
        vexactpos 0
        hexactsize 0
@@ -130,7 +130,7 @@ FrameWidgetClass rootFrame {
       RichTextWidgetClass misalignX_txt {
        ignorepointer 1
        position 0 0
-       size 0.5 1
+       size 1 1
        hexactpos 0
        vexactpos 0
        hexactsize 0
@@ -174,7 +174,7 @@ FrameWidgetClass rootFrame {
       RichTextWidgetClass misalignY_txt {
        ignorepointer 1
        position 0 0
-       size 0.5 1
+       size 1 1
        hexactpos 0
        vexactpos 0
        hexactsize 0
@@ -218,7 +218,7 @@ FrameWidgetClass rootFrame {
       RichTextWidgetClass kick_txt {
        ignorepointer 1
        position 0 0
-       size 0.5 1
+       size 1 1
        hexactpos 0
        vexactpos 0
        hexactsize 0
