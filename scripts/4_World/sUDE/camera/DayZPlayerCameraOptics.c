@@ -71,7 +71,7 @@ modded class DayZPlayerCameraOptics {
 		dui.begin();
 		dui.pos("0 0.5").window();
 		dui.check("m_isFullscreen", m_isFullscreen);
-		dui.slider("m_pipMagnification", m_pipMagnification, 0.01, 0, 1);
+		dui.slider("m_pipMagnification", m_pipMagnification, 0.01, -2, 1);
 		dui.slider("m_pipRadius", m_pipRadius, 0.01, 0, 1);
 		dui.slider("m_pipBlur", m_pipBlur, 0.01, 0.001, 1);
 		dui.slider("m_pipChromAber", m_pipChromAber, 0.01, 0, 1);
