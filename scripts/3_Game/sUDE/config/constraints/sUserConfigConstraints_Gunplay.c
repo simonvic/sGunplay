@@ -19,8 +19,8 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	
 	///////////////////////////////////////
 	// these go in json
-	protected ref SConstraintPrimitiveMinMaxNumeric  adsFOVMultiplier            = new SConstraintPrimitiveMinMaxNumeric(0.75, 1);
-	protected ref SConstraintPrimitiveMinMaxNumeric  adsFOVMagnOpticsMultiplier  = new SConstraintPrimitiveMinMaxNumeric(1.57, 3.14);
+	protected ref SConstraintPrimitiveMinMaxNumeric  adsFOVMultiplier            = new SConstraintPrimitiveMinMaxNumeric(0, 1);
+	protected ref SConstraintPrimitiveMinMaxNumeric  adsFOVMagnOpticsMultiplier  = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintPrimitiveMinMaxNumeric  adsDOFIntensity             = new SConstraintPrimitiveMinMaxNumeric(0, 1);
 	protected ref SConstraintSwitch                  hideWeaponBarrelInOptic     = new SConstraintSwitch(false);
 	protected ref SConstraintSwitch                  hideClothingInOptic         = new SConstraintSwitch(true);

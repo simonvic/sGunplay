@@ -29,8 +29,8 @@ class SUserConfigGunplay : SUserConfigBase {
 		
 	///////////////////////////////////////
 	// these go in json
-	protected float adsFOVMultiplier = 0.90;
-	protected float adsFOVMagnOpticsMultiplier = 2.0;
+	protected float adsFOVMultiplier = 0.5;
+	protected float adsFOVMagnOpticsMultiplier = 0.5;
 	protected float adsDOFIntensity = 0.0;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected bool hideClothingInOptic = true;
@@ -137,7 +137,7 @@ class SUserConfigGunplay : SUserConfigBase {
 	}
 	
 	void setLensZoomStrength(float strength) {
-		lensZoomStrength = Math.Clamp(strength, 0, 1);
+		lensZoomStrength = strength;
 	}
 	
 	array<float> getDeadzoneLimits() {

@@ -33,6 +33,8 @@ modded class DayZPlayerCameraIronsights {
 	protected static ref DOFPresetWeaponInspect m_inspectDOFPreset;
 	protected static ref SCOFocusing m_scoFocusing;
 	
+	protected float adsFovMultiplier = 1;
+	
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput) {
 		m_player = PlayerBase.Cast(pPlayer);
@@ -48,6 +50,10 @@ modded class DayZPlayerCameraIronsights {
 			SCameraOverlaysManager.getInstance().activate(m_scoFocusing);
 		}
 		
+		adsFovMultiplier = SMath.mapClamp(
+			userCfgGunplay.getAdsFOVMultiplier(),
+			0, 1,
+			GunplayConstants.ADS_FOV_MULT_CONSTRAINTS[0], GunplayConstants.ADS_FOV_MULT_CONSTRAINTS[1]);
 	}
 		
 		
@@ -318,7 +324,7 @@ modded class DayZPlayerCameraIronsights {
 	*	@return fov
 	*/
 	protected float getRestingFOV() {
-		return Math.Max(GetDayZGame().GetUserFOV() * userCfgGunplay.getAdsFOVMultiplier(), GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
+		return Math.Max(GetDayZGame().GetUserFOV() * getADSFOVMultiplier(), GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
 	}
 	
 	
@@ -487,6 +493,9 @@ modded class DayZPlayerCameraIronsights {
 		return m_deadzoneY;
 	}
 
+	protected float getADSFOVMultiplier() {
+		return adsFovMultiplier;
+	}
 	
 	protected bool playerIsFocusing() {
 		return m_pPlayer.IsHoldingBreath();

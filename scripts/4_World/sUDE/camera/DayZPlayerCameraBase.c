@@ -44,16 +44,4 @@ modded class DayZPlayerCameraBase {
 	protected static bool isHideWeaponBarrelInOpticEnabled() {
 		return userCfgGunplay.isHideWeaponBarrelInOpticEnabled();
 	}
-	
-	protected static float getLensZoomStrength() {
-		return SMath.mapTo(userCfgGunplay.getLensZoomStrength(), 0, 1, GunplayConstants.ADS_LENS_STRENGTH_CONSTRAINTS[0], GunplayConstants.ADS_LENS_STRENGTH_CONSTRAINTS[1]);
-	}
-	
-	protected static float getADSFOVMultiplier() {
-		return userCfgGunplay.getAdsFOVMultiplier();
-	}
-	
-	protected static float getADSFOVMagnOpticsMultiplier() {
-		return userCfgGunplay.getAdsFOVMagnOpticsMultiplier();
-	}
 }

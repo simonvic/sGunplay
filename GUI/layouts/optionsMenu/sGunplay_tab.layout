@@ -127,7 +127,6 @@ FrameWidgetClass sude_sgunplay_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           minimum 0.75
            maximum 1
            step 0.01
            current 0.69
@@ -188,8 +187,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
            hexactsize 0
            vexactsize 1
            style Default
-           minimum 1.57
-           maximum 3.14
+           maximum 1
            step 0.01
            current 0.69
            "fill in" 1
@@ -265,7 +263,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center
@@ -326,7 +324,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center
@@ -860,7 +858,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center
@@ -921,7 +919,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
              vexactpos 0
              hexactsize 0
              vexactsize 0
-             text "6.9"
+             text "0.69"
              "size to text h" 0
              "size to text v" 0
              "text halign" center

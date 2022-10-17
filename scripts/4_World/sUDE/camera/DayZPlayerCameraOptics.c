@@ -13,11 +13,27 @@ modded class DayZPlayerCameraOptics {
 	protected bool m_showEnterMisalignment;
 	protected bool m_isFullscreen;
 	
-	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
-		super.OnActivate(pPrevCamera,pPrevCameraResult);
-		initPiP(m_opticsUsed);
+	protected float lensZoomStrength = 1;
+	protected float adsFovMagnOpticsMultiplier = 1;
+	
+	void DayZPlayerCameraOptics(DayZPlayer pPlayer, HumanInputController pInput) {
 		m_showEnterMisalignment = m_opticsUsed.ConfigGetBool("s_showEnterMisalignment");
 		m_isFullscreen = m_opticsUsed.ConfigGetBool("s_isFullscreen");
+		lensZoomStrength = SMath.mapClamp(
+			userCfgGunplay.getLensZoomStrength(),
+			0, 1,
+			GunplayConstants.ADS_LENS_STRENGTH_CONSTRAINTS[0], GunplayConstants.ADS_LENS_STRENGTH_CONSTRAINTS[1]);
+		
+		adsFovMagnOpticsMultiplier = SMath.mapClamp(
+			userCfgGunplay.getAdsFOVMagnOpticsMultiplier(),
+			0, 1,
+			GunplayConstants.ADS_FOV_MULT_OPTICS_CONSTRAINTS[0], GunplayConstants.ADS_FOV_MULT_OPTICS_CONSTRAINTS[1]);
+		
+		initPiP(m_opticsUsed);
+	}
+	
+	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
+		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		//Show lens when transition is done
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
@@ -229,6 +245,13 @@ modded class DayZPlayerCameraOptics {
 		return !state || !m_opticsUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
 	
+	protected float getLensZoomStrength() {
+		return lensZoomStrength;
+	}
+		
+	protected float getADSFOVMagnOpticsMultiplier() {
+		return adsFovMagnOpticsMultiplier;
+	}
 	
 	protected bool canShowLens() {
 		return m_canShowLens;
