@@ -304,7 +304,18 @@ class cfgVehicles {
 		s_pipChromAber = 0.2;
 	};
 
-	class KazuarOptic: ItemOptics{
+	class KazuarOptic: ItemOptics {
+		s_isFullscreen = 1;
+		s_showEnterMisalignment = 1;
+		s_pipRadius = 2.0;
+		s_pipMagnification = -1.0;
+		s_pipBlur = 0.05;
+		s_pipChromAber = 0.01;
+	};
+
+	class StarlightOptic: ItemOptics {
+		s_isFullscreen = 1;
+		s_showEnterMisalignment = 1;
 		s_pipRadius = 2.0;
 		s_pipMagnification = -1.0;
 		s_pipBlur = 0.05;
