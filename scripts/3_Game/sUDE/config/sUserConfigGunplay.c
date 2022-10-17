@@ -30,6 +30,7 @@ class SUserConfigGunplay : SUserConfigBase {
 	///////////////////////////////////////
 	// these go in json
 	protected float adsFOVMultiplier = 0.90;
+	protected float adsFOVMagnOpticsMultiplier = 2.0;
 	protected float adsDOFIntensity = 0.0;
 	protected bool hideWeaponBarrelInOptic = false;
 	protected bool hideClothingInOptic = true;
@@ -43,16 +44,17 @@ class SUserConfigGunplay : SUserConfigBase {
 	
 	override void registerOptions() {
 		super.registerOptions();
-		registerOption("adsFOVMultiplier",        new SUCOption_ADSFOVMultiplier(adsFOVMultiplier));
-		registerOption("adsDOFIntensity",         new SUCOption_ADSDOFIntensity(adsDOFIntensity));
-		registerOption("hideWeaponBarrelInOptic", new SUCOption_HideWeaponBarrelInOptic(hideWeaponBarrelInOptic));
-		registerOption("hideClothingInOptic",     new SUCOption_HideClothingInOptic(hideClothingInOptic));
-		registerOption("lensZoomStrength",        new SUCOption_LensZoomStrength(lensZoomStrength));
-		registerOption("deadzoneLimits",          new SUCOption_DeadzoneLimits(deadzoneLimits));
-		registerOption("resetDeadzoneOnFocus",    new SUCOption_ResetDeadzonOnFocus(resetDeadzoneOnFocus));
-		registerOption("showDynamicCrosshair",    new SUCOption_ShowDynamicCrosshair(showDynamicCrosshair));		
-		registerOption("dynamicCrosshairType",    new SUCOption_DynamicCrosshairType(dynamicCrosshairType));		
-		registerOption("dynamicCrosshairRGBA",    new SUCOption_DynamicCrosshairRGBA(dynamicCrosshairRGBA));		
+		registerOption("adsFOVMultiplier",            new SUCOption_ADSFOVMultiplier(adsFOVMultiplier));
+		registerOption("adsFOVMagnOpticsMultiplier",  new SUCOption_ADSFOVMagnOpticsMultiplier(adsFOVMagnOpticsMultiplier));
+		registerOption("adsDOFIntensity",             new SUCOption_ADSDOFIntensity(adsDOFIntensity));
+		registerOption("hideWeaponBarrelInOptic",     new SUCOption_HideWeaponBarrelInOptic(hideWeaponBarrelInOptic));
+		registerOption("hideClothingInOptic",         new SUCOption_HideClothingInOptic(hideClothingInOptic));
+		registerOption("lensZoomStrength",            new SUCOption_LensZoomStrength(lensZoomStrength));
+		registerOption("deadzoneLimits",              new SUCOption_DeadzoneLimits(deadzoneLimits));
+		registerOption("resetDeadzoneOnFocus",        new SUCOption_ResetDeadzonOnFocus(resetDeadzoneOnFocus));
+		registerOption("showDynamicCrosshair",        new SUCOption_ShowDynamicCrosshair(showDynamicCrosshair));		
+		registerOption("dynamicCrosshairType",        new SUCOption_DynamicCrosshairType(dynamicCrosshairType));		
+		registerOption("dynamicCrosshairRGBA",        new SUCOption_DynamicCrosshairRGBA(dynamicCrosshairRGBA));		
 	}
 	
 	override void onConstraintsReceive(ParamsReadContext ctx) {
@@ -73,6 +75,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		if (!c) return;
 		
 		getOption("adsFOVMultiplier").setConstraint(c.getADSFOVMultiplier());
+		getOption("adsFOVMagnOpticsMultiplier").setConstraint(c.getADSFOVMagnOpticsMultiplier());
 		getOption("adsDOFIntensity").setConstraint(c.getADSDOFIntensity());
 		getOption("hideWeaponBarrelInOptic").setConstraint(c.getHideWeaponBarrelInOptic());
 		getOption("hideClothingInOptic").setConstraint(c.getHideClothingInOptic());
@@ -91,6 +94,14 @@ class SUserConfigGunplay : SUserConfigBase {
 	
 	void setAdsFOVMultiplier(float multiplier) {
 		adsFOVMultiplier = multiplier;
+	}
+	
+	float getAdsFOVMagnOpticsMultiplier() {
+		return adsFOVMagnOpticsMultiplier;
+	}
+	
+	void setAdsFOVMagnOpticsMultiplier(float multiplier) {
+		adsFOVMagnOpticsMultiplier = multiplier;
 	}
 	
 	bool isAdsDOFEnabled() {

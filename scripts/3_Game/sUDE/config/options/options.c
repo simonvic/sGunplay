@@ -15,6 +15,22 @@ class SUCOption_ADSFOVMultiplier : SUserConfigOption<float> {
 }
 
 /**
+*	@brief Option for ADS field of view multiplier for magnifying optics
+*/
+class SUCOption_ADSFOVMagnOpticsMultiplier : SUserConfigOption<float> {
+		
+	void SUCOption_ADSFOVMagnOpticsMultiplier(float value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_MAGN_OPTIC_MULTIPLIER", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_ADS_FOV_MAGN_OPTIC_DESCRIPTION")
+		}
+	}
+	
+	override void onValueChange(float previousValue, float newValue) {
+		SUserConfig.gunplay().setAdsFOVMagnOpticsMultiplier(newValue);
+	}
+}
+
+/**
 *	@brief Option for Depth of Field effect while AimingDownSight
 */
 class SUCOption_ADSDOFIntensity : SUserConfigOption<float> {

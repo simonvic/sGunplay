@@ -110,10 +110,11 @@ class GunplayConstants {
 	static const float ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS = 0.3;  //how smooth is the misalignment
 	
 	// FOV and OPTIC LENS
-	static const float ADS_LENS_ACTIVATION_DELAY = -250;            // Delay in milliseconds added to the camera transition time
-	static const float ADS_HIDE_CLOTHING_DELAY = -200;              // Delay in milliseconds added to the camera transition time
-	static const float ADS_FOV_REDUCTION_OPTICS = 3;                // Minimum and maximum ads fov reduction in optics
-	static const float ADS_LENS_STRENGTH_CONSTRAINTS[] = {0, 4};    // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
+	static const float ADS_LENS_ACTIVATION_DELAY = -250;                         // Delay in milliseconds added to the camera transition time
+	static const float ADS_HIDE_CLOTHING_DELAY = -200;                           // Delay in milliseconds added to the camera transition time
+	static const float ADS_FOV_MULT_CONSTRAINTS[] = {0.75, 1.00};                // ads fov reduction constraints (min / max) in ironsight and non-magnifying optics
+	static const float ADS_FOV_MULT_OPTICS_CONSTRAINTS[] = {1.57079, 3.14159};   // ads fov reduction constraints (min / max) in magnifying optics
+	static const float ADS_LENS_STRENGTH_CONSTRAINTS[] = {0, 4};                 // A zoom boost too high can cause pixellated image and wrong reticles (boost < 3 is recommended)
 	
 	///////////////////
 	// FOCUS

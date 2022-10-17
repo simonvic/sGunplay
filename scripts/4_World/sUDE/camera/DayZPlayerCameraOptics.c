@@ -155,7 +155,7 @@ modded class DayZPlayerCameraOptics {
 		if (!m_opticsUsed || isHandHeldOptic() || !isMagnifyingOptic()) {
 			return super.getRestingFOV();
 		}
-		return m_opticsUsed.GetCurrentStepFOV() * GunplayConstants.ADS_FOV_REDUCTION_OPTICS;
+		return m_opticsUsed.GetCurrentStepFOV() * getADSFOVMagnOpticsMultiplier();
 	}
 
 	override void computeFOVFocusValues(out float targetFOV, out float speed) {
