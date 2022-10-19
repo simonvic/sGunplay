@@ -229,7 +229,8 @@ class cfgVehicles {
 		s_recoilControlKick = 0.00;
 	};
 	
-	class ItemOptics : Inventory_Base {
+	class ItemOptics;
+	class ItemOptics_Base : ItemOptics {
 		s_pipOffset[] = {0.0, 0.0};        // Offset of PiP mask position
 		s_pipLensOffset[] = {0.0, 0.0};    // Offset of PiP magnification lens
 		s_pipRadius = 0.0;                 // Radius of PiP
@@ -238,14 +239,14 @@ class cfgVehicles {
 		s_pipChromAber = 0.01;             // Chromatic aberration intensity of PiP
 	};
 
-	class ACOGOptic : ItemOptics {
+	class ACOGOptic : ItemOptics_Base {
 		s_pipRadius = 0.314;
 		s_pipMagnification = 0.314;
 		s_pipBlur = 0.01;
 		s_pipChromAber = 0.2;
 	};
 	
-	class ACOGOptic_6x : ItemOptics {
+	class ACOGOptic_6x : ItemOptics_Base {
 		s_pipRadius = 0.2;
 		s_pipMagnification = 0.5;
 		s_pipBlur = 0.01;
@@ -253,28 +254,28 @@ class cfgVehicles {
 	};
 	
 
-	class PUScopeOptic : ItemOptics {
+	class PUScopeOptic : ItemOptics_Base {
 		s_pipRadius = 0.42;
 		s_pipMagnification = 0.5;
 		s_pipBlur = 0.007;
 		s_pipChromAber = 0.2;
 	};
 
-	class SSG82Optic : ItemOptics {
+	class SSG82Optic : ItemOptics_Base {
 		s_pipRadius = 0.25;
 		s_pipMagnification = 0.5;
 		s_pipBlur = 0.03;
 		s_pipChromAber = 0.2;
 	};
 
-	class KashtanOptic : ItemOptics {
+	class KashtanOptic : ItemOptics_Base {
 		s_pipRadius = 0.5;
 		s_pipMagnification = 0.5;
 		s_pipBlur = 0.05;
 		s_pipChromAber = 0.2;
 	};
 
-	class HuntingOptic : ItemOptics {
+	class HuntingOptic : ItemOptics_Base {
 		s_showEnterMisalignment = 1;
 		s_isFullscreen = 1;
 		s_pipRadius = 0.7;
@@ -283,28 +284,28 @@ class cfgVehicles {
 		s_pipChromAber = 0.3;
 	};
 
-	class PistolOptic : ItemOptics {
+	class PistolOptic : ItemOptics_Base {
 		s_pipRadius = 0.47;
 		s_pipMagnification = 0.3;
 		s_pipBlur = 0.005;
 		s_pipChromAber = 0.001;
 	};
 
-	class PSO1Optic : ItemOptics {
+	class PSO1Optic : ItemOptics_Base {
 		s_pipRadius = 0.34;
 		s_pipMagnification = 0.314;
 		s_pipBlur = 0.005;
 		s_pipChromAber = 0.2;
 	};
 
-	class PSO11Optic : ItemOptics {
+	class PSO11Optic : ItemOptics_Base {
 		s_pipRadius = 0.34;
 		s_pipMagnification = 0.314;
 		s_pipBlur = 0.005;
 		s_pipChromAber = 0.2;
 	};
 
-	class KazuarOptic: ItemOptics {
+	class KazuarOptic: ItemOptics_Base {
 		s_isFullscreen = 1;
 		s_showEnterMisalignment = 1;
 		s_pipRadius = 2.0;
@@ -313,7 +314,7 @@ class cfgVehicles {
 		s_pipChromAber = 0.01;
 	};
 
-	class StarlightOptic: ItemOptics {
+	class StarlightOptic: ItemOptics_Base {
 		s_isFullscreen = 1;
 		s_showEnterMisalignment = 1;
 		s_pipRadius = 2.0;
@@ -322,7 +323,7 @@ class cfgVehicles {
 		s_pipChromAber = 0.01;
 	};
 
-	class AugOptic : ItemOptics {
+	class AugOptic : ItemOptics_Base {
 		s_pipRadius = 0.6;
 		s_pipMagnification = 0.25;
 		s_pipBlur = 0.01;
