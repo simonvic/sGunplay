@@ -4,6 +4,11 @@ modded class SUserConfigConstraints {
 		getInstance().load(SUserConfigConstraints_Gunplay, reload);
 		return SUserConfigConstraints_Gunplay.Cast(getInstance().getLoadedModules().Get(SUserConfigConstraints_Gunplay));
 	}
+
+	override void onPreload() {
+		super.onPreload();
+		SUserConfigConstraints.gunplay();
+	}
 	
 }
 
