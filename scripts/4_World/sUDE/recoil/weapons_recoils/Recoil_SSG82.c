@@ -1,4 +1,3 @@
-#ifdef DAYZ_1_19
 modded class SSG82Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = { -1.165, 3.285,  7.265,  7.595};	
@@ -16,4 +15,3 @@ modded class SSG82Recoil {
 		kickResetTime      = 3.125;
 	}
 }
-#endif
