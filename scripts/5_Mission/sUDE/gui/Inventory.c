@@ -18,7 +18,7 @@ modded class Inventory {
 	protected void updateStatMeters() {
 		PlayerBase pb = PlayerBase.Cast(GetGame().GetPlayer());
 		RecoilControl recoilControl = pb.getRecoilControl();
-		recoilControl.compute();
+		recoilControl.compute(); //@fixme am i dumb? probably yes
 		setMeterValue(m_meterRecoilControl, recoilControl.get(), -1, 1);
 		setMeterValue(m_SpecializationIcon, pb.GetSoftSkillsManager().GetSpecialtyLevel(), -1, 1);
 		setMeterValue(m_meterWeight, pb.GetWeight(), 0, 40000);

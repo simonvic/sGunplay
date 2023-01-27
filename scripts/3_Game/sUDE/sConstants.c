@@ -39,10 +39,10 @@ class GunplayConstants {
 		    10,
 		-30,   30,
 		   -10    };
-	static const float INERTIA_SPEED_ACCELERATION[2]         = {0.1, 0.1};     // Speed of acceleration (horizontal and vertical) in inertia build up (smoothTime value)
-	static const float INERTIA_SPEED_RESET[2]                = {0.2, 0.2};     // Speed of deceleration (horizontal and vertical) in inertia reset (smoothTime 
-	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.1, 0.1};     // Speed of acceleration (horizontal and vertical) in inertia build up while hipfiring(smoothTime value)
-	static const float INERTIA_SPEED_RESET_HIPFIRE[2]        = {0.2, 0.2};     // Speed of deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
+	static const float INERTIA_SPEED_ACCELERATION[2]         = {0.1, 0.1};     // Acceleration (horizontal and vertical) in inertia build up (smoothTime value)
+	static const float INERTIA_SPEED_RESET[2]                = {0.2, 0.2};     // Deceleration (horizontal and vertical) in inertia reset (smoothTime value)
+	static const float INERTIA_SPEED_ACCELERATION_HIPFIRE[2] = {0.1, 0.1};     // Acceleration (horizontal and vertical) in inertia build up while hipfiring (smoothTime value)
+	static const float INERTIA_SPEED_RESET_HIPFIRE[2]        = {0.2, 0.2};     // Deceleration (horizontal and vertical) in inertia reset while hipfiring (smoothTime value)
 	
 	static const float INERTIA_MULTIPLIER_BASE = 1;                            // Base multiplier of the amount of inertia to be applied
 	static const float INERTIA_MIN_MULTIPLIER  = 0;                            // Minimum value of inertia
@@ -130,8 +130,8 @@ class GunplayConstants {
 	
 	/////////////////////////////////////////////////////////////
 	// RECOIL CONTROL
-	static /*const*/ float RECOIL_CONTROL_COEFF = 0.5;             // how much the specialty will impact the overall recoil. (see arctan function)
-	static /*const*/ float RECOIL_CONTROL_STEEPNESS = 4.6;         // "steepness" of the arctan function curve (see arctan function)
+	static const float RECOIL_CONTROL_COEFF = 0.5;                 // how much the specialty will impact the overall recoil. (see arctan function)
+	static const float RECOIL_CONTROL_STEEPNESS = 4.6;             // "steepness" of the arctan function curve (see arctan function)
 	
 	///////////////////
 	// STRENGTH
@@ -161,6 +161,13 @@ class GunplayConstants {
 
 	/////////////////////////////////////////////////////////////
 	
+	/////////////////////////////////////////////////////////////
+	// PLAYER CONTROLLER
+	
+	static const float PLAYER_INERTIA_SPRINT_TIMING[2] = {0.1, 3};             // Min / Max timing for transitioning from jogging to running
+	static const float PLAYER_INERTIA_TURNING_TIMING[2] = {0.1, 2};            // Min / Max timing for changing direction (heading with mouse) when walking or jogging
+	static const float PLAYER_INERTIA_SPRINT_TURNING_TIMING[2] = {0.1, 4};     // Min / Max timing for changing direction (heading with mouse) when running
+	/////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////
 	// SOUNDS
