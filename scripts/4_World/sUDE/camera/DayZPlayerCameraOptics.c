@@ -13,10 +13,17 @@ modded class DayZPlayerCameraOptics {
 	protected bool m_showEnterMisalignment;
 	protected bool m_isFullscreen;
 	
+	protected bool m_opticOverridesNearPlane;
+	protected float m_opticNearPlaneOverride;
+	
 	protected float lensZoomStrength = 1;
 	protected float adsFovMagnOpticsMultiplier = 1;
 	
 	void DayZPlayerCameraOptics(DayZPlayer pPlayer, HumanInputController pInput) {
+		m_opticOverridesNearPlane = m_opticsUsed.ConfigIsExisting("s_nearPlaneOverride");
+		if (m_opticOverridesNearPlane) {
+			m_opticNearPlaneOverride = m_opticsUsed.ConfigGetFloat("s_nearPlaneOverride");
+		}
 		m_showEnterMisalignment = m_opticsUsed.ConfigGetBool("s_showEnterMisalignment");
 		m_isFullscreen = m_opticsUsed.ConfigGetBool("s_isFullscreen");
 		lensZoomStrength = SMath.mapClamp(
@@ -159,7 +166,11 @@ modded class DayZPlayerCameraOptics {
 		pOutResult.m_fInsideCamera 			= 1.0;
 		pOutResult.m_fShootFromCamera		= 0.0;
 		pOutResult.m_fIgnoreParentRoll      = 0.0;
-		pOutResult.m_fNearPlane = 0.03; //0.07 default
+		if (m_opticOverridesNearPlane) {
+			pOutResult.m_fNearPlane = m_opticNearPlaneOverride;
+		} else {
+			pOutResult.m_fNearPlane = 0.03;
+		}
 		
 		/*
 		//@todo use this (from 1.13) to allow per-optic near plane

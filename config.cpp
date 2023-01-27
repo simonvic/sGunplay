@@ -251,6 +251,7 @@ class cfgVehicles {
 		s_pipMagnification = 0.5;
 		s_pipBlur = 0.01;
 		s_pipChromAber = 0.01;
+		s_nearPlaneOverride = 0.39;
 	};
 	
 
