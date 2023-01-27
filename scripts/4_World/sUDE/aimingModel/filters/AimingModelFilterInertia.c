@@ -131,11 +131,11 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*/
 	protected float getInertiaMultiplierInventoryWeight() {
 		int w = getPlayer().GetWeight();
-		if (w > 40000) return 1.90;
-		if (w > 20000) return 1.75;
-		if (w > 10000) return 1.50;
-		if (w > 5000)  return 1.25;
-		return 1.00;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED) return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_OVERLOADED;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_HEAVY)      return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_HEAVY;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_MEDIUM)     return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_MEDIUM;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_LIGHT)      return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_LIGHT;
+		return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_VERYLIGHT;
 	}
 	
 	/**

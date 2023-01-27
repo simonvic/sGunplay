@@ -13,25 +13,12 @@ class RecoilControl : Managed {
 	}
 	
 	void compute() {
-		m_control = 0;
-		
-		if (GunplayConstants.RECOIL_CONTROL_USE_STRENGTH) {
-			m_control += getModifierStrength();
-		}
-		
-		if (GunplayConstants.RECOIL_CONTROL_USE_PLAYER_INVENTORY_WEIGHT) {
-			m_control += getModifierInventoryWeight();
-		}
-		
-		if (GunplayConstants.RECOIL_CONTROL_USE_STANCE) {
-			m_control += getModifierStance();
-		}
-		
-		if (GunplayConstants.RECOIL_CONTROL_USE_MOVEMENT) {
-			m_control += getModifierMovement();
-		}
-		
-		m_control = Math.Clamp(m_control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM);
+		m_control  = 0;
+		m_control += getModifierStrength();
+		m_control += getModifierInventoryWeight();
+		m_control += getModifierStance();
+		m_control += getModifierMovement();
+		m_control  = Math.Clamp(m_control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM);
 	}
 	
 	/**
@@ -48,11 +35,11 @@ class RecoilControl : Managed {
 	*/
 	protected float getModifierInventoryWeight() {
 		int w = m_player.GetWeight();
-		if (w > 40000) return -0.75;
-		if (w > 20000) return -0.50;
-		if (w > 10000) return -0.25;
-		if (w > 5000)  return  0.25;
-		return 0.75;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED) return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_OVERLOADED;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_HEAVY)      return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_HEAVY;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_MEDIUM)     return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_MEDIUM;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_LIGHT)      return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_LIGHT;
+		return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_VERYLIGHT;
 	}
 
 	/**

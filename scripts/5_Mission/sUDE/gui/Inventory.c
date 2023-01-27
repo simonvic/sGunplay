@@ -21,7 +21,7 @@ modded class Inventory {
 		recoilControl.compute(); //@fixme am i dumb? probably yes
 		setMeterValue(m_meterRecoilControl, recoilControl.get(), -1, 1);
 		setMeterValue(m_SpecializationIcon, pb.GetSoftSkillsManager().GetSpecialtyLevel(), -1, 1);
-		setMeterValue(m_meterWeight, pb.GetWeight(), 0, 40000);
+		setMeterValue(m_meterWeight, pb.GetWeight(), GunplayConstants.INVENTORY_WEIGHT_GRAMS_LIGHT, GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED);
 	}
 	
 	protected void setMeterValue(Widget meter, float value, float min = 0, float max = 1, bool clamp = true) {

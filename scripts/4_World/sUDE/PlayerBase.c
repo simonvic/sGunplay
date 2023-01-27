@@ -11,15 +11,21 @@ modded class PlayerBase {
 		HumanCommandMove hcm = GetCommand_Move();
 		if (!hcm) return;
 		float weight = GetWeight();
-		hcm.SetRunSprintFilterModifier(SMath.mapClamp(weight, 0, 40000,
+		hcm.SetRunSprintFilterModifier(SMath.mapClamp(weight,
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
 			GunplayConstants.PLAYER_INERTIA_SPRINT_TIMING[0],
 			GunplayConstants.PLAYER_INERTIA_SPRINT_TIMING[1]));
 		
-		hcm.SetTurnSpanModifier(SMath.mapClamp(weight, 0, 40000,
+		hcm.SetTurnSpanModifier(SMath.mapClamp(weight,
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
 			GunplayConstants.PLAYER_INERTIA_TURNING_TIMING[0],
 			GunplayConstants.PLAYER_INERTIA_TURNING_TIMING[1]));
 		
-		hcm.SetTurnSpanSprintModifier(SMath.mapClamp(weight, 0, 40000,
+		hcm.SetTurnSpanSprintModifier(SMath.mapClamp(weight, 
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
 			GunplayConstants.PLAYER_INERTIA_SPRINT_TURNING_TIMING[0],
 			GunplayConstants.PLAYER_INERTIA_SPRINT_TURNING_TIMING[1]));
 		
