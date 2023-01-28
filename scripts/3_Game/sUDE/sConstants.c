@@ -10,6 +10,14 @@ class GunplayConstants {
 	static const float INVENTORY_WEIGHT_GRAMS_MEDIUM      = 10000;  // average survivor inventory
 	static const float INVENTORY_WEIGHT_GRAMS_LIGHT       = 5000;   // the player is carrying few items
 	static const float INVENTORY_WEIGHT_GRAMS_VERYLIGHT   = 0;      // the player is carrying almost nothing
+	
+	// weapon weights threshold defined in grams
+	// the values are expected to be in descending order from VERYHEAVY to LIGHT
+	static const float WEAPON_WEIGHT_GRAMS_VERYHEAVY   = 6000;  // usually fully kitted weapons
+	static const float WEAPON_WEIGHT_GRAMS_HEAVY       = 4000;  // usually AR, Shotguns or light snipers
+	static const float WEAPON_WEIGHT_GRAMS_MEDIUM      = 2000;  // usually SMG and some AR
+	static const float WEAPON_WEIGHT_GRAMS_LIGHT       = 1000;  // usually handguns and some SMG
+	static const float WEAPON_WEIGHT_GRAMS_VERYLIGHT   = 0;     // usually very small handguns
 	/////////////////////////////////////////////////////////////
 	
 	
@@ -74,6 +82,12 @@ class GunplayConstants {
 	static const float INERTIA_MULTIPLIER_INVENTORY_WEIGHT_MEDIUM        = 1.50;   // Multiplier of the amount of inertia to be applied when the player inventory is MEDIUM
 	static const float INERTIA_MULTIPLIER_INVENTORY_WEIGHT_LIGHT         = 1.25;   // Multiplier of the amount of inertia to be applied when the player inventory is LIGHT
 	static const float INERTIA_MULTIPLIER_INVENTORY_WEIGHT_VERYLIGHT     = 1.00;   // Multiplier of the amount of inertia to be applied when the player inventory is VERYLIGHT
+	
+	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT_VERYHEAVY        = 2.00;   // Multiplier of the amount of inertia to be applied when the weapon is VERYHEAVY
+	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT_HEAVY            = 1.75;   // Multiplier of the amount of inertia to be applied when the weapon is HEAVY
+	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT_MEDIUM           = 1.25;   // Multiplier of the amount of inertia to be applied when the weapon is MEDIUM
+	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT_LIGHT            = 1.10;   // Multiplier of the amount of inertia to be applied when the weapon is LIGHT
+	static const float INERTIA_MULTIPLIER_WEAPON_WEIGHT_VERYLIGHT        = 1.00;   // Multiplier of the amount of inertia to be applied when the weapon is VERYLIGHT
 	
 	static const float INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT = 0.25;         // Multiplier of the amount of inertia to be applied based on weapon length
 	

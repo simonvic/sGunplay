@@ -110,11 +110,11 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*/
 	protected float getInertiaMultiplierWeapon() {
 		int w = getWeapon().GetWeight();
-		if (w > 6000) return 2.00;
-		if (w > 4000) return 1.75;
-		if (w > 2000) return 1.25;
-		if (w > 1000) return 1.10;
-		return 1;
+		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_VERYHEAVY)  return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_VERYHEAVY;
+		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_HEAVY)      return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_HEAVY;
+		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_MEDIUM)     return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_MEDIUM;
+		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_LIGHT)      return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_LIGHT;
+		return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_VERYLIGHT;
 	}
 	
 	/**
@@ -131,11 +131,11 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*/
 	protected float getInertiaMultiplierInventoryWeight() {
 		int w = getPlayer().GetWeight();
-		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED) return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_OVERLOADED;
-		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_HEAVY)      return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_HEAVY;
-		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_MEDIUM)     return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_MEDIUM;
-		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_LIGHT)      return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_LIGHT;
-		return INERTIA_MULTIPLIER_INVENTORY_WEIGHT_VERYLIGHT;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED) return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_OVERLOADED;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_HEAVY)      return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_HEAVY;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_MEDIUM)     return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_MEDIUM;
+		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_LIGHT)      return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_LIGHT;
+		return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_VERYLIGHT;
 	}
 	
 	/**
