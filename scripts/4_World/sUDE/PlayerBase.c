@@ -8,6 +8,7 @@ modded class PlayerBase {
 #ifdef DAYZ_1_20
 	override void UpdateMovementInertia() {
 		super.UpdateMovementInertia();
+		if (!GunplayConstants.PLAYER_INERTIA_ENABLE) return;
 		HumanCommandMove hcm = GetCommand_Move();
 		if (!hcm) return;
 		float weight = GetWeight();

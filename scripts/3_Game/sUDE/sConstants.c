@@ -201,7 +201,7 @@ class GunplayConstants {
 	
 	/////////////////////////////////////////////////////////////
 	// PLAYER CONTROLLER
-	
+	static const bool  PLAYER_INERTIA_ENABLE = true;                           // Enable player movement inertia
 	static const float PLAYER_INERTIA_SPRINT_TIMING[2] = {0.1, 3};             // Min / Max timing for transitioning from jogging to running
 	static const float PLAYER_INERTIA_TURNING_TIMING[2] = {0.1, 2};            // Min / Max timing for changing direction (heading with mouse) when walking or jogging
 	static const float PLAYER_INERTIA_SPRINT_TURNING_TIMING[2] = {0.1, 4};     // Min / Max timing for changing direction (heading with mouse) when running
