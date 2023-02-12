@@ -262,11 +262,12 @@ class cfgVehicles {
 		s_pipChromAber = 0.2;
 	};
 
-	class SSG82Optic : ItemOptics_Base {
+	class SSG82Optic : ItemOptics {
 		s_pipRadius = 0.25;
 		s_pipMagnification = 0.5;
 		s_pipBlur = 0.03;
 		s_pipChromAber = 0.2;
+		s_nearPlaneOverride = 0.23;
 	};
 
 	class KashtanOptic : ItemOptics_Base {
