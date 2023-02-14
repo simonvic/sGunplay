@@ -1,7 +1,9 @@
 class SCOFocusing : SCameraOverlayAnimated {
 	
+	protected float m_fovCurrent;
 	protected float m_fovResting;
 	protected float m_fovFocusing;
+	protected float m_focusingSpeed = 0.1;
 	
 	protected float m_focus;
 	protected float m_vel[1];
@@ -19,8 +21,8 @@ class SCOFocusing : SCameraOverlayAnimated {
 	override void onAnimate(float deltaTime) {
 		m_focus = Math.SmoothCD(
 			m_focus,
-			Math.Min(MAX_INTENSITY, Math.InverseLerp(m_fovResting, m_fovFocusing, Camera.GetCurrentFOV()) * MAX_INTENSITY),
-			m_vel, 0.1, 1000, deltaTime);
+			Math.Min(MAX_INTENSITY, Math.InverseLerp(m_fovResting, m_fovFocusing, m_fovCurrent) * MAX_INTENSITY),
+			m_vel, m_focusingSpeed, 1000, deltaTime);
 		
 		setMaskProgress(m_focus);
 	}
@@ -31,6 +33,14 @@ class SCOFocusing : SCameraOverlayAnimated {
 	
 	void setFocusingFOV(float fov) {
 		m_fovFocusing = fov;
+	}
+	
+	void setCurrentFOV(float fov) {
+		m_fovCurrent = fov;
+	}
+	
+	void setFocusingSpeed(float speed) {
+		m_focusingSpeed;
 	}
 	
 }

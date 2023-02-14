@@ -156,8 +156,19 @@ class GunplayConstants {
 	static const float FOCUS_SPEED_CROUCHED = 0.40;
 	static const float FOCUS_SPEED_PRONE    = 0.10;
 	
+	static const float FOCUS_SPEED_IRONSIGHT_MULTIPLIER = 0.75;     // Multiplier of focus speed when using a ironsight optic	
 	static const float FOCUS_SPEED_NON_MAGN_MULTIPLIER  = 0.70;     // Multiplier of focus speed when using a non-magnifying optic
-	static const float FOCUS_SPEED_IRONSIGHT_MULTIPLIER = 0.75;     // Multiplier of focus speed when using a ironsight optic
+	
+	// focus intensity where
+	// 0.0 = no zoom boost
+	// 0.5 = half zoom boost
+	// 1.0 = full zoom boost
+	// -1.0 = reverse boost !? (why would you want that? lol)
+	// 2.0 = zoom goes brrrr
+	// for...
+	static const float FOCUS_INTENSITY_IRONSIGHTS = 0.5; // ... ironsights
+	static const float FOCUS_INTENSITY_NON_MAGN = 0.5;   // ... non-magnifying optics (1x)
+	static const float FOCUS_INTENSITY_MAGN = 0.5;       // ... magnifying optics
 	/////////////////////////////////////////////////////////////
 	
 	

@@ -2,7 +2,10 @@ modded class DayZPlayerCameraIronsights {
 	
 	protected PlayerBase m_player;
 	protected DayZPlayerImplementAiming m_aimingModel;
-	
+
+	protected float m_focusingFOV;
+	protected float m_restingFOV;
+		
 	protected float m_focusTargetFOV;
 	protected float m_focusVel[1];
 	protected float m_focusSpeed;
@@ -33,7 +36,7 @@ modded class DayZPlayerCameraIronsights {
 	protected static ref DOFPresetWeaponInspect m_inspectDOFPreset;
 	protected static ref SCOFocusing m_scoFocusing;
 	
-	protected float adsFovMultiplier = 1;
+	protected float m_adsFovMultiplier = 1;
 	
 	
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput) {
@@ -44,18 +47,38 @@ modded class DayZPlayerCameraIronsights {
 		m_dynamicsSmoothTime = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS;
 		m_dynamicsStrength = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH;
 		
-		if (!m_inspectDOFPreset) m_inspectDOFPreset = new DOFPresetWeaponInspect();
-		if (!m_scoFocusing) m_scoFocusing = new SCOFocusing();
+		if (!m_inspectDOFPreset) {
+			m_inspectDOFPreset = new DOFPresetWeaponInspect();
+		}
+		if (!m_scoFocusing) {
+			m_scoFocusing = new SCOFocusing();
+		}
 		if (!SCameraOverlaysManager.getInstance().isActive(m_scoFocusing)) {
 			SCameraOverlaysManager.getInstance().activate(m_scoFocusing);
 		}
 		
-		adsFovMultiplier = SMath.mapClamp(
+		initADSFOVMultipliers();
+		initRestingFOV();
+		initFocusingFOV();
+	}
+	
+	protected void initADSFOVMultipliers() {
+		m_adsFovMultiplier = SMath.mapClamp(
 			userCfgGunplay.getAdsFOVMultiplier(),
 			0, 1,
 			GunplayConstants.ADS_FOV_MULT_CONSTRAINTS[0], GunplayConstants.ADS_FOV_MULT_CONSTRAINTS[1]);
 	}
-		
+	
+	protected void initRestingFOV() {
+		m_restingFOV = Math.Max(GetDayZGame().GetUserFOV() * getADSFOVMultiplier(), GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
+	}
+	
+	protected void initFocusingFOV() {
+		m_focusingFOV = Math.Lerp(
+			m_restingFOV,
+			GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS,
+			GunplayConstants.FOCUS_INTENSITY_IRONSIGHTS);
+	}
 		
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
 		updateDOF();
@@ -315,8 +338,10 @@ modded class DayZPlayerCameraIronsights {
 	*	@param camera result
 	*/
 	protected void updateFocusingOverlay(float pDt, DayZPlayerCameraResult pOutResult) {
+		m_scoFocusing.setCurrentFOV(pOutResult.m_fFovAbsolute);
 		m_scoFocusing.setRestingFOV(getRestingFOV());
-		m_scoFocusing.setFocusingFOV(m_focusTargetFOV);
+		m_scoFocusing.setFocusingFOV(getFocusingFOV());
+		m_scoFocusing.setFocusingSpeed(m_focusSpeed);
 	}
 	
 	/**
@@ -324,9 +349,16 @@ modded class DayZPlayerCameraIronsights {
 	*	@return fov
 	*/
 	protected float getRestingFOV() {
-		return Math.Max(GetDayZGame().GetUserFOV() * getADSFOVMultiplier(), GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
+		return m_restingFOV;
 	}
 	
+	/**
+	*	@brief Get FoV value at focusing state
+	*	@return fov
+	*/
+	protected float getFocusingFOV() {
+		return m_focusingFOV;
+	}
 	
 	/**
 	*	@brief Compute the targeted FOV and focusing speed
@@ -335,7 +367,7 @@ modded class DayZPlayerCameraIronsights {
 	*/
 	protected void computeFOVFocusValues(out float targetFOV, out float speed) {
 		if (canZoom()) {
-			targetFOV = GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS;
+			targetFOV = getFocusingFOV();
 			speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_IRONSIGHT_MULTIPLIER;
 		} else {
 			targetFOV = getRestingFOV();
@@ -494,7 +526,7 @@ modded class DayZPlayerCameraIronsights {
 	}
 
 	protected float getADSFOVMultiplier() {
-		return adsFovMultiplier;
+		return m_adsFovMultiplier;
 	}
 	
 	protected bool playerIsFocusing() {
