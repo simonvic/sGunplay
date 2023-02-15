@@ -1,6 +1,6 @@
 class AimingModelFilterShake : AimingModelFilterBase {
 	
-	static const float SECONDS_BETWEEN_SHAKES = 2;
+	static const float SECONDS_BETWEEN_SHAKES = Math.PI2;
 	static const float SECONDS_SHAKE_LENGTH = Math.PI_HALF;
 	
 	protected float m_shakeTimer;
