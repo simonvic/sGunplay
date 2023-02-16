@@ -1,33 +1,43 @@
+enum eADSType {
+	UNKNOWN = -1,
+	NONE = 0,
+	WEAPON = 1,
+	OPTIC = 2,
+	BUIS = 4
+}
+
 class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
-	
-	protected Weapon_Base m_prevWeapon;
-	protected ItemOptics m_prevOptic;
-	protected int m_prevFireMode;
-	protected int m_prevStepZeroing;
-	protected int m_prevStepZoom;
-	
-	protected float m_animationTime;
-	protected bool m_playHandAnimation;
 	
 	override bool isActive() {
 		return GunplayConstants.AIMING_MODEL_USE_FILTER_WEAPON_INTERACTION;
 	}
 	
-	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
-
-		if (getWeapon() != m_prevWeapon) {
-			m_prevWeapon = getWeapon();
-			updateStateOptic();
-			return;
-		}
+	// Can't be notified when these properties change,
+	// so we have to cache and compare them :shrug:
+	
+	protected Weapon_Base m_prevWeapon;
+	protected eADSType m_prevADSType = eADSType.UNKNOWN;
+	protected ItemOptics m_prevOptic;
+	protected int m_prevStepZoom;
+	//@todo Can't use step zoom, when using backup weapon ironsight, the weapon doesn't report the right Step. Report this.
+	protected int m_prevZeroing;
+	protected int m_prevFireMode;
+	
+	protected float m_animationTime;
+	protected bool m_playHandAnimation;
 		
+	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {		
+		updateStateWeapon();
+		updateStateAdsType();
 		updateStateOptic();
 		
-		if (updateStateZoom()) {
+		HumanInputController pInput = getPlayer().GetInputController();
+		
+		if (updateStateZoom() && pInput && (pInput.IsZoomIn() || pInput.IsZoomOut())) {
 			playSounds(GunplayConstants.SOUND_CHANGE_ZOOM);
 		}
 		
-		if (updateStateZeroing()) {
+		if (updateStateZeroing() && pInput && (pInput.IsZeroingUp() || pInput.IsZeroingDown())) {
 			playSounds(GunplayConstants.SOUND_CHANGE_ZEROING);
 		}
 		
@@ -41,6 +51,32 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 	}
 	
 	/**
+	*	@brief Update the current weapon
+	*	@return true if it has changed, false otherwise
+	*/
+	protected bool updateStateWeapon() {
+		Weapon_Base currentWeapon = getWeapon();
+		if (m_prevWeapon != currentWeapon) {
+			m_prevWeapon = currentWeapon;
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	*	@brief Update the current ADS type
+	*	@return true if it has changed, false otherwise
+	*/
+	protected bool updateStateAdsType() {
+		eADSType currentADSType = getADSType();
+		if (m_prevADSType != currentADSType) {
+			m_prevADSType = currentADSType;
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	*	@brief Update the current optic
 	*	@return true if it has changed, false otherwise
 	*/
@@ -48,8 +84,6 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 		ItemOptics currOptic = getWeapon().GetAttachedOptics();
 		if (currOptic != m_prevOptic) {
 			m_prevOptic = currOptic;
-			updateStateZoom();
-			updateStateZeroing();
 			return true;
 		}
 		return false;
@@ -74,9 +108,9 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 	*	@return true if it has changed, false otherwise
 	*/
 	protected bool updateStateZeroing() {
-		int currStepZeroing = m_prevWeapon.GetStepZeroing();
-		if (currStepZeroing != m_prevStepZeroing) {
-			m_prevStepZeroing = currStepZeroing;
+		int currStepZeroing = m_prevWeapon.GetCurrentZeroing();
+		if (m_prevZeroing != currStepZeroing) {
+			m_prevZeroing = currStepZeroing;
 			return true;
 		}
 		return false;
@@ -87,9 +121,8 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 	*	@return true if it has changed, false otherwise
 	*/
 	protected bool updateStateFiremode() {
-		//@fixme shooting in double shot firemode triggers a firemodechange
 		int currFireMode = m_prevWeapon.GetCurrentMode(m_prevWeapon.GetCurrentMuzzle());
-		if (currFireMode != m_prevFireMode) {
+		if (m_prevFireMode != currFireMode) {
 			m_prevFireMode = currFireMode;
 			return true;
 		}
@@ -128,6 +161,21 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 		if (soundSet != string.Empty) {
 			SEffectManager.PlaySoundOnObject(soundSet, getWeapon()).SetSoundAutodestroy(true);
 		}
+	}
+	
+	/**
+	*	@brief Get ADS type
+	*	@return UNKNOWN if unkNown, OPTIC if is in optic, BUIS if using backup ironsight, WEAPON if no optic used or weapon backup ironsight
+	*/
+	protected eADSType getADSType() {
+		if (!getPlayer()) return eADSType.UNKNOWN;
+		if (getPlayer().IsInOptics()) {
+			return eADSType.OPTIC;
+		}
+		if (m_prevOptic && m_prevOptic.IsUsingWeaponIronsightsOverride()) {
+			return eADSType.BUIS;
+		}
+		return eADSType.WEAPON;
 	}
 
 	
