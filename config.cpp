@@ -298,6 +298,7 @@ class cfgVehicles {
 		s_pipMagnification = 0.314;
 		s_pipBlur = 0.005;
 		s_pipChromAber = 0.2;
+		s_nearPlaneOverride = 0.25;
 	};
 
 	class PSO11Optic : ItemOptics_Base {
@@ -305,6 +306,7 @@ class cfgVehicles {
 		s_pipMagnification = 0.314;
 		s_pipBlur = 0.005;
 		s_pipChromAber = 0.2;
+		s_nearPlaneOverride = 0.25;
 	};
 
 	class KazuarOptic: ItemOptics_Base {
