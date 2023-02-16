@@ -338,10 +338,12 @@ modded class DayZPlayerCameraIronsights {
 	*	@param camera result
 	*/
 	protected void updateFocusingOverlay(float pDt, DayZPlayerCameraResult pOutResult) {
-		m_scoFocusing.setCurrentFOV(pOutResult.m_fFovAbsolute);
-		m_scoFocusing.setRestingFOV(getRestingFOV());
-		m_scoFocusing.setFocusingFOV(getFocusingFOV());
-		m_scoFocusing.setFocusingSpeed(m_focusSpeed);
+		if (!isFullscreenOptic()) {
+			m_scoFocusing.setCurrentFOV(pOutResult.m_fFovAbsolute);
+			m_scoFocusing.setRestingFOV(getRestingFOV());
+			m_scoFocusing.setFocusingFOV(getFocusingFOV());
+			m_scoFocusing.setFocusingSpeed(m_focusSpeed);
+		}
 	}
 	
 	/**
