@@ -1,7 +1,7 @@
 MetaFileClass {
  Name "{45F2A9D65D231A36}MyMODS/sGunplay/GUI/imagesets/sGunplay_stats.edds"
  Author "simonvic-pc"
- ChangeDate 676605249
+ ChangeDate -1696731523
  Configurations {
   PNGResourceClass PC {
    SourceFile "sGunplay_stats.png"
