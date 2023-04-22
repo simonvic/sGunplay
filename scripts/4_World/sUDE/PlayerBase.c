@@ -14,20 +14,20 @@ modded class PlayerBase {
 		hcm.SetRunSprintFilterModifier(SMath.mapClamp(weight,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
-			GunplayConstants.PLAYER_INERTIA_SPRINT_TIMING[0],
-			GunplayConstants.PLAYER_INERTIA_SPRINT_TIMING[1]));
+			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT[0],
+			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT[1]));
 		
 		hcm.SetTurnSpanModifier(SMath.mapClamp(weight,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
-			GunplayConstants.PLAYER_INERTIA_TURNING_TIMING[0],
-			GunplayConstants.PLAYER_INERTIA_TURNING_TIMING[1]));
+			GunplayConstants.PLAYER_INERTIA_TIMING_TURNING[0],
+			GunplayConstants.PLAYER_INERTIA_TIMING_TURNING[1]));
 		
 		hcm.SetTurnSpanSprintModifier(SMath.mapClamp(weight, 
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
-			GunplayConstants.PLAYER_INERTIA_SPRINT_TURNING_TIMING[0],
-			GunplayConstants.PLAYER_INERTIA_SPRINT_TURNING_TIMING[1]));
+			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT_TURNING[0],
+			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT_TURNING[1]));
 		
 		hcm.SetDirectionSprintFilterModifier(1);
 	}
