@@ -21,7 +21,7 @@ modded class PropertyModifiers {
 		recoilControlKick          = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlKick");
 
 		for (int i = 0; i < m_OwnerItem.GetInventory().AttachmentCount(); i++) {
-			applyAttachmentModifiers(ItemBase.Cast(m_OwnerItem.GetInventory().GetAttachmentFromIndex(i)));
+			applyAttachmentModifiers(m_OwnerItem.GetInventory().GetAttachmentFromIndex(i));
 		}
 
 		recoilControlMouseX        = Math.Clamp(recoilControlMouseX, -1, 1);
