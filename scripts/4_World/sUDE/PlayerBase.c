@@ -29,7 +29,11 @@ modded class PlayerBase {
 			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT_TURNING[0],
 			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT_TURNING[1]));
 		
-		hcm.SetDirectionSprintFilterModifier(1);
+		hcm.SetDirectionSprintFilterModifier(SMath.mapClamp(weight, 
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
+			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,
+			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT_DIRECTION[0],
+			GunplayConstants.PLAYER_INERTIA_TIMING_SPRINT_DIRECTION[1]));
 	}
 	
 	RecoilControl getRecoilControl() {
