@@ -76,7 +76,7 @@ modded class RecoilBase {
 	
 	static array<string> getCSVHeader() {
 		return {
-			"weapon"
+			"recoil"
 			"handsMinX"
 			"handsMaxX"
 			"handsMinY"
@@ -108,6 +108,7 @@ modded class RecoilBase {
 		float misalignFinal = misalignIntensity[0] + misalignIntensity[1];
 		float mouseFinal = Math.AbsFloat(mouseRanges[0] - mouseRanges[1]) + Math.AbsFloat(mouseRanges[2] - mouseRanges[3]);
 		return {
+			""+this.Type()
 			""+handsRanges[0]
 			""+handsRanges[1]
 			""+handsRanges[2]
