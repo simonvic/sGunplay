@@ -1,5 +1,3 @@
-#define S_GUNPLAY
-
 class CfgPatches {
 	class sGunplay {
 		units[] = {};
@@ -32,6 +30,10 @@ class CfgMods {
 		version = "0.1";
 		extra = 0;
 		type = "mod";
+
+		defines[] = {
+			"S_GUNPLAY"
+		};
 		
 		dependencies[] = {
 			"World",
@@ -51,21 +53,18 @@ class CfgMods {
 			class gameScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sGunplay/scripts/defines",
 					"MyMODS/sGunplay/scripts/3_Game"
 				};
 			};
 			class worldScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sGunplay/scripts/defines",
 					"MyMODS/sGunplay/scripts/4_World"
 				};
 			};
 			class missionScriptModule {
 				value = "";
 				files[] = {
-					"MyMODS/sGunplay/scripts/defines",
 					"MyMODS/sGunplay/scripts/5_Mission"
 				};
 			};
