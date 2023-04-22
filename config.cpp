@@ -293,17 +293,17 @@ class cfgVehicles {
 	};
 
 	class PSO1Optic : ItemOptics_Base {
-		s_pipRadius = 0.34;
+		s_pipRadius = 0.4;
 		s_pipMagnification = 0.314;
-		s_pipBlur = 0.005;
+		s_pipBlur = 0.01;
 		s_pipChromAber = 0.2;
 		s_nearPlaneOverride = 0.25;
 	};
 
 	class PSO11Optic : ItemOptics_Base {
-		s_pipRadius = 0.34;
+		s_pipRadius = 0.4;
 		s_pipMagnification = 0.314;
-		s_pipBlur = 0.005;
+		s_pipBlur = 0.01;
 		s_pipChromAber = 0.2;
 		s_nearPlaneOverride = 0.25;
 	};
