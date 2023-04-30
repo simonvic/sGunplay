@@ -52,18 +52,16 @@ modded class DayZPlayerImplementAiming {
 		m_filters.Insert(filter);
 	}
 	
-	/*
 	//on raise begin doesn't get called when quickly changing weapon while lowering
 	override void OnRaiseBegin(DayZPlayerImplement player) {
 		super.OnRaiseBegin(player);
+		foreach (AimingModelFilterBase filter : m_filters) {
+			if (filter.isActive()) {
+				filter.onRaiseBegin();
+			}
+		}
 	}
-	
-	//@todo update all aiming model variables from the filter, so we don't break other mods that use them
-	override void OnSwayStateChange(int state) {
-		super.OnSwayStateChange(state);
-	}
-	*/
-	
+
 	/**
 	*	@brief Process all registered aiming model filters
 	*	 @param pDt \p float - delta time

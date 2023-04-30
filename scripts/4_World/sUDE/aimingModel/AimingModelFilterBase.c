@@ -1,11 +1,12 @@
 class AimingModelFilterBase {
 	
-	protected DayZPlayerImplementAiming m_aimingModel
+	protected DayZPlayerImplementAiming m_aimingModel;
 	
 	void AimingModelFilterBase(DayZPlayerImplementAiming aimingModel) {
 		m_aimingModel = aimingModel;
 	}
 	
+	void onRaiseBegin();
 	void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex);
 	
 	bool isActive() {

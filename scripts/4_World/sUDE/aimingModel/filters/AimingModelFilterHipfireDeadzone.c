@@ -9,6 +9,10 @@ class AimingModelFilterHipfireDeadzone : AimingModelFilterBase {
 		return GunplayConstants.AIMING_MODEL_USE_FILTER_HIPFIRE_DEADZONE;
 	}
 	
+	override void onRaiseBegin() {
+		m_deadzone = vector.Zero;
+	}
+	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		vector targetDeadzone = "0 0 0";
 		if (!getPlayer().IsInOptics() && !getPlayer().IsInIronsights()) {
