@@ -16,7 +16,7 @@ class AimingModelFilterHipfireDeadzone : AimingModelFilterBase {
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		vector targetDeadzone = "0 0 0";
 		if (!getPlayer().IsInOptics() && !getPlayer().IsInIronsights()) {
-			vector accel = getAimingModel().getAimChangeDegree();
+			vector accel = getAimingModel().getAimDeltaDegree(pDt);
 			targetDeadzone[0] = Math.Clamp(m_deadzone[0] + accel[0], GunplayConstants.HIPFIRE_DEADZONE_AMOUNT_DEGREE[1], GunplayConstants.HIPFIRE_DEADZONE_AMOUNT_DEGREE[2]);
 			targetDeadzone[1] = Math.Clamp(m_deadzone[1] + accel[1], GunplayConstants.HIPFIRE_DEADZONE_AMOUNT_DEGREE[3], GunplayConstants.HIPFIRE_DEADZONE_AMOUNT_DEGREE[0]);
 		}

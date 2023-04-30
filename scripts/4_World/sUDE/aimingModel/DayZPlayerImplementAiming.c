@@ -40,7 +40,6 @@ modded class DayZPlayerImplementAiming {
 		registerFilter(new AimingModelFilterWallPush(this));
 		registerFilter(new AimingModelFilterWeaponInteraction(this));
 		registerFilter(new AimingModelFilterClamps(this));
-		
 	}
 	
 	/**
@@ -169,13 +168,44 @@ modded class DayZPlayerImplementAiming {
 	vector getLensPositionWS() {
 		return m_lensPosition;
 	}
+
 	
 	/**
-	*	@brief Get the user input aim change
+	*	@brief Get the user input aim change per tick in radians
+	*	 @return vector - Aim change of the player (x, y, 0)
+	*/
+	vector getAimChangeRadians() {
+		return getPlayer().GetInputController().GetAimChange();
+	}
+	
+	/**
+	*	@brief Get the user input aim change per tick in degrees
 	*	 @return vector - Aim change of the player (x, y, 0)
 	*/
 	vector getAimChangeDegree() {
-		return DayZPlayerImplementAiming.getAimChangeDegree(m_PlayerDpi);
+		vector radians = getAimChangeRadians();
+		return Vector(radians[0] * Math.RAD2DEG, radians[1] * Math.RAD2DEG, 0);
+	}
+	
+	/**
+	*	@brief Get the user input aim change (frame-indipendent) in radians
+	*	 @return vector - Aim change of the player (x, y, 0)
+	*/
+	vector getAimDeltaRadians(float dt) {
+#ifdef DAYZ_1_21
+		return getPlayer().GetInputController().GetAimDelta(dt);
+#else
+		return getPlayer().GetInputController().GetAimChange();
+#endif
+	}
+	
+	/**
+	*	@brief Get the user input aim change (frame-indipendent) in degree
+	*	 @return vector - Aim change of the player (x, y, 0)
+	*/
+	vector getAimDeltaDegree(float dt) {
+		vector radians = getAimDeltaRadians(dt);
+		return Vector(radians[0] * Math.RAD2DEG, radians[1] * Math.RAD2DEG, 0);
 	}
 	
 	
@@ -254,18 +284,6 @@ modded class DayZPlayerImplementAiming {
 		barrelPosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "konec hlavne" ));
 		muzzlePosition = weapon.ModelToWorld(weapon.GetSelectionPositionLS( "usti hlavne" ));
 		targetPosition = muzzlePosition + (vector.Direction(barrelPosition, muzzlePosition ) * distance);
-	}
-	
-	/**
-	*	@brief Get the user input aim change
-	*	 @param player \p DayZPlayerImplement player
-	*	 @return vector - Aim change of the player (x, y, 0)
-	*/
-	static vector getAimChangeDegree(DayZPlayerImplement player) {
-		return Vector(
-			player.GetInputController().GetAimChange()[0] * Math.RAD2DEG,
-			player.GetInputController().GetAimChange()[1] * Math.RAD2DEG,
-			0);
 	}
 	
 }

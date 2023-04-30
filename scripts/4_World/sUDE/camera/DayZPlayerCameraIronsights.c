@@ -163,9 +163,7 @@ modded class DayZPlayerCameraIronsights {
 	*	@brief Update the camera based with user input
 	*/
 	protected void updateCamera(float pDt, out DayZPlayerCameraResult pOutResult) {
-
-		float aimChangeX = m_aimingModel.getAimChangeDegree()[0];
-		float aimChangeY = m_aimingModel.getAimChangeDegree()[1];
+		vector aimChange = m_aimingModel.getAimDeltaDegree(pDt);
 		
 		////////////////////////
 		// Weapon aiming matrix
@@ -183,20 +181,20 @@ modded class DayZPlayerCameraIronsights {
 		
 		////////////////////////
 		// Inspection
-		computeInspectAngles(aimChangeX, aimChangeY, m_inspectAngles, pDt);
+		computeInspectAngles(aimChange[0], aimChange[1], m_inspectAngles, pDt);
 		vector inspectTM[4];
 		Math3D.YawPitchRollMatrix(m_inspectAngles, inspectTM);		
 		
 		////////////////////////
 		// Freelook
-		computeFreelookAngles(aimChangeX, aimChangeY, m_freelookAngles, pDt);
+		computeFreelookAngles(aimChange[0], aimChange[1], m_freelookAngles, pDt);
 		vector freelookTM[4];
 		Math3D.YawPitchRollMatrix(m_freelookAngles, freelookTM);	
 		
 		
 		////////////////////////
 		// Deadzone
-		computeDeadzone(aimChangeX, aimChangeY, m_deadzoneX, m_deadzoneY, pDt);
+		computeDeadzone(aimChange[0], aimChange[1], m_deadzoneX, m_deadzoneY, pDt);
 		
 		
 		////////////////////////

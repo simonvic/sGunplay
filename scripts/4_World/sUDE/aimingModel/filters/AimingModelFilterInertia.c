@@ -17,7 +17,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		
 		//////////////////////////
 		// ACCELERATION
-		m_accel = getAimingModel().getAimChangeDegree() * computeInertiaMultiplier();
+		m_accel = getAimingModel().getAimDeltaDegree(pDt) * computeInertiaMultiplier();
 		m_vel += m_accel;
 		m_vel[0] = Math.Clamp(m_vel[0], GunplayConstants.INERTIA_VELOCITY_LIMIT[1], GunplayConstants.INERTIA_VELOCITY_LIMIT[2]);
 		m_vel[1] = Math.Clamp(m_vel[1], GunplayConstants.INERTIA_VELOCITY_LIMIT[3], GunplayConstants.INERTIA_VELOCITY_LIMIT[0]);
