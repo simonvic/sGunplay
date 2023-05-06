@@ -1,4 +1,4 @@
-FrameWidgetClass rootFrame {
+FrameWidgetClass root_recoil_control_stats_hands {
  ignorepointer 1
  position 0 0
  size 128 64

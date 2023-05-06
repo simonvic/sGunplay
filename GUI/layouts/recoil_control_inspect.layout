@@ -1,4 +1,4 @@
-FrameWidgetClass rootFrame {
+FrameWidgetClass root_recoil_control_stats_inspect {
  ignorepointer 1
  size 1 128
  halign right_ref
