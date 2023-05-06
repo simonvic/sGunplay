@@ -10,7 +10,9 @@ class AimingModelFilterHipfireDeadzone : AimingModelFilterBase {
 	}
 	
 	override void onRaiseBegin() {
-		m_deadzone = vector.Zero;
+		if (GunplayConstants.HIPFIRE_DEADZONE_RESET_ON_RAISE) {
+			m_deadzone = vector.Zero;
+		}
 	}
 	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
