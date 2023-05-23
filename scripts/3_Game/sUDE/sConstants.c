@@ -214,11 +214,12 @@ class GunplayConstants {
 	
 	/////////////////////////////////////////////////////////////
 	// PLAYER CONTROLLER
-	static const bool  PLAYER_INERTIA_ENABLE = true;                           // Enable player movement inertia
-	static const float PLAYER_INERTIA_TIMING_SPRINT[2] = {0.1, 3};             // Min / Max timing for transitioning from jogging to running
-	static const float PLAYER_INERTIA_TIMING_TURNING[2] = {0.1, 2};            // Min / Max timing for changing direction (heading with mouse) when walking or jogging
-	static const float PLAYER_INERTIA_TIMING_SPRINT_TURNING[2] = {0.1, 4};     // Min / Max timing for changing direction (heading with mouse) when running
-	static const float PLAYER_INERTIA_TIMING_SPRINT_DIRECTION[2] = {1, 1};     // Min / Max timing for changing direction (heading with keyboard) when running
+	static bool  PLAYER_INERTIA_AFFECTED_BY_WEIGHT = true;  // Enable player movement inertia based on actual inventory weight (not stamina)
+	static const float PLAYER_INERTIA_TIMING_SPRINT[2]           = {1, 3};   // Min / Max timing for transitioning from JOGGING to RUNNING
+	static const float PLAYER_INERTIA_TIMING_TURNING[2]          = {1, 1};   // Min / Max multiplier for turning (heading with MOUSE)
+	static const float PLAYER_INERTIA_TIMING_DIRECTION[2]        = {1, 1};   // Min / Max multiplier for changing direction (heading with KEYBOARD)
+	static const float PLAYER_INERTIA_TIMING_SPRINT_TURNING[2]   = {1, 3};   // Min / Max multiplier for turning (heading with MOUSE) when RUNNING
+	static const float PLAYER_INERTIA_TIMING_SPRINT_DIRECTION[2] = {1, 1};   // Min / Max multiplier for changing direction (heading with KEYBOARD) when RUNNING
 	/////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////
