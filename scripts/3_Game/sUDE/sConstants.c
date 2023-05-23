@@ -214,7 +214,7 @@ class GunplayConstants {
 	
 	/////////////////////////////////////////////////////////////
 	// PLAYER CONTROLLER
-	static bool  PLAYER_INERTIA_AFFECTED_BY_WEIGHT = true;  // Enable player movement inertia based on actual inventory weight (not stamina)
+	static const bool PLAYER_INERTIA_AFFECTED_BY_WEIGHT = true;  // Enable player movement inertia based on actual inventory weight (not stamina)
 	static const float PLAYER_INERTIA_TIMING_SPRINT[2]           = {1, 3};   // Min / Max timing for transitioning from JOGGING to RUNNING
 	static const float PLAYER_INERTIA_TIMING_TURNING[2]          = {1, 1};   // Min / Max multiplier for turning (heading with MOUSE)
 	static const float PLAYER_INERTIA_TIMING_DIRECTION[2]        = {1, 1};   // Min / Max multiplier for changing direction (heading with KEYBOARD)
