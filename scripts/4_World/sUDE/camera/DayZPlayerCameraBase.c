@@ -8,16 +8,10 @@ modded class DayZPlayerCameraBase {
 		userCfgGunplay = SUserConfig.gunplay();
 	}
 	
-	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {
-		super.SetCameraPP(state, launchedFrom);
-		SPPEManager.resetMask();
-		SPPEManager.resetOpticLens();
-	}
-	
 	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
 		super.OnActivate(pPrevCamera, pPrevCameraResult);
 		if (pPrevCamera && pPrevCamera.Type() == DayZPlayerCameraOptics) {
-			SCameraOverlaysManager.getInstance().deactivate(m_opticMisalignmentOverlay);
+			m_opticMisalignmentOverlay.deactivate();
 		}
 	}
 	

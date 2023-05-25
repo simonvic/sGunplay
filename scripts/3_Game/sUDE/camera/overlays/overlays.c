@@ -1,11 +1,12 @@
 class SCOOpticMisalignment : SCameraOverlayTimed {
 
 	override void onInit() {
+		setDuration(1.0);
+		setDeactivateOnStop(true);
 		setImage("MyMODS/sFramework/GUI/textures/overlays/black_4x4.edds");
 		setMask(SCOMasks.CIRCULAR);
-		setPriority(eSCOPriority.HEADGEAR);		
-		setDuration(1.0);
 		setMaskTransitionWidth(1);
+		setPriority(eSCOPriority.HEADGEAR + 1);
 	}
 	
 	override void onAnimate(float deltaTime) {

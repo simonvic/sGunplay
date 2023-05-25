@@ -13,7 +13,7 @@ modded class DayZPlayerCameraIronsights {
 	protected vector m_inspectAngles;
 	protected float m_inspectVelX[1];
 	protected float m_inspectVelY[1];
-	protected bool m_isInspectionDOFReset;
+	protected bool m_isInspectionDofActive;
 	
 	protected vector m_freelookAngles;
 	protected float m_freelookVelX[1];
@@ -33,7 +33,7 @@ modded class DayZPlayerCameraIronsights {
 	protected float m_offsetXResetVel[1];
 	protected float m_offsetYResetVel[1];	
 	
-	protected static ref DOFPresetWeaponInspect m_inspectDOFPreset;
+	protected static ref array<float> m_inspectionDofPreset;
 	protected static ref SCOFocusing m_scoFocusing;
 	
 	protected float m_adsFovMultiplier = 1;
@@ -47,16 +47,17 @@ modded class DayZPlayerCameraIronsights {
 		m_dynamicsSmoothTime = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_SMOOTHNESS;
 		m_dynamicsStrength = GunplayConstants.ADS_MOVEMENT_MISALIGNMENT_STRENGTH;
 		
-		if (!m_inspectDOFPreset) {
-			m_inspectDOFPreset = new DOFPresetWeaponInspect();
+		if (!m_inspectionDofPreset) {
+			m_inspectionDofPreset = {true, 0.5, 200, 200, 0.1, 1};
 		}
 		if (!m_scoFocusing) {
 			m_scoFocusing = new SCOFocusing();
 		}
-		if (!SCameraOverlaysManager.getInstance().isActive(m_scoFocusing)) {
-			SCameraOverlaysManager.getInstance().activate(m_scoFocusing);
+		if (!m_scoFocusing.isActive()) {
+			m_scoFocusing.activate();
 		}
 		
+		m_RequesterADS.setDofIntensity(userCfgGunplay.getAdsDOFIntensity());
 		initADSFOVMultipliers();
 		initRestingFOV();
 		initFocusingFOV();
@@ -98,13 +99,15 @@ modded class DayZPlayerCameraIronsights {
 	*	@brief Update the Depth of Field
 	*/
 	protected void updateDOF() {
-		//@todo update m_isEntering
-		if (m_player.isInspectingWeapon() && canInspectWeapon()) {
-			SPPEManager.requestWeaponDOF(m_inspectDOFPreset);
-			m_isInspectionDOFReset = true;
-		} else if (m_isInspectionDOFReset) {
-			setNonMagnifyingOpticDOF();
-			m_isInspectionDOFReset = false;
+		if (canInspectWeapon()) {
+			if (!m_isInspectionDofActive) {
+				m_RequesterADS.SetValuesIronsights(m_inspectionDofPreset);
+				m_isInspectionDofActive = true;
+			}
+		} else if (m_isInspectionDofActive) {
+			// temp_array holds the DOF of the current sight entity
+			m_RequesterADS.SetValuesIronsights(temp_array);
+			m_isInspectionDofActive = false;
 		}
 	}
 	
@@ -391,131 +394,6 @@ modded class DayZPlayerCameraIronsights {
 			return 0.2;
 		}
 	}
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////
-	// CAMERA POST PROCESSING
-	
-	/**
-	*	@brief Set camera Post Processing stuff, called by vanilla
-	*/
-	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {
-		if (needPPEReset(state, launchedFrom)) {
-			resetPPE();
-			return;
-		}
-		
-		SPPEManager.resetMask();
-		SPPEManager.resetOpticLens();
-		setNonMagnifyingOpticDOF();
-		checkForNVGoggles();
-		hideWeaponBarrel(false);
-		
-	}
-	
-	protected void resetPPE() {
-		SPPEManager.resetMask();
-		SPPEManager.resetOpticLens();
-		SPPEManager.resetWeaponDOF();
-		checkForNVGoggles();
-		hideWeaponBarrel(false);
-	}
-	
-	
-	/**
-	*	@brief Check if camera post processing effect has to be reset
-	*/
-	protected bool needPPEReset(bool state, DayZPlayerCamera launchedFrom) {
-		return !state || !m_weaponUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
-	}
-		
-
-	/**
-	*	@brief Set the depth of field based on current sight (optic or ironsight)
-	*/
-	protected void setNonMagnifyingOpticDOF() {
-
-		// No weapon used (handeld optic?)
-		if (!m_weaponUsed || !isAdsDOFEnabled()) {
-			SPPEManager.resetWeaponDOF();
-			return;
-		}
-		
-		DoFPreset dof = getCurrentSightDOF();
-		if (dof) {
-			SPPEManager.requestWeaponDOF(dof);
-		}
-	}
-	
-	/**
-	*	@brief Update the night vision based on the optics
-	*	 @param allowNightVisionGoggles \p bool - if night vision should be applied if no optic is used (ironsight)
-	*/
-	protected void updateNightVision(bool allowsNVGoggles) {
-		if (!m_opticsUsed.IsNVOptic()) {
-			if (allowsNVGoggles) {
-				checkForNVGoggles();
-			} else {
-				SetNVPostprocess(NVTypes.NONE);
-			}
-			return;
-		}
-		
-		if (m_opticsUsed.IsWorking()) {
-			SetCameraNV(true);
-			SetNVPostprocess(m_opticsUsed.GetCurrentNVType());
-		} else {
-			SetCameraNV(false);
-			SetNVPostprocess(NVTypes.NV_OPTICS_OFF);
-		}
-		
-	}
-	
-	/**
-	*	@brief Check if the current camera is night vision (night vision goggles)
-	*/
-	protected void checkForNVGoggles() {
-		if (IsCameraNV()) {
-			SetNVPostprocess(GetCameraNVType());
-		} else {
-			SetNVPostprocess(NVTypes.NONE);
-		}
-	}
-	
-	/**
-	*	@brief Toggle the weapon barrel visibility
-	*	 @param hidden \p bool - visibility of the weapon barrel
-	*/
-	protected void hideWeaponBarrel(bool hidden) {
-		if (m_weaponUsed) {
-			m_weaponUsed.HideWeaponBarrel(hidden);
-		}
-	}
-	
-	/**
-	*	@brief Get the current sight (weapon, optic or backup ironsigh) Depth of Field
-	*	 @return dof \p DoFPreset - Result Depth of field, null if not enabled or can't load it from cfg
-	*/
-	protected DoFPreset getCurrentSightDOF() {
-		DoFPreset dof = new DoFPreset();
-		temp_array = {};
-		if (m_opticsUsed && m_opticsUsed.GetOpticsDOF().Count() == 6) {
-			temp_array = m_opticsUsed.GetOpticsDOF();
-		} else {
-			temp_array = m_weaponUsed.GetWeaponDOF();
-		}
-		
-		//@todo find a proper way to reduce the ads dof
-		if (temp_array.Count() == 6 && temp_array[0]) {//correctly got the array from config and DOF is enabled (0 or 1)
-			//                   blur,         focus distance, focuse length, fLength near,  fDepthOffset,  fMinDistance, fMaxDistance
-			dof.initPreset(temp_array[4] * getAdsDOFIntensity(), temp_array[1], temp_array[2], temp_array[3] * getAdsDOFIntensity(), temp_array[5], 1, 100);
-			return dof;
-		}
-		return null; 
-	}
-	
-	
 	
 	float getCurrentDeadzoneX() {
 		return m_deadzoneX;

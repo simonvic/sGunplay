@@ -34,6 +34,23 @@ modded class DayZPlayerCameraOptics {
 		initPiP(m_opticsUsed);
 	}
 	
+ 	protected void initPiP(ItemOptics optic) {
+		if (optic.ConfigIsExisting("s_pipOffset")) {
+			optic.ConfigGetFloatArray("s_pipOffset", m_pipOffset);
+		} else {
+			m_pipOffset = {0, 0};
+		}
+		if (optic.ConfigIsExisting("s_pipLensOffset")) {
+			optic.ConfigGetFloatArray("s_pipLensOffset", m_pipLensOffset);
+		} else {
+			m_pipLensOffset = {0, 0};
+		}
+		m_pipRadius = optic.ConfigGetFloat("s_pipRadius");
+		m_pipMagnification = optic.ConfigGetFloat("s_pipMagnification");
+		m_pipBlur = optic.ConfigGetFloat("s_pipBlur");
+		m_pipChromAber = optic.ConfigGetFloat("s_pipChromAber");
+	}
+	
 	override void initADSFOVMultipliers() {
 		super.initADSFOVMultipliers();
 		m_adsFovMagnOpticsMultiplier = SMath.mapClamp(
@@ -78,7 +95,7 @@ modded class DayZPlayerCameraOptics {
 		}
 		
 		if (showEnterMisalignment()) {
-			SCameraOverlaysManager.getInstance().activate(m_opticMisalignmentOverlay);
+			m_opticMisalignmentOverlay.activate();
 		}
 	}
 	
@@ -87,22 +104,6 @@ modded class DayZPlayerCameraOptics {
 		updateLens(pDt);
 	}
 	
-	protected void initPiP(ItemOptics optic) {
-		if (optic.ConfigIsExisting("s_pipOffset")) {
-			optic.ConfigGetFloatArray("s_pipOffset", m_pipOffset);
-		} else {
-			m_pipOffset = {0, 0};
-		}
-		if (optic.ConfigIsExisting("s_pipLensOffset")) {
-			optic.ConfigGetFloatArray("s_pipLensOffset", m_pipLensOffset);
-		} else {
-			m_pipLensOffset = {0, 0};
-		}
-		m_pipRadius = optic.ConfigGetFloat("s_pipRadius");
-		m_pipMagnification = optic.ConfigGetFloat("s_pipMagnification");
-		m_pipBlur = optic.ConfigGetFloat("s_pipBlur");
-		m_pipChromAber = optic.ConfigGetFloat("s_pipChromAber");
-	}
 	
 	/**
 	*	@brief Update the lens effect position and strength along with the PP mask
@@ -129,28 +130,20 @@ modded class DayZPlayerCameraOptics {
 	*	@brief Apply the PiP (mask and lens)
 	*/
 	protected void applyPiP() {
-		SPPEManager.requestOpticMask(
+		m_RequesterADS.setMask(
 			m_opticPositionSS[0] + m_pipOffset[0],
 			m_opticPositionSS[1] + m_pipOffset[1],
 			m_pipRadius / SMath.PI_SQ / Camera.GetCurrentFOV(),
 			m_pipBlur);
 		
-		SPPEManager.requestOpticLens(
+		m_RequesterADS.setLens(
 			m_pipMagnification * getLensZoomStrength(),
+			m_pipChromAber,
 			(m_opticPositionSS[0] * 2 - 1) + m_pipOffset[0] + m_pipLensOffset[0],
-			(m_opticPositionSS[1] * 2 - 1) + m_pipOffset[1] + m_pipLensOffset[1],
-			m_pipChromAber);
+			(m_opticPositionSS[1] * 2 - 1) + m_pipOffset[1] + m_pipLensOffset[1]);
+		
 	}
 	
-	/**
-	*	@brief Get the offset based on the zeroing index of the scope
-	*	 @param zeroing \p int - zeroing index
-	*	 @param decay \p float - 
-	*	 @param amplitude \p float - 
-	*/
-	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude) {
-		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
-	}
 	
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult) {
@@ -231,27 +224,10 @@ modded class DayZPlayerCameraOptics {
 	
 	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {	
-		if (needPPEReset(state, launchedFrom)) {
-			resetPPE();
-			return;
+		super.SetCameraPP(state, launchedFrom);
+		if (m_weaponUsed) {
+			m_weaponUsed.HideWeaponBarrel(isHideWeaponBarrelInOpticEnabled());
 		}
-			
-		if (!isMagnifyingOptic() && !NVGoggles.Cast(m_opticsUsed)) { // 1x scopes only
-			setNonMagnifyingOpticDOF();
-			updateNightVision(true);
-		} else {//magnifying scopes
-			
-			//lens is updated everyframe
-			//blur is disabled
-			updateNightVision(false);
-		}
-		
-		hideWeaponBarrel(isHideWeaponBarrelInOpticEnabled());
-		
-	}
-	
-	override bool needPPEReset(bool state, DayZPlayerCamera launchedFrom) {
-		return !state || !m_opticsUsed || m_player && launchedFrom != m_player.GetCurrentPlayerCamera());
 	}
 	
 	protected float getLensZoomStrength() {
@@ -301,6 +277,17 @@ modded class DayZPlayerCameraOptics {
 	
 	bool showEnterMisalignment() {
 		return m_showEnterMisalignment;
+	}
+	
+	
+	/**
+	*	@brief Get the offset based on the zeroing index of the scope
+	*	 @param zeroing \p int - zeroing index
+	*	 @param decay \p float - 
+	*	 @param amplitude \p float - 
+	*/
+	static float getLensZeroingOffset(ItemOptics optic, float decay, float amplitude) {
+		return Math.Pow(optic.GetStepZeroing(), decay) * amplitude;
 	}
 		
 }
