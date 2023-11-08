@@ -11,6 +11,10 @@ modded class PPERequester_CameraADS {
 	
 	void setMask(float posX, float posY, float radius, float blur) {
 		GetGame().ResetPPMask();
+		// if mask is not configured, gaussian filter would blur optic too
+		if (radius <= 0) {
+			SetTargetValueFloatDefault(PostProcessEffectType.GaussFilter, PPEGaussFilter.PARAM_INTENSITY);
+		}
 		GetGame().AddPPMask(posX, posY, radius, blur);
 	}
 	
@@ -33,11 +37,11 @@ modded class PPERequester_CameraADS {
 	}
 
 	void setDOF(bool enabled, float focusDistance, float focusLength, float focusLengthNear, float focusBlur, float focusDepthOffset) {
-		SetTargetValueBool(PPEExceptions.DOF,  PPEDOF.PARAM_ENABLE,                    enabled, PPEDOF.L_0_ADS, PPOperators.SET);
-		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_DIST,         false, focusDistance, PPEDOF.L_1_ADS, PPOperators.SET);
-		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN,          false, focusLength, PPEDOF.L_2_ADS, PPOperators.SET);
-		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN_NEAR,     false, focusLengthNear, PPEDOF.L_3_ADS, PPOperators.SET);
-		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_BLUR,               false, focusBlur, PPEDOF.L_4_ADS, PPOperators.SET);
+		SetTargetValueBool(PPEExceptions.DOF,  PPEDOF.PARAM_ENABLE,                    enabled,          PPEDOF.L_0_ADS, PPOperators.SET);
+		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_DIST,         false, focusDistance,    PPEDOF.L_1_ADS, PPOperators.SET);
+		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN,          false, focusLength,      PPEDOF.L_2_ADS, PPOperators.SET);
+		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_LEN_NEAR,     false, focusLengthNear,  PPEDOF.L_3_ADS, PPOperators.SET);
+		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_BLUR,               false, focusBlur,        PPEDOF.L_4_ADS, PPOperators.SET);
 		SetTargetValueFloat(PPEExceptions.DOF, PPEDOF.PARAM_FOCUS_DEPTH_OFFSET, false, focusDepthOffset, PPEDOF.L_5_ADS, PPOperators.SET);
 	}
 	
@@ -46,7 +50,7 @@ modded class PPERequester_CameraADS {
 	}
 	
 	override void SetValuesOptics(out array<float> mask_array, out array<float> lens_array, float gauss = 0.0) {
-		super.SetValuesOptics(mask_array, lens_array, 0);
+		super.SetValuesOptics(mask_array, lens_array, gauss * m_dofIntensity);
 	}
 	
 	override void SetValuesIronsights(out array<float> DOF_array) {
