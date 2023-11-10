@@ -16,8 +16,8 @@ modded class DayZPlayerCameraOptics {
 	protected bool m_opticOverridesNearPlane;
 	protected float m_opticNearPlaneOverride;
 	
-	protected float m_lensZoomStrength = 1;
-	protected float m_adsFovMagnOpticsMultiplier = 1;
+	protected float m_lensZoomStrength;
+	protected float m_adsFovMagnOpticsMultiplier;
 	
 	void DayZPlayerCameraOptics(DayZPlayer pPlayer, HumanInputController pInput) {
 		m_opticOverridesNearPlane = m_opticsUsed.ConfigIsExisting("s_nearPlaneOverride");
@@ -59,29 +59,27 @@ modded class DayZPlayerCameraOptics {
 			GunplayConstants.ADS_FOV_MULT_OPTICS_CONSTRAINTS[0], GunplayConstants.ADS_FOV_MULT_OPTICS_CONSTRAINTS[1]);
 	}
 	
-	override void initRestingFOV() {
-		super.initRestingFOV();
+	override float computeRestingFOV() {
 		if (m_opticsUsed && isMagnifyingOptic()) {
 			if (isHandHeldOptic()) {
-				m_restingFOV = m_opticsUsed.GetCurrentStepFOV();
-			} else {
-				m_restingFOV = m_opticsUsed.GetCurrentStepFOV() * getADSFOVMagnOpticsMultiplier();
+				return m_opticsUsed.GetCurrentStepFOV();
 			}
+			return m_opticsUsed.GetCurrentStepFOV() * getADSFOVMagnOpticsMultiplier();
 		}
-		
+		return super.computeRestingFOV();
 	}
 	
-	override void initFocusingFOV() {
-		super.initFocusingFOV();
-		if (m_opticsUsed) {
-			if (isMagnifyingOptic()) {
-				m_focusingFOV = Math.Lerp(getRestingFOV(), m_opticsUsed.GetCurrentStepFOV(), GunplayConstants.FOCUS_INTENSITY_MAGN);
-			} else {
-				m_focusingFOV = Math.Lerp(getRestingFOV(), m_opticsUsed.GetCurrentStepFOV(), GunplayConstants.FOCUS_INTENSITY_NON_MAGN);
-			}
+	override float computeFocusingFOV() {
+		if (!m_opticsUsed) return super.computeFocusingFOV();
+		float focusIntensity;
+		if (isMagnifyingOptic()) {
+			focusIntensity = GunplayConstants.FOCUS_INTENSITY_MAGN;
+		} else {
+			focusIntensity = GunplayConstants.FOCUS_INTENSITY_NON_MAGN;
 		}
+		return Math.Lerp(m_restingFOV, m_opticsUsed.GetCurrentStepFOV(), focusIntensity);
 	}
-	
+
 	override void OnActivate(DayZPlayerCamera pPrevCamera, DayZPlayerCameraResult pPrevCameraResult) {
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
@@ -173,8 +171,8 @@ modded class DayZPlayerCameraOptics {
 	}
 
 	override void computeFOVFocusValues(out float targetFOV, out float speed) {
-		speed = 0.2;
-		targetFOV = getRestingFOV();
+		speed = GunplayConstants.FOCUS_RESET_SPEED;
+		targetFOV = m_restingFOV;
 		
 		if (m_isEntering) {
 			m_fFovAbsolute = targetFOV;
@@ -189,39 +187,28 @@ modded class DayZPlayerCameraOptics {
 		}
 		
 		// Handheld optics
-		if (isHandHeldOptic()) {
-			targetFOV = m_opticsUsed.GetCurrentStepFOV();
-			if (isFullscreenOptic()) {
-				speed = 0.0001;
-			}
-			return;
-		}
-		
-
-		// Non magnifying optic
-		if (!isMagnifyingOptic()) {
-			if (canZoom()) {
-				targetFOV = getFocusingFOV();
-				speed = getFocusSpeedStance() * GunplayConstants.FOCUS_SPEED_NON_MAGN_MULTIPLIER;
-			}
-			return;
-		}
-		
-		// Sniping optic
-		if (isFullscreenOptic()) {
+		if (isHandHeldOptic() || isFullscreenOptic()) {
 			targetFOV = m_opticsUsed.GetCurrentStepFOV();
 			speed = 0.0001;
 			return;
 		}
 		
-		// magnifying optic
-		if (canZoom()) {
-			targetFOV = getFocusingFOV();
-			speed = getFocusSpeedStance();
+		// We don't know if the step fov has changed, so we have to recompute FOV values
+		if (m_opticsUsed.GetStepFOVCount() > 0) {
+			m_restingFOV = computeRestingFOV();
+			m_focusingFOV = computeFocusingFOV();
 		}
-
+		
+		if (canZoom()) {
+			targetFOV = m_focusingFOV;
+			speed = getFocusSpeedStance();
+			if (isMagnifyingOptic()) {
+				speed *= GunplayConstants.FOCUS_SPEED_NON_MAGN_MULTIPLIER;
+			}
+		} else {
+			targetFOV = m_restingFOV;
+		}
 	}
-	
 	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {	
 		super.SetCameraPP(state, launchedFrom);

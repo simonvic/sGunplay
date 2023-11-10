@@ -59,8 +59,8 @@ modded class DayZPlayerCameraIronsights {
 		
 		m_RequesterADS.setDofIntensity(userCfgGunplay.getAdsDOFIntensity());
 		initADSFOVMultipliers();
-		initRestingFOV();
-		initFocusingFOV();
+		m_restingFOV = computeRestingFOV();
+		m_focusingFOV = computeFocusingFOV();
 	}
 	
 	protected void initADSFOVMultipliers() {
@@ -70,15 +70,12 @@ modded class DayZPlayerCameraIronsights {
 			GunplayConstants.ADS_FOV_MULT_CONSTRAINTS[0], GunplayConstants.ADS_FOV_MULT_CONSTRAINTS[1]);
 	}
 	
-	protected void initRestingFOV() {
-		m_restingFOV = Math.Max(GetDayZGame().GetUserFOV() * getADSFOVMultiplier(), GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
+	protected float computeRestingFOV() {
+		return Math.Max(GetDayZGame().GetUserFOV() * m_adsFovMultiplier, GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS);
 	}
 	
-	protected void initFocusingFOV() {
-		m_focusingFOV = Math.Lerp(
-			m_restingFOV,
-			GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS,
-			GunplayConstants.FOCUS_INTENSITY_IRONSIGHTS);
+	protected float computeFocusingFOV() {
+		return Math.Lerp(m_restingFOV, GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS, GunplayConstants.FOCUS_INTENSITY_IRONSIGHTS);
 	}
 		
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
