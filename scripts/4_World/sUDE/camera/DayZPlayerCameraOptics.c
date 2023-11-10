@@ -225,6 +225,8 @@ modded class DayZPlayerCameraOptics {
 	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {	
 		super.SetCameraPP(state, launchedFrom);
+		m_RequesterADS.resetMask();
+		m_RequesterADS.resetLens();
 		if (m_weaponUsed) {
 			m_weaponUsed.HideWeaponBarrel(isHideWeaponBarrelInOpticEnabled());
 		}
