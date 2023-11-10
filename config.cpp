@@ -326,7 +326,7 @@ class cfgVehicles {
 		s_pipChromAber = 0.01;
 	};
 
-	class AugOptic : ItemOptics_Base {
+	class AugOptic : ItemOptics {
 		s_pipRadius = 0.6;
 		s_pipMagnification = 0.25;
 		s_pipBlur = 0.01;
@@ -450,11 +450,11 @@ class cfgVehicles {
 		s_recoilControlMisalignmentX = 0.50;
 		s_recoilControlMisalignmentY = 0.50;
 	};
-	class MP5_Compensator : Inventory_Base {
+	class MP5_Compensator : ItemSuppressor {
 		s_recoilControlMisalignmentX = 0.45;
 		s_recoilControlMisalignmentY = 0.05;
 	};
-	class Mosin_Compensator : Inventory_Base {
+	class Mosin_Compensator : ItemSuppressor {
 		s_recoilControlStabilityX = 0.50;
 		s_recoilControlStabilityY = 0.30;
 		s_recoilControlMisalignmentX = 0.50;
