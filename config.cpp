@@ -280,7 +280,7 @@ class cfgVehicles {
 		s_showEnterMisalignment = 1;
 		s_isFullscreen = 1;
 		s_pipRadius = 0.7;
-		s_pipMagnification = 0.3;
+		s_pipMagnification = 0.1;
 		s_pipBlur = 0.05;
 		s_pipChromAber = 0.3;
 	};
