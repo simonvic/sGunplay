@@ -450,16 +450,6 @@ class cfgVehicles {
 		s_recoilControlMisalignmentX = 0.50;
 		s_recoilControlMisalignmentY = 0.50;
 	};
-	class MP5_Compensator : ItemSuppressor {
-		s_recoilControlMisalignmentX = 0.45;
-		s_recoilControlMisalignmentY = 0.05;
-	};
-	class Mosin_Compensator : ItemSuppressor {
-		s_recoilControlStabilityX = 0.50;
-		s_recoilControlStabilityY = 0.30;
-		s_recoilControlMisalignmentX = 0.50;
-		s_recoilControlMisalignmentY = 0.50;
-	};
 	class PP19_Bttstck : Inventory_Base {
 		s_recoilControlStabilityX = 0.25;
 		s_recoilControlStabilityY = 0.25;
@@ -487,6 +477,17 @@ class cfgVehicles {
 		s_recoilControlMisalignmentX = 0.50;
 		s_recoilControlMisalignmentY = 0.50;
 		s_recoilControlKick = 0.75;
+	};
+	class ItemSuppressor;
+	class MP5_Compensator : ItemSuppressor {
+		s_recoilControlMisalignmentX = 0.45;
+		s_recoilControlMisalignmentY = 0.05;
+	};
+	class Mosin_Compensator : ItemSuppressor {
+		s_recoilControlStabilityX = 0.50;
+		s_recoilControlStabilityY = 0.30;
+		s_recoilControlMisalignmentX = 0.50;
+		s_recoilControlMisalignmentY = 0.50;
 	};
 };
 
