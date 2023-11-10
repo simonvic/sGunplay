@@ -210,6 +210,11 @@ modded class DayZPlayerCameraOptics {
 		}
 	}
 	
+	override void updateFocusingOverlay(float pDt, DayZPlayerCameraResult pOutResult) {
+		if (isHandHeldOptic() || isFullscreenOptic()) return;
+		super.updateFocusingOverlay(pDt, pOutResult);
+	}
+	
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom) {	
 		super.SetCameraPP(state, launchedFrom);
 		m_RequesterADS.resetMask();
