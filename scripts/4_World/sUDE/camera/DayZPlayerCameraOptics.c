@@ -240,12 +240,29 @@ modded class DayZPlayerCameraOptics {
 		m_canShowLens = showable;
 	}
 	
+	protected bool isNVOptic() {
+		return m_opticsUsed.IsNVOptic();
+	}
+	
+	protected bool isMagnifyingOptic() {
+		return !m_opticsUsed.AllowsDOF();
+	}
+	
+	protected bool isFullscreenOptic() {
+		return m_isFullscreen;
+	}
+	
+	protected bool isHandHeldOptic() {
+		return !m_weaponUsed && m_opticsUsed;
+	}
+	
+	
 	override bool canApplyDeadzone() {
-		return super.canApplyDeadzone() && !isFullscreenOptic();
+		return super.canApplyDeadzone() && !isFullscreenOptic() && !isNVOptic() && !isHandHeldOptic();
 	}
 	
 	override bool canApplyHandsOffset() {
-		return super.canApplyHandsOffset() && !isFullscreenOptic();
+		return super.canApplyHandsOffset() && !isFullscreenOptic() && !isNVOptic();
 	}
 	
 	override bool canZoom() {
@@ -258,15 +275,6 @@ modded class DayZPlayerCameraOptics {
 	
 	override bool canInspectWeapon() {
 		return super.canInspectWeapon() && !isMagnifyingOptic();
-	}
-	
-	override bool isMagnifyingOptic() {
-		return !m_opticsUsed.AllowsDOF();
-	}
-	
-	override bool isFullscreenOptic() {
-		return m_isFullscreen;
-		//return m_opticsUsed.GetStepFOVCount() > 0;
 	}
 	
 	bool showEnterMisalignment() {
