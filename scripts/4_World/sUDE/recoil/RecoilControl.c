@@ -1,5 +1,15 @@
 class RecoilControl : Managed {
 	
+	static const string STAT_NAMES[] = {
+		"s_recoilControlMouseX"
+		"s_recoilControlMouseY"
+		"s_recoilControlStabilityX"
+		"s_recoilControlStabilityY"
+		"s_recoilControlMisalignmentX"
+		"s_recoilControlMisalignmentY"
+		"s_recoilControlKick"
+	};
+	
 	protected PlayerBase m_player;
 	protected float m_control;
 	

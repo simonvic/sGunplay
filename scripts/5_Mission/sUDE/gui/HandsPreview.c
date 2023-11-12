@@ -20,16 +20,18 @@ modded class HandsPreview {
 	
 	void updateRecoilControlStats(Weapon_Base weapon) {
 		PropertyModifiers prop = weapon.GetPropertyModifierObject();
-		updateRecoilControlStat("stabilityX", prop.recoilControlHandsX);
-		updateRecoilControlStat("stabilityY", prop.recoilControlHandsY);
-		updateRecoilControlStat("misalignX", prop.recoilControlMisalignmentX);
-		updateRecoilControlStat("misalignY", prop.recoilControlMisalignmentY);
-		updateRecoilControlStat("kick", prop.recoilControlKick);
+		updateRecoilControlStat("s_recoilControlStabilityX", prop.recoilControlHandsX);
+		updateRecoilControlStat("s_recoilControlStabilityY", prop.recoilControlHandsY);
+		updateRecoilControlStat("s_recoilControlMisalignmentX", prop.recoilControlMisalignmentX);
+		updateRecoilControlStat("s_recoilControlMisalignmentY", prop.recoilControlMisalignmentY);
+		updateRecoilControlStat("s_recoilControlKick", prop.recoilControlKick);
 	}
 	
 	protected void updateRecoilControlStat(string stat, float value) {
+		TextWidget w = TextWidget.Cast(m_recoilControlStats.FindAnyWidget(stat));
+		if (!w) return;
 		string format = "%1%%";
 		if (value >= 0) format = "+" + format;
-		TextWidget.Cast(m_recoilControlStats.FindAnyWidget(stat)).SetText(string.Format(format, value * 100));
+		w.SetText(string.Format(format, value * 100));
 	}
 }

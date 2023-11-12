@@ -38,12 +38,11 @@ FrameWidgetClass root_recoil_control_stats_hands {
      image0 "set:sGunplay_stats image:stability"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
      "flip u" 0
      "flip v" 0
     }
-    RichTextWidgetClass stabilityX {
+    RichTextWidgetClass s_recoilControlStabilityX {
      ignorepointer 1
      position 0 0
      size 32 16
@@ -58,7 +57,7 @@ FrameWidgetClass root_recoil_control_stats_hands {
      "text halign" right
      "text valign" center
     }
-    RichTextWidgetClass stabilityY {
+    RichTextWidgetClass s_recoilControlStabilityY {
      ignorepointer 1
      position 0 0
      size 32 16
@@ -85,12 +84,11 @@ FrameWidgetClass root_recoil_control_stats_hands {
      image0 "set:sGunplay_stats image:misalignment"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
      "flip u" 0
      "flip v" 0
     }
-    RichTextWidgetClass misalignX {
+    RichTextWidgetClass s_recoilControlMisalignmentX {
      ignorepointer 1
      position 0 0
      size 32 16
@@ -105,7 +103,7 @@ FrameWidgetClass root_recoil_control_stats_hands {
      "text halign" right
      "text valign" center
     }
-    RichTextWidgetClass misalignY {
+    RichTextWidgetClass s_recoilControlMisalignmentY {
      ignorepointer 1
      position 0 0
      size 32 16
@@ -132,12 +130,11 @@ FrameWidgetClass root_recoil_control_stats_hands {
      image0 "set:sGunplay_stats image:kick"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
      "flip u" 0
      "flip v" 0
     }
-    RichTextWidgetClass kick {
+    RichTextWidgetClass s_recoilControlKick {
      ignorepointer 1
      position 0 0
      size 32 16

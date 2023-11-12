@@ -1,0 +1,20 @@
+FrameWidgetClass root_recoil_control_stats_tooltip {
+ size 1 128
+ halign right_ref
+ valign bottom_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 1
+ {
+  EmbededWidgetClass EmbededWidget0 {
+   ignorepointer 1
+   size 1 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   layout "{B21DF0C65B732BD6}MyMODS/sGunplay/GUI/layouts/recoil_control_hands.layout"
+  }
+ }
+}
