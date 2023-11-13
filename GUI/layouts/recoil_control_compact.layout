@@ -1,15 +1,24 @@
-FrameWidgetClass root_recoil_control_stats_hands {
+GridSpacerWidgetClass root_recoil_control_stats_compact {
+ visible 1
  ignorepointer 1
  position 0 0
- size 128 64
+ size 1 1
  halign right_ref
  valign bottom_ref
  hexactpos 0
  vexactpos 0
- hexactsize 1
- vexactsize 1
+ hexactsize 0
+ vexactsize 0
+ priority 200
+ Padding 0
+ Margin 4
+ "Size To Content H" 1
+ "Size To Content V" 1
+ Columns 1
+ Rows 1
  {
-  GridSpacerWidgetClass GridSpacerWidget0 {
+  GridSpacerWidgetClass stability {
+   visible 1
    ignorepointer 1
    color 0 0 0 0.6157
    size 1 1
@@ -25,6 +34,7 @@ FrameWidgetClass root_recoil_control_stats_hands {
    "Size To Content V" 1
    content_halign center
    content_valign center
+   Rows 1
    {
     ImageWidgetClass stability_icon {
      ignorepointer 1
@@ -38,7 +48,8 @@ FrameWidgetClass root_recoil_control_stats_hands {
      image0 "set:sGunplay_stats image:stability"
      mode blend
      "src alpha" 1
-     "clamp mode" clamp
+     "clamp mode" invalid
+     "stretch mode" invalid
      "flip u" 0
      "flip v" 0
     }
@@ -72,6 +83,27 @@ FrameWidgetClass root_recoil_control_stats_hands {
      "text halign" right
      "text valign" center
     }
+   }
+  }
+  GridSpacerWidgetClass misalignment {
+   visible 1
+   ignorepointer 1
+   color 0 0 0 0.6157
+   size 1 1
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   Padding 4
+   Margin 4
+   "Size To Content H" 1
+   "Size To Content V" 1
+   content_halign center
+   content_valign center
+   Rows 1
+   {
     ImageWidgetClass misalign_icon {
      ignorepointer 1
      position 0 0
@@ -84,7 +116,8 @@ FrameWidgetClass root_recoil_control_stats_hands {
      image0 "set:sGunplay_stats image:misalignment"
      mode blend
      "src alpha" 1
-     "clamp mode" clamp
+     "clamp mode" invalid
+     "stretch mode" invalid
      "flip u" 0
      "flip v" 0
     }
@@ -118,6 +151,27 @@ FrameWidgetClass root_recoil_control_stats_hands {
      "text halign" right
      "text valign" center
     }
+   }
+  }
+  GridSpacerWidgetClass kick {
+   visible 1
+   ignorepointer 1
+   color 0 0 0 0.6157
+   size 1 1
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   Padding 4
+   Margin 4
+   "Size To Content H" 1
+   "Size To Content V" 1
+   content_halign center
+   content_valign center
+   Rows 1
+   {
     ImageWidgetClass kick_icon {
      ignorepointer 1
      position 0 0
@@ -130,7 +184,8 @@ FrameWidgetClass root_recoil_control_stats_hands {
      image0 "set:sGunplay_stats image:kick"
      mode blend
      "src alpha" 1
-     "clamp mode" clamp
+     "clamp mode" invalid
+     "stretch mode" invalid
      "flip u" 0
      "flip v" 0
     }
