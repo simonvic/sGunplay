@@ -1,17 +1,17 @@
 modded class Izh18Recoil {
 	override void initRecoilParameters() {
-		handsRanges        = { -1.165, 3.285,  5.275,  6.050};	
-		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.650;
+		handsRanges        = {-2.565,  2.585,  8.250,  9.550};
+		handsAccumSpeed    = 0.980;
+		handsResetSpeed    = 0.720;
 
-		misalignIntensity  = {0.200, 0.200};
+		misalignIntensity  = { 1.750,  0.400};
 		misalignAccumSpeed = 0.955;
-		misalignResetSpeed = 0.550;
+		misalignResetSpeed = 0.870;
 	
-		mouseRanges        = { 0.175, 0.250,  3.750,  3.775};
+		mouseRanges        = {-0.215,  0.215,  1.750,  2.575};
 		mouseTime          = 0.200;
 	
-		kick               = 0.035;
-		kickResetTime      = 3.125;
+		kick               = 0.085;
+		kickResetTime      = 3.150;
 	}
 }

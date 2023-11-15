@@ -1,17 +1,17 @@
 modded class Ruger1022Recoil {
 	override void initRecoilParameters() {
-		handsRanges        = { -0.165, 0.285,  0.775, 1.100};	
-		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.550;
+		handsRanges        = {-1.055,  1.055,  3.775,  4.100};	
+		handsAccumSpeed    = 0.970;
+		handsResetSpeed    = 0.800;
 
-		misalignIntensity  = {0.250, 0.250};
-		misalignAccumSpeed = 0.955;
-		misalignResetSpeed = 0.500;
+		misalignIntensity  = { 1.250,  0.400};
+		misalignAccumSpeed = 0.950;
+		misalignResetSpeed = 0.750;
 	
-		mouseRanges        = { 0.175, 0.250,  1.250,  1.575};
+		mouseRanges        = {-0.225,  0.225,  0.550,  0.675};
 		mouseTime          = 0.100;
 	
-		kick               = 0.025;
+		kick               = 0.035;
 		kickResetTime      = 1.150;
 	}
 }

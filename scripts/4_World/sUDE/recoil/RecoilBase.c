@@ -165,6 +165,7 @@ modded class RecoilBase {
 			new Izh18SawedOffRecoil(null),
 			new Izh43Recoil(null),
 			new LongHornRecoil(null),
+			new M14Recoil(null),
 			new M16A2Recoil(null),
 			new M4a1Recoil(null),
 			new M79Recoil(null),

@@ -1,17 +1,17 @@
 modded class Izh18SawedOffRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = { -1.765, 3.585,  8.765,  10.295};	
-		handsAccumSpeed    = 0.955;
-		handsResetSpeed    = 0.500;
+		handsRanges        = {-2.565,  2.585,  8.250,  9.550};
+		handsAccumSpeed    = 0.980;
+		handsResetSpeed    = 0.720;
 
-		misalignIntensity  = {0.250, 0.250};
+		misalignIntensity  = { 1.750,  0.400};
 		misalignAccumSpeed = 0.955;
-		misalignResetSpeed = 0.500;
+		misalignResetSpeed = 0.870;
 	
-		mouseRanges        = { 0.175, 0.250,  3.750,  3.775};
+		mouseRanges        = {-0.215,  0.215,  1.750,  2.575};
 		mouseTime          = 0.200;
 	
-		kick               = 0.065;
-		kickResetTime      = 3.550;
+		kick               = 0.085;
+		kickResetTime      = 3.150;
 	}
 }

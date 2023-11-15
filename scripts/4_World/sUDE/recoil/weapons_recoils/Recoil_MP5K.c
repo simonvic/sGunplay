@@ -1,14 +1,14 @@
 modded class Mp5kRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-0.690, 0.690,  2.450,  3.750};	
+		handsRanges        = {-0.900,  0.900,  2.450,  3.750};	
 		handsAccumSpeed    = 0.975;
-		handsResetSpeed    = 0.650;
+		handsResetSpeed    = 0.730;
 		
-		misalignIntensity  = {0.250, 0.125};
+		misalignIntensity  = { 1.750,  0.225};
 		misalignAccumSpeed = 0.975;
-		misalignResetSpeed = 0.600;
+		misalignResetSpeed = 0.850;
 	
-		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseRanges        = {-0.215,  0.215,  1.250,  1.750};
 		mouseTime          = 0.150;
 	
 		kick               = 0.065;

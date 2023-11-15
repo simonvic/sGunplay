@@ -1,17 +1,17 @@
 modded class AUGRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-0.250, 0.550,  2.750,  3.985};
-		handsAccumSpeed    = 0.920;
-		handsResetSpeed    = 0.700;
+		handsRanges        = {-1.750,  1.750,  2.750,  3.985};	
+		handsAccumSpeed    = 0.975;
+		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = {0.250, 0.250};
+		misalignIntensity  = { 1.550,  0.750};
 		misalignAccumSpeed = 0.925;
-		misalignResetSpeed = 0.750;
+		misalignResetSpeed = 0.850;
 	
-		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseRanges        = {-0.215,  0.215,  1.250,  1.750};
 		mouseTime          = 0.150;
 	
-		kick               = 0.015;
+		kick               = 0.045;
 		kickResetTime      = 2.250;
 	}
 }

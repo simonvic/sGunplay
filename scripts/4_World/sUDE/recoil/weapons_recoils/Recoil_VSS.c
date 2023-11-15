@@ -1,17 +1,17 @@
 modded class VSSRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = { -0.165, 0.585,  2.275,  3.050};	
-		handsAccumSpeed    = 0.925;
-		handsResetSpeed    = 0.870;
-
-		misalignIntensity  = {0.125, 0.125};
-		misalignAccumSpeed = 0.955;
-		misalignResetSpeed = 0.650;
+		handsRanges        = {-0.950,  0.950,  2.750,  3.575};	
+		handsAccumSpeed    = 0.975;
+		handsResetSpeed    = 0.720;
+		
+		misalignIntensity  = { 1.750,  0.225};
+		misalignAccumSpeed = 0.975;
+		misalignResetSpeed = 0.850;
 	
-		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseRanges        = {-0.215,  0.215,  1.250,  1.750};
 		mouseTime          = 0.150;
 	
-		kick               = 0.020;
+		kick               = 0.055;
 		kickResetTime      = 2.250;
 	}
 }

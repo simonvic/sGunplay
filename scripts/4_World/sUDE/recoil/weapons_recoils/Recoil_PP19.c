@@ -1,17 +1,17 @@
 modded class PP19Recoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-0.060, 0.750,  1.450 ,  1.785};	
+		handsRanges        = {-0.950,  0.950,  2.450,  3.700};	
 		handsAccumSpeed    = 0.975;
-		handsResetSpeed    = 0.700;
+		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = {0.250, 0.750};
-		misalignAccumSpeed = 0.855;
-		misalignResetSpeed = 0.500;
+		misalignIntensity  = { 1.750,  0.225};
+		misalignAccumSpeed = 0.975;
+		misalignResetSpeed = 0.850;
 	
-		mouseRanges        = { 0.175, 0.250,  1.250,  1.750};
+		mouseRanges        = {-0.215,  0.215,  1.250,  1.750};
 		mouseTime          = 0.150;
 	
-		kick               = 0.035;
-		kickResetTime      = 2.250;
+		kick               = 0.065;
+		kickResetTime      = 1.450;
 	}
 }
