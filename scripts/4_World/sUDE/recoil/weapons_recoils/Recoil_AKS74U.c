@@ -6,7 +6,7 @@ modded class Aks74uRecoil {
 		
 		misalignIntensity  = { 1.800,  0.800};
 		misalignAccumSpeed = 0.925;
-		misalignResetSpeed = 0.900;
+		misalignResetSpeed = 0.750;
 	
 		mouseRanges        = {-0.215,  0.215,  1.250,  1.750};
 		mouseTime          = 0.150;

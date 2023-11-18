@@ -8,7 +8,7 @@ modded class Ruger1022Recoil {
 		misalignAccumSpeed = 0.950;
 		misalignResetSpeed = 0.750;
 	
-		mouseRanges        = {-0.225,  0.225,  0.550,  0.675};
+		mouseRanges        = {-0.200,  0.200,  0.550,  0.675};
 		mouseTime          = 0.100;
 	
 		kick               = 0.035;

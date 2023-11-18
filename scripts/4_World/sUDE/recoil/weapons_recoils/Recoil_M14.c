@@ -4,7 +4,7 @@ modded class M14Recoil {
 		handsAccumSpeed    = 0.980;
 		handsResetSpeed    = 0.720;
 
-		misalignIntensity  = { 1.750,  0.400};
+		misalignIntensity  = { 1.750,  0.250};
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.870;
 	

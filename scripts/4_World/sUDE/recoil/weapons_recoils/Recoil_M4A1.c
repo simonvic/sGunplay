@@ -4,7 +4,7 @@ modded class M4a1Recoil {
 		handsAccumSpeed    = 0.975;
 		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = { 1.550,  0.750};
+		misalignIntensity  = { 1.550,  0.550};
 		misalignAccumSpeed = 0.925;
 		misalignResetSpeed = 0.850;
 	

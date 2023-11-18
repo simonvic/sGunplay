@@ -4,7 +4,7 @@ modded class M16A2Recoil {
 		handsAccumSpeed    = 0.970;
 		handsResetSpeed    = 0.725;
 		
-		misalignIntensity  = { 1.750,  0.750};
+		misalignIntensity  = { 1.750,  0.550};
 		misalignAccumSpeed = 0.925;
 		misalignResetSpeed = 0.850;
 	
