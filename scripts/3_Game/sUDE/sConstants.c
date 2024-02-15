@@ -46,7 +46,8 @@ class GunplayConstants {
 	
 	///////////////////
 	// HIPFIRE
-	static const bool AIMING_MODEL_USE_FILTER_HIPFIRE_DEADZONE = true;      // Use hipfire deadzone filter in the player aiming model
+	// Temporarily disabled (https://feedback.bistudio.com/T178620)
+	static const bool AIMING_MODEL_USE_FILTER_HIPFIRE_DEADZONE = false;      // Use hipfire deadzone filter in the player aiming model
 	static const bool HIPFIRE_DEADZONE_RESET_ON_RAISE = true;                // wether to reset or not the deadzone upon raising the weapon
 	static const float HIPFIRE_DEADZONE_AMOUNT_DEGREE[4] = {                 // amount of deadzone to use when hipfiring (in degrees)
 		    5,
