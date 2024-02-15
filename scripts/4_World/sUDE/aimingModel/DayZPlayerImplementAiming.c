@@ -68,9 +68,8 @@ modded class DayZPlayerImplementAiming {
 	*	 @param stance_index \p ind - stance index
 	*/
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index) {
-		/* @todo process aim filters keeps getting called even after holstered weapon.
-			to activae quickly releas right mouse button, holster weapon, and right mouse button again 
-		*/
+		
+		// FIXME: https://feedback.bistudio.com/T178855
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetHumanInventory().GetEntityInHands());
 		if (!m_weapon) return true;
 		foreach (AimingModelFilterBase filter : m_filters) {
@@ -82,12 +81,12 @@ modded class DayZPlayerImplementAiming {
 		updateHandsOffset(pModel);
 		updateMisalignment(pModel);
 		
-		//get positions in local space so we don't lose precision
+		// Get positions in local space so we don't lose precision
 		DayZPlayerImplementAiming.getWeaponComponentsPositionLS(
 			m_weapon,
 			m_weaponBarrelPosition,
 			m_weaponMuzzlePosition,
-			m_weaponTargetPosition); 
+			m_weaponTargetPosition);
 		
 		
 		updateSCrosshair(pDt, 
@@ -96,9 +95,19 @@ modded class DayZPlayerImplementAiming {
 			m_weapon.ModelToWorld(m_weaponTargetPosition),
 			GunplayConstants.CROSSHAIR_PRECISION);
 		
-		//The lens must be computed in the aiming model after all filters transformations
+		// The lens must be computed in the aiming model after all filters transformations
 		updateOpticLensPosition(m_weapon.GetAttachedOptics());
-		
+
+		#ifdef DAYZ_1_24
+		if (m_PlayerPb.IsHoldingBreath()) {
+			// TODO: check for m_TotalTime and m_ReferenceTime usage
+			// fe742c840941e37336e24c95734c849bb1461bef
+
+			// CalculateSpeedMultiplier(playerStamina) is always computed with playerStamina = 1
+			// Still invoking it in case someone is modding it
+			m_PlayerPb.DepleteStamina(EStaminaModifiers.HOLD_BREATH, pDt * CalculateSpeedMultiplier(1));
+		}
+		#endif
 		return true;
 	}
 	
