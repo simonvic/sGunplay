@@ -681,6 +681,13 @@ class cfgWeapons {
 		s_recoilControlMisalignmentY = 0.60;
 		s_recoilControlKick = 0.60;
 	};
+	class SV98_Base : BoltActionRifle_ExternalMagazine_Base {
+		s_recoilControlStabilityX = 0.60;
+		s_recoilControlStabilityY = 0.60;
+		s_recoilControlMisalignmentX = 0.60;
+		s_recoilControlMisalignmentY = 0.60;
+		s_recoilControlKick = 0.60;
+	};
 	class Winchester70_Base : BoltActionRifle_InnerMagazine_Base {
 		s_recoilControlStabilityX = 0.60;
 		s_recoilControlStabilityY = 0.60;
