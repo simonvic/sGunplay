@@ -201,11 +201,7 @@ modded class DayZPlayerImplementAiming {
 	*	 @return vector - Aim change of the player (x, y, 0)
 	*/
 	vector getAimDeltaRadians(float dt) {
-#ifdef DAYZ_1_21
 		return getPlayer().GetInputController().GetAimDelta(dt);
-#else
-		return getPlayer().GetInputController().GetAimChange();
-#endif
 	}
 	
 	/**
