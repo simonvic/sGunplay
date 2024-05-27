@@ -98,16 +98,14 @@ modded class DayZPlayerImplementAiming {
 		// The lens must be computed in the aiming model after all filters transformations
 		updateOpticLensPosition(m_weapon.GetAttachedOptics());
 
-		#ifdef DAYZ_1_24
 		if (m_PlayerPb.IsHoldingBreath()) {
 			// TODO: check for m_TotalTime and m_ReferenceTime usage
-			// fe742c840941e37336e24c95734c849bb1461bef
+			// fe742c840941e37336e24c95734c849bb1461bef#diff-77ac1caefbf40f203159b4efb28cca02c68d2e1b525916e9475200c7d8c328e8L179
 
 			// CalculateSpeedMultiplier(playerStamina) is always computed with playerStamina = 1
 			// Still invoking it in case someone is modding it
 			m_PlayerPb.DepleteStamina(EStaminaModifiers.HOLD_BREATH, pDt * CalculateSpeedMultiplier(1));
 		}
-		#endif
 		return true;
 	}
 	
