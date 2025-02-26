@@ -56,32 +56,36 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
     RichTextWidgetClass s_recoilControlStabilityX {
      ignorepointer 1
      position 0 0
-     size 32 16
+     size 45 20
      hexactpos 0
      vexactpos 0
      hexactsize 1
      vexactsize 1
+     style DayZNormal
      text "+69%"
-     font "gui/fonts/sdf_metronbook24"
-     "exact text" 0
+     "exact text" 1
      "size to text h" 0
-     "text halign" right
+     "size to text v" 0
+     "text halign" center
      "text valign" center
+     wrap 0
     }
     RichTextWidgetClass s_recoilControlStabilityY {
      ignorepointer 1
      position 0 0
-     size 32 16
+     size 45 20
      hexactpos 0
      vexactpos 0
      hexactsize 1
      vexactsize 1
+     style DayZNormal
      text "+69%"
-     font "gui/fonts/sdf_metronbook24"
-     "exact text" 0
+     "exact text" 1
      "size to text h" 0
-     "text halign" right
+     "size to text v" 0
+     "text halign" center
      "text valign" center
+     wrap 0
     }
    }
   }
@@ -124,32 +128,36 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
     RichTextWidgetClass s_recoilControlMisalignmentX {
      ignorepointer 1
      position 0 0
-     size 32 16
+     size 45 20
      hexactpos 0
      vexactpos 0
      hexactsize 1
      vexactsize 1
+     style DayZNormal
      text "+69%"
-     font "gui/fonts/sdf_metronbook24"
-     "exact text" 0
+     "exact text" 1
      "size to text h" 0
-     "text halign" right
+     "size to text v" 0
+     "text halign" center
      "text valign" center
+     wrap 0
     }
     RichTextWidgetClass s_recoilControlMisalignmentY {
      ignorepointer 1
      position 0 0
-     size 32 16
+     size 45 20
      hexactpos 0
      vexactpos 0
      hexactsize 1
      vexactsize 1
+     style DayZNormal
      text "+69%"
-     font "gui/fonts/sdf_metronbook24"
-     "exact text" 0
+     "exact text" 1
      "size to text h" 0
-     "text halign" right
+     "size to text v" 0
+     "text halign" center
      "text valign" center
+     wrap 0
     }
    }
   }
@@ -192,17 +200,19 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
     RichTextWidgetClass s_recoilControlKick {
      ignorepointer 1
      position 0 0
-     size 32 16
+     size 45 20
      hexactpos 0
      vexactpos 0
      hexactsize 1
      vexactsize 1
+     style DayZNormal
      text "+69%"
-     font "gui/fonts/sdf_metronbook24"
-     "exact text" 0
+     "exact text" 1
      "size to text h" 0
-     "text halign" right
+     "size to text v" 0
+     "text halign" center
      "text valign" center
+     wrap 0
     }
    }
   }
