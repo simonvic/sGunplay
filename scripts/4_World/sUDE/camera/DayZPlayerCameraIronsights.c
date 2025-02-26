@@ -34,7 +34,7 @@ modded class DayZPlayerCameraIronsights {
 	protected float m_offsetYResetVel[1];	
 	
 	protected static ref array<float> m_inspectionDofPreset;
-	protected static ref SCOFocusing m_scoFocusing;
+	protected static ref SCOFocusing m_scoFocusing; // TODO: leaked
 	
 	protected float m_adsFovMultiplier = 1;
 	
