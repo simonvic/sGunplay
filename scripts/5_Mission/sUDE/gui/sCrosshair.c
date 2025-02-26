@@ -83,6 +83,7 @@ class SCrosshair : Managed {
 		
 		if (!m_sCrosshair.IsVisible()) m_sCrosshair.Show(true);
 		
+		// TODO: move these to user cfg callbacks
 		int argb = m_userCfgGunplay.getDynamicCrosshairColor().getARGB();
 		if (m_currentColorARGB != argb) {
 			setColor(argb);

@@ -102,6 +102,8 @@ modded class DayZPlayerImplementAiming {
 			// TODO: check for m_TotalTime and m_ReferenceTime usage
 			// fe742c840941e37336e24c95734c849bb1461bef#diff-77ac1caefbf40f203159b4efb28cca02c68d2e1b525916e9475200c7d8c328e8L179
 
+			// TODO(1.27): m_StaminaPercentage = m_PlayerPb.GetStaminaHandler().GetStamina() / m_PlayerPb.GetStaminaHandler().GetStaminaMax();
+
 			// CalculateSpeedMultiplier(playerStamina) is always computed with playerStamina = 1
 			// Still invoking it in case someone is modding it
 			m_PlayerPb.DepleteStamina(EStaminaModifiers.HOLD_BREATH, pDt * CalculateSpeedMultiplier(1));

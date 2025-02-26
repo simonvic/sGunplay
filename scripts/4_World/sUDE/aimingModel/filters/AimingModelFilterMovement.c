@@ -10,7 +10,7 @@ class AimingModelFilterMovement : AimingModelFilterBase {
 	protected float m_velMisalignY[1];
 	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
-		//@todo clean this shit
+		// TODO: clean this shit
 		
 		float amplitudeX, frequencyX, amplitudeY, frequencyY;
 		float speed = getPlayer().m_MovementState.m_iMovement;
