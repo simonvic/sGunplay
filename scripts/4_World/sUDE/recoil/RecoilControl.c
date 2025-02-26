@@ -14,19 +14,10 @@ class RecoilControl : Managed {
 	
 	void compute() {
 		m_control  = 0;
-		m_control += getModifierStrength();
 		m_control += getModifierInventoryWeight();
 		m_control += getModifierStance();
 		m_control += getModifierMovement();
 		m_control  = Math.Clamp(m_control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM);
-	}
-	
-	/**
-	*	@brief compute the recoil control based on strength
-	*	@return float - recoil control modifier
-	*/
-	protected float getModifierStrength() {
-		return m_player.GetSoftSkillsManager().GetSpecialtyLevel() * GunplayConstants.RECOIL_CONTROL_STRENGTH_WEIGHT;
 	}
 	
 	/**

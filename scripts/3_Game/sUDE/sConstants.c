@@ -183,12 +183,6 @@ class GunplayConstants {
 	static const float RECOIL_CONTROL_MAXIMUM = 1;      // maximum value of recoil control (used on arctangent function)
 
 	///////////////////
-	// STRENGTH
-	// the player strength (soft skill) will contribute to the recoil control.
-	// set RECOIL_CONTROL_STRENGTH_WEIGHT to 0 to disable
-	static const float RECOIL_CONTROL_STRENGTH_WEIGHT              = 0.25;   // how much the strength (soft skills) will affect final recoil calculation. The strength goes from -1 to 1
-	
-	///////////////////
 	// PLAYER INVENTORY WEIGHT
 	// the player inventory weight will contribute to the recoil control. Set all values to 0 to disable
 	static const float RECOIL_CONTROL_INVENTORY_WEIGHT_OVERLOADED  = -0.75;  // @see INVENTORY_WEIGHT_GRAMS_OVERLOADED
