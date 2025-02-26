@@ -74,14 +74,14 @@ class SCrosshair : Managed {
 		*/
 		
 		if (!canShowCrosshair()) {
-			m_sCrosshair.Show(false);
+			if (m_sCrosshair.IsVisible()) m_sCrosshair.Show(false);
 			return;
 		}
 		
 		vector pos = m_player.GetAimingModel().getSCrosshairPosition();
 		m_sCrosshairRoot.SetPos(pos[0], pos[1]);
 		
-		m_sCrosshair.Show(true);
+		if (!m_sCrosshair.IsVisible()) m_sCrosshair.Show(true);
 		
 		int argb = m_userCfgGunplay.getDynamicCrosshairColor().getARGB();
 		if (m_currentColorARGB != argb) {
