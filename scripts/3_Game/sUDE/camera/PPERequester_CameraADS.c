@@ -25,16 +25,11 @@ modded class PPERequester_CameraADS {
 		SetTargetValueFloat(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSCENTERY,        false, offsetY,       PPEGlow.L_30_ADS, PPOperators.SET);
 	}
 	
-	void resetMask() {
-		GetGame().ResetPPMask();
-	}
+	//! @deprecated
+	void resetMask() {}
 	
-	void resetLens() {
-		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSDISTORT);
-		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_MAXCHROMABBERATION);
-		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSCENTERX);
-		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSCENTERY);
-	}
+	//! @deprecated
+	void resetLens() {}
 
 	void setDOF(bool enabled, float focusDistance, float focusLength, float focusLengthNear, float focusBlur, float focusDepthOffset) {
 		SetTargetValueBool(PPEExceptions.DOF,  PPEDOF.PARAM_ENABLE,                    enabled,          PPEDOF.L_0_ADS, PPOperators.SET);
@@ -51,6 +46,11 @@ modded class PPERequester_CameraADS {
 	
 	override void SetValuesOptics(out array<float> mask_array, out array<float> lens_array, float gauss = 0.0) {
 		super.SetValuesOptics(mask_array, lens_array, gauss * m_dofIntensity);
+		GetGame().ResetPPMask();
+		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSDISTORT);
+		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_MAXCHROMABBERATION);
+		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSCENTERX);
+		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSCENTERY);
 	}
 	
 	override void SetValuesIronsights(out array<float> DOF_array) {
