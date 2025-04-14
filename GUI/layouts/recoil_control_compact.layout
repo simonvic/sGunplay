@@ -63,7 +63,9 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
      vexactsize 1
      style DayZNormal
      text "+69%"
+     font "gui/fonts/sdf_metronlight24"
      "exact text" 1
+     "exact text size" 16
      "size to text h" 0
      "size to text v" 0
      "text halign" center
@@ -80,7 +82,9 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
      vexactsize 1
      style DayZNormal
      text "+69%"
+     font "gui/fonts/sdf_metronlight24"
      "exact text" 1
+     "exact text size" 16
      "size to text h" 0
      "size to text v" 0
      "text halign" center
@@ -135,7 +139,9 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
      vexactsize 1
      style DayZNormal
      text "+69%"
+     font "gui/fonts/sdf_metronlight24"
      "exact text" 1
+     "exact text size" 16
      "size to text h" 0
      "size to text v" 0
      "text halign" center
@@ -152,7 +158,9 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
      vexactsize 1
      style DayZNormal
      text "+69%"
+     font "gui/fonts/sdf_metronlight24"
      "exact text" 1
+     "exact text size" 16
      "size to text h" 0
      "size to text v" 0
      "text halign" center
@@ -207,7 +215,9 @@ GridSpacerWidgetClass root_recoil_control_stats_compact {
      vexactsize 1
      style DayZNormal
      text "+69%"
+     font "gui/fonts/sdf_metronlight24"
      "exact text" 1
+     "exact text size" 16
      "size to text h" 0
      "size to text v" 0
      "text halign" center
