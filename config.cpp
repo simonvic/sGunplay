@@ -536,6 +536,13 @@ class cfgWeapons {
 		s_recoilControlMisalignmentY = 0.60;
 		s_recoilControlKick = 0.60;
 	};
+	class PM73Rak_Base : Rifle_Base {
+		s_recoilControlStabilityX = 0.60;
+		s_recoilControlStabilityY = 0.60;
+		s_recoilControlMisalignmentX = 0.60;
+		s_recoilControlMisalignmentY = 0.60;
+		s_recoilControlKick = 0.60;
+	};
 	class PP19_Base : Rifle_Base {
 		s_recoilControlStabilityX = 0.20;
 		s_recoilControlStabilityY = 0.20;
@@ -737,6 +744,13 @@ class cfgWeapons {
 		s_recoilControlMisalignmentX = 0.55;
 		s_recoilControlMisalignmentY = 0.45;
 		s_recoilControlKick = 0.00;
+	};
+	class R12_Base : Shotgun_Base {
+		s_recoilControlStabilityX = 0.60;
+		s_recoilControlStabilityY = 0.60;
+		s_recoilControlMisalignmentX = 0.60;
+		s_recoilControlMisalignmentY = 0.60;
+		s_recoilControlKick = 0.60;
 	};
 	class Izh18Shotgun_Base : Shotgun_Base {
 		s_recoilControlStabilityX = 0.60;
