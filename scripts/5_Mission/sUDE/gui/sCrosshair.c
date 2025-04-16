@@ -65,7 +65,7 @@ class SCrosshair : Managed {
 	
 	void onUpdate(float deltaTime) {
 		m_player = PlayerBase.Cast(GetGame().GetPlayer());
-		if (!m_player) return; //@todo temp-fix, change this
+		if (!m_player) return; // TODO: temp-fix, change this
 		
 		/*
 		m_sCrosshairRoot.Unlink();

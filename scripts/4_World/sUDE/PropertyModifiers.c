@@ -8,7 +8,7 @@ modded class PropertyModifiers {
 	float recoilControlMisalignmentY;
 	float recoilControlKick;
 	
-	//@todo improve this. Instead of recalculating everything, just add/remove when needed
+	// TODO: improve this. Instead of recalculating everything, just add/remove when needed
 	override void UpdateModifiers() {
 		super.UpdateModifiers();
 

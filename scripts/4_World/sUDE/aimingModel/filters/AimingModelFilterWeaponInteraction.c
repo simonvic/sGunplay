@@ -19,7 +19,7 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 	protected eADSType m_prevADSType = eADSType.UNKNOWN;
 	protected ItemOptics m_prevOptic;
 	protected int m_prevStepZoom;
-	//@todo Can't use step zoom, when using backup weapon ironsight, the weapon doesn't report the right Step. Report this.
+	// TODO: Can't use step zoom, when using backup weapon ironsight, the weapon doesn't report the right Step. Report this.
 	protected int m_prevZeroing;
 	protected int m_prevFireMode;
 	

@@ -11,7 +11,7 @@ modded class RecoilBase {
 	
 	protected void initRecoilParameters();
 	
-	//@todo replace hands and mouse with vector for more precision?
+	// TODO: replace hands and mouse with vector for more precision?
 	
 	//////////////////////////////////////////////////
 	// IN

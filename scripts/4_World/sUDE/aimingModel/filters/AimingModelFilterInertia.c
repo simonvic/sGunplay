@@ -78,7 +78,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*	 @return float - inertia multiplier
 	*/
 	protected float getInertiaMultiplierStance() {
-		//@todo improve this
+		// TODO: improve this
 		if (getPlayer().IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)) {
 			return GunplayConstants.INERTIA_MULTIPLIER_ERECT;
 		}

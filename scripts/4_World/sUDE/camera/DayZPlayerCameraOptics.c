@@ -114,7 +114,7 @@ modded class DayZPlayerCameraOptics {
 
 		m_opticPositionSS = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		
-		// @todo yikes... are there no alternatives?
+		// TODO: yikes... are there no alternatives?
 		int sX, sY;
 		GetScreenSize(sX, sY);
 		
@@ -165,7 +165,7 @@ modded class DayZPlayerCameraOptics {
 		}
 		
 		/*
-		//@todo use this (from 1.13) to allow per-optic near plane
+		// TODO: use this (from 1.13) to allow per-optic near plane
 		pOutResult.m_fNearPlane = Math.Clamp(m_opticsUsed.GetNearPlaneValue() - m_RecoilOffsetZ - 0.2, 0.03, 10.0);
 		*/
 	}
@@ -256,6 +256,7 @@ modded class DayZPlayerCameraOptics {
 	
 	
 	override bool canApplyDeadzone() {
+		// TODO: what if we allow 2D optics to have deadzone and move the 2d reticle? (like reforger?)
 		return super.canApplyDeadzone() && !isFullscreenOptic() && !isNVOptic() && !isHandHeldOptic();
 	}
 	
