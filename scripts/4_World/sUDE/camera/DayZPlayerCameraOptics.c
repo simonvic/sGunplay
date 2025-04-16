@@ -26,6 +26,7 @@ modded class DayZPlayerCameraOptics {
 		}
 		m_showEnterMisalignment = m_opticsUsed.ConfigGetBool("s_showEnterMisalignment");
 		m_isFullscreen = m_opticsUsed.ConfigGetBool("s_isFullscreen");
+		// TODO: replace isFullscreen with m_opticsUsed.IsUsingOptics2DModel() ?
 		m_lensZoomStrength = SMath.mapClamp(
 			userCfgGunplay.getLensZoomStrength(),
 			0, 1,
