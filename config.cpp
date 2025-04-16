@@ -279,10 +279,24 @@ class cfgVehicles {
 		s_pipBlur = 0.05;
 		s_pipChromAber = 0.3;
 	};
+	class MK4Optic_ColorBase : ItemOptics_Base {
+		s_showEnterMisalignment = 1;
+		s_isFullscreen = 1;
+		s_pipRadius = 0.7;
+		s_pipMagnification = 0.1;
+		s_pipBlur = 0.05;
+		s_pipChromAber = 0.3;
+	};
 	class PistolOptic : ItemOptics_Base {
 		s_pipRadius = 0.47;
 		s_pipMagnification = 0.3;
 		s_pipBlur = 0.005;
+		s_pipChromAber = 0.001;
+	};
+	class SportingOptic : ItemOptics_Base {
+		s_pipRadius = 0.40;
+		s_pipMagnification = 0.314;
+		s_pipBlur = 0.03;
 		s_pipChromAber = 0.001;
 	};
 	class PSO1Optic : ItemOptics_Base {
@@ -298,6 +312,12 @@ class cfgVehicles {
 		s_pipBlur = 0.02;
 		s_pipChromAber = 0.2;
 		s_nearPlaneOverride = 0.15;
+	};
+	class PSO6Optic : PSO1Optic {
+		s_pipRadius = 0.25;
+		s_pipMagnification = 0.1;
+		s_pipBlur = 0.06;
+		s_pipChromAber = 0.001;
 	};
 	class KazuarOptic: ItemOptics_Base {
 		s_isFullscreen = 1;
