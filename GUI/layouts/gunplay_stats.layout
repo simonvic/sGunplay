@@ -1,6 +1,6 @@
 GridSpacerWidgetClass root_gunplay_stats {
  ignorepointer 1
- position 0 0
+ position 0 -0.03
  size 1 1
  halign right_ref
  hexactpos 0
@@ -44,8 +44,7 @@ GridSpacerWidgetClass root_gunplay_stats {
      image0 "set:sGunplay_stats image:inaccuracy"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
     }
     ImageWidgetClass recoil_control_bar {
      visible 1
@@ -60,7 +59,7 @@ GridSpacerWidgetClass root_gunplay_stats {
      image0 "set:dayz_gui image:icon_bar_specialisation"
      mode additive
      "src alpha" 1
-     "no wrap" 1
+     "clamp mode" clamp
      "flip u" 0
      "flip v" 0
      filter 0
@@ -81,7 +80,7 @@ GridSpacerWidgetClass root_gunplay_stats {
        image0 "set:dayz_gui image:specialization_arrow"
        mode additive
        "src alpha" 1
-       "no wrap" 1
+       "clamp mode" clamp
        "flip u" 0
        "flip v" 0
        filter 1
@@ -99,8 +98,7 @@ GridSpacerWidgetClass root_gunplay_stats {
      image0 "set:sGunplay_stats image:accuracy"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
     }
    }
   }
@@ -131,8 +129,7 @@ GridSpacerWidgetClass root_gunplay_stats {
      image0 "set:sGunplay_stats image:light"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
     }
     ImageWidgetClass weight_bar {
      visible 1
@@ -147,7 +144,7 @@ GridSpacerWidgetClass root_gunplay_stats {
      image0 "set:dayz_gui image:icon_bar_specialisation"
      mode additive
      "src alpha" 1
-     "no wrap" 1
+     "clamp mode" clamp
      "flip u" 0
      "flip v" 0
      filter 0
@@ -168,7 +165,7 @@ GridSpacerWidgetClass root_gunplay_stats {
        image0 "set:dayz_gui image:specialization_arrow"
        mode additive
        "src alpha" 1
-       "no wrap" 1
+       "clamp mode" clamp
        "flip u" 0
        "flip v" 0
        filter 1
@@ -186,8 +183,7 @@ GridSpacerWidgetClass root_gunplay_stats {
      image0 "set:sGunplay_stats image:heavy"
      mode blend
      "src alpha" 1
-     "no wrap" 1
-     stretch 0
+     "clamp mode" clamp
     }
    }
   }
