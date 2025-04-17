@@ -68,7 +68,8 @@ modded class DayZPlayerImplementAiming {
 	*	 @param stance_index \p ind - stance index
 	*/
 	override bool ProcessAimFilters(float pDt, SDayZPlayerAimingModel pModel, int stance_index) {
-		
+		updateStamina(pDt);
+
 		// FIXME: https://feedback.bistudio.com/T178855
 		m_weapon = Weapon_Base.Cast(m_PlayerPb.GetHumanInventory().GetEntityInHands());
 		if (!m_weapon) return true;
@@ -96,10 +97,18 @@ modded class DayZPlayerImplementAiming {
 		
 		// The lens must be computed in the aiming model after all filters transformations
 		updateOpticLensPosition(m_weapon.GetAttachedOptics());
+		return true;
+	}
 
+	/**
+	* @brief Update stamina depletion
+	* @param pDt
+	*/
+	protected void updateStamina(float pDt) {
 		if (m_PlayerPb.IsHoldingBreath()) {
 			// TODO: update m_TotalTime and m_ReferenceTime even if unused anywhere else?
 			// fe742c840941e37336e24c95734c849bb1461bef#diff-77ac1caefbf40f203159b4efb28cca02c68d2e1b525916e9475200c7d8c328e8L179
+
 			// CalculateSpeedMultiplier(playerStamina) is always computed with playerStamina = 1
 			// Still invoking it in case someone is modding it
 #ifdef DAYZ_1_27
@@ -112,7 +121,6 @@ modded class DayZPlayerImplementAiming {
 			m_PlayerPb.DepleteStaminaEx(EStaminaModifiers.HOLD_BREATH, pDt * CalculateSpeedMultiplier(1), m_HoldBreathSwayCoef);
 #endif
 		}
-		return true;
 	}
 	
 	
