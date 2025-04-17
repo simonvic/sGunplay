@@ -1,10 +1,10 @@
 modded class SKSRecoil {
 	override void initRecoilParameters() {
-		handsRanges        = {-2.565,  2.585,  8.250,  9.550};
+		handsRanges        = {-2.565,  2.585,  8.250,  9.450};
 		handsAccumSpeed    = 0.980;
 		handsResetSpeed    = 0.720;
 
-		misalignIntensity  = { 1.750,  0.400};
+		misalignIntensity  = { 1.750,  0.300};
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.870;
 	
