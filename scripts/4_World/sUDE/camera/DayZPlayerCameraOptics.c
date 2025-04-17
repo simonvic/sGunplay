@@ -170,7 +170,7 @@ modded class DayZPlayerCameraOptics {
 		if (m_opticOverridesNearPlane) {
 			pOutResult.m_fNearPlane = m_opticNearPlaneOverride;
 		} else {
-			pOutResult.m_fNearPlane = 0.03;
+			pOutResult.m_fNearPlane = m_opticsUsed.GetNearPlaneValue();
 		}
 		
 		/*
