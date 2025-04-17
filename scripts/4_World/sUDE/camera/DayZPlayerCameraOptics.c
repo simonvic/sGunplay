@@ -117,12 +117,17 @@ modded class DayZPlayerCameraOptics {
 	*/
 	protected void updateLens(float pDt) {
 		
-		if (!m_player.IsInOptics() || !isMagnifyingOptic() || !canShowLens() || isHandHeldOptic()) {
+		if (!m_player.IsInOptics() || !isMagnifyingOptic() || !canShowLens()) {
 			return;
 		}
 
-		m_opticPositionSS = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
-		
+		if (isHandHeldOptic()) {
+			// hand held optics don't have any transformations applied
+			m_opticPositionSS = "0.5 0.5 0";
+		} else {
+			m_opticPositionSS = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
+		}
+
 		// TODO: yikes... are there no alternatives?
 		int sX, sY;
 		GetScreenSize(sX, sY);
