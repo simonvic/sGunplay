@@ -169,8 +169,8 @@ modded class DayZPlayerImplementAiming {
 	*/
 	protected void updateOpticLensPosition(ItemOptics optic, float distance = 50) {
 		if (!optic) return;
-		vector eyeScopeLS  = optic.GetSelectionPositionLS( "eyeScope" );
-		vector cameraDirLS = optic.GetSelectionPositionLS( "cameraDir" );
+		vector eyeScopeLS  = optic.GetSelectionPositionLS("eyeScope");
+		vector cameraDirLS = optic.GetSelectionPositionLS("cameraDir");
 		m_lensPosition = optic.ModelToWorld(eyeScopeLS + (vector.Direction(eyeScopeLS, cameraDirLS) * distance));
 	}
 	
@@ -182,7 +182,6 @@ modded class DayZPlayerImplementAiming {
 		return m_lensPosition;
 	}
 
-	
 	/**
 	*	@brief Get the user input aim change per tick in radians
 	*	 @return vector - Aim change of the player (x, y, 0)

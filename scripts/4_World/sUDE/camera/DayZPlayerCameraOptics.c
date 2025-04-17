@@ -85,12 +85,20 @@ modded class DayZPlayerCameraOptics {
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		//Show lens when transition is done
-		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(this.setShowLens, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY, false, true);
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(
+			this.setShowLens,
+			m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY,
+			false,
+			true);
 		
 		//Hide player clothing when transition is done
 		if (m_player) {
 			GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_player.HideClothing, m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,false,m_opticsUsed,isHideClothingInOpticEnabled());
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(
+				m_player.HideClothing,
+				m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,
+				false,
+				m_opticsUsed,isHideClothingInOpticEnabled());
 		}
 		
 		if (showEnterMisalignment()) {
