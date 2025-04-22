@@ -314,10 +314,11 @@ class cfgVehicles {
 		s_nearPlaneOverride = 0.15;
 	};
 	class PSO6Optic : PSO1Optic {
-		s_pipRadius = 0.25;
+		s_pipRadius = 0.26;
 		s_pipMagnification = 0.1;
-		s_pipBlur = 0.06;
+		s_pipBlur = 0.03;
 		s_pipChromAber = 0.001;
+		s_nearPlaneOverride = 0.25;
 	};
 	class KazuarOptic: ItemOptics_Base {
 		s_isFullscreen = 1;
