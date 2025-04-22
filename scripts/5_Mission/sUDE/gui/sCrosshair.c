@@ -80,7 +80,7 @@ class SCrosshair : Managed {
 		m_player = PlayerBase.Cast(GetGame().GetPlayer());
 		if (!m_player) return; // TODO: temp-fix, change this
 		
-		if (!canShowDynamicCrosshair()) {
+		if (!canShowDynamicCrosshair() || !m_player.GetAimingModel().getWeapon()) {
 			if (m_dynamicCrosshair.IsVisible()) {
 				m_dynamicCrosshair.Show(false);
 			}
