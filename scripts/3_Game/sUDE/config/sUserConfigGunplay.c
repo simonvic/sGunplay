@@ -37,6 +37,7 @@ class SUserConfigGunplay : SUserConfigBase {
 	protected float lensZoomStrength = 0.75;
 	protected ref array<float> deadzoneLimits = { 0.0, 0.0, 0.0, 0.0 };
 	protected bool resetDeadzoneOnFocus = true;
+	protected bool showStaticCrosshair = true;
 	protected bool showDynamicCrosshair = true;
 	protected int dynamicCrosshairType = 0;
 	protected ref array<float> dynamicCrosshairRGBA = {255, 255, 255, 130};
@@ -52,6 +53,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		registerOption("lensZoomStrength",            new SUCOption_LensZoomStrength(lensZoomStrength));
 		registerOption("deadzoneLimits",              new SUCOption_DeadzoneLimits(deadzoneLimits));
 		registerOption("resetDeadzoneOnFocus",        new SUCOption_ResetDeadzonOnFocus(resetDeadzoneOnFocus));
+		registerOption("showStaticCrosshair",         new SUCOption_ShowStaticCrosshair(showStaticCrosshair));		
 		registerOption("showDynamicCrosshair",        new SUCOption_ShowDynamicCrosshair(showDynamicCrosshair));		
 		registerOption("dynamicCrosshairType",        new SUCOption_DynamicCrosshairType(dynamicCrosshairType));		
 		registerOption("dynamicCrosshairRGBA",        new SUCOption_DynamicCrosshairRGBA(dynamicCrosshairRGBA));		
@@ -82,6 +84,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		getOption("lensZoomStrength").setConstraint(c.getLensZoomStrength());
 		getOption("deadzoneLimits").setConstraint(c.getDeadzoneLimits());
 		getOption("resetDeadzoneOnFocus").setConstraint(c.getResetDeadzoneOnFocus());
+		getOption("showStaticCrosshair").setConstraint(c.getShowStaticCrosshair());
 		getOption("showDynamicCrosshair").setConstraint(c.getShowDynamicCrosshair());
 		getOption("dynamicCrosshairType").setConstraint(c.getDynamicCrosshairType());
 		getOption("dynamicCrosshairRGBA").setConstraint(c.getDynamicCrosshairRGBA());
@@ -176,6 +179,14 @@ class SUserConfigGunplay : SUserConfigBase {
 	
 	void resetDeadzoneOnFocus(bool enabled) {
 		resetDeadzoneOnFocus = enabled;
+	}
+	
+	bool isStaticCrosshairEnabled() {
+		return showStaticCrosshair;
+	}
+
+	void setStaticCrosshairEnabled(bool enabled) {
+		showStaticCrosshair = enabled;
 	}
 	
 	bool isDynamicCrosshairEnabled() {

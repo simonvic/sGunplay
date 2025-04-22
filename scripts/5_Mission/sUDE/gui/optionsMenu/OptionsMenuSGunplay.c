@@ -21,6 +21,7 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 	protected ref SliderWidget    m_deadzoneUpDownSlider;	
 	protected ref SliderWidget    m_deadzoneLeftRightSlider;
 	protected ref CheckBoxWidget  m_resetDeadzoneOnFocus;
+	protected ref CheckBoxWidget  m_staticCrosshair;	
 	protected ref CheckBoxWidget  m_dynamicCrosshair;	
 	protected ref XComboBoxWidget m_dynamicCrosshairType;
 	protected ref SliderWidget    m_dynamicCrosshairRed;
@@ -48,6 +49,7 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 		initOptionWidget(m_deadzoneUpDownSlider,        "deadzoneY",                  getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_UP_DOWN);
 		initOptionWidget(m_deadzoneLeftRightSlider,     "deadzoneX",                  getUserConfig().getOptionArrayFloat("deadzoneLimits"), INDICES_LEFT_RIGHT);
 		initOptionWidget(m_resetDeadzoneOnFocus,        "resetDeadzoneOnFocus",       getUserConfig().getOptionBool("resetDeadzoneOnFocus"));
+		initOptionWidget(m_staticCrosshair,             "staticCrosshair",            getUserConfig().getOptionBool("showStaticCrosshair"));
 		initOptionWidget(m_dynamicCrosshair,            "dynCrosshair",               getUserConfig().getOptionBool("showDynamicCrosshair"));
 		initOptionWidget(m_dynamicCrosshairType,        "dynCrosshairStyle",          getUserConfig().getOptionInt("dynamicCrosshairType"), SCrosshair.getStyleNames());
 		initOptionWidget(m_dynamicCrosshairRed,         "dynCrosshairRed",            getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 0);

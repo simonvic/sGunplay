@@ -28,7 +28,9 @@ class SCrosshair : Managed {
 	}
 	
 	protected ref Widget m_sCrosshairRoot;
-	protected ref ImageWidget m_sCrosshair;
+	protected ref ImageWidget m_staticCrosshair;
+	protected ref Widget m_dynamicCrosshairRoot;
+	protected ref ImageWidget m_dynamicCrosshair;
 	protected PlayerBase m_player;
 	
 	protected ref SUserConfigGunplay m_userCfgGunplay;
@@ -36,7 +38,9 @@ class SCrosshair : Managed {
 	void SCrosshair() {
 		m_userCfgGunplay = SUserConfig.gunplay();
 		m_sCrosshairRoot = GetGame().GetWorkspace().CreateWidgets(getCrosshairLayoutName());
-		m_sCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_crosshair"));
+		m_staticCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_staticCrosshair"));
+		m_dynamicCrosshairRoot = m_sCrosshairRoot.FindWidget("c_dynamicCrosshair");
+		m_dynamicCrosshair = ImageWidget.Cast(m_dynamicCrosshairRoot.FindWidget("img_dynamicCrosshair"));
 		setStyle(m_userCfgGunplay.getDynamicCrosshairType());
 		setColor(m_userCfgGunplay.getDynamicCrosshairColor());
 	}
@@ -45,36 +49,51 @@ class SCrosshair : Managed {
 		return "MyMODS/sGunplay/GUI/layouts/ingame/hud/sCrosshair.layout";
 	}
 	
-	protected bool canShowCrosshair() {
+	protected bool canShowStaticCrosshair() {
+		return m_userCfgGunplay.isStaticCrosshairEnabled() && m_player && !m_player.IsFireWeaponRaised();
+	}
+
+	protected bool canShowDynamicCrosshair() {
 		return m_userCfgGunplay.isDynamicCrosshairEnabled() && m_player && m_player.IsFireWeaponRaised() && (!m_player.IsInIronsights() && !m_player.IsInOptics());
 	}
 	
 	void setStyle(int styleIndex) {
 		styleIndex = Math.Clamp(styleIndex, 0, STYLES.Count() - 1);
-		m_sCrosshair.LoadImageFile(0, STYLES[styleIndex][0]);
+		m_dynamicCrosshair.LoadImageFile(0, STYLES[styleIndex][0]);
 	}
 	
 	void setColor(SColor color) {
-		m_sCrosshair.SetColor(color.getARGB());
+		m_staticCrosshair.SetColor(color.getARGB());
+		m_dynamicCrosshair.SetColor(color.getARGB());
 	}
 	
 	void onUpdate(float deltaTime) {
+		if (canShowStaticCrosshair()) {
+			if (!m_staticCrosshair.IsVisible()) {
+				m_staticCrosshair.Show(true);
+			}
+		} else {
+			if (m_staticCrosshair.IsVisible()) {
+				m_staticCrosshair.Show(false);
+			}
+		}
 		m_player = PlayerBase.Cast(GetGame().GetPlayer());
 		if (!m_player) return; // TODO: temp-fix, change this
 		
-		if (!canShowCrosshair()) {
-			if (m_sCrosshair.IsVisible()) {
-				m_sCrosshair.Show(false);
+		if (!canShowDynamicCrosshair()) {
+			if (m_dynamicCrosshair.IsVisible()) {
+				m_dynamicCrosshair.Show(false);
 			}
 			return;
 		}
 		
 		vector pos = m_player.GetAimingModel().getSCrosshairPosition();
-		m_sCrosshairRoot.SetPos(pos[0], pos[1]);
-		if (!m_sCrosshair.IsVisible()) {
-			m_sCrosshair.Show(true);
+		m_dynamicCrosshairRoot.SetPos(pos[0], pos[1]);
+		if (!m_dynamicCrosshair.IsVisible()) {
+			m_dynamicCrosshair.Show(true);
 		}
 
 	}
 
 }
+

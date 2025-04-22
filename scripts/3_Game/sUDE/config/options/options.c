@@ -138,6 +138,22 @@ class SUCOption_ResetDeadzonOnFocus : SUserConfigOption<bool> {
 }
 
 
+/**
+*	@brief 
+*/
+class SUCOption_ShowStaticCrosshair : SUserConfigOption<bool> {
+	
+	void SUCOption_ShowStaticCrosshair(bool value, SConstraintBase constraint = null, SUserConfigOptionInfo info = null) {
+		if (!info) {
+			m_info = new SUserConfigOptionInfo("#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_STATIC_CROSSHAIR", "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_STATIC_CROSSHAIR_DESCRIPTION")
+		}
+	}
+	
+	override void onValueChange(bool previousValue, bool newValue) {
+		SUserConfig.gunplay().setStaticCrosshairEnabled(newValue);
+	}
+	
+}
 
 /**
 *	@brief 

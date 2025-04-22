@@ -444,7 +444,7 @@ FrameWidgetClass sude_sgunplay_tab_root {
          vexactpos 0
          hexactsize 0
          vexactsize 0
-         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_DYNAMIC_CROSSHAIR"
+         text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_CROSSHAIR"
          "text halign" center
          "text valign" center
         }
@@ -466,6 +466,44 @@ FrameWidgetClass sude_sgunplay_tab_root {
        Columns 1
        Rows 2
        {
+        GridSpacerWidgetClass c_staticCrosshair {
+         ignorepointer 1
+         size 1 48
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 1
+         Padding 0
+         Margin 0
+         "Size To Content V" 1
+         content_valign center
+         Columns 2
+         Rows 1
+         {
+          TextWidgetClass t_staticCrosshair {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#STR_SUDE_LAYOUT_OPTIONS_GUNPLAY_STATIC_CROSSHAIR"
+           "size to text h" 0
+           "size to text v" 0
+           "text valign" center
+          }
+          CheckBoxWidgetClass staticCrosshair {
+           position 0 0
+           size 1 24
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 1
+           style Default
+          }
+         }
+        }
         GridSpacerWidgetClass c_dynCrosshair {
          ignorepointer 1
          size 1 48
