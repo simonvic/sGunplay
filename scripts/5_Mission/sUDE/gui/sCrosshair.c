@@ -32,15 +32,13 @@ class SCrosshair : Managed {
 	protected PlayerBase m_player;
 	
 	protected ref SUserConfigGunplay m_userCfgGunplay;
-	protected int m_currentStyleIndex;
-	protected int m_currentColorARGB;
 	
 	void SCrosshair() {
 		m_userCfgGunplay = SUserConfig.gunplay();
 		m_sCrosshairRoot = GetGame().GetWorkspace().CreateWidgets(getCrosshairLayoutName());
 		m_sCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_crosshair"));
 		setStyle(m_userCfgGunplay.getDynamicCrosshairType());
-		setColor(m_userCfgGunplay.getDynamicCrosshairColor().getARGB());
+		setColor(m_userCfgGunplay.getDynamicCrosshairColor());
 	}
 	
 	string getCrosshairLayoutName() {
@@ -51,47 +49,32 @@ class SCrosshair : Managed {
 		return m_userCfgGunplay.isDynamicCrosshairEnabled() && m_player && m_player.IsFireWeaponRaised() && (!m_player.IsInIronsights() && !m_player.IsInOptics());
 	}
 	
-	protected void setStyle(int styleIndex) {
-		styleIndex = Math.Clamp(m_userCfgGunplay.getDynamicCrosshairType(), 0, STYLES.Count() - 1);
-		m_currentStyleIndex = styleIndex;
+	void setStyle(int styleIndex) {
+		styleIndex = Math.Clamp(styleIndex, 0, STYLES.Count() - 1);
 		m_sCrosshair.LoadImageFile(0, STYLES[styleIndex][0]);
 	}
 	
-	protected void setColor(int argb) {
-		m_currentColorARGB = argb;
-		m_sCrosshair.SetColor(m_currentColorARGB);
+	void setColor(SColor color) {
+		m_sCrosshair.SetColor(color.getARGB());
 	}
-	
 	
 	void onUpdate(float deltaTime) {
 		m_player = PlayerBase.Cast(GetGame().GetPlayer());
 		if (!m_player) return; // TODO: temp-fix, change this
 		
-		/*
-		m_sCrosshairRoot.Unlink();
-		m_sCrosshairRoot = GetGame().GetWorkspace().CreateWidgets(getCrosshairLayoutName());
-		m_sCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_crosshair"));
-		*/
-		
 		if (!canShowCrosshair()) {
-			if (m_sCrosshair.IsVisible()) m_sCrosshair.Show(false);
+			if (m_sCrosshair.IsVisible()) {
+				m_sCrosshair.Show(false);
+			}
 			return;
 		}
 		
 		vector pos = m_player.GetAimingModel().getSCrosshairPosition();
 		m_sCrosshairRoot.SetPos(pos[0], pos[1]);
-		
-		if (!m_sCrosshair.IsVisible()) m_sCrosshair.Show(true);
-		
-		// TODO: move these to user cfg callbacks
-		int argb = m_userCfgGunplay.getDynamicCrosshairColor().getARGB();
-		if (m_currentColorARGB != argb) {
-			setColor(argb);
+		if (!m_sCrosshair.IsVisible()) {
+			m_sCrosshair.Show(true);
 		}
-		
-		if (m_currentStyleIndex != m_userCfgGunplay.getDynamicCrosshairType()) {
-			setStyle(m_userCfgGunplay.getDynamicCrosshairType());
-		}
-				
+
 	}
+
 }
