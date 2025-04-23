@@ -11,7 +11,12 @@ modded class PropertyModifiers {
 	// TODO: improve this. Instead of recalculating everything, just add/remove when needed
 	override void UpdateModifiers() {
 		super.UpdateModifiers();
+		applyIntegratedModifiers();
+		applyAttachmentsModifiers();
+		clampModifiers();
+	}
 
+	protected void applyIntegratedModifiers() {
 		recoilControlMouseX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMouseX");
 		recoilControlMouseY        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMouseY");
 		recoilControlHandsX        = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlStabilityX");
@@ -19,18 +24,12 @@ modded class PropertyModifiers {
 		recoilControlMisalignmentX = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMisalignmentX");
 		recoilControlMisalignmentY = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlMisalignmentY");		
 		recoilControlKick          = PropertyModifiers.getModifierFloat(m_OwnerItem, "s_recoilControlKick");
+	}
 
+	protected void applyAttachmentsModifiers() {
 		for (int i = 0; i < m_OwnerItem.GetInventory().AttachmentCount(); i++) {
 			applyAttachmentModifiers(m_OwnerItem.GetInventory().GetAttachmentFromIndex(i));
 		}
-
-		recoilControlMouseX        = Math.Clamp(recoilControlMouseX, -1, 1);
-		recoilControlMouseY        = Math.Clamp(recoilControlMouseY, -1, 1);
-		recoilControlHandsX        = Math.Clamp(recoilControlHandsX, -1, 1);
-		recoilControlHandsY        = Math.Clamp(recoilControlHandsY, -1, 1);
-		recoilControlMisalignmentX = Math.Clamp(recoilControlMisalignmentX, -1, 1);
-		recoilControlMisalignmentY = Math.Clamp(recoilControlMisalignmentY, -1, 1);
-		recoilControlKick          = Math.Clamp(recoilControlKick, -1, 1);
 	}
 	
 	protected void applyAttachmentModifiers(EntityAI attachment) {
@@ -41,6 +40,16 @@ modded class PropertyModifiers {
 		recoilControlMisalignmentX += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMisalignmentX");
 		recoilControlMisalignmentY += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMisalignmentY");		
 		recoilControlKick          += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlKick");
+	}
+
+	protected void clampModifiers() {
+		recoilControlMouseX        = Math.Clamp(recoilControlMouseX, -1, 1);
+		recoilControlMouseY        = Math.Clamp(recoilControlMouseY, -1, 1);
+		recoilControlHandsX        = Math.Clamp(recoilControlHandsX, -1, 1);
+		recoilControlHandsY        = Math.Clamp(recoilControlHandsY, -1, 1);
+		recoilControlMisalignmentX = Math.Clamp(recoilControlMisalignmentX, -1, 1);
+		recoilControlMisalignmentY = Math.Clamp(recoilControlMisalignmentY, -1, 1);
+		recoilControlKick          = Math.Clamp(recoilControlKick, -1, 1);
 	}
 	
 	static float getModifierFloat(EntityAI entity, string modifierName, float defaultValue = 0.0) {
