@@ -1,4 +1,3 @@
-#ifndef DAYZ_1_27
 modded class R12Recoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-3.165,  3.285, 10.755, 12.850};
@@ -16,4 +15,3 @@ modded class R12Recoil {
 		kickResetTime      = 3.550;
 	}
 }
-#endif

@@ -1,4 +1,3 @@
-#ifndef DAYZ_1_27
 modded class PM73RakRecoil {
 	override void initRecoilParameters() {
 		handsRanges        = {-0.900,  0.900,  2.450,  3.750};	
@@ -16,4 +15,3 @@ modded class PM73RakRecoil {
 		kickResetTime      = 1.450;
 	}
 }
-#endif
