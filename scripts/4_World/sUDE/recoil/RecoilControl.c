@@ -5,7 +5,6 @@ class RecoilControl : Managed {
 	
 	void RecoilControl(PlayerBase player) {
 		m_player = player;
-		compute();
 	}
 	
 	float get() {
