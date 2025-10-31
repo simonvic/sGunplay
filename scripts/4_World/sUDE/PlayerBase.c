@@ -18,7 +18,7 @@ modded class PlayerBase {
 	void updateMovementInertiaByWeight() {
 		HumanCommandMove hcm = GetCommand_Move();
 		if (!hcm) return;
-		float weight = GetWeight();
+		float weight = GetWeightEx();
 		hcm.SetRunSprintFilterModifier(SMath.mapClamp(weight,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_VERYLIGHT,
 			GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED,

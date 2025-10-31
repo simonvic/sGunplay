@@ -24,7 +24,7 @@ class RecoilControl : Managed {
 	*	@return float - recoil control modifier
 	*/
 	protected float getModifierInventoryWeight() {
-		int w = m_player.GetWeight();
+		int w = m_player.GetWeightEx();
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED) return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_OVERLOADED;
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_HEAVY)      return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_HEAVY;
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_MEDIUM)     return GunplayConstants.RECOIL_CONTROL_INVENTORY_WEIGHT_MEDIUM;

@@ -109,7 +109,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*	 @return float - inertia multiplier
 	*/
 	protected float getInertiaMultiplierWeapon() {
-		int w = getWeapon().GetWeight();
+		int w = getWeapon().GetWeightEx();
 		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_VERYHEAVY)  return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_VERYHEAVY;
 		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_HEAVY)      return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_HEAVY;
 		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_MEDIUM)     return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_MEDIUM;
@@ -130,7 +130,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	*	 @return float - inertia multiplier
 	*/
 	protected float getInertiaMultiplierInventoryWeight() {
-		int w = getPlayer().GetWeight();
+		int w = getPlayer().GetWeightEx();
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_OVERLOADED) return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_OVERLOADED;
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_HEAVY)      return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_HEAVY;
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_MEDIUM)     return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_MEDIUM;
