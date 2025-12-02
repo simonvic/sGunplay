@@ -22,7 +22,7 @@ modded class ItemManager {
 	
 	void updateRecoilControlStats(Widget statWidgetRoot, EntityAI item) {
 		if (!statWidgetRoot) return;
-		if (!item) {
+		if (!GunplayConstants.SHOW_ATTACHMENT_STATS || !item) {
 			statWidgetRoot.Show(false);
 			return;
 		}

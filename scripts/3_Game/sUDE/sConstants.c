@@ -205,6 +205,10 @@ class GunplayConstants {
 	static const float RECOIL_CONTROL_MOVEMENT_WALKING             = -0.30;   // how much WALKING will affect final recoil calculation
 	static const float RECOIL_CONTROL_MOVEMENT_JOGGING             = -0.50;   // how much JOGGING will affect final recoil calculation
 
+	///////////////////
+	// UI
+	static const bool SHOW_ATTACHMENT_STATS = true; //!< toggles visibility of weapons and weapons attachments recoil related attributes in the inventory menu
+
 	/////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////
