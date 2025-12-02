@@ -1,7 +1,7 @@
 modded class ItemManager {
-	
+
 	protected Widget m_wTooltipRecoilControlStats;
-	
+
 	static const ref array<string> RECOIL_CONTROL_STATS = {
 		"s_recoilControlStabilityX"
 		"s_recoilControlStabilityY"
@@ -9,17 +9,17 @@ modded class ItemManager {
 		"s_recoilControlMisalignmentY"
 		"s_recoilControlKick"
 	};
-	
+
 	void ItemManager(Widget root) {
 		m_wTooltipRecoilControlStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_compact.layout", m_TooltipWidget.FindAnyWidget("GridSpacerWidget1"));
 	}
-	
+
 	override void PrepareTooltip(EntityAI item, int x = 0, int y = 0) {
 		super.PrepareTooltip(item, x, y);
 		if (IsDragging() || !item) return;
 		updateRecoilControlStats(m_wTooltipRecoilControlStats, item);
 	}
-	
+
 	void updateRecoilControlStats(Widget statWidgetRoot, EntityAI item) {
 		if (!statWidgetRoot) return;
 		if (!GunplayConstants.SHOW_ATTACHMENT_STATS || !item) {
@@ -35,8 +35,8 @@ modded class ItemManager {
 		}
 		statWidgetRoot.Show(showStats);	
 	}
-	
-	
+
+
 	protected bool updateWeaponStats(Widget statWidgetRoot, Weapon_Base weapon)  {
 		PropertyModifiers prop = weapon.GetPropertyModifierObject();
 		updateRecoilControlStat(statWidgetRoot, "s_recoilControlStabilityX",    prop.recoilControlHandsX);
@@ -46,7 +46,7 @@ modded class ItemManager {
 		updateRecoilControlStat(statWidgetRoot, "s_recoilControlKick",          prop.recoilControlKick);
 		return true;
 	}
-	
+
 	protected bool updateAttachmentStats(Widget statWidgetRoot, EntityAI item) {
 		bool hasStats;
 		foreach (string stat : RECOIL_CONTROL_STATS) {
@@ -59,7 +59,7 @@ modded class ItemManager {
 		}
 		return hasStats;
 	}
-	
+
 	static void updateRecoilControlStat(Widget statWidgetRoot, string stat, float value) {
 		TextWidget w = TextWidget.Cast(statWidgetRoot.FindAnyWidget(stat));
 		if (!w) return;
@@ -67,5 +67,5 @@ modded class ItemManager {
 		if (value >= 0) format = "+" + format;
 		w.SetText(string.Format(format, value * 100));
 	}
-	
+
 }

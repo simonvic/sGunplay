@@ -1,7 +1,7 @@
 modded class InspectMenuNew {
-	
+
 	protected Widget m_wRecoilControlStats;
-	
+
 	static const ref array<string> RECOIL_CONTROL_STATS = {
 		"s_recoilControlStabilityX"
 		"s_recoilControlStabilityY"
@@ -9,18 +9,18 @@ modded class InspectMenuNew {
 		"s_recoilControlMisalignmentY"
 		"s_recoilControlKick"
 	};
-	
+
 	override Widget Init() {
 		super.Init();
 		m_wRecoilControlStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_extended.layout", layoutRoot.FindAnyWidget("ItemFrameWidgetPanel"));
 		return layoutRoot;
 	}
-	
+
 	override void SetItem(EntityAI item) {
 		super.SetItem(item);
 		updateRecoilControlStats(m_wRecoilControlStats, item);
 	}
-	
+
 	protected void updateRecoilControlStats(Widget statWidgetRoot, EntityAI item) {
 		if (!statWidgetRoot) return;
 		if (!GunplayConstants.SHOW_ATTACHMENT_STATS || !item) {
@@ -36,7 +36,7 @@ modded class InspectMenuNew {
 		}
 		statWidgetRoot.Show(showStats);
 	}
-	
+
 	protected bool updateAttachmentStats(Widget statWidgetRoot, EntityAI item) {
 		bool hasStats;
 		foreach (string stat : RECOIL_CONTROL_STATS) {
@@ -49,7 +49,7 @@ modded class InspectMenuNew {
 		}
 		return hasStats;
 	}
-	
+
 	protected bool updateWeaponStats(Widget statWidgetRoot, Weapon_Base weapon)  {
 		PropertyModifiers prop = weapon.GetPropertyModifierObject();
 		updateRecoilControlStat(statWidgetRoot, "s_recoilControlStabilityX",    prop.recoilControlHandsX,        weapon.ConfigGetFloat("s_recoilControlStabilityX"));
@@ -59,7 +59,7 @@ modded class InspectMenuNew {
 		updateRecoilControlStat(statWidgetRoot, "s_recoilControlKick",          prop.recoilControlKick,          weapon.ConfigGetFloat("s_recoilControlKick"));
 		return true;
 	}
-	
+
 	static void updateRecoilControlStat(Widget statWidgetRoot, string stat, float value, float integratedValue) {
 		SliderWidget w = SliderWidget.Cast(statWidgetRoot.FindAnyWidget(stat));
 		if (!w) return;
@@ -69,5 +69,5 @@ modded class InspectMenuNew {
 		TextWidget.Cast(w.FindAnyWidget(stat + "_value")).SetText(string.Format(format, value * 100));
 		SliderWidget.Cast(w.FindAnyWidget(stat + "_integrated")).SetCurrent(integratedValue);
 	}
-	
+
 }
