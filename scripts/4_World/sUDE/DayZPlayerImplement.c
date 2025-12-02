@@ -11,7 +11,7 @@ modded class DayZPlayerImplement {
 		super.HandleADS();
 		
 		if (!m_inputWeaponInspect) {
-			SLog.e("input is null","DayZPlayerImplement::HandleADS");
+			SLOG.e("DayZPlayerImplement::HandleADS", "input is null");
 			return;
 		}
 		
