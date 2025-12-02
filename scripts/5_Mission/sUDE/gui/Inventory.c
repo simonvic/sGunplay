@@ -8,10 +8,14 @@ modded class Inventory {
 		m_rootGunplayStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/gunplay_stats.layout", GetMainWidget().FindAnyWidget("InventoryFrameWidget"));
 		m_meterRecoilControl = m_rootGunplayStats.FindAnyWidget("recoil_control_indicator");
 		m_meterWeight = m_rootGunplayStats.FindAnyWidget("weight_indicator");
+		if (!GunplayConstants.SHOW_PLAYER_STATS) {
+			m_rootGunplayStats.Show(false);
+		}
 	}
 	
 	override void Update(float timeslice) {
 		super.Update(timeslice);
+		if (!GunplayConstants.SHOW_PLAYER_STATS) return;
 		updateStatMeters();
 	}
 	

@@ -208,6 +208,7 @@ class GunplayConstants {
 	///////////////////
 	// UI
 	static const bool SHOW_ATTACHMENT_STATS = true; //!< toggles visibility of weapons and weapons attachments recoil related attributes in the inventory menu
+	static const bool SHOW_PLAYER_STATS     = true; //!< toggles visibility of player's weight and recoil control in the inventory menu
 
 	/////////////////////////////////////////////////////////////
 	
