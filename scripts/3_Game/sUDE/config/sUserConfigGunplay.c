@@ -47,9 +47,12 @@ class SUserConfigGunplay : SUserConfigBase {
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
+		SLOG.d(""+this, "Applying constraints");
 		SUserConfigConstraints_Gunplay c = SUserConfigConstraints_Gunplay.Cast(constraints);
-		if (!c) return;
-		
+		if (!c) {
+			SLOG.e(1, "Invalid constraints: " + constraints);
+			return;
+		}
 		getOption("adsFOVMultiplier").setConstraint(c.getADSFOVMultiplier());
 		getOption("adsFOVMagnOpticsMultiplier").setConstraint(c.getADSFOVMagnOpticsMultiplier());
 		getOption("adsDOFIntensity").setConstraint(c.getADSDOFIntensity());
@@ -62,6 +65,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		getOption("showDynamicCrosshair").setConstraint(c.getShowDynamicCrosshair());
 		getOption("dynamicCrosshairType").setConstraint(c.getDynamicCrosshairType());
 		getOption("dynamicCrosshairRGBA").setConstraint(c.getDynamicCrosshairRGBA());
+		SLOG.d(1, "Done");
 	}
 	
 	
