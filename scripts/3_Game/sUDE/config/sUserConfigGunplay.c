@@ -3,30 +3,17 @@ class SUserConfigGunplay : SUserConfigBase {
 	override string getPath() {
 		return "$saves:\\sUDE\\config\\sGunplay.json";
 	}
-	
-	override string getDefaultPath() {
-		return "$profile:\\sUDE\\config\\sGunplay_default.json";
-	}
-	
-	override void deserialize(string data, out string error) {
-		auto cfg = this;
-		getSerializer().ReadFromString(cfg, data, error);
+
+	override bool deserialize(string data, out string error) {
+		auto thiz = this;
+		return getSerializer().ReadFromString(thiz, data, error);
 	}
 
-	override string serialize() {
-		string result;
-		auto cfg = this;
-		getSerializer().WriteToString(cfg, true, result);
-		return result;
+	override bool serialize(out string result) {
+		auto thiz = this;
+		return getSerializer().WriteToString(thiz, true, result);
 	}
-	
-	override string serializeDefault() {
-		string result;
-		auto cfg = new SUserConfigGunplay();
-		getSerializer().WriteToString(cfg, true, result);
-		return result;
-	}
-		
+
 	///////////////////////////////////////
 	// these go in json
 	protected float adsFOVMultiplier = 0.5;
@@ -57,19 +44,6 @@ class SUserConfigGunplay : SUserConfigBase {
 		registerOption("showDynamicCrosshair",        new SUCOption_ShowDynamicCrosshair(showDynamicCrosshair));		
 		registerOption("dynamicCrosshairType",        new SUCOption_DynamicCrosshairType(dynamicCrosshairType));		
 		registerOption("dynamicCrosshairRGBA",        new SUCOption_DynamicCrosshairRGBA(dynamicCrosshairRGBA));		
-	}
-	
-	override void onConstraintsReceive(ParamsReadContext ctx) {
-		super.onConstraintsReceive(ctx);
-		
-		SUserConfigConstraints_Gunplay constraints;
-		if (!ctx.Read(constraints)) {
-			SLog.c("Can't read constraints, ignoring...",""+this);
-			return;
-		}
-		
-		SLog.i("Got constraints from server!",""+this);
-		applyConstraints(constraints);
 	}
 	
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
