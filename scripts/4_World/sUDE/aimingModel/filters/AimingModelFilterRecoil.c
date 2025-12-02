@@ -1,3 +1,4 @@
+// TODO: profile SmoothCD
 class AimingModelFilterRecoil : AimingModelFilterBase {
 	
 	protected float m_time;
