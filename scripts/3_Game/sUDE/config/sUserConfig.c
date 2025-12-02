@@ -5,6 +5,10 @@ modded class SUserConfig {
 		return SUserConfigGunplay.Cast(getInstance().getLoadedModules().Get(SUserConfigGunplay));
 	}
 	
+	override void onPreload() {
+		super.onPreload();
+		SUserConfig.gunplay();
+	}
 
 	override void onConstraintsReceived(ParamsReadContext ctx) {
 		super.onConstraintsReceived(ctx);
