@@ -1,33 +1,33 @@
 // TODO: profile SmoothCD
 class AimingModelFilterRecoil : AimingModelFilterBase {
-	
+
 	protected float m_time;
-		
+
 	protected float m_velHandsAccumX[1];
 	protected float m_velHandsAccumY[1];
 	protected float m_velHandsResetX[1];
 	protected float m_velHandsResetY[1];
-	
+
 	protected float m_velMisalignAccumX[1];
 	protected float m_velMisalignAccumY[1];
 	protected float m_velMisalignResetX[1];
 	protected float m_velMisalignResetY[1];
-	
+
 	protected float m_handsAccum[2];
 	protected float m_misalignAccum[2];
 	protected float m_mouseAccum[2];
 	protected float m_kickAccum;
-	
+
 	protected ref RecoilBase m_recoil;
-	
+
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
 		m_time += pDt;
-		
+
 		RecoilBase r = getAimingModel().getRecoil();
 		if (r != null && m_recoil != r) {
 			onNewRecoil(r);
 		}
-		
+
 		if (m_recoil) {
 			applyMouseOffset(pDt, pModel, m_recoil);
 			applyHandsOffset(pDt, pModel, m_recoil);
@@ -37,9 +37,9 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			}
 			reset(pDt, m_recoil);
 		}
-		
+
 	}
-	
+
 	/**
 	*	@brief Called when a new recoil has been generated
 	*/
@@ -49,7 +49,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		getPlayer().getRecoilControl().compute();
 		accumulateRecoil(m_recoil);
 	}
-	
+
 	/**
 	*	@brief Called when a new recoil has been produced. Accumulate the recoil parameters
 	*	@param recoil to accumulate
@@ -66,7 +66,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			m_misalignAccum[1] = m_misalignAccum[1] + controlRecoil(r.hands[1]);
 		}
 	}
-	
+
 	/**
 	*	@brief Apply recoil control function
 	*	@param recoil value to control
@@ -75,7 +75,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	protected float controlRecoil(float value) {
 		return -value * GunplayConstants.RECOIL_CONTROL_COEFF * Math.Atan(Math.Pow(getPlayer().getRecoilControl().get(), 3) * GunplayConstants.RECOIL_CONTROL_STEEPNESS) + value;
 	}
-	
+
 	/**
 	*	@brief Apply mouse offset to aiming model
 	*	@param delta time
@@ -95,13 +95,13 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			m_mouseAccum[0] = m_mouseAccum[0] + deltaMouseX;
 			m_mouseAccum[1] = m_mouseAccum[1] + deltaMouseY;
 		}
-		
+
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXMouseShift -= deltaMouseX * (1 - modifiers.recoilControlMouseX);
 		pModel.m_fAimYMouseShift += deltaMouseY * (1 - modifiers.recoilControlMouseY);
-		
+
 	}
-	
+
 	/**
 	*	@brief Apply kick (camera Z-axis offset) to aiming model
 	*	@param delta time
@@ -113,7 +113,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		float easing = 1 - Easing.EaseOutElastic(timeNormalized, 0.45);
 		pModel.m_fCamPosOffsetZ	+= Math.Lerp(0, m_kickAccum * (1 - getWeapon().GetPropertyModifierObject().recoilControlKick), easing);
 	}
-	
+
 	/**
 	*	@brief Apply hands offset to aiming model
 	*	@param delta time
@@ -121,7 +121,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 	*	@param recoil to apply
 	*/
 	protected void applyHandsOffset(float pDt, SDayZPlayerAimingModel pModel, notnull RecoilBase r) {
-		
+
 		PropertyModifiers modifiers = getWeapon().GetPropertyModifierObject();
 		pModel.m_fAimXHandsOffset += Math.SmoothCD(
 			0,
@@ -129,7 +129,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			m_velHandsAccumX,
 			1 - r.handsAccumSpeed,
 			1000, pDt);
-		
+
 		pModel.m_fAimYHandsOffset += Math.SmoothCD(
 			0,
 			m_handsAccum[1] * (1 - modifiers.recoilControlHandsY),
@@ -137,7 +137,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			1 - r.handsAccumSpeed,
 			1000, pDt);
 	}
-	
+
 	/**
 	*	@brief Apply misalignment (camera rotation) to aiming model
 	*	@param delta time
@@ -153,7 +153,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			m_velMisalignAccumX,
 			smoothTime,
 			1000, pDt);
-		
+
 		pModel.m_fAimYCamOffset -= Math.SmoothCD(
 			0,
 			m_misalignAccum[1] * r.misalignIntensity[1] * (1 - modifiers.recoilControlMisalignmentY),
@@ -161,7 +161,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 			smoothTime,
 			1000, pDt);
 	}
-	
+
 	/**
 	*	@brief Reset the recoil
 	*	@param delta time
@@ -171,12 +171,12 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		float handsSmoothTime = 1 - r.handsResetSpeed;
 		m_handsAccum[0] = Math.SmoothCD(m_handsAccum[0], 0, m_velHandsResetX, handsSmoothTime, 1000, pDt);
 		m_handsAccum[1] = Math.SmoothCD(m_handsAccum[1], 0, m_velHandsResetY, handsSmoothTime, 1000, pDt);
-		
+
 		if (g_Game.IsClient()) {
 			float misalignSmoothTime = 1 - r.misalignResetSpeed;
 			m_misalignAccum[0] = Math.SmoothCD(m_misalignAccum[0], 0, m_velMisalignResetX, misalignSmoothTime, 1000, pDt);
 			m_misalignAccum[1] = Math.SmoothCD(m_misalignAccum[1], 0, m_velMisalignResetY, misalignSmoothTime, 1000, pDt);
 		}
 	}
-	
+
 }

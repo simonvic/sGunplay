@@ -29,7 +29,7 @@ class SUserConfigGunplay : SUserConfigBase {
 	protected int dynamicCrosshairType = 0;
 	protected ref array<float> dynamicCrosshairRGBA = {255, 255, 255, 130};
 	///////////////////////////////////////
-	
+
 	override void registerOptions() {
 		super.registerOptions();
 		registerOption("adsFOVMultiplier",            new SUCOption_ADSFOVMultiplier(adsFOVMultiplier));
@@ -45,7 +45,7 @@ class SUserConfigGunplay : SUserConfigBase {
 		registerOption("dynamicCrosshairType",        new SUCOption_DynamicCrosshairType(dynamicCrosshairType));		
 		registerOption("dynamicCrosshairRGBA",        new SUCOption_DynamicCrosshairRGBA(dynamicCrosshairRGBA));		
 	}
-	
+
 	override void applyConstraints(SUserConfigConstraintsBase constraints) {
 		SLOG.d(""+this, "Applying constraints");
 		SUserConfigConstraints_Gunplay c = SUserConfigConstraints_Gunplay.Cast(constraints);
@@ -67,98 +67,98 @@ class SUserConfigGunplay : SUserConfigBase {
 		getOption("dynamicCrosshairRGBA").setConstraint(c.getDynamicCrosshairRGBA());
 		SLOG.d(1, "Done");
 	}
-	
-	
+
+
 	float getAdsFOVMultiplier() {
 		return adsFOVMultiplier;
 	}
-	
+
 	void setAdsFOVMultiplier(float multiplier) {
 		adsFOVMultiplier = multiplier;
 	}
-	
+
 	float getAdsFOVMagnOpticsMultiplier() {
 		return adsFOVMagnOpticsMultiplier;
 	}
-	
+
 	void setAdsFOVMagnOpticsMultiplier(float multiplier) {
 		adsFOVMagnOpticsMultiplier = multiplier;
 	}
-	
+
 	bool isAdsDOFEnabled() {
 		return getAdsDOFIntensity() > 0;
 	}
-	
+
 	float getAdsDOFIntensity() {
 		return adsDOFIntensity;
 	}
-	
+
 	void setAdsDOFIntensity(float intensity) {
 		adsDOFIntensity = intensity;
 	}
-	
+
 	bool isHideWeaponBarrelInOpticEnabled() {
 		return hideWeaponBarrelInOptic;
 	}
-	
+
 	void hideWeaponBarrelInOptic(bool enabled) {
 		hideWeaponBarrelInOptic = enabled;
 	}
-	
+
 	bool isHideClothingInOpticEnabled() {
 		return hideClothingInOptic;
 	}
-	
+
 	void hideClothingInOptic(bool enabled) {
 		hideClothingInOptic = enabled;
 	}
-	
+
 	float getLensZoomStrength() {
 		return lensZoomStrength;
 	}
-	
+
 	void setLensZoomStrength(float strength) {
 		lensZoomStrength = strength;
 	}
-	
+
 	array<float> getDeadzoneLimits() {
 		return deadzoneLimits;
 	}
-	
+
 	void getDeadzoneLimits(out float limits[4]) {
 		limits[0] = deadzoneLimits[0];
 		limits[1] = deadzoneLimits[1];
 		limits[2] = deadzoneLimits[2];
 		limits[3] = deadzoneLimits[3];
 	}
-	
+
 	void setDeadzoneLimits(float limits[4]) {
 		deadzoneLimits[0] = limits[0];
 		deadzoneLimits[1] = limits[1];
 		deadzoneLimits[2] = limits[2];
 		deadzoneLimits[3] = limits[3];
 	}
-	
+
 	void setDeadzoneLimits(array<float> limits) {
 		deadzoneLimits[0] = limits[0];
 		deadzoneLimits[1] = limits[1];
 		deadzoneLimits[2] = limits[2];
 		deadzoneLimits[3] = limits[3];
 	}
-	
+
 	void setDeadzoneLimit(int i, float limit) {
 		if (i < 0 || i > 3) return;
 		deadzoneLimits[i] = limit;
 	}
-	
+
 	bool isResetDeadzoneOnFocusEnabled() {
 		return resetDeadzoneOnFocus;
 	}
-	
+
 	void resetDeadzoneOnFocus(bool enabled) {
 		resetDeadzoneOnFocus = enabled;
 	}
-	
+
 	bool isStaticCrosshairEnabled() {
 		return showStaticCrosshair;
 	}
@@ -166,32 +166,32 @@ class SUserConfigGunplay : SUserConfigBase {
 	void setStaticCrosshairEnabled(bool enabled) {
 		showStaticCrosshair = enabled;
 	}
-	
+
 	bool isDynamicCrosshairEnabled() {
 		return showDynamicCrosshair;
 	}
-	
+
 	void setDynamicCrosshairEnabled(bool enabled) {
 		showDynamicCrosshair = enabled;
 	}
-	
+
 	int getDynamicCrosshairType() {
 		return dynamicCrosshairType;
 	}
-	
+
 	void setDynamicCrosshairType(int type) {
 		dynamicCrosshairType = type;
 	}
-	
+
 	SColor getDynamicCrosshairColor() {
 		return SColor.rgba(dynamicCrosshairRGBA[0], dynamicCrosshairRGBA[1], dynamicCrosshairRGBA[2], dynamicCrosshairRGBA[3]);
 	}
-	
+
 	void setDynamicCrosshairColor(SColor color) {
 		dynamicCrosshairRGBA[0] = color.getRed();
 		dynamicCrosshairRGBA[1] = color.getGreen();
 		dynamicCrosshairRGBA[2] = color.getBlue();
 		dynamicCrosshairRGBA[3] = color.getAlpha();
 	}
-	
+
 }

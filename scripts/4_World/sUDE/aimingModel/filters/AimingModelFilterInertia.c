@@ -1,39 +1,39 @@
 class AimingModelFilterInertia : AimingModelFilterBase {
-	
-	
+
+
 	protected vector m_accel;
 	protected vector m_vel;
-	
+
 	protected float m_currInertiaVelX[1];
 	protected float m_currInertiaVelY[1];
 	protected float m_currResetVelX[1];
 	protected float m_currResetVelY[1];
-	
+
 	override bool isActive() {
 		return GunplayConstants.AIMING_MODEL_USE_WEAPON_INERTIA;
 	}
-	
+
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {
-		
+
 		//////////////////////////
 		// ACCELERATION
 		m_accel = getAimingModel().getAimDeltaDegree(pDt) * computeInertiaMultiplier();
 		m_vel += m_accel;
 		m_vel[0] = Math.Clamp(m_vel[0], GunplayConstants.INERTIA_VELOCITY_LIMIT[1], GunplayConstants.INERTIA_VELOCITY_LIMIT[2]);
 		m_vel[1] = Math.Clamp(m_vel[1], GunplayConstants.INERTIA_VELOCITY_LIMIT[3], GunplayConstants.INERTIA_VELOCITY_LIMIT[0]);
-		
+
 		pModel.m_fAimXHandsOffset = Math.SmoothCD(
 			pModel.m_fAimXHandsOffset,
 			pModel.m_fAimXHandsOffset - m_vel[0],
 			m_currInertiaVelX,
 			GunplayConstants.INERTIA_SPEED_ACCELERATION[0], 1000, pDt);
-		
+
 		pModel.m_fAimYHandsOffset = Math.SmoothCD(
 			pModel.m_fAimYHandsOffset,
 			pModel.m_fAimYHandsOffset - m_vel[1],
 			m_currInertiaVelY,
 			GunplayConstants.INERTIA_SPEED_ACCELERATION[1], 1000, pDt);
-		
+
 		//////////////////////////
 		// DECELERATION		
 		m_vel[0] = Math.SmoothCD(
@@ -41,20 +41,20 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 			0,
 			m_currResetVelX,
 			GunplayConstants.INERTIA_SPEED_RESET[0], 1000, pDt);
-		
+
 		m_vel[1] = Math.SmoothCD(
 			m_vel[1],
 			0,
 			m_currResetVelY,
 			GunplayConstants.INERTIA_SPEED_RESET[1], 1000, pDt);
-		
+
 		if (g_Game.IsClient()) {
 			pModel.m_fAimXCamOffset += m_vel[0] * GunplayConstants.INERTIA_MISALIGNMENT_INTENSITY[0];
 			pModel.m_fAimYCamOffset += m_vel[1] * GunplayConstants.INERTIA_MISALIGNMENT_INTENSITY[1];
 		}
-		
+
 	}
-	
+
 	/**
 	*	@brief Compute the amount of inertia
 	*	 @param weapon \p Weapon_Base - Weapon used for the computation
@@ -71,8 +71,8 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		inertiaMultiplier  = Math.Clamp(inertiaMultiplier, GunplayConstants.INERTIA_MIN_MULTIPLIER, GunplayConstants.INERTIA_MAX_MULTIPLIER);
 		return inertiaMultiplier;
 	}
-		
-	
+
+
 	/**
 	*	@brief Get the inertia multiplier based on the player stance
 	*	 @return float - inertia multiplier
@@ -90,7 +90,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		}
 		return 1;
 	}
-	
+
 	/**
 	*	@brief Get the inertia multiplier based on the player movement
 	*	 @return float - inertia multiplier
@@ -103,7 +103,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		}
 		return 1;
 	}
-	
+
 	/**
 	*	@brief Get the inertia multiplier based on the weapon
 	*	 @return float - inertia multiplier
@@ -116,7 +116,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		if (w > GunplayConstants.WEAPON_WEIGHT_GRAMS_LIGHT)      return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_LIGHT;
 		return GunplayConstants.INERTIA_MULTIPLIER_WEAPON_WEIGHT_VERYLIGHT;
 	}
-	
+
 	/**
 	*	@brief Get the inertia multiplier based on the weapon length
 	*	 @return float - inertia multiplier
@@ -124,7 +124,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 	protected float getInertiaMultiplierWeaponLength() {
 		return getWeapon().getWeaponLength() * GunplayConstants.INERTIA_MULTIPLIER_WEAPON_LENGTH_WEIGHT;
 	}
-	
+
 	/**
 	*	@brief Get the inertia multiplier based on the weapon
 	*	 @return float - inertia multiplier
@@ -137,7 +137,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 		if (w > GunplayConstants.INVENTORY_WEIGHT_GRAMS_LIGHT)      return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_LIGHT;
 		return GunplayConstants.INERTIA_MULTIPLIER_INVENTORY_WEIGHT_VERYLIGHT;
 	}
-	
+
 	/**
 	*	@brief Get the hipfire inertia multiplier
 	*	 @return float - inertia multiplier

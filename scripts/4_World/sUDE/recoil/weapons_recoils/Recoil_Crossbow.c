@@ -7,10 +7,10 @@ modded class CrossbowRecoil {
 		misalignIntensity  = { 0.250,  0.250};
 		misalignAccumSpeed = 0.955;
 		misalignResetSpeed = 0.500;
-	
+
 		mouseRanges        = {-0.215,  0.215,  0.750,  1.000};
 		mouseTime          = 0.200;
-	
+
 		kick               = 0.025;
 		kickResetTime      = 3.250;
 	}

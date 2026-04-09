@@ -1,17 +1,17 @@
 class OptionsMenuSGunplay : SOptionsMenuBase {
-	
+
 	override string getName() {
 		return "sGunplay";
 	}
-	
+
 	override string getLayout() {
 		return "MyMODS/sGunplay/GUI/layouts/optionsMenu/sGunplay_tab.layout";	
 	}
-	
+
 	override string getInfoBoxRootContainer() {
 		return "c_description_box_root";
 	}
-		
+
 	protected ref SliderWidget    m_adsFOVMultiplier;	
 	protected ref SliderWidget    m_adsFOVMagnOpticsMultiplier;	
 	protected ref SliderWidget    m_adsDOFIntensitySlider;	
@@ -28,18 +28,18 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 	protected ref SliderWidget    m_dynamicCrosshairGreen;
 	protected ref SliderWidget    m_dynamicCrosshairBlue;
 	protected ref SliderWidget    m_dynamicCrosshairAlpha;
-	
+
 	protected static const ref TIntArray INDICES_UP_DOWN = {0, 2};
 	protected static const ref TIntArray INDICES_LEFT_RIGHT = {1, 3};
-	
+
 	override void onInit() {
 		super.onInit();
 		setUserConfig(SUserConfig.gunplay());
 	}
-	
+
 	override void onBuild() {
 		super.onBuild();
-		
+
 		initOptionWidget(m_adsFOVMultiplier,            "adsFOVMultiplier",           getUserConfig().getOptionFloat("adsFOVMultiplier"));
 		initOptionWidget(m_adsFOVMagnOpticsMultiplier,  "adsFOVMagnOpticsMultiplier", getUserConfig().getOptionFloat("adsFOVMagnOpticsMultiplier"));
 		initOptionWidget(m_adsDOFIntensitySlider,       "adsDOFIntensity",            getUserConfig().getOptionFloat("adsDOFIntensity"));
@@ -57,5 +57,5 @@ class OptionsMenuSGunplay : SOptionsMenuBase {
 		initOptionWidget(m_dynamicCrosshairBlue,        "dynCrosshairBlue",           getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 2);
 		initOptionWidget(m_dynamicCrosshairAlpha,       "dynCrosshairAlpha",          getUserConfig().getOptionArrayFloat("dynamicCrosshairRGBA"), 3);
 	}
-	
+
 }

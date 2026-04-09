@@ -1,11 +1,11 @@
 modded class HandsPreview {
-	
+
 	protected Widget m_wRecoilControlStats;
-	
+
 	void HandsPreview(LayoutHolder parent) {
 		m_wRecoilControlStats = g_Game.GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_compact.layout", GetMainWidget());
 	}
-	
+
 	override void UpdateInterval() {
 		super.UpdateInterval();
 		// TODO(perf): improve this. Just update it when needed

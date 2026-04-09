@@ -1,16 +1,16 @@
 class RecoilControl : Managed {
-	
+
 	protected PlayerBase m_player;
 	protected float m_control;
-	
+
 	void RecoilControl(PlayerBase player) {
 		m_player = player;
 	}
-	
+
 	float get() {
 		return m_control;
 	}
-	
+
 	void compute() {
 		m_control  = 0;
 		m_control += getModifierInventoryWeight();
@@ -18,7 +18,7 @@ class RecoilControl : Managed {
 		m_control += getModifierMovement();
 		m_control  = Math.Clamp(m_control, GunplayConstants.RECOIL_CONTROL_MINIMUM, GunplayConstants.RECOIL_CONTROL_MAXIMUM);
 	}
-	
+
 	/**
 	*	@brief compute the recoil control based on the player inventory weight
 	*	@return float - recoil control modifier
@@ -40,18 +40,18 @@ class RecoilControl : Managed {
 		if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT | DayZPlayerConstants.STANCEMASK_ERECT)) {
 			return GunplayConstants.RECOIL_CONTROL_STANCE_ERECT;
 		}
-		
+
 		if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH | DayZPlayerConstants.STANCEMASK_CROUCH)) {
 			return GunplayConstants.RECOIL_CONTROL_STANCE_CROUCHED;
 		}
-		
+
 		if (m_player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE | DayZPlayerConstants.STANCEMASK_PRONE)) {
 			return GunplayConstants.RECOIL_CONTROL_STANCE_PRONE;
 		} 
-		
+
 		return 1;
 	}
-	
+
 	/**
 	*	@brief Get the recoil control modifier based on the player movement
 	*	@return float - recoil control modifier

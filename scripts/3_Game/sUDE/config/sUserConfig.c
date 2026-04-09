@@ -1,9 +1,9 @@
 modded class SUserConfig {
-		
+
 	static SUserConfigGunplay gunplay(bool reload = false) {
 		return SUserConfigGunplay.Cast(getInstance().load(SUserConfigGunplay, reload));
 	}
-	
+
 	override void onPreload() {
 		super.onPreload();
 		SUserConfig.gunplay();

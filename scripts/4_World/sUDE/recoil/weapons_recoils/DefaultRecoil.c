@@ -1,3 +1,3 @@
 modded class DefaultRecoil {
-	
+
 }

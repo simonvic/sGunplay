@@ -8,7 +8,7 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 		auto thiz = this;
 		return getSerializer().ReadFromString(thiz, data, error);
 	}
-	
+
 	override bool serialize(out string result) {
 		auto thiz = this;
 		return getSerializer().WriteToString(thiz, true, result);
@@ -30,31 +30,31 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	protected ref SConstraintPrimitiveSimple<int>    dynamicCrosshairType        = new SConstraintPrimitiveSimple<int>(0);
 	protected ref SConstraintMinMaxArrayNumeric      dynamicCrosshairRGBA        = new SConstraintMinMaxArrayNumeric({0,0,0,0}, {255,255,255,255});
 	///////////////////////////////////////
-	
+
 	SConstraintPrimitiveMinMaxNumeric getADSFOVMultiplier() {
 		return adsFOVMultiplier;
 	}
-	
+
 	SConstraintPrimitiveMinMaxNumeric getADSFOVMagnOpticsMultiplier() {
 		return adsFOVMagnOpticsMultiplier;
 	}
-	
+
 	SConstraintPrimitiveMinMaxNumeric getADSDOFIntensity() {
 		return adsDOFIntensity;
 	}
-	
+
 	SConstraintSwitch getHideWeaponBarrelInOptic() {
 		return hideWeaponBarrelInOptic;
 	}
-	
+
 	SConstraintSwitch getHideClothingInOptic() {
 		return hideClothingInOptic;
 	}
-	
+
 	SConstraintPrimitiveMinMaxNumeric getLensZoomStrength() {
 		return lensZoomStrength;
 	}
-	
+
 	SConstraintMinMaxArrayNumeric getDeadzoneLimits() {
 		return deadzoneLimits;
 	}
@@ -66,15 +66,15 @@ class SUserConfigConstraints_Gunplay : SUserConfigConstraintsBase {
 	SConstraintSwitch getShowStaticCrosshair() {
 		return showStaticCrosshair;
 	}
-	
+
 	SConstraintSwitch getShowDynamicCrosshair() {
 		return showDynamicCrosshair;
 	}
-	
+
 	SConstraintPrimitiveSimple<int> getDynamicCrosshairType() {
 		return dynamicCrosshairType;
 	}
-	
+
 	SConstraintMinMaxArrayNumeric getDynamicCrosshairRGBA() {
 		return dynamicCrosshairRGBA;
 	}

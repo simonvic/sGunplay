@@ -7,7 +7,7 @@ modded class PropertyModifiers {
 	float recoilControlMisalignmentX;
 	float recoilControlMisalignmentY;
 	float recoilControlKick;
-	
+
 	// TODO: improve this. Instead of recalculating everything, just add/remove when needed
 	override void UpdateModifiers() {
 		super.UpdateModifiers();
@@ -31,7 +31,7 @@ modded class PropertyModifiers {
 			applyAttachmentModifiers(m_OwnerItem.GetInventory().GetAttachmentFromIndex(i));
 		}
 	}
-	
+
 	protected void applyAttachmentModifiers(EntityAI attachment) {
 		recoilControlMouseX        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMouseX");
 		recoilControlMouseY        += PropertyModifiers.getModifierFloat(attachment, "s_recoilControlMouseY");
@@ -51,26 +51,26 @@ modded class PropertyModifiers {
 		recoilControlMisalignmentY = Math.Clamp(recoilControlMisalignmentY, -1, 1);
 		recoilControlKick          = Math.Clamp(recoilControlKick, -1, 1);
 	}
-	
+
 	static float getModifierFloat(EntityAI entity, string modifierName, float defaultValue = 0.0) {
 		if (entity.ConfigIsExisting(modifierName)) {
 			return entity.ConfigGetFloat(modifierName);
 		}
 		return defaultValue;
 	}
-	
+
 	static array<float> getModifierFloatArray(EntityAI entity, string modifierName, array<float> defaultValue = null) {
 		array<float> temp = {};
 		if (entity.ConfigIsExisting(modifierName)) {
 			entity.ConfigGetFloatArray(modifierName, temp);
 			return temp;
 		}
-		
+
 		if (defaultValue != null) {
 			return defaultValue;
 		}
-		
+
 		return {0,0};
 	}
-	
+
 }
