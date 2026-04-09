@@ -143,7 +143,7 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 			pModel.m_fAimXHandsOffset += Easing.EaseInOutSine(loopedTime) * 0.3;
 			pModel.m_fAimYHandsOffset -= Easing.EaseInSine(loopedTime) * 0.5;
 			
-			if (GetGame().IsClient()) {
+			if (g_Game.IsClient()) {
 				pModel.m_fAimXCamOffset -= Easing.EaseInOutBack(loopedTime, 0.69) * 0.2;
 				pModel.m_fAimYCamOffset -= Easing.EaseInSine(loopedTime) * 0.1;
 				pModel.m_fCamPosOffsetZ += Easing.EaseInOutSine(loopedTime) * 0.005;
@@ -157,7 +157,7 @@ class AimingModelFilterWeaponInteraction : AimingModelFilterBase {
 	*	@param soundSet \p string - classname of soundset (from DZ/sounds/hpp/config.cpp) to be played
 	*/
 	protected void playSounds(string soundSet) {
-		if (!GetGame().IsClient()) return;
+		if (!g_Game.IsClient()) return;
 		if (soundSet != string.Empty) {
 			SEffectManager.PlaySoundOnObject(soundSet, getWeapon()).SetSoundAutodestroy(true);
 		}

@@ -185,7 +185,7 @@ class SUCOption_DynamicCrosshairType : SUserConfigOption<int> {
 	
 	override void onValueChange(int previousValue, int newValue) {
 		SUserConfig.gunplay().setDynamicCrosshairType(newValue);
-		Mission mission = GetGame().GetMission();
+		Mission mission = g_Game.GetMission();
 		if (!mission) return;
 		Hud hud = mission.GetHud();
 		if (!hud) return;
@@ -207,7 +207,7 @@ class SUCOption_DynamicCrosshairRGBA : SUserConfigOptionArray<float> {
 	
 	override void onValueChange(array<float> previousValue, array<float> newValue) {
 		SUserConfig.gunplay().setDynamicCrosshairColor(SColor.rgba(newValue[0], newValue[1], newValue[2], newValue[3]));
-		Mission mission = GetGame().GetMission();
+		Mission mission = g_Game.GetMission();
 		if (!mission) return;
 		Hud hud = mission.GetHud();
 		if (!hud) return;

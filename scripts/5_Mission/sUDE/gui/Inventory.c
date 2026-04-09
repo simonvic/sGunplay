@@ -5,7 +5,7 @@ modded class Inventory {
 	protected Widget m_meterWeight;
 
 	void Inventory(LayoutHolder parent) {
-		m_rootGunplayStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/gunplay_stats.layout", GetMainWidget().FindAnyWidget("InventoryFrameWidget"));
+		m_rootGunplayStats = g_Game.GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/gunplay_stats.layout", GetMainWidget().FindAnyWidget("InventoryFrameWidget"));
 		m_meterRecoilControl = m_rootGunplayStats.FindAnyWidget("recoil_control_indicator");
 		m_meterWeight = m_rootGunplayStats.FindAnyWidget("weight_indicator");
 		if (!GunplayConstants.SHOW_PLAYER_STATS) {
@@ -20,7 +20,7 @@ modded class Inventory {
 	}
 
 	protected void updateStatMeters() {
-		PlayerBase pb = PlayerBase.Cast(GetGame().GetPlayer());
+		PlayerBase pb = PlayerBase.Cast(g_Game.GetPlayer());
 		RecoilControl recoilControl = pb.getRecoilControl();
 		recoilControl.compute(); // FIXME: am i dumb? probably yes
 		setMeterValue(m_meterRecoilControl, recoilControl.get(), -1, 1);

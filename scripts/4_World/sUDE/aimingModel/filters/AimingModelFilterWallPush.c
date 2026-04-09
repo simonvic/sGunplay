@@ -1,7 +1,7 @@
 class AimingModelFilterWallPush : AimingModelFilterBase {
 	
 	override bool isActive() {
-		return GetGame().IsClient();
+		return g_Game.IsClient();
 	}
 	
 	protected ref SRaycast m_ray;

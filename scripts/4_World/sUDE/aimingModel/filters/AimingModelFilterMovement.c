@@ -55,7 +55,7 @@ class AimingModelFilterMovement : AimingModelFilterBase {
 			m_velHandsY,
 			GunplayConstants.AIMING_MODEL_FILTER_MOVEMENT_SMOOTHTIME, 1000, pDt);
 		
-		if (GetGame().IsClient()) {
+		if (g_Game.IsClient()) {
 			pModel.m_fAimXCamOffset = Math.SmoothCD(
 				pModel.m_fAimXCamOffset,
 				pModel.m_fAimXCamOffset + aimChangeX,

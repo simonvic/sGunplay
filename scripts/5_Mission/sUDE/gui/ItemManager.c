@@ -11,7 +11,7 @@ modded class ItemManager {
 	};
 
 	void ItemManager(Widget root) {
-		m_wTooltipRecoilControlStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_compact.layout", m_TooltipWidget.FindAnyWidget("GridSpacerWidget1"));
+		m_wTooltipRecoilControlStats = g_Game.GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_compact.layout", m_TooltipWidget.FindAnyWidget("GridSpacerWidget1"));
 	}
 
 	override void PrepareTooltip(EntityAI item, int x = 0, int y = 0) {

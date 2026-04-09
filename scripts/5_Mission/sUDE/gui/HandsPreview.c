@@ -3,7 +3,7 @@ modded class HandsPreview {
 	protected Widget m_wRecoilControlStats;
 	
 	void HandsPreview(LayoutHolder parent) {
-		m_wRecoilControlStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_compact.layout", GetMainWidget());
+		m_wRecoilControlStats = g_Game.GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_compact.layout", GetMainWidget());
 	}
 	
 	override void UpdateInterval() {

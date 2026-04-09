@@ -6,7 +6,7 @@ class AimingModelFilterShake : AimingModelFilterBase {
 	protected float m_shakeTimer;
 	
 	override bool isActive() {
-		return GetGame().IsClient();
+		return g_Game.IsClient();
 	}
 	
 	override void onUpdate(float pDt, SDayZPlayerAimingModel pModel, int stanceIndex) {

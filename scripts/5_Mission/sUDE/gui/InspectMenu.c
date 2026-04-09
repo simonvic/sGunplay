@@ -12,7 +12,7 @@ modded class InspectMenuNew {
 
 	override Widget Init() {
 		super.Init();
-		m_wRecoilControlStats = GetGame().GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_extended.layout", layoutRoot.FindAnyWidget("ItemFrameWidgetPanel"));
+		m_wRecoilControlStats = g_Game.GetWorkspace().CreateWidgets("MyMODS/sGunplay/GUI/layouts/recoil_control_extended.layout", layoutRoot.FindAnyWidget("ItemFrameWidgetPanel"));
 		return layoutRoot;
 	}
 

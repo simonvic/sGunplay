@@ -37,7 +37,7 @@ class SCrosshair : Managed {
 	
 	void SCrosshair() {
 		m_userCfgGunplay = SUserConfig.gunplay();
-		m_sCrosshairRoot = GetGame().GetWorkspace().CreateWidgets(getCrosshairLayoutName());
+		m_sCrosshairRoot = g_Game.GetWorkspace().CreateWidgets(getCrosshairLayoutName());
 		m_staticCrosshair = ImageWidget.Cast(m_sCrosshairRoot.FindWidget("img_staticCrosshair"));
 		m_dynamicCrosshairRoot = m_sCrosshairRoot.FindWidget("c_dynamicCrosshair");
 		m_dynamicCrosshair = ImageWidget.Cast(m_dynamicCrosshairRoot.FindWidget("img_dynamicCrosshair"));
@@ -77,7 +77,7 @@ class SCrosshair : Managed {
 				m_staticCrosshair.Show(false);
 			}
 		}
-		m_player = PlayerBase.Cast(GetGame().GetPlayer());
+		m_player = PlayerBase.Cast(g_Game.GetPlayer());
 		if (!m_player) return; // TODO: temp-fix, change this
 		
 		if (!canShowDynamicCrosshair() || !m_player.GetAimingModel().getWeapon()) {

@@ -10,12 +10,12 @@ modded class PPERequester_CameraADS {
 	}
 	
 	void setMask(float posX, float posY, float radius, float blur) {
-		GetGame().ResetPPMask();
+		g_Game.ResetPPMask();
 		// if mask is not configured, gaussian filter would blur optic too
 		if (radius <= 0) {
 			SetTargetValueFloatDefault(PostProcessEffectType.GaussFilter, PPEGaussFilter.PARAM_INTENSITY);
 		}
-		GetGame().AddPPMask(posX, posY, radius, blur);
+		g_Game.AddPPMask(posX, posY, radius, blur);
 	}
 	
 	void setLens(float magnification, float chromAber, float offsetX, float offsetY) {
@@ -46,7 +46,7 @@ modded class PPERequester_CameraADS {
 	
 	override void SetValuesOptics(out array<float> mask_array, out array<float> lens_array, float gauss = 0.0) {
 		super.SetValuesOptics(mask_array, lens_array, gauss * m_dofIntensity);
-		GetGame().ResetPPMask();
+		g_Game.ResetPPMask();
 		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSDISTORT);
 		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_MAXCHROMABBERATION);
 		SetTargetValueFloatDefault(PostProcessEffectType.Glow, PPEGlow.PARAM_LENSCENTERX);

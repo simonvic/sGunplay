@@ -48,7 +48,7 @@ class AimingModelFilterInertia : AimingModelFilterBase {
 			m_currResetVelY,
 			GunplayConstants.INERTIA_SPEED_RESET[1], 1000, pDt);
 		
-		if (GetGame().IsClient()) {
+		if (g_Game.IsClient()) {
 			pModel.m_fAimXCamOffset += m_vel[0] * GunplayConstants.INERTIA_MISALIGNMENT_INTENSITY[0];
 			pModel.m_fAimYCamOffset += m_vel[1] * GunplayConstants.INERTIA_MISALIGNMENT_INTENSITY[1];
 		}

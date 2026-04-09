@@ -38,7 +38,7 @@ class AimingModelFilterBreathing : AimingModelFilterBase {
 	}
 	
 	protected float getPlayerStamina() {
-		if (!GetGame().IsMultiplayer()) {
+		if (!g_Game.IsMultiplayer()) {
 			return getPlayer().GetStaminaHandler().GetStamina();
 		}
 		

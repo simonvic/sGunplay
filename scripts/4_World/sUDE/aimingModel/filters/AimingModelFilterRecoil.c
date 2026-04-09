@@ -31,7 +31,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		if (m_recoil) {
 			applyMouseOffset(pDt, pModel, m_recoil);
 			applyHandsOffset(pDt, pModel, m_recoil);
-			if (GetGame().IsClient()) {
+			if (g_Game.IsClient()) {
 				applyMisalignment(pDt, pModel, m_recoil);
 				applyKick(pDt, pModel, m_recoil);
 			}
@@ -60,7 +60,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		m_handsAccum[1] = m_handsAccum[1] + controlRecoil(r.hands[1]);
 		m_mouseAccum[0] = 0;
 		m_mouseAccum[1] = 0;
-		if (GetGame().IsClient()) {
+		if (g_Game.IsClient()) {
 			m_kickAccum = controlRecoil(r.kick);
 			m_misalignAccum[0] = m_misalignAccum[0] + controlRecoil(r.hands[0]);
 			m_misalignAccum[1] = m_misalignAccum[1] + controlRecoil(r.hands[1]);
@@ -172,7 +172,7 @@ class AimingModelFilterRecoil : AimingModelFilterBase {
 		m_handsAccum[0] = Math.SmoothCD(m_handsAccum[0], 0, m_velHandsResetX, handsSmoothTime, 1000, pDt);
 		m_handsAccum[1] = Math.SmoothCD(m_handsAccum[1], 0, m_velHandsResetY, handsSmoothTime, 1000, pDt);
 		
-		if (GetGame().IsClient()) {
+		if (g_Game.IsClient()) {
 			float misalignSmoothTime = 1 - r.misalignResetSpeed;
 			m_misalignAccum[0] = Math.SmoothCD(m_misalignAccum[0], 0, m_velMisalignResetX, misalignSmoothTime, 1000, pDt);
 			m_misalignAccum[1] = Math.SmoothCD(m_misalignAccum[1], 0, m_velMisalignResetY, misalignSmoothTime, 1000, pDt);

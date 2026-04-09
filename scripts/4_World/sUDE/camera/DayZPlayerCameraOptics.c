@@ -85,7 +85,7 @@ modded class DayZPlayerCameraOptics {
 		super.OnActivate(pPrevCamera,pPrevCameraResult);
 		
 		//Show lens when transition is done
-		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(
+		g_Game.GetCallQueue(CALL_CATEGORY_GUI).CallLater(
 			this.setShowLens,
 			m_enteringTransitionTime * 1000 + GunplayConstants.ADS_LENS_ACTIVATION_DELAY,
 			false,
@@ -93,8 +93,8 @@ modded class DayZPlayerCameraOptics {
 		
 		//Hide player clothing when transition is done
 		if (m_player) {
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
-			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(
+			g_Game.GetCallQueue(CALL_CATEGORY_GUI).Remove(m_player.HideClothing);
+			g_Game.GetCallQueue(CALL_CATEGORY_GUI).CallLater(
 				m_player.HideClothing,
 				m_enteringTransitionTime * 1000 + GunplayConstants.ADS_HIDE_CLOTHING_DELAY,
 				false,
@@ -125,7 +125,7 @@ modded class DayZPlayerCameraOptics {
 			// hand held optics don't have any transformations applied
 			m_opticPositionSS = "0.5 0.5 0";
 		} else {
-			m_opticPositionSS = GetGame().GetScreenPosRelative(m_aimingModel.getLensPositionWS());
+			m_opticPositionSS = g_Game.GetScreenPosRelative(m_aimingModel.getLensPositionWS());
 		}
 
 		// TODO: yikes... are there no alternatives?
