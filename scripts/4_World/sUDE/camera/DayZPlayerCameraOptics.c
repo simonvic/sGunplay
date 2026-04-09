@@ -160,7 +160,7 @@ modded class DayZPlayerCameraOptics {
 	
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult) {
 		pOutResult.m_iDirectBone 			= m_iBoneIndex;
-		pOutResult.m_iDirectBoneMode 		= 3;
+		pOutResult.m_iDirectBoneMode 		= 4;
 		
 		//m_fFovAbsolute = GetDayZGame().GetUserFOV();
 		pOutResult.m_fFovAbsolute = m_fFovAbsolute;

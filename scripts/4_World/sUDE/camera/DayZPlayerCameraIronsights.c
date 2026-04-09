@@ -305,7 +305,7 @@ modded class DayZPlayerCameraIronsights {
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult) {	
 		m_iBoneIndex = m_pPlayer.GetBoneIndexByName("RightHand_Dummy");
 		pOutResult.m_iDirectBone 			= m_iBoneIndex;
-		pOutResult.m_iDirectBoneMode 		= 3;
+		pOutResult.m_iDirectBoneMode 		= 4;
 	
 		pOutResult.m_fFovAbsolute = m_fFovAbsolute;
 		pOutResult.m_fFovMultiplier = 1.0;
