@@ -80,7 +80,7 @@ modded class DayZPlayerCameraIronsights {
 		
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult) {
 		updateDOF();
-		updateAimAngle(m_fLeftRightAngle, m_CurrentCameraPitch, pDt);		
+		updateAimAngle(m_CurrentCameraYaw, m_CurrentCameraPitch, pDt);
 		computeHandsOffset(m_handsOffsetX, m_handsOffsetY, pDt);
 		updateCamera(pDt, pOutResult);
 		updateCameraShake(pDt);
