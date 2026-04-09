@@ -121,6 +121,7 @@ modded class DayZPlayerCameraIronsights {
 			min = CONST_UD_MIN;
 		}
 		
+		// TODO: use UpdateXXAngleUnlocked? But camera bugs out when going prone
 		pitch = UpdateUDAngle(m_fUpDownAngle, m_fUpDownAngleAdd, min, CONST_UD_MAX, pDt);
 		yaw = UpdateLRAngle(m_fLeftRightAngle, CONST_LR_MIN, CONST_LR_MAX, pDt);
 	}
