@@ -456,6 +456,20 @@ class cfgVehicles {
 		s_recoilControlMisalignmentY = 0.15;
 		s_recoilControlKick = 0.60;
 	};
+	class SCAR_StockBttstck : Inventory_Base {
+		s_recoilControlStabilityX = 0.40;
+		s_recoilControlStabilityY = 0.40;
+		s_recoilControlMisalignmentX = 0.05;
+		s_recoilControlMisalignmentY = 0.15;
+		s_recoilControlKick = 0.60;
+	};
+	class SCAR_PrecisionBttstck : Inventory_Base {
+		s_recoilControlStabilityX = 0.40;
+		s_recoilControlStabilityY = 0.35;
+		s_recoilControlMisalignmentX = 0.10;
+		s_recoilControlMisalignmentY = 0.20;
+		s_recoilControlKick = 0.55;
+	};
 
 	///////////////////////////////////////////////////////////////// HANDGUARDS
 	class M4_PlasticHndgrd : Inventory_Base {
@@ -601,6 +615,12 @@ class cfgWeapons {
 		s_recoilControlMisalignmentY = 0.45;
 	};
 	class FAL_Base : Rifle_Base {
+		s_recoilControlStabilityX = 0.20;
+		s_recoilControlStabilityY = 0.20;
+		s_recoilControlMisalignmentX = 0.55;
+		s_recoilControlMisalignmentY = 0.45;
+	};
+	class SCARH_Base : Rifle_Base {
 		s_recoilControlStabilityX = 0.20;
 		s_recoilControlStabilityY = 0.20;
 		s_recoilControlMisalignmentX = 0.55;
