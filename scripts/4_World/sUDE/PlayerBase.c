@@ -7,10 +7,10 @@ modded class PlayerBase {
 
 	override void OnCommandHandlerTick(float delta_time, int pCurrentCommandID) {
 		super.OnCommandHandlerTick(delta_time, pCurrentCommandID);
-		//if (CfgGameplayHandler.GetAllowStaminaAffectInertia())
-		//	UpdateMovementInertia();
-
 		if (CfgGameplayHandler.GetAllowStaminaAffectInertia() && GunplayConstants.PLAYER_INERTIA_AFFECTED_BY_WEIGHT) {
+			// TODO(1.30): use NotifyPlayerInventoryLoadChanged or GetOnPlayerLoadChanged()
+			// but can we trust other mods will notify?
+			// see: https://report.bistudio.com/issues/DZEXP-7
 			updateMovementInertiaByWeight();
 		}
 	}
