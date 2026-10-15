@@ -571,6 +571,13 @@ class cfgWeapons {
 		s_recoilControlMisalignmentY = 0.60;
 		s_recoilControlKick = 0.60;
 	};
+	class MP18_Base : Rifle_Base {
+		s_recoilControlStabilityX = 0.60;
+		s_recoilControlStabilityY = 0.60;
+		s_recoilControlMisalignmentX = 0.60;
+		s_recoilControlMisalignmentY = 0.60;
+		s_recoilControlKick = 0.60;
+	};
 	//////////////////////////////////////////////////////////////////////// ARS
 	class VSS_Base : Rifle_Base {
 		s_recoilControlStabilityX = 0.60;
