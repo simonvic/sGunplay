@@ -722,6 +722,13 @@ class cfgWeapons {
 		s_recoilControlMisalignmentY = 0.45;
 		s_recoilControlKick = 0.00;
 	};
+	class LeeEnfield_Base : BoltActionRifle_ExternalMagazine_Base {
+		s_recoilControlStabilityX = 0.60;
+		s_recoilControlStabilityY = 0.60;
+		s_recoilControlMisalignmentX = 0.60;
+		s_recoilControlMisalignmentY = 0.60;
+		s_recoilControlKick = 0.60;
+	};
 	class CZ550_Base : BoltActionRifle_ExternalMagazine_Base {
 		s_recoilControlStabilityX = 0.60;
 		s_recoilControlStabilityY = 0.60;
