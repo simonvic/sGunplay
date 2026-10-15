@@ -313,7 +313,7 @@ class cfgVehicles {
 		s_pipChromAber = 0.2;
 		s_nearPlaneOverride = 0.15;
 	};
-	class PSO6Optic : PSO1Optic {
+	class PSO6Optic : ItemOptics_Base {
 		s_pipRadius = 0.26;
 		s_pipMagnification = 0.1;
 		s_pipBlur = 0.03;
